@@ -1,17 +1,17 @@
 import logo from './logo.svg';
 import './App.css';
 import { DataStore } from '@aws-amplify/datastore';
-import { Vote } from './models';
+//import { Vote } from './models';
 function App() {
 
-  async function test() {
+  /*async function test() {
     await DataStore.save(
         new Vote({
           "choice": Choice.YES
         })
     );
   }
-  test();
+  test();*/
   
   return (
     <div className="App">

@@ -1,0 +1,11 @@
+enum Choice {
+  YES
+  NO
+  DONT_KNOW
+}
+
+type Vote @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  choice: Choice!
+}
+ 

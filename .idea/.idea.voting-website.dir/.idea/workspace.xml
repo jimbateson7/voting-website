@@ -2,10 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3c5f72b7-ef76-465b-afbe-3283c258b43c" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.voting-website.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.voting-website.dir/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/src/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/amplify/.config/project-config.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/amplify/.config/project-config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/amplify/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/amplify/backend/backend-config.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/amplify/backend/backend-config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/amplify/backend/types/amplify-dependent-resources-ref.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/amplify/backend/types/amplify-dependent-resources-ref.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/amplify/cli.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/amplify/cli.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/amplify/hooks/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/amplify/team-provider-info.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/amplify/team-provider-info.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,7 +59,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1673098299025</updated>
-      <workItem from="1673098306378" duration="2189000" />
+      <workItem from="1673098306378" duration="3087000" />
     </task>
     <servers />
   </component>
