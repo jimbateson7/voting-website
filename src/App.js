@@ -1,7 +1,18 @@
 import logo from './logo.svg';
 import './App.css';
-
+import { DataStore } from '@aws-amplify/datastore';
+import { Vote } from './models';
 function App() {
+
+  async function test() {
+    await DataStore.save(
+        new Vote({
+          "choice": Choice.YES
+        })
+    );
+  }
+  test();
+  
   return (
     <div className="App">
       <header className="App-header">
