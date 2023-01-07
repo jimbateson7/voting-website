@@ -2,16 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3c5f72b7-ef76-465b-afbe-3283c258b43c" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pages/Home.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pages/Layout.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pages/MemberArea.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pages/NoPage.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.voting-website.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.voting-website.dir/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/src/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/amplify/.config/project-config.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/amplify/.config/project-config.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/amplify/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/amplify/backend/backend-config.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/amplify/backend/backend-config.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/amplify/backend/types/amplify-dependent-resources-ref.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/amplify/backend/types/amplify-dependent-resources-ref.d.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/amplify/cli.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/amplify/cli.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/amplify/hooks/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/amplify/team-provider-info.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/amplify/team-provider-info.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,18 +29,18 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "nodejs_package_manager_path": "npm",
-    "ts.external.directory.path": "C:\\Users\\christopherpepper\\AppData\\Local\\JetBrains\\Toolbox\\apps\\Rider\\ch-0\\222.4459.9\\plugins\\JavaScriptLanguage\\jsLanguageServicesImpl\\external",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\christopherpepper\\AppData\\Local\\JetBrains\\Toolbox\\apps\\Rider\\ch-0\\222.4459.9\\plugins\\JavaScriptLanguage\\jsLanguageServicesImpl\\external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="start" type="js.build_tools.npm" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
