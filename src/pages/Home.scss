@@ -1,0 +1,11 @@
+.home {
+    text-align: center;
+
+    .video {
+        height: 315px;
+
+        @media (min-width: 768px) {
+            width: 50%;
+        }
+    }
+}
