@@ -20,6 +20,7 @@ import NoPage from "./pages/NoPage";
 
 import "./index.scss";
 import MemberArea from "./pages/MemberArea";
+import { ArticlePage } from "./components/Page";
 
 Amplify.configure(awsconfig);
 
@@ -37,6 +38,7 @@ root.render(
             path="memberArea"
             element={<MemberArea signOut={null} user={null} />}
           />
+          <Route path="test" element={<ArticlePage slug={"test"} />} />
           <Route path="climateInfo" element={<ClimateInfo />} />
           <Route path="solution" element={<Solution />} />
           <Route path="cop27" element={<Cop27 />} />

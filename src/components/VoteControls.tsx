@@ -14,14 +14,25 @@ export const VoteControls = () => {
   const [voted, setVoted] = useState(false);
   const [userGuid, setUserGuid] = useState(``);
 
+  const localStorageKey = "userGuid";
+  function forgetUser() {
+    setVoted(false);
+    localStorage.setItem(localStorageKey, "");
+  }
+
   useEffect(() => {
-    const localStorageKey = "userGuid";
     let localGuid = localStorage.getItem(localStorageKey);
 
+    if (localGuid) {
+      setVoted(true);
+      // now get vote results, call the function
+      fetchData()
+        // make sure to catch any error
+        .catch(console.error);
+    }
     if (!localGuid || localGuid.length < 1) {
       localGuid = generateGuid();
       localStorage.setItem(localStorageKey, localGuid);
-      setVoted(true);
     }
 
     setUserGuid(localGuid);
@@ -57,7 +68,7 @@ export const VoteControls = () => {
   //update vote results
   const SaveVoteResult = async (choice: Choice) => {
     await DataStore.save(new Vote({ choice: choice }));
-
+    setVoted(true);
     // now get vote results, call the function
     fetchData()
       // make sure to catch any error
@@ -92,6 +103,9 @@ export const VoteControls = () => {
             <h3>Number of dunno votes: {numDontKnowVotes}</h3>
           </Col>
           <h3> You unique id {userGuid}</h3>
+          <Row>
+            <button onClick={forgetUser}>Forget Me </button>
+          </Row>
         </Row>
       )}
     </div>
