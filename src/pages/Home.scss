@@ -1,11 +1,11 @@
 .home {
-    text-align: center;
+  text-align: center;
 
-    .video {
-        height: 315px;
+  .video {
+    height: 315px;
 
-        @media (min-width: 768px) {
-            width: 50%;
-        }
+    @media (min-width: 768px) {
+      width: 50%;
     }
+  }
 }
