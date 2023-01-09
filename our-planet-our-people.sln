@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "climate-change-website", "climate-change-website.esproj", "{924A55A9-860B-4CC7-80D1-24717734111E}"
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "our-planet-our-people", "our-planet-our-people.esproj", "{924A55A9-860B-4CC7-80D1-24717734111E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
