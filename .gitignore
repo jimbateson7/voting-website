@@ -102,9 +102,11 @@ dist
 
 # TernJS port file
 .tern-port
+
+# IDE/compiler
 /.vs
-
-
+/*.esproj.user
+/obj/Debug
 
 # testing
 /coverage

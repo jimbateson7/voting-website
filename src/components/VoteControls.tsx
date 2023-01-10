@@ -1,113 +1,94 @@
 import { DataStore } from "@aws-amplify/datastore";
 import { Choice, Vote } from "../models";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { voteChoices } from "./VoteChoice";
 import VotingCard from "./VotingCard";
 import { Col, Row } from "react-bootstrap";
 import { v4 as generateGuid } from "uuid";
+import { FaCheckCircle, FaTimesCircle, FaQuestionCircle } from 'react-icons/fa';
 
 export const VoteControls = () => {
-  //voting stuff
-  const [numYesVotes, setNumYesCotes] = useState(0);
-  const [numNoVotes, setNumNoVotes] = useState(0);
-  const [numDontKnowVotes, setNumDontKnowVotes] = useState(0);
-  const [voted, setVoted] = useState(false);
-  const [userGuid, setUserGuid] = useState(``);
+    const [numYesVotes, setNumYesVotes] = useState(0);
+    const [numNoVotes, setNumNoVotes] = useState(0);
+    const [numDontKnowVotes, setNumDontKnowVotes] = useState(0);
+    const [voted, setVoted] = useState(false);
+    const [voterId, setVoterId] = useState(``);
 
-  const localStorageKey = "userGuid";
-  function forgetUser() {
-    setVoted(false);
-    localStorage.setItem(localStorageKey, "");
-  }
+    const localStorageKey = "voterId";
 
-  useEffect(() => {
-    let localGuid = localStorage.getItem(localStorageKey);
+    useEffect(() => {
+        let localGuid = localStorage.getItem(localStorageKey);
 
-    if (localGuid) {
-      setVoted(true);
-      // now get vote results, call the function
-      fetchData()
-        // make sure to catch any error
-        .catch(console.error);
-    }
-    if (!localGuid || localGuid.length < 1) {
-      localGuid = generateGuid();
-      localStorage.setItem(localStorageKey, localGuid);
-    }
+        // If the user has voted, show current vote counts
+        if (localGuid) {
+            setVoterId(localGuid);
+            setVoted(true);
+            fetchVoteCounts()
+                .catch(console.error);
+        }
+    }, []);
 
-    setUserGuid(localGuid);
-  }, []);
+    const fetchVoteCounts = async () => {
+        setNumNoVotes(await (await DataStore.query(Vote, v => v.choice.eq(Choice.NO))).length);
+        setNumYesVotes(await (await DataStore.query(Vote, v => v.choice.eq(Choice.YES))).length);
+        setNumDontKnowVotes(await (await DataStore.query(Vote, v => v.choice.eq(Choice.DONT_KNOW))).length);
+    };
 
-  // do initial fetch of all the models
-  const fetchData = async () => {
-    const models = await DataStore.query(Vote);
-    console.log(models);
-    let numYes = 0;
-    let numNo = 0;
-    let numDk = 0;
-    models?.forEach((x) => {
-      switch (x.choice) {
-        case Choice.YES:
-          numYes++;
-          break;
-        case Choice.NO:
-          numNo++;
-          break;
-        case Choice.DONT_KNOW:
-          numDk++;
-          break;
-        default:
-          break;
-      }
-    });
-    setNumNoVotes(numNo);
-    setNumYesCotes(numYes);
-    setNumDontKnowVotes(numDk);
-  };
+    const SaveVoteToDb = async (choice: Choice) => {
+        const hasVoted = localStorage.getItem(localStorageKey) !== null;
 
-  //update vote results
-  const SaveVoteResult = async (choice: Choice) => {
-    await DataStore.save(new Vote({ choice: choice }));
-    setVoted(true);
-    // now get vote results, call the function
-    fetchData()
-      // make sure to catch any error
-      .catch(console.error);
-  };
+        if (hasVoted) {
+            // TODO: Consider more robust preventative measures (e.g. log an IP address against a Vote and check against the database first)
+            return;
+        }
 
-  return (
-    <div>
-      <Row>
-        {voteChoices.map((voteChoice, index) => {
-          return (
-            <Col md={4} key={index}>
-              <VotingCard
-                choice={voteChoice}
-                incrementVoteCount={(choice: Choice) => SaveVoteResult(choice)}
-              />
-            </Col>
-          );
-        })}
-      </Row>
-      {voted && (
-        <Row>
-          <h2>Thanks For Voting</h2>
-          <p>See how others have voted:</p>
-          <Col>
-            <h3>Number of yes votes: {numYesVotes}</h3>
-          </Col>
-          <Col>
-            <h3>Number of no votes: {numNoVotes}</h3>
-          </Col>
-          <Col>
-            <h3>Number of dunno votes: {numDontKnowVotes}</h3>
-          </Col>
-          <h3> You unique id {userGuid}</h3>
-          <Row>
-            <button onClick={forgetUser}>Forget Me </button>
-          </Row>
-        </Row>
-      )}
-    </div>
-  );
+        const localGuid = generateGuid();
+
+        await DataStore.save(new Vote({ choice: choice, voterId: localGuid }));
+
+        localStorage.setItem(localStorageKey, localGuid);
+        setVoterId(localGuid);
+        setVoted(true);
+
+        fetchVoteCounts()
+            .catch(console.error);
+    };
+
+    return (
+        <>
+            {!voted &&
+                <Row>
+                    {voteChoices.map((voteChoice, index) => {
+                        return (
+                            <Col md={4} key={index}>
+                                <VotingCard
+                                    choice={voteChoice}
+                                    incrementVoteCount={(choice: Choice) => SaveVoteToDb(choice)}
+                                />
+                            </Col>
+                        );
+                    })}
+                </Row>
+            }
+
+            {voted && (
+                <Row>
+                    <h2>Thanks For Voting</h2>
+                    <h3>See how others have voted:</h3>
+                    <Col>
+                        <FaCheckCircle style={{ color: 'green', fontSize: '3rem', padding: '.25rem' }} />
+                        <h4>Yes: {numYesVotes}</h4>
+                    </Col>
+                    <Col>
+                        <FaTimesCircle style={{ color: 'red', fontSize: '3rem', padding: '.25rem' }} />
+                        <h4>No: {numNoVotes}</h4>
+                    </Col>
+                    <Col>
+                        <FaQuestionCircle style={{ color: 'orange', fontSize: '3rem', padding: '.25rem' }} />
+                        <h4>Unsure: {numDontKnowVotes}</h4>
+                    </Col>
+                </Row>
+            )}
+        </>
+    );
 };
