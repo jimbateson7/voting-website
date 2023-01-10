@@ -10,6 +10,13 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
+                "voterId": {
+                    "name": "voterId",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "choice": {
                     "name": "choice",
                     "isArray": false,
@@ -74,5 +81,5 @@ export const schema = {
     },
     "nonModels": {},
     "codegenVersion": "3.3.4",
-    "version": "c024acf27c7646ca1f93cd74c3373423"
+    "version": "2aa0dde51bdeced3f3400f237af9357d"
 };

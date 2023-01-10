@@ -16,6 +16,7 @@ type EagerVote = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
+  readonly voterId?: string | null;
   readonly choice: Choice | keyof typeof Choice;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
@@ -27,6 +28,7 @@ type LazyVote = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
+  readonly voterId?: string | null;
   readonly choice: Choice | keyof typeof Choice;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;

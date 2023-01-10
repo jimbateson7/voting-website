@@ -6,7 +6,13 @@
 
 /* eslint-disable */
 import * as React from "react";
-import { Button, Flex, Grid, SelectField } from "@aws-amplify/ui-react";
+import {
+  Button,
+  Flex,
+  Grid,
+  SelectField,
+  TextField,
+} from "@aws-amplify/ui-react";
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
 import { Vote } from "../models";
 import { fetchByPath, validateField } from "./utils";
@@ -24,14 +30,17 @@ export default function VoteUpdateForm(props) {
     ...rest
   } = props;
   const initialValues = {
+    voterId: "",
     choice: undefined,
   };
+  const [voterId, setVoterId] = React.useState(initialValues.voterId);
   const [choice, setChoice] = React.useState(initialValues.choice);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     const cleanValues = voteRecord
       ? { ...initialValues, ...voteRecord }
       : initialValues;
+    setVoterId(cleanValues.voterId);
     setChoice(cleanValues.choice);
     setErrors({});
   };
@@ -45,6 +54,7 @@ export default function VoteUpdateForm(props) {
   }, [idProp, vote]);
   React.useEffect(resetStateValues, [voteRecord]);
   const validations = {
+    voterId: [],
     choice: [{ type: "Required" }],
   };
   const runValidationTasks = async (
@@ -72,6 +82,7 @@ export default function VoteUpdateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
+          voterId,
           choice,
         };
         const validationResponses = await Promise.all(
@@ -119,6 +130,31 @@ export default function VoteUpdateForm(props) {
       {...getOverrideProps(overrides, "VoteUpdateForm")}
       {...rest}
     >
+      <TextField
+        label="Voter id"
+        isRequired={false}
+        isReadOnly={false}
+        value={voterId}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              voterId: value,
+              choice,
+            };
+            const result = onChange(modelFields);
+            value = result?.voterId ?? value;
+          }
+          if (errors.voterId?.hasError) {
+            runValidationTasks("voterId", value);
+          }
+          setVoterId(value);
+        }}
+        onBlur={() => runValidationTasks("voterId", voterId)}
+        errorMessage={errors.voterId?.errorMessage}
+        hasError={errors.voterId?.hasError}
+        {...getOverrideProps(overrides, "voterId")}
+      ></TextField>
       <SelectField
         label="Choice"
         placeholder="Please select an option"
@@ -128,6 +164,7 @@ export default function VoteUpdateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
+              voterId,
               choice: value,
             };
             const result = onChange(modelFields);
