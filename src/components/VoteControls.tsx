@@ -13,6 +13,7 @@ export const VoteControls = () => {
   const [numDontKnowVotes, setNumDontKnowVotes] = useState(0);
   const [voted, setVoted] = useState(false);
   const [userGuid, setUserGuid] = useState(``);
+  const [userVote, setUserVote] = useState(``);
 
   const localStorageKey = "userGuid";
   function forgetUser() {
@@ -46,6 +47,12 @@ export const VoteControls = () => {
     let numNo = 0;
     let numDk = 0;
     models?.forEach((x) => {
+      console.log(x.id);
+      if (x.id === userGuid) {
+        //none seem to match
+        console.log("user Chose " + x.choice);
+        setUserVote(x.choice);
+      }
       switch (x.choice) {
         case Choice.YES:
           numYes++;
@@ -67,7 +74,12 @@ export const VoteControls = () => {
 
   //update vote results
   const SaveVoteResult = async (choice: Choice) => {
-    await DataStore.save(new Vote({ choice: choice }));
+    const modelFields = {
+      id: userGuid, //I have a feeling the "id" is reserved by aws as a uid for each row, we might need our own "userId" field
+      choice: choice,
+    };
+    await DataStore.save(new Vote(modelFields));
+
     setVoted(true);
     // now get vote results, call the function
     fetchData()
@@ -103,6 +115,9 @@ export const VoteControls = () => {
             <h3>Number of dunno votes: {numDontKnowVotes}</h3>
           </Col>
           <h3> You unique id {userGuid}</h3>
+          <p>
+            You chose: {userVote ? userVote : "ERROR can't find your vote!"}
+          </p>
           <Row>
             <button onClick={forgetUser}>Forget Me </button>
           </Row>
