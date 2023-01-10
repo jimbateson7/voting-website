@@ -6,7 +6,7 @@ function Share() {
 
 	return (
 		<div className="share">
-			<h3>Please share</h3>
+			<h2>Please share</h2>
 			<div className="social-links">
 				<Link to="https://www.facebook.com/sharer/sharer.php?u=https%3A//ourplanetourpeople.com">
 					<FaFacebook style={{ color: '#4267B2', fontSize: '3rem', padding: '.25rem' }} />

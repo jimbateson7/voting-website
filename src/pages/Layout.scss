@@ -16,8 +16,17 @@ body {
 }
 
 main {
+    @media (min-width: 768px) {
+        height: 82vh;
+        display: flex;
+        align-items: center;
+    }
+
     .container {
         margin: 5rem auto;
+        display: flex;
+        flex-direction: column;
+        gap: 3rem;
     }
 }
 
