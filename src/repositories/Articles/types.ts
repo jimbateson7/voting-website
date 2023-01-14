@@ -1,3 +1,4 @@
+import { Document } from "@contentful/rich-text-types";
 export interface QueryResult {
   data: Data;
   errors: [];
@@ -17,6 +18,7 @@ export interface Item {
   title: string;
   slug: string;
   body: string;
+  bodyRichText: Document;
   description: string;
 }
 

@@ -6,6 +6,7 @@ import {
   REACT_APP_CONTENTFUL_ENVIRONMENT,
   REACT_APP_CONTENTFUL_SPACE_ID,
 } from "../utils/graphQLfetch";
+import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 
 //import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 //import {richTextFromMarkdown} from "@contentful/rich-text-from-markdown";
@@ -20,10 +21,11 @@ export async function mapBlogData(data: QueryResult): Promise<TPage> {
   }
   const actualPost = data.data.blogPostCollection.items[0];
   //   const document = await richTextFromMarkdown(actualPost.body);
-  //   const react = documentToReactComponents(document);
+  const react = documentToReactComponents(actualPost.bodyRichText);
   const model: TPage = {
     header: actualPost.title,
     body: actualPost.body,
+    richText: react,
   };
   return model;
 }

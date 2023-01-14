@@ -20,7 +20,7 @@ url}
     slug,
     body,
     description,
-    
+    bodyRichText{json},
   }
   }
 }

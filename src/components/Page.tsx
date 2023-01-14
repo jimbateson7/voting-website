@@ -1,10 +1,12 @@
 ﻿import { ReactNode, useEffect, useState } from "react";
-import { getPageJson } from "../repositories/ContactUs/request";
+
 import ReactMarkdown from "react-markdown";
 import "./Page.css";
+import { getPageJson } from "../repositories/Articles/request";
 export interface TPage {
   header: string;
   body: string;
+  richText: ReactNode;
 }
 export type TArticlePage = {
   slug: string;
@@ -15,7 +17,11 @@ export const ArticlePage = (props: TArticlePage) => {
     let dataFetched = await getPageJson(slug);
     setData(dataFetched);
   }
-  const [data, setData] = useState<TPage>({ header: "Loading", body: "" });
+  const [data, setData] = useState<TPage>({
+    header: "Loading",
+    body: "",
+    richText: null,
+  });
 
   useEffect(() => {
     fetchData().catch(console.error);
@@ -27,6 +33,7 @@ export const ArticlePage = (props: TArticlePage) => {
       <div>
         <ReactMarkdown>{data.body}</ReactMarkdown>
       </div>
+      <div>{data.richText ? data.richText : <p>Rich text was null</p>}</div>
     </>
   );
 };
