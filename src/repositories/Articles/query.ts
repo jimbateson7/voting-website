@@ -3,26 +3,60 @@
 //graphqlplayground
 
 export function generatePostQuery(slug: string) {
-  return `query blogPostCollectionQuery {
-  blogPostCollection(where:{slug:"${slug}"}) {
- 
-    items {
-      sys {
-      id
+  return `query blogPostCollectionQuery{
+    blogPostCollection(limit: 1, where: {slug: "test"}) {
+      items {
+        sys {
+          id
+        }
+        title,
+        description,
+        author{name,image{title,url}}
+        slug
+        description
+        image{title,url}
+        body {
+          json
+          links {
+            entries {
+              inline {
+                sys {
+                  id
+                }
+                __typename
+                ... on BlogPost {
+                  title
+                  slug
+                }
+              }
+              block {
+                sys {
+                  id
+                }
+                __typename
+            
+                ... on VideoEmbed {
+                  embedUrl{url}
+                  title
+                }
+              }
+            }
+            assets {
+              block {
+                sys {
+                  id
+                }
+                url
+                title
+                width
+                height
+                description
+              }
+            }
+          }
+        }
+      }
     }
-    # add the fields you want to query
-    author{
-      name,
-      image{
-url}
-    }
-    title,
-    slug,
-    body,
-    description,
-    bodyRichText{json},
   }
-  }
-}
 `;
 }

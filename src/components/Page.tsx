@@ -5,7 +5,7 @@ import "./Page.css";
 import { getPageJson } from "../repositories/Articles/request";
 export interface TPage {
   header: string;
-  body: string;
+
   richText: ReactNode;
 }
 export type TArticlePage = {
@@ -19,7 +19,6 @@ export const ArticlePage = (props: TArticlePage) => {
   }
   const [data, setData] = useState<TPage>({
     header: "Loading",
-    body: "",
     richText: null,
   });
 
@@ -30,9 +29,7 @@ export const ArticlePage = (props: TArticlePage) => {
   return (
     <>
       <h1>{data.header}</h1>
-      <div>
-        <ReactMarkdown>{data.body}</ReactMarkdown>
-      </div>
+
       <div>{data.richText ? data.richText : <p>Rich text was null</p>}</div>
     </>
   );
