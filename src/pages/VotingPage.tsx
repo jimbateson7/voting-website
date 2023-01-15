@@ -1,15 +1,21 @@
 ﻿import Share from "../components/Share";
-import "./Home.scss";
+import "./VotingPage.scss";
 import { VoteControls } from "../components/VoteControls";
 import { Row } from "react-bootstrap";
-
-const Home = () => {
+interface TVotingPage
+{
+    introVideo:string,
+    postVoteVideo:string,
+}
+const VotingPage = (props:TVotingPage) => {
+    let { introVideo,postVoteVideo } = props;
+    introVideo = introVideo ?? "";
     return (
         <>
             <Row>
                 <iframe
                     className="video"
-                    src="https://www.youtube.com/embed/HkZk-E8kHx0" // TODO: If no voterId present, append "?autoplay=1"
+                    src={introVideo} // TODO: If no voterId present, append "?autoplay=1"
                     title="YouTube video player"
                     frameBorder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -33,4 +39,4 @@ const Home = () => {
     );
 };
 
-export default Home;
+export default VotingPage;

@@ -4,6 +4,9 @@ import logo from "../logo.svg";
 import Container from "react-bootstrap/Container";
 import { Outlet, Link } from "react-router-dom";
 import "./Layout.scss";
+import {DynamicNav} from "../components/DynamicNav";
+import {headerComponentId} from "../App";
+
 
 const Layout = () => {
   return (
@@ -20,30 +23,8 @@ const Layout = () => {
             Our Planet Our People
           </Link>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="me-auto">
-              <Link to="climateInfo" className="nav-link">
-                Climate Info
-              </Link>
-              <Link to="solution" className="nav-link">
-                Is there a solution?
-              </Link>
-              <Link to="cop27" className="nav-link">
-                COP 27
-              </Link>
-              <Link to="foundation" className="nav-link">
-                The Foundation
-              </Link>
-              <Link to="test" className="nav-link">
-                test content
-              </Link>
-            </Nav>
-            <Nav>
-              <Link to="memberArea" className="nav-link">
-                Member Area
-              </Link>
-            </Nav>
-          </Navbar.Collapse>
+          <DynamicNav id={headerComponentId}></DynamicNav>
+          
         </Container>
       </Navbar>
 

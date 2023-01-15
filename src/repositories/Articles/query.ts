@@ -4,7 +4,7 @@
 
 export function generatePostQuery(slug: string) {
   return `query blogPostCollectionQuery{
-    blogPostCollection(limit: 1, where: {slug: "test"}) {
+    blogPostCollection(limit: 1, where: {slug: "${slug}"}) {
       items {
         sys {
           id
