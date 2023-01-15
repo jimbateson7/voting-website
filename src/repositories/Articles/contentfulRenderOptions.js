@@ -1,14 +1,9 @@
-﻿import {
-  documentToReactComponents,
-  Options,
-} from "@contentful/rich-text-react-renderer";
-import { BLOCKS, INLINES, Node, Document } from "@contentful/rich-text-types";
-import { ReactNode } from "react";
+﻿import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
+import { BLOCKS, INLINES } from "@contentful/rich-text-types";
 
-export const renderOptions: Options = {
+export const renderOptions = {
   renderNode: {
-    [INLINES.EMBEDDED_ENTRY]: (node: Node, children: ReactNode) => {
-      // target the contentType of the EMBEDDED_ENTRY to display as you need
+    [INLINES.EMBEDDED_ENTRY]: (node, children) => {
       if (node.data.target.sys.contentType.sys.id === "blogPost") {
         return (
           <a href={`/${node.data.target.fields.slug}`}>
@@ -18,7 +13,7 @@ export const renderOptions: Options = {
         );
       }
     },
-    [BLOCKS.EMBEDDED_ENTRY]: (node: Node, children: ReactNode) => {
+    [BLOCKS.EMBEDDED_ENTRY]: (node, children) => {
       // target the contentType of the EMBEDDED_ENTRY to display as you need
       if (node.data.target.sys.contentType.sys.id === "codeBlock") {
         return (
@@ -45,9 +40,9 @@ export const renderOptions: Options = {
 
     [BLOCKS.EMBEDDED_ASSET]: (node, children) => {
       // render the EMBEDDED_ASSET as you need
-      if (node.data.target.sys.type === "Link") {
+      /*  if (node.data.target.sys.type === "Link") {
         return null;
-      } else {
+      } else */ {
         return (
           <img
             src={`https://${node.data.target.fields.file.url}`}
@@ -61,5 +56,5 @@ export const renderOptions: Options = {
   },
 };
 
-export const richTextToReactNode = (richText: Document) =>
+export const richTextToReactNodeB = (richText) =>
   documentToReactComponents(richText, renderOptions);

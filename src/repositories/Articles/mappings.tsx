@@ -6,12 +6,12 @@ import {
   REACT_APP_CONTENTFUL_ENVIRONMENT,
   REACT_APP_CONTENTFUL_SPACE_ID,
 } from "../utils/graphQLfetch";
-
-import { richTextToReactNode } from "./contentfulRenderOptions";
+import { richTextToReactNode } from "./contentfulRenderFunction";
 
 export async function mapBlogData(result: QueryResult): Promise<TPage> {
   if (result.errors) {
-    console.log("Errors reported:" + result.errors);
+    console.log("Errors reported:");
+    console.log(result.errors);
     console.log("Space Id:" + REACT_APP_CONTENTFUL_SPACE_ID);
     console.log("Token:" + REACT_APP_CONTENTFUL_ACCESS_TOKEN);
     console.log("environment:" + REACT_APP_CONTENTFUL_ENVIRONMENT);
@@ -21,7 +21,7 @@ export async function mapBlogData(result: QueryResult): Promise<TPage> {
 
   let react = null;
   try {
-    react = richTextToReactNode(actualPost.body.json);
+    react = richTextToReactNode(actualPost.body.json, actualPost.body.links);
   } catch (e) {
     console.log(e);
   }

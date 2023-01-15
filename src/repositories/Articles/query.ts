@@ -17,6 +17,7 @@ export function generatePostQuery(slug: string) {
         image{title,url}
         body {
           json
+          
           links {
             entries {
               inline {
@@ -36,8 +37,21 @@ export function generatePostQuery(slug: string) {
                 __typename
             
                 ... on VideoEmbed {
+                  __typename
                   embedUrl{url}
                   title
+                }
+                 ... on  GenericImage{
+                  __typename
+                  image{url}
+                  title
+                  
+                }
+                ... on  YoutubeVideoEmbed{
+                  __typename
+                  ytembedUrl
+                  title
+                  
                 }
               }
             }

@@ -1,0 +1,24 @@
+﻿img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  padding: 5px;
+  border-radius: 1rem;
+}
+.videoIframe {
+  text-align: center;
+  justify-content: center;
+
+  .video {
+    height: 315px;
+
+    @media (min-width: 768px) {
+      width: 50%;
+    }
+  }
+
+  h1 {
+    margin-bottom: 2rem;
+  }
+}
