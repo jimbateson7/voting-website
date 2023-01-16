@@ -53,19 +53,19 @@ const Layout = () => {
         </Container>
       </main>
 
-      <footer class="bg-light">
+      <footer className="bg-light">
         <ul>
           <li>
             <Link to="/privacy" className="nav-link">
               Privacy
             </Link>
           </li>
-          <li class="nav-item">
+          <li className="nav-item">
             <Link to="/endingMembership" className="nav-link">
               Ending Membership
             </Link>
           </li>
-          <li class="nav-item">
+          <li className="nav-item">
             <Link to="/contact" className="nav-link">
               Contact
             </Link>
