@@ -23,7 +23,7 @@ export const DynamicNavList = (props: TDynamicNav) => {
 
   useEffect(() => {
     fetchData().catch(console.error);
-  });
+  }, []);
   return (
     <>
       {data &&
