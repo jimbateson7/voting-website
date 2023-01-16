@@ -12,7 +12,6 @@ export const VoteControls = () => {
   const [numNoVotes, setNumNoVotes] = useState(0);
   const [numDontKnowVotes, setNumDontKnowVotes] = useState(0);
   const [voted, setVoted] = useState(false);
-  const [voterId, setVoterId] = useState(``);
 
   const localStorageKey = "voterId";
 
@@ -20,19 +19,20 @@ export const VoteControls = () => {
     let localGuid = localStorage.getItem(localStorageKey);
 
     if (localGuid) {
-      setVoterId(localGuid);
-
       fetchVoteCounts(true).catch(console.error);
     }
   }, [voted]);
 
   const fetchVoteCounts = async (checkGuid: boolean) => {
+    let localGuid = localStorage.getItem(localStorageKey);
+
     const hasVoted =
       (await (
-        await DataStore.query(Vote, (v) => v.voterId.eq(voterId))
+        await DataStore.query(Vote, (v) => v.voterId.eq(localGuid))
       ).length) != 0;
     setVoted(hasVoted);
-    if (checkGuid && hasVoted) {
+
+    if (checkGuid || hasVoted) {
       setNumNoVotes(
         await (
           await DataStore.query(Vote, (v) => v.choice.eq(Choice.NO))
@@ -56,20 +56,26 @@ export const VoteControls = () => {
 
     if (!localGuid) {
       localGuid = generateGuid();
+      localStorage.setItem(localStorageKey, localGuid);
     }
-    if (!voterId) {
-      setVoterId(localGuid);
-    }
+
     if (!voted) {
       //todo is this strong enough for what we need now? or should we still try and save ip or something?
       //im thinking we add rate limiting and call it a day on this :)
-      localStorage.setItem(localStorageKey, localGuid);
+
+      const hasIdAlreadyVoted =
+        (await (
+          await DataStore.query(Vote, (v) => v.voterId.eq(localGuid))
+        ).length) != 0;
+
+      if (!hasIdAlreadyVoted) {
+        await DataStore.save(
+          new Vote({ choice: choice, voterId: localGuid })
+        ).then((x) => {
+          fetchVoteCounts(true);
+        });
+      }
       setVoted(true);
-      await DataStore.save(
-        new Vote({ choice: choice, voterId: localGuid })
-      ).then((x) => {
-        fetchVoteCounts(false).catch(console.error);
-      });
     }
   };
 
