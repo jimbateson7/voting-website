@@ -1,0 +1,16 @@
+.row {
+    text-align: center;
+    justify-content: center;
+
+    .video {
+        height: 315px;
+
+        @media (min-width: 768px) {
+            width: 50%;
+        }
+    }
+
+    h1 {
+        margin-bottom: 2rem;
+    }
+}

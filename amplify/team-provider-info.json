@@ -1,0 +1,20 @@
+{
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-ourplanetourpeoplewe-staging-141233-authRole",
+      "UnauthRoleArn": "arn:aws:iam::118215360718:role/amplify-ourplanetourpeoplewe-staging-141233-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::118215360718:role/amplify-ourplanetourpeoplewe-staging-141233-authRole",
+      "Region": "eu-west-2",
+      "DeploymentBucketName": "amplify-ourplanetourpeoplewe-staging-141233-deployment",
+      "UnauthRoleName": "amplify-ourplanetourpeoplewe-staging-141233-unauthRole",
+      "StackName": "amplify-ourplanetourpeoplewe-staging-141233",
+      "StackId": "arn:aws:cloudformation:eu-west-2:118215360718:stack/amplify-ourplanetourpeoplewe-staging-141233/549d2710-8e95-11ed-904c-02797f609212",
+      "AmplifyAppId": "d253rfe6hkcov5"
+    },
+    "categories": {
+      "auth": {
+        "ourplanetourpeoplewe21f343b1": {}
+      }
+    }
+  }
+}

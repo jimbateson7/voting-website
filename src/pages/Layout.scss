@@ -1,0 +1,47 @@
+html {
+  height: 100%;
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body {
+  position: relative;
+  padding-bottom: 6rem;
+  min-height: 100%;
+}
+
+main {
+  .container {
+    margin: 5rem auto;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+  }
+}
+
+footer {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  text-align: center;
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+
+    @media (min-width: 540px) {
+      flex-direction: row;
+      justify-content: space-evenly;
+    }
+  }
+}
