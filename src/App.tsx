@@ -27,7 +27,6 @@ function App() {
   const [data, setData] = useState<NavigationItem[]>();
 
   useEffect(() => {
-    //  if(!data || data?.length == 0)
     fetchData().catch(console.error);
   }, []);
 
