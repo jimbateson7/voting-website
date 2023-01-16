@@ -15,7 +15,6 @@ export const ArticlePage = (props: TArticlePage) => {
   let { slug } = props;
   async function fetchData() {
     let dataFetched = await getPageJson(slug);
-    console.log(`Fetching data for page ${slug}`)
     setData(dataFetched);
   }
   const [data, setData] = useState<TPage>({
@@ -25,7 +24,7 @@ export const ArticlePage = (props: TArticlePage) => {
 
   useEffect(() => {
     fetchData().catch(console.error);
-  },[slug]);
+  }, [slug]);
 
   return (
     <>
