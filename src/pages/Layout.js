@@ -1,12 +1,11 @@
 ﻿import Navbar from "react-bootstrap/Navbar";
-import Nav from "react-bootstrap/Nav";
 import logo from "../logo.svg";
 import Container from "react-bootstrap/Container";
-import { Outlet, Link } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import "./Layout.scss";
-import {DynamicNav} from "../components/DynamicNav";
-import {headerComponentId} from "../App";
-
+import { DynamicNav } from "../components/DynamicNav";
+import { footerComponentId, headerComponentId } from "../App";
+import { DynamicFooter } from "./DynamicFooter";
 
 const Layout = () => {
   return (
@@ -24,7 +23,6 @@ const Layout = () => {
           </Link>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <DynamicNav id={headerComponentId}></DynamicNav>
-          
         </Container>
       </Navbar>
 
@@ -34,25 +32,7 @@ const Layout = () => {
         </Container>
       </main>
 
-      <footer className="bg-light">
-        <ul>
-          <li>
-            <Link to="/privacy" className="nav-link">
-              Privacy
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link to="/endingMembership" className="nav-link">
-              Ending Membership
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link to="/contact" className="nav-link">
-              Contact
-            </Link>
-          </li>
-        </ul>
-      </footer>
+      <DynamicFooter id={footerComponentId}></DynamicFooter>
     </>
   );
 };

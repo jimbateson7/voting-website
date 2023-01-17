@@ -6,8 +6,11 @@ import VotingCard from "./VotingCard";
 import { Col, Row } from "react-bootstrap";
 import { v4 as generateGuid } from "uuid";
 import { FaCheckCircle, FaTimesCircle, FaQuestionCircle } from "react-icons/fa";
+type TVoteControls = {
+  postVoteVideo: string;
+};
 
-export const VoteControls = () => {
+export const VoteControls = (props: TVoteControls) => {
   const [numYesVotes, setNumYesVotes] = useState(0);
   const [numNoVotes, setNumNoVotes] = useState(0);
   const [numDontKnowVotes, setNumDontKnowVotes] = useState(0);
@@ -97,28 +100,40 @@ export const VoteControls = () => {
       )}
 
       {voted && (
-        <Row>
-          <h2>Thanks For Voting</h2>
-          <h3>See how others have voted:</h3>
-          <Col>
-            <FaCheckCircle
-              style={{ color: "green", fontSize: "3rem", padding: ".25rem" }}
-            />
-            <h4>Yes: {numYesVotes}</h4>
-          </Col>
-          <Col>
-            <FaTimesCircle
-              style={{ color: "red", fontSize: "3rem", padding: ".25rem" }}
-            />
-            <h4>No: {numNoVotes}</h4>
-          </Col>
-          <Col>
-            <FaQuestionCircle
-              style={{ color: "orange", fontSize: "3rem", padding: ".25rem" }}
-            />
-            <h4>Unsure: {numDontKnowVotes}</h4>
-          </Col>
-        </Row>
+        <>
+          <Row>
+            <h2>Thanks For Voting</h2>
+            <h3>See how others have voted:</h3>
+            <Col>
+              <FaCheckCircle
+                style={{ color: "green", fontSize: "3rem", padding: ".25rem" }}
+              />
+              <h4>Yes: {numYesVotes}</h4>
+            </Col>
+            <Col>
+              <FaTimesCircle
+                style={{ color: "red", fontSize: "3rem", padding: ".25rem" }}
+              />
+              <h4>No: {numNoVotes}</h4>
+            </Col>
+            <Col>
+              <FaQuestionCircle
+                style={{ color: "orange", fontSize: "3rem", padding: ".25rem" }}
+              />
+              <h4>Unsure: {numDontKnowVotes}</h4>
+            </Col>
+          </Row>
+          <Row>
+            <iframe
+              className="video"
+              src={props.postVoteVideo} // TODO: If no voterId present, append "?autoplay=1"
+              title="YouTube video player"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+            ></iframe>
+          </Row>
+        </>
       )}
     </>
   );

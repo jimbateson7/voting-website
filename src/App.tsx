@@ -14,15 +14,30 @@ import Contact from "./pages/Contact";
 import NoPage from "./pages/NoPage";
 
 export const headerComponentId = "2EASI81WCZEAsg9bRP370U";
+export const footerComponentId = "4NIP2EIoA7na6BuwxArtLi";
+
+export async function flattenNavigationRoute(
+  id: string
+): Promise<NavigationItem[]> {
+  let dataFetched = await getNavigationJson(id);
+  let childIds: string[] = dataFetched
+    .filter((x) => x.__typename == NavTypes.NavigationGroup)
+    .map((x) => x.sys?.id ?? "INVALID")
+    .filter((x) => x != "INVALID");
+  for (const childId of childIds) {
+    dataFetched = dataFetched.concat(await flattenNavigationRoute(childId));
+  }
+  return dataFetched;
+}
 
 function App() {
-  const id = headerComponentId;
-
   async function fetchData() {
-    let dataFetched = await getNavigationJson(id);
+    let headerLinks = await flattenNavigationRoute(headerComponentId);
+    let footerLinks = await flattenNavigationRoute(footerComponentId);
+
     console.log("Fetching navigation data");
-    console.log(dataFetched);
-    setData(dataFetched);
+    console.log(headerLinks);
+    setData(headerLinks.concat(footerLinks));
   }
   const [data, setData] = useState<NavigationItem[]>();
 
@@ -30,6 +45,14 @@ function App() {
     fetchData().catch(console.error);
   }, []);
 
+  const extractYoutubeVideoId = (fullUrl?: string): string => {
+    if (!fullUrl) return "Invalid Video";
+
+    //this way someone can add a "watch/embed/share" yt link and it will still work
+    const youtubeId = fullUrl.slice(-11);
+
+    return youtubeId;
+  };
   const createDynamicRoutes = () => {
     return (
       <>
@@ -43,8 +66,11 @@ function App() {
                     index
                     element={
                       <VotingPage
-                        introVideo={navItem.introVideo ?? ""}
-                        postVoteVideo={navItem.postVoteVideo ?? ""}
+                        introVideoId={extractYoutubeVideoId(navItem.introVideo)}
+                        postVoteVideoId={extractYoutubeVideoId(
+                          navItem.postVoteVideo
+                        )}
+                        title={navItem.title ?? ""}
                       />
                     }
                   />
@@ -77,9 +103,6 @@ function App() {
             element={<MemberArea signOut={null} user={null} />}
           />
 
-          <Route path="privacy" element={<Privacy />} />
-          <Route path="endingMembership" element={<EndingMembership />} />
-          <Route path="contact" element={<Contact />} />
           <Route path="*" element={<NoPage />} />
         </Route>
       </Routes>

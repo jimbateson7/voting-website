@@ -25,6 +25,7 @@ export function generateNavQuery(id: string) {
             
           }
           ... on VotingPage {
+            title
             introVideo
             postVoteVideo
           }
