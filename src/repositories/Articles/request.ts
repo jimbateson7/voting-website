@@ -9,3 +9,4 @@ export const getPageJson = (slug: string) => {
     return mapBlogData(root); //todo handle failure outside of function
   });
 };
+

@@ -24,7 +24,7 @@ export const ArticlePage = (props: TArticlePage) => {
 
   useEffect(() => {
     fetchData().catch(console.error);
-  });
+  }, [slug]);
 
   return (
     <>
