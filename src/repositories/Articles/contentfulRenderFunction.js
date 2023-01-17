@@ -1,6 +1,5 @@
 ﻿import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { BLOCKS, INLINES } from "@contentful/rich-text-types";
-import { Row } from "react-bootstrap";
 
 function renderOptions(links) {
   // create an asset map
@@ -86,9 +85,7 @@ function renderOptions(links) {
 // Render post.body.json to the DOM using
 // documentToReactComponents from "@contentful/rich-text-react-renderer"
 
-export default function BlogPost(props) {
-  const { post } = props;
-
+export default function BlogPost({ post }) {
   return (
     <>
       {documentToReactComponents(
