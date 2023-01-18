@@ -4,7 +4,7 @@ function VotingCard({ choice, incrementVoteCount }) {
 
     // @ts-ignore
     return (
-        <Card style={{ width: "18rem" }}>
+        <Card>
             <Card.Body>
                 <Card.Title>{choice.name}</Card.Title>
                 <Button

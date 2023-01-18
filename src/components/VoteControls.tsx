@@ -79,10 +79,10 @@ export const VoteControls = (props: TVoteControls) => {
   return (
     <>
       {!voted && (
-        <Row>
+        <Row className="mb-3">
           {voteChoices.map((voteChoice, index) => {
             return (
-              <Col md={4} key={index}>
+              <Col xs={6} md={2} key={index}>
                 <VotingCard
                   choice={voteChoice}
                   incrementVoteCount={(choice: Choice) => SaveVoteToDb(choice)}
@@ -95,16 +95,16 @@ export const VoteControls = (props: TVoteControls) => {
 
       {voted && (
         <>
-          <Row>
+          <Row className="mb-3">
             <h2>Thanks For Voting</h2>
             <h3>See how others have voted:</h3>
-            <Col>
+            <Col xs={6} md={2}>
               <FaCheckCircle
                 style={{ color: "green", fontSize: "3rem", padding: ".25rem" }}
               />
               <h4>Yes: {numYesVotes}</h4>
             </Col>
-            <Col>
+            <Col xs={6} md={2}>
               <FaTimesCircle
                 style={{ color: "red", fontSize: "3rem", padding: ".25rem" }}
               />
