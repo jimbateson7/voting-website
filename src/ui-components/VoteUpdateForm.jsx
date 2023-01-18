@@ -190,11 +190,6 @@ export default function VoteUpdateForm(props) {
           value="NO"
           {...getOverrideProps(overrides, "choiceoption1")}
         ></option>
-        <option
-          children="Dont know"
-          value="DONT_KNOW"
-          {...getOverrideProps(overrides, "choiceoption2")}
-        ></option>
       </SelectField>
       <Flex
         justifyContent="space-between"

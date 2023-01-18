@@ -13,7 +13,6 @@ type TVoteControls = {
 export const VoteControls = (props: TVoteControls) => {
   const [numYesVotes, setNumYesVotes] = useState(0);
   const [numNoVotes, setNumNoVotes] = useState(0);
-  const [numDontKnowVotes, setNumDontKnowVotes] = useState(0);
   const [voted, setVoted] = useState(false);
 
   const localStorageKey = "voterId";
@@ -44,11 +43,6 @@ export const VoteControls = (props: TVoteControls) => {
       setNumYesVotes(
         await (
           await DataStore.query(Vote, (v) => v.choice.eq(Choice.YES))
-        ).length
-      );
-      setNumDontKnowVotes(
-        await (
-          await DataStore.query(Vote, (v) => v.choice.eq(Choice.DONT_KNOW))
         ).length
       );
     }
@@ -115,12 +109,6 @@ export const VoteControls = (props: TVoteControls) => {
                 style={{ color: "red", fontSize: "3rem", padding: ".25rem" }}
               />
               <h4>No: {numNoVotes}</h4>
-            </Col>
-            <Col>
-              <FaQuestionCircle
-                style={{ color: "orange", fontSize: "3rem", padding: ".25rem" }}
-              />
-              <h4>Unsure: {numDontKnowVotes}</h4>
             </Col>
           </Row>
           <Row>

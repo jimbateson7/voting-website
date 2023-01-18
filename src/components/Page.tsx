@@ -1,6 +1,4 @@
 ﻿import { ReactNode, useEffect, useState } from "react";
-
-import ReactMarkdown from "react-markdown";
 import "./Page.scss";
 import { getPageJson } from "../repositories/Articles/request";
 export interface TPage {

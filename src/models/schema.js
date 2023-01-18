@@ -74,8 +74,7 @@ export const schema = {
             "name": "Choice",
             "values": [
                 "YES",
-                "NO",
-                "DONT_KNOW"
+                "NO"
             ]
         }
     },
