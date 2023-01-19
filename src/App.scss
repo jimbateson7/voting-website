@@ -1,1 +1,39 @@
-@import "~bootstrap/scss/bootstrap.scss";
+@font-face {
+  font-family: "RNS Sanz";
+  src: url("./fonts/RNS Sans/RNSSanz-Normal.woff2") format("woff2"), url("./fonts/RNS Sans/RNSSanz-Normal.woff") format("woff");
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "RNS Sanz";
+  src: url("./fonts/RNS Sans/RNSSanz-Light.woff2") format("woff2"), url("./fonts/RNS Sans/RNSSanz-Light.woff") format("woff");
+  font-style: normal;
+  font-weight: 100;
+}
+
+@font-face {
+  font-family: "RNS Sanz";
+  src: url("./fonts/RNS Sans/RNSSanz-Bold.woff2") format("woff2"), url("./fonts/RNS Sans/RNSSanz-Bold.woff") format("woff");
+  font-style: normal;
+  font-weight: bold;
+}
+
+/* #region Bootstrap overrides */
+@import "bootstrap/scss/_functions";
+
+$primary: #64CBD0; /* Turquoise */
+$secondary: #254C5F; /* Teal */
+$success: #74D2B5; /* Green */
+$danger: #F16565; /* Red */
+$font-family-base: 'RNS Sanz', sans-serif;
+
+@import "~bootstrap/scss/bootstrap";
+/* #endregion Bootstrap overrides */
+
+body {
+  margin: 0;
+  font-family: $font-family-base;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

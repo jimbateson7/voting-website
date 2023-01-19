@@ -13,7 +13,6 @@ type TVoteControls = {
 export const VoteControls = (props: TVoteControls) => {
   const [numYesVotes, setNumYesVotes] = useState(0);
   const [numNoVotes, setNumNoVotes] = useState(0);
-  const [numDontKnowVotes, setNumDontKnowVotes] = useState(0);
   const [voted, setVoted] = useState(false);
 
   const localStorageKey = "voterId";
@@ -44,11 +43,6 @@ export const VoteControls = (props: TVoteControls) => {
       setNumYesVotes(
         await (
           await DataStore.query(Vote, (v) => v.choice.eq(Choice.YES))
-        ).length
-      );
-      setNumDontKnowVotes(
-        await (
-          await DataStore.query(Vote, (v) => v.choice.eq(Choice.DONT_KNOW))
         ).length
       );
     }
@@ -85,10 +79,10 @@ export const VoteControls = (props: TVoteControls) => {
   return (
     <>
       {!voted && (
-        <Row>
+        <Row className="mb-3">
           {voteChoices.map((voteChoice, index) => {
             return (
-              <Col md={4} key={index}>
+              <Col xs={6} md={2} key={index}>
                 <VotingCard
                   choice={voteChoice}
                   incrementVoteCount={(choice: Choice) => SaveVoteToDb(choice)}
@@ -101,26 +95,20 @@ export const VoteControls = (props: TVoteControls) => {
 
       {voted && (
         <>
-          <Row>
+          <Row className="mb-3">
             <h2>Thanks For Voting</h2>
             <h3>See how others have voted:</h3>
-            <Col>
+            <Col xs={6} md={2}>
               <FaCheckCircle
                 style={{ color: "green", fontSize: "3rem", padding: ".25rem" }}
               />
               <h4>Yes: {numYesVotes}</h4>
             </Col>
-            <Col>
+            <Col xs={6} md={2}>
               <FaTimesCircle
                 style={{ color: "red", fontSize: "3rem", padding: ".25rem" }}
               />
               <h4>No: {numNoVotes}</h4>
-            </Col>
-            <Col>
-              <FaQuestionCircle
-                style={{ color: "orange", fontSize: "3rem", padding: ".25rem" }}
-              />
-              <h4>Unsure: {numDontKnowVotes}</h4>
             </Col>
           </Row>
           <Row>
