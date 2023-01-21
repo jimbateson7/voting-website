@@ -17,7 +17,8 @@ export const fetchDataContentful = <TType>(query: string) =>
 export const fetchData = async <TType>(
   url: string,
   query: string
-): Promise<TType> => {
+): Promise<TType> => {  
+  
   const options = {
     method: "POST",
     headers: {

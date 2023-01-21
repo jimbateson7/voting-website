@@ -8,10 +8,11 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import VotingPage from "./pages/VotingPage";
 import { ArticlePage } from "./components/Page";
 import MemberArea from "./pages/MemberArea";
-import Privacy from "./pages/Privacy";
-import EndingMembership from "./pages/EndingMembership";
-import Contact from "./pages/Contact";
-import NoPage from "./pages/NoPage";
+
+
+import NoPage from "./pages/LoadingPage";
+import LoadingPage from "./pages/LoadingPage";
+import {DEBUG_QUERY, refreshPreview} from "./repositories/utils/preview";
 
 export const headerComponentId = "2EASI81WCZEAsg9bRP370U";
 export const footerComponentId = "4NIP2EIoA7na6BuwxArtLi";
@@ -35,14 +36,21 @@ function App() {
     let headerLinks = await flattenNavigationRoute(headerComponentId);
     let footerLinks = await flattenNavigationRoute(footerComponentId);
 
-    console.log("Fetching navigation data");
-    console.log(headerLinks);
+    if(process.env.NODE_ENV === "development" && DEBUG_QUERY) {
+      console.log("Fetching navigation data");
+      console.log(headerLinks);
+    }
     setData(headerLinks.concat(footerLinks));
+    setDataLoaded(true);
   }
   const [data, setData] = useState<NavigationItem[]>();
-
+  const [dataLoaded, setDataLoaded] = useState(false);
+  
+  refreshPreview();
+  
   useEffect(() => {
     fetchData().catch(console.error);
+    
   }, []);
 
   const extractYoutubeVideoId = (fullUrl?: string): string => {
@@ -102,8 +110,8 @@ function App() {
             path="memberArea"
             element={<MemberArea signOut={null} user={null} />}
           />
-
-          <Route path="*" element={<NoPage />} />
+          {dataLoaded ?  <Route path="*" element={<LoadingPage />} /> : <Route path="*" element={<NoPage />} />}
+          
         </Route>
       </Routes>
     </BrowserRouter>
