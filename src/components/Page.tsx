@@ -16,7 +16,7 @@ export const ArticlePage = (props: TArticlePage) => {
     setData(dataFetched);
   }
   const [data, setData] = useState<TPage>({
-    header: "Loading",
+    header: "...",
     richText: null,
   });
 
@@ -28,7 +28,7 @@ export const ArticlePage = (props: TArticlePage) => {
     <>
       <h1>{data.header}</h1>
 
-      <div>{data.richText ? data.richText : <p>Rich text was null</p>}</div>
+      <div>{data.richText ? data.richText : <p>...</p>}</div>
     </>
   );
 };

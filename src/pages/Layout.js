@@ -5,7 +5,8 @@ import { Link, Outlet } from "react-router-dom";
 import "./Layout.scss";
 import { DynamicNav } from "../components/DynamicNav";
 import { footerComponentId, headerComponentId } from "../App";
-import { DynamicFooter } from "./DynamicFooter";
+import {DynamicFooter} from "../components/DynamicFooter";
+
 
 const Layout = () => {
   return (

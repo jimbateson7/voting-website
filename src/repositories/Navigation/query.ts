@@ -2,10 +2,14 @@
 //https://app.contentful.com/spaces/fojlfyn3xufg/environments/staging/entries/1n9FMvYa8MWstVI19atW2w
 //graphqlplayground
 //2EASI81WCZEAsg9bRP370U
+import {DEBUG_QUERY, getPreview} from "../utils/preview";
+
 export function generateNavQuery(id: string) {
-  return `
+
+  const isPreview = getPreview();
+  const query =  `
   query findNavById{
-  navigationGroup(id: "${id}") {
+  navigationGroup(id: "${id}" preview:${isPreview}) {
  
       navigationItemCollection(limit: 10) {
         items {
@@ -36,4 +40,7 @@ export function generateNavQuery(id: string) {
 
 
 `;
+  if(process.env.NODE_ENV == "development" && DEBUG_QUERY) console.log(query);
+  
+  return query;
 }
