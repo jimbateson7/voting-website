@@ -4,8 +4,29 @@
   margin-right: auto;
   width: 100%;
   padding: 5px;
-  border-radius: 1.0rem;
+  border-radius: 1rem;
 }
+img {
+  width: 100%;
+  height: auto;
+}
+
+.heroWithImage {
+  position: relative;
+  text-align: center;
+  color: white;
+  img {
+    max-height: 300px;
+    object-fit: cover;
+  }
+  /* Bottom left text */
+  h1 {
+    position: absolute;
+    bottom: 8px;
+    left: 16px;
+  }
+}
+
 .videoIframe {
   text-align: center;
   justify-content: center;

@@ -12,13 +12,19 @@ export interface BlogPostCollection {
   items: Item[];
 }
 
+export interface Image {
+  title: string;
+  url: string;
+  description: string;
+}
+
 export interface Item {
   sys: Sys;
   title: string;
   description: string;
   author: Author;
   slug: string;
-  image: any;
+  image: Image;
   body: Body;
 }
 

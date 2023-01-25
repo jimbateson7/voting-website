@@ -1,11 +1,11 @@
 ﻿import { ReactNode, useEffect, useState } from "react";
 
-import ReactMarkdown from "react-markdown";
 import "./Page.scss";
 import { getPageJson } from "../repositories/Articles/request";
 export interface TPage {
   header: string;
-
+  heroImageUrl?: string;
+  heroImageAltText?: string;
   richText: ReactNode;
 }
 export type TArticlePage = {
@@ -26,10 +26,15 @@ export const ArticlePage = (props: TArticlePage) => {
     fetchData().catch(console.error);
   }, [slug]);
 
+  const styleClass = data.heroImageUrl ? "heroWithImage" : "hero";
   return (
     <>
-      <h1>{data.header}</h1>
-
+      <div className={styleClass}>
+        <h1>{data.header}</h1>
+        {data.heroImageUrl ? (
+          <img src={data.heroImageUrl} alt={data.heroImageAltText}></img>
+        ) : null}
+      </div>
       <div>{data.richText ? data.richText : <p>Rich text was null</p>}</div>
     </>
   );
