@@ -24,8 +24,6 @@
 
 $primary: #64CBD0; /* Turquoise */
 $secondary: #254C5F; /* Teal */
-$success: #74D2B5; /* Green */
-$danger: #F16565; /* Red */
 $font-family-base: 'RNS Sanz', sans-serif;
 
 @import "~bootstrap/scss/bootstrap";
@@ -36,4 +34,12 @@ body {
   font-family: $font-family-base;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.frame-shadow {
+  @media (min-width: 768px) {
+    box-shadow: 3px 3px 8px 2px;
+    width: max-content;
+    padding: 1rem 3rem;
+  }
 }

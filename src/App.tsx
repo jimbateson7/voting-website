@@ -43,14 +43,15 @@ function App() {
     setData(headerLinks.concat(footerLinks));
     setDataLoaded(true);
   }
+
   const [data, setData] = useState<NavigationItem[]>();
   const [dataLoaded, setDataLoaded] = useState(false);
+  const [voted, setVoted] = useState(false);
   
   refreshPreview();
   
   useEffect(() => {
     fetchData().catch(console.error);
-    
   }, []);
 
   const extractYoutubeVideoId = (fullUrl?: string): string => {
@@ -79,6 +80,10 @@ function App() {
                           navItem.postVoteVideo
                         )}
                         title={navItem.title ?? ""}
+                        showIntroVideo={!voted}
+                        showSharePanel={voted}
+                        voted={voted}
+                        setVoted={setVoted}
                       />
                     }
                   />
