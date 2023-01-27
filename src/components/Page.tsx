@@ -18,7 +18,7 @@ export const ArticlePage = (props: TArticlePage) => {
     setData(dataFetched);
   }
   const [data, setData] = useState<TPage>({
-    header: "Loading",
+    header: "...",
     richText: null,
   });
 
@@ -29,6 +29,7 @@ export const ArticlePage = (props: TArticlePage) => {
   const styleClass = data.heroImageUrl ? "heroWithImage" : "hero";
   return (
     <>
+
       <div className={styleClass}>
         <h1>{data.header}</h1>
         {data.heroImageUrl ? (
@@ -36,6 +37,11 @@ export const ArticlePage = (props: TArticlePage) => {
         ) : null}
       </div>
       <div>{data.richText ? data.richText : <p>Rich text was null</p>}</div>
+
+      <h1>{data.header}</h1>
+
+      <div>{data.richText ? data.richText : <p>...</p>}</div>
+
     </>
   );
 };

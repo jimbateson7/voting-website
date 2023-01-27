@@ -1,16 +1,63 @@
 .row {
-    text-align: center;
-    justify-content: center;
+  text-align: center;
+  justify-content: center;
 
-    .video {
-        height: 315px;
+  .intro-video {
+    height: 315px;
 
-        @media (min-width: 768px) {
-            width: 50%;
-        }
+    @media (min-width: 768px) {
+      width: 50%;
+    }
+  }
+
+  h1 {
+    font-weight: bold;
+    margin-bottom: 2rem;
+  }
+}
+
+svg {
+  font-size: 3rem;
+  padding: .25rem;
+
+  &.thumbs-up {
+    color: green;
+  }
+
+  &.thumbs-down {
+    color: red;
+  }
+}
+
+.btn {
+  &:hover,
+  &:focus {
+    background-color: white;
+
+    svg {
+      transform: scale(1.5);
+      transition: transform ease-in-out .25s;
+    }
+  }
+}
+
+.vote-count {
+  background-color: white;
+  padding: .5rem;
+  border-radius: 1rem;
+  margin: 1rem;
+
+  span {
+    display: block;
+    font-weight: bold;
+    font-size: 2rem;
+
+    &.yes {
+      color: green;
     }
 
-    h1 {
-        margin-bottom: 2rem;
+    &.no {
+      color: red;
     }
+  }
 }

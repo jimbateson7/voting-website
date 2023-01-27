@@ -1,5 +1,6 @@
 export interface QueryResult {
     data: Data
+    errors:{}
 }
 
 export interface Data {

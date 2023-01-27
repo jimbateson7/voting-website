@@ -15,11 +15,4 @@ export const voteChoices = [
     name: "No",
     votes: 0,
   },
-  {
-    _id: 3,
-    logo: "/assets/question.svg",
-    choice: Choice.DONT_KNOW,
-    name: "Dont Know",
-    votes: 0,
-  },
 ];

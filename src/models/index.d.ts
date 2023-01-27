@@ -4,8 +4,7 @@ import { LazyLoading, LazyLoadingDisabled } from "@aws-amplify/datastore";
 
 export enum Choice {
   YES = "YES",
-  NO = "NO",
-  DONT_KNOW = "DONT_KNOW"
+  NO = "NO"
 }
 
 

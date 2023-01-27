@@ -1,3 +1,7 @@
+:root {
+  --primary: #64CBD0;
+}
+
 html {
   height: 100%;
   box-sizing: border-box;
@@ -11,13 +15,60 @@ html {
 
 body {
   position: relative;
+  margin: 0;
   padding-bottom: 6rem;
-  min-height: 100%;
+
+  @media(min-width: 540px) {
+    padding-bottom: 3rem;
+  }
+
+  #root {
+    padding-top: 1rem;
+  }
+}
+
+nav {
+  img {
+    max-width: 10rem;
+  }
+
+  @media (max-width: 991px) {
+    .navbar-nav .dropdown-menu {
+      background-color: transparent;
+      border: none;
+
+      .nav-link {
+        padding-left: 3rem;
+      }
+    }
+  }
+
+  .nav-link {
+    font-weight: bold;
+    padding: 1rem;
+
+    @media (min-width: 768px) {
+      margin: 0 .5rem;
+    }
+
+    &:hover,
+    &:focus {
+      background-color: var(--primary);
+      transition: background-color ease-in-out .5s;
+      transform: skew(-5deg);
+      color: white; /* TODO: Active dropdown and dropdown options also need white font */
+    }
+  }
 }
 
 main {
+  margin: 6rem 0 3rem 0;
+
+  @media (min-width: 1024px) {
+    margin: 8rem 0 4rem 0;
+  }
+
   .container {
-    margin: 5rem auto;
     display: flex;
     flex-direction: column;
     gap: 3rem;
@@ -25,6 +76,7 @@ main {
 }
 
 footer {
+  position: absolute;
   right: 0;
   bottom: 0;
   left: 0;
@@ -41,6 +93,18 @@ footer {
     @media (min-width: 540px) {
       flex-direction: row;
       justify-content: space-evenly;
+    }
+
+    .nav-link {
+      color: #6a7070;
+      font-weight: bold;
+
+      &:hover,
+      &:focus {
+        text-decoration-line: underline;
+        text-decoration-color: var(--primary);
+        text-decoration-thickness: 3px;
+      }
     }
   }
 }

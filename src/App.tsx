@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import "./App.scss";
 import Layout from "../src/pages/Layout";
@@ -32,12 +32,20 @@ function App() {
     let headerLinks = await flattenNavigationRoute(headerComponentId);
     let footerLinks = await flattenNavigationRoute(footerComponentId);
 
-    console.log("Fetching navigation data");
-    console.log(headerLinks);
+    if(process.env.NODE_ENV === "development" && DEBUG_QUERY) {
+      console.log("Fetching navigation data");
+      console.log(headerLinks);
+    }
     setData(headerLinks.concat(footerLinks));
+    setDataLoaded(true);
   }
-  const [data, setData] = useState<NavigationItem[]>();
 
+  const [data, setData] = useState<NavigationItem[]>();
+  const [dataLoaded, setDataLoaded] = useState(false);
+  const [voted, setVoted] = useState(false);
+  
+  refreshPreview();
+  
   useEffect(() => {
     fetchData().catch(console.error);
   }, []);
@@ -68,6 +76,10 @@ function App() {
                           navItem.postVoteVideo
                         )}
                         title={navItem.title ?? ""}
+                        showIntroVideo={!voted}
+                        showSharePanel={voted}
+                        voted={voted}
+                        setVoted={setVoted}
                       />
                     }
                   />
@@ -99,8 +111,8 @@ function App() {
             path="memberArea"
             element={<MemberArea signOut={null} user={null} />}
           />
-
-          <Route path="*" element={<NoPage />} />
+          {dataLoaded ?  <Route path="*" element={<LoadingPage />} /> : <Route path="*" element={<NoPage />} />}
+          
         </Route>
       </Routes>
     </BrowserRouter>
