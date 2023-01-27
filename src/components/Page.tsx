@@ -36,9 +36,7 @@ export const ArticlePage = (props: TArticlePage) => {
           <img src={data.heroImageUrl} alt={data.heroImageAltText}></img>
         ) : null}
       </div>
-      <div>{data.richText ? data.richText : <p>Rich text was null</p>}</div>
-
-      <h1>{data.header}</h1>
+      
 
       <div>{data.richText ? data.richText : <p>...</p>}</div>
 
