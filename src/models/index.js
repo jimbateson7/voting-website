@@ -4,8 +4,7 @@ import { schema } from './schema';
 
 const Choice = {
   "YES": "YES",
-  "NO": "NO",
-  "DONT_KNOW": "DONT_KNOW"
+  "NO": "NO"
 };
 
 const { Vote } = initSchema(schema);

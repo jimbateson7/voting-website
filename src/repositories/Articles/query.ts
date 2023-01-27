@@ -2,9 +2,14 @@
 //https://app.contentful.com/spaces/fojlfyn3xufg/environments/staging/entries/1n9FMvYa8MWstVI19atW2w
 //graphqlplayground
 
+import {DEBUG_QUERY, getPreview} from "../utils/preview";
+
 export function generatePostQuery(slug: string) {
-  return `query blogPostCollectionQuery{
-    blogPostCollection(limit: 1, where: {slug: "${slug}"}) {
+
+ 
+  const isPreview = getPreview();
+  const query = `query blogPostCollectionQuery{
+    blogPostCollection(limit: 1, where: {slug: "${slug}"}, preview:${isPreview}) {
       items {
         sys {
           id
@@ -14,7 +19,7 @@ export function generatePostQuery(slug: string) {
         author{name,image{title,url}}
         slug
         description
-        image{title,url}
+        image{title,url,description}
         body {
           json
           
@@ -73,4 +78,7 @@ export function generatePostQuery(slug: string) {
     }
   }
 `;
+  if(process.env.NODE_ENV == "development" && DEBUG_QUERY) console.log(query);
+ 
+  return query;
 }

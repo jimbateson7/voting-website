@@ -1,5 +1,4 @@
 ﻿import { Container } from "react-bootstrap";
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { withAuthenticator, Button, Heading, Text } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 

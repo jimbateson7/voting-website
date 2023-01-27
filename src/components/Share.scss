@@ -1,7 +1,36 @@
 .share {
-    .social-links {
-        display: flex;
-        justify-content: center;
-        align-items: center;
+  .video {
+    height: 315px;
+    width: 100%;
+    margin: 2rem auto;
+  }
+
+  h2 {
+    font-weight: bold;
+    color: red;
+    letter-spacing: .25rem;
+    font-size: 1.25rem;
+  }
+
+  .social-links {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-gap: 1.5rem;
+
+    @media (min-width: 540px) {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
     }
+
+    a {
+      &:hover,
+      &:focus {
+        transform: scale(1.25);
+        transition: transform ease-in-out .25s;
+      }
+    }
+  }
 }

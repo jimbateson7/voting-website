@@ -1,20 +1,18 @@
 import { DataStore } from "@aws-amplify/datastore";
 import { Choice, Vote } from "../models";
 import { useEffect, useState } from "react";
-import { voteChoices } from "./VoteChoice";
-import VotingCard from "./VotingCard";
-import { Col, Row } from "react-bootstrap";
+import { Col, Row, Button } from "react-bootstrap";
 import { v4 as generateGuid } from "uuid";
-import { FaCheckCircle, FaTimesCircle, FaQuestionCircle } from "react-icons/fa";
-type TVoteControls = {
-  postVoteVideo: string;
-};
+import { FaThumbsUp, FaThumbsDown } from "react-icons/fa";
 
-export const VoteControls = (props: TVoteControls) => {
+interface TVoteControls {
+  voted: boolean;
+  setVoted: Function;
+}
+
+export const VoteControls = ({ voted, setVoted }: TVoteControls) => {
   const [numYesVotes, setNumYesVotes] = useState(0);
   const [numNoVotes, setNumNoVotes] = useState(0);
-  const [numDontKnowVotes, setNumDontKnowVotes] = useState(0);
-  const [voted, setVoted] = useState(false);
 
   const localStorageKey = "voterId";
 
@@ -44,11 +42,6 @@ export const VoteControls = (props: TVoteControls) => {
       setNumYesVotes(
         await (
           await DataStore.query(Vote, (v) => v.choice.eq(Choice.YES))
-        ).length
-      );
-      setNumDontKnowVotes(
-        await (
-          await DataStore.query(Vote, (v) => v.choice.eq(Choice.DONT_KNOW))
         ).length
       );
     }
@@ -86,16 +79,25 @@ export const VoteControls = (props: TVoteControls) => {
     <>
       {!voted && (
         <Row>
-          {voteChoices.map((voteChoice, index) => {
-            return (
-              <Col md={4} key={index}>
-                <VotingCard
-                  choice={voteChoice}
-                  incrementVoteCount={(choice: Choice) => SaveVoteToDb(choice)}
-                />
-              </Col>
-            );
-          })}
+          <Col xs={6} md={2}>
+            <Button
+              variant="light"
+              size="lg"
+              onClick={() => SaveVoteToDb(Choice.YES)}
+              title="Yes">
+              <FaThumbsUp className="thumbs-up"/>
+            </Button>
+          </Col>
+
+          <Col xs={6} md={2}>
+            <Button
+              variant="light"
+              size="lg"
+              onClick={() => SaveVoteToDb(Choice.NO)}
+              title="No">
+              <FaThumbsDown className="thumbs-down" />
+            </Button>
+          </Col>
         </Row>
       )}
 
@@ -104,34 +106,14 @@ export const VoteControls = (props: TVoteControls) => {
           <Row>
             <h2>Thanks For Voting</h2>
             <h3>See how others have voted:</h3>
-            <Col>
-              <FaCheckCircle
-                style={{ color: "green", fontSize: "3rem", padding: ".25rem" }}
-              />
-              <h4>Yes: {numYesVotes}</h4>
+            <Col xs={4} md={3} lg={2} xl={1} className="vote-count">
+              <FaThumbsUp className="thumbs-up" />
+              <span className="yes">{numYesVotes}</span>
             </Col>
-            <Col>
-              <FaTimesCircle
-                style={{ color: "red", fontSize: "3rem", padding: ".25rem" }}
-              />
-              <h4>No: {numNoVotes}</h4>
+            <Col xs={4} md={3} lg={2} xl={1} className="vote-count">
+              <FaThumbsDown className="thumbs-down" />
+              <span className="no">{numNoVotes}</span>
             </Col>
-            <Col>
-              <FaQuestionCircle
-                style={{ color: "orange", fontSize: "3rem", padding: ".25rem" }}
-              />
-              <h4>Unsure: {numDontKnowVotes}</h4>
-            </Col>
-          </Row>
-          <Row>
-            <iframe
-              className="video"
-              src={props.postVoteVideo} // TODO: If no voterId present, append "?autoplay=1"
-              title="YouTube video player"
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowFullScreen
-            ></iframe>
           </Row>
         </>
       )}
