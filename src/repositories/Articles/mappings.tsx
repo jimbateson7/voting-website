@@ -29,7 +29,8 @@ export async function mapBlogData(result: QueryResult): Promise<TPage> {
 
   const model: TPage = {
     header: actualPost.title,
-
+    heroImageUrl: actualPost.image?.url,
+    heroImageAltText: actualPost.image?.description,
     richText: react,
   };
   return model;

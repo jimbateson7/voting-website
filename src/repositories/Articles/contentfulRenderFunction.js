@@ -29,12 +29,7 @@ function renderOptions(links) {
       // other options...
       [INLINES.EMBEDDED_ENTRY]: (node, children) => {
         // find the entry in the entryMap by ID
-        const entry = entryMap.get(node.data.target.sys.id);
-
-        // render the entries as needed
-        if (entry.__typename === "BlogPost") {
-          return <a href={`/blog/${entry.slug}`}>{entry.title}</a>;
-        }
+        //currently not an option
       },
       [BLOCKS.EMBEDDED_ENTRY]: (node, children) => {
         // find the entry in the entryMap by ID
@@ -80,20 +75,6 @@ function renderOptions(links) {
       },
     },
   };
-}
-
-// Render post.body.json to the DOM using
-// documentToReactComponents from "@contentful/rich-text-react-renderer"
-
-export default function BlogPost({ post }) {
-  return (
-    <>
-      {documentToReactComponents(
-        post.body.json,
-        renderOptions(post.body.links)
-      )}
-    </>
-  );
 }
 
 export const richTextToReactNode = (json, links) =>

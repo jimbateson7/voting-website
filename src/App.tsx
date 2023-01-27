@@ -8,11 +8,10 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import VotingPage from "./pages/VotingPage";
 import { ArticlePage } from "./components/Page";
 import MemberArea from "./pages/MemberArea";
-
-
-import NoPage from "./pages/LoadingPage";
+import NoPage from "./pages/NoPage";
 import LoadingPage from "./pages/LoadingPage";
 import {DEBUG_QUERY, refreshPreview} from "./repositories/utils/preview";
+
 
 export const headerComponentId = "2EASI81WCZEAsg9bRP370U";
 export const footerComponentId = "4NIP2EIoA7na6BuwxArtLi";

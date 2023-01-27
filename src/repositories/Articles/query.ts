@@ -19,7 +19,7 @@ export function generatePostQuery(slug: string) {
         author{name,image{title,url}}
         slug
         description
-        image{title,url}
+        image{title,url,description}
         body {
           json
           
