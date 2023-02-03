@@ -92,10 +92,10 @@ img {
   justify-content: center;
 
   .video {
-    height: 315px;
+    height: 75vh;
 
     @media (min-width: 768px) {
-      width: 50%;
+      width: 100%;
     }
   }
 
