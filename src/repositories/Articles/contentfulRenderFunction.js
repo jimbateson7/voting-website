@@ -1,5 +1,6 @@
 ﻿import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { BLOCKS, INLINES } from "@contentful/rich-text-types";
+import {extractYoutubeVideoId} from "../utils/utilities";
 
 function renderOptions(links) {
   // create an asset map
@@ -49,11 +50,16 @@ function renderOptions(links) {
           );
         }
         if (entry.__typename === "YoutubeVideoEmbed") {
+          //const videoId = extrac
+          let video = entry.ytembedUrl;
+          let videoId = extractYoutubeVideoId(video);
+          let videoUrl = `https://www.youtube.com/embed/${videoId}`;
           return (
+              
             <div className={"videoIframe"}>
               <iframe
                 className="video"
-                src={entry.ytembedUrl}
+                src={videoUrl}
                 title={entry.title}
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
