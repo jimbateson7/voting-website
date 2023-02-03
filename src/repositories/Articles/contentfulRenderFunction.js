@@ -50,7 +50,7 @@ function renderOptions(links) {
           );
         }
         if (entry.__typename === "YoutubeVideoEmbed") {
-          //const videoId = extrac
+          // take the video url and extract the video id so we can clean it up
           let video = entry.ytembedUrl;
           let videoId = extractYoutubeVideoId(video);
           let videoUrl = `https://www.youtube.com/embed/${videoId}`;
