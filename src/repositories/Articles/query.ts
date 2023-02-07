@@ -14,11 +14,9 @@ export function generatePostQuery(slug: string) {
         sys {
           id
         }
-        title,
-        description,
+        title,       
         author{name,image{title,url}}
-        slug
-        description
+        slug    
         image{title,url,description}
         body {
           json
@@ -41,6 +39,10 @@ export function generatePostQuery(slug: string) {
                 }
                 __typename
             
+                ... on  BlogPost{                  
+                  slug
+                  title
+                }
                 ... on VideoEmbed {
                   __typename
                   embedUrl{url}
