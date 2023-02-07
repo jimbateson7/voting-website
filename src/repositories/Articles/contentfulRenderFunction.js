@@ -35,6 +35,16 @@ function renderOptions(links) {
         // find the entry in the entryMap by ID
         const entry = entryBlockMap.get(node.data.target.sys.id);
 
+        if (entry.__typename === "BlogPost") {
+          return (
+              
+                  <a href={entry.slug} className={"card"}>                    
+                    <div className="card-content">                      
+                      <h2>{entry.title}</h2>
+                    </div></a>              
+              
+          );
+        }
         if (entry.__typename === "VideoEmbed") {
           return (
             <iframe

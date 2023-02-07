@@ -21,7 +21,6 @@ export interface Image {
 export interface Item {
   sys: Sys;
   title: string;
-  description: string;
   author: Author;
   slug: string;
   image: Image;
