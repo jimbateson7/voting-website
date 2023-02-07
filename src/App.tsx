@@ -11,6 +11,7 @@ import MemberArea from "./pages/MemberArea";
 import NoPage from "./pages/NoPage";
 import LoadingPage from "./pages/LoadingPage";
 import {DEBUG_QUERY, refreshPreview} from "./repositories/utils/preview";
+import {extractYoutubeVideoId} from "./repositories/utils/utilities";
 
 
 export const headerComponentId = "2EASI81WCZEAsg9bRP370U";
@@ -53,14 +54,7 @@ function App() {
     fetchData().catch(console.error);
   }, []);
 
-  const extractYoutubeVideoId = (fullUrl?: string): string => {
-    if (!fullUrl) return "Invalid Video";
-
-    //this way someone can add a "watch/embed/share" yt link and it will still work
-    const youtubeId = fullUrl.slice(-11);
-
-    return youtubeId;
-  };
+  
   const createDynamicRoutes = () => {
     return (
       <>
