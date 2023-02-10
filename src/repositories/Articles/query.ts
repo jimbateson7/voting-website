@@ -54,6 +54,7 @@ export function generatePostQuery(slug: string) {
                   __typename
                   ytembedUrl
                   title
+                  autoPlay
                   
                 }
               }
