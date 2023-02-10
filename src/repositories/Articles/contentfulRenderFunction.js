@@ -1,6 +1,6 @@
 ﻿import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { BLOCKS, INLINES } from "@contentful/rich-text-types";
-import {extractYoutubeVideoId} from "../utils/utilities";
+import {extractYoutubeVideoId, extractYoutubeVideoUrl} from "../utils/utilities";
 
 function renderOptions(links) {
   // create an asset map
@@ -49,11 +49,8 @@ function renderOptions(links) {
   
         if (entry.__typename === "YoutubeVideoEmbed") {
           // take the video url and extract the video id so we can clean it up
-          let video = entry.ytembedUrl;
-          let videoId = extractYoutubeVideoId(video);
-          let autoPlay = entry.autoPlay ? 1 : 0; 
-          let videoUrl = `https://www.youtube.com/embed/${videoId}?&autoplay=${autoPlay}`;
-       
+        
+          let videoUrl =extractYoutubeVideoUrl(entry.ytembedUrl, entry.autoPlay)
           return (
               
             <div className={"videoIframe"}>

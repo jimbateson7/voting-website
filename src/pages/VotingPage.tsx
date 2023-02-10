@@ -15,8 +15,9 @@ interface TVotingPage {
 
 const VotingPage = (props: TVotingPage) => {
   let { introVideoId, postVoteVideoId, title, showIntroVideo, showSharePanel, voted, setVoted } = props;
-  let introVideo = `https://www.youtube.com/embed/${introVideoId}`;
-  let postVideo = `https://www.youtube.com/embed/${postVoteVideoId}`;
+  //pretty sure both of these are meant to be auto-play, but should probably think of something to use extractYoutubeVideoUrl
+  let introVideo = `https://www.youtube.com/embed/${introVideoId}?&autoplay=1`;
+  let postVideo = `https://www.youtube.com/embed/${postVoteVideoId}?&autoplay=1`;
   return (
     <>
       {showIntroVideo
