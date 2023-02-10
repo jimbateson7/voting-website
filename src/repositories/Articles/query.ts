@@ -43,11 +43,7 @@ export function generatePostQuery(slug: string) {
                   slug
                   title
                 }
-                ... on VideoEmbed {
-                  __typename
-                  embedUrl{url}
-                  title
-                }
+          
                  ... on  GenericImage{
                   __typename
                   image{url}

@@ -46,24 +46,14 @@ function renderOptions(links) {
               
           );
         }
-        if (entry.__typename === "VideoEmbed") {
-          return (
-            <iframe
-              src={entry.embedUrl}
-              height="100%"
-              width="100%"
-              frameBorder="0"
-              scrolling="no"
-              title={entry.title}
-              allowFullScreen={true}
-            />
-          );
-        }
+  
         if (entry.__typename === "YoutubeVideoEmbed") {
           // take the video url and extract the video id so we can clean it up
           let video = entry.ytembedUrl;
           let videoId = extractYoutubeVideoId(video);
-          let videoUrl = `https://www.youtube.com/embed/${videoId}`;
+          let autoPlay = entry.autoplay ? 1 : 0; 
+          let videoUrl = `https://www.youtube.com/embed/${videoId}?&autoplay=${autoPlay}"`;
+       
           return (
               
             <div className={"videoIframe"}>
@@ -85,9 +75,10 @@ function renderOptions(links) {
       [BLOCKS.EMBEDDED_ASSET]: (node, next) => {
         // find the asset in the assetMap by ID
         const asset = assetMap.get(node.data.target.sys.id);
-
+        
         // render the asset accordingly
-        return <img src={asset.url} alt={asset.title} />;
+       
+          return <a href={asset.url}>Visit PDF</a>
       },
     },
   };
