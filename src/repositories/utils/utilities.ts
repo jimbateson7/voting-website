@@ -16,7 +16,7 @@ export const extractYoutubeVideoId = (fullUrl?: string): string => {
     return youtubeId;
 };
 
-export const extractYoutubeVideoUrl = (video?: string, autoPlay: boolean = false): string => {
+export const extractYoutubeVideoUrl = (video: string, autoPlay: boolean = false): string => {
     let videoId = extractYoutubeVideoId(video);
     let autoPlayUrl = autoPlay ? 1 : 0;
     let videoUrl = `https://www.youtube.com/embed/${videoId}?&autoplay=${autoPlayUrl}`;

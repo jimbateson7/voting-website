@@ -19,7 +19,7 @@ export const VideoPage = (props: TArticlePage) => {
     setData(dataFetched);
   }
   const [data, setData] = useState<TVideoPage>({
-    header: "...", videoTitle: "UnknownVideo", videoUrl: "", autoPlay:false
+    header: "...video", videoTitle: "UnknownVideo", videoUrl: "", autoPlay:false
   });
 
   useEffect(() => {

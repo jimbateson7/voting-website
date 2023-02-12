@@ -15,6 +15,7 @@ import {extractYoutubeVideoId} from "./repositories/utils/utilities";
 import {VideoPage} from "./components/VideoPage";
 
 
+
 export const headerComponentId = "2EASI81WCZEAsg9bRP370U";
 export const footerComponentId = "4NIP2EIoA7na6BuwxArtLi";
 
@@ -95,7 +96,7 @@ function App() {
                 return (
                     <Route
                         key={index}
-                        path={navItem.slug ?? "blog"}
+                        path={navItem.slug ?? "video"}
                         element={<VideoPage slug={navItem.slug ?? "blog"} />}
                     />
                 );
