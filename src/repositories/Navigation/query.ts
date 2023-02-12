@@ -14,6 +14,10 @@ export function generateNavQuery(id: string) {
       navigationItemCollection(limit: 10) {
         items {
           __typename
+          ... on VideoPage {
+            title
+            slug
+          }
           ... on BlogPost {
             title
             slug

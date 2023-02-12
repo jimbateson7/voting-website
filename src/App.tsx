@@ -83,7 +83,7 @@ function App() {
                     }
                   />
                 );
-
+        
               case NavTypes.BlogPost:
                 return (
                   <Route
@@ -97,7 +97,7 @@ function App() {
                     <Route
                         key={index}
                         path={navItem.slug ?? "video"}
-                        element={<VideoPage slug={navItem.slug ?? "blog"} />}
+                        element={<VideoPage slug={navItem.slug ?? "video"} />}
                     />
                 );
 
