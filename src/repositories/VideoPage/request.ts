@@ -6,9 +6,8 @@ import {mapVideoData} from "./mappings";
 
 export const getVideoPageJson = (slug: string) => {
   const query = generatePostQuery(slug);
-  return fetchDataContentful<QueryResult>(query).then((root: QueryResult) => {
-    
-    return mapVideoData(root); //todo handle failure outside of function
+  return fetchDataContentful<QueryResult>(query).then((root: QueryResult) => {    
+    return mapVideoData(root);
   });
 };
 

@@ -7,16 +7,18 @@ import {
   APP_CONTENTFUL_SPACE_ID, node_env,
 } from "../utils/graphQLfetch";
 import { richTextToReactNode } from "./contentfulRenderFunction";
+import {Logger} from "aws-amplify";
 
 export async function mapBlogData(result: QueryResult): Promise<TPage> {
-
+  
   const actualPost = result.data.blogPostCollection.items[0];
-
+  
   let react = null;
   try {
     react = richTextToReactNode(actualPost.body.json, actualPost.body.links);
   } catch (e) {
-    console.log(e);
+    const logger = new Logger('Exception');
+    logger.error(e);
   }
 
   const model: TPage = {

@@ -4,19 +4,18 @@ import { getNavigationJson } from "../repositories/Navigation/request";
 import { Link } from "react-router-dom";
 import { flattenNavigationRoute } from "../App";
 import {DEBUG_QUERY} from "../repositories/utils/preview";
+import {LogLinks} from "../repositories/utils/utilities";
 
 export const DynamicFooter = ({ id }) => {
   const [links, setLinks] = useState([{ link: "privacy", title: "privacy" }]);
 
   async function fetchData() {
-    let slugs = await flattenNavigationRoute(id);
-    let sentLinks = slugs.map((x) => ({ link: x.slug, title: x.title }));
+    const slugs = await flattenNavigationRoute(id);
+    const sentLinks = slugs.map((x) => ({ link: x.slug, title: x.title }));
     setLinks(sentLinks);
     
-    if(process.env.NODE_ENV === "development" && DEBUG_QUERY) {
-      console.log("Fetching footer data");
-      console.log(sentLinks);
-    }
+    LogLinks(sentLinks)
+    
   }
 
   useEffect(() => {

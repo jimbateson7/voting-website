@@ -1,8 +1,11 @@
 ﻿import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { BLOCKS, INLINES } from "@contentful/rich-text-types";
 import {extractYoutubeVideoId, extractYoutubeVideoUrl} from "../utils/utilities";
+import {Logger} from "aws-amplify";
 
 function renderOptions(links) {
+
+  const logger = new Logger('Rich text render log', 'INFO');
   // create an asset map
   const assetMap = new Map();
   // loop through the assets and add them to the map
@@ -72,8 +75,8 @@ function renderOptions(links) {
       [BLOCKS.EMBEDDED_ASSET]: (node, next) => {
         // find the asset in the assetMap by ID
         const asset = assetMap.get(node.data.target.sys.id);
-        console.log("Asset found: " );
-        console.log(asset);
+        logger.info("Asset found: " );
+        logger.info(asset);
         if(asset.url.endsWith("pdf"))
         {
           return <a href={asset.url}>See PDF: {asset.title}</a>

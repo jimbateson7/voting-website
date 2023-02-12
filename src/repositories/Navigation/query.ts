@@ -3,6 +3,7 @@
 //graphqlplayground
 //2EASI81WCZEAsg9bRP370U
 import {DEBUG_QUERY, getPreview} from "../utils/preview";
+import {LogQuery} from "../utils/utilities";
 
 export function generateNavQuery(id: string) {
 
@@ -44,7 +45,7 @@ export function generateNavQuery(id: string) {
 
 
 `;
-  if(process.env.NODE_ENV == "development" && DEBUG_QUERY) console.log(query);
   
+  LogQuery(query)
   return query;
 }

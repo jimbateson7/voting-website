@@ -11,7 +11,7 @@ import MemberArea from "./pages/MemberArea";
 import NoPage from "./pages/NoPage";
 import LoadingPage from "./pages/LoadingPage";
 import {DEBUG_QUERY, refreshPreview} from "./repositories/utils/preview";
-import {extractYoutubeVideoId} from "./repositories/utils/utilities";
+import {extractYoutubeVideoId, LogLinks} from "./repositories/utils/utilities";
 import {VideoPage} from "./components/VideoPage";
 
 
@@ -38,10 +38,7 @@ function App() {
     let headerLinks = await flattenNavigationRoute(headerComponentId);
     let footerLinks = await flattenNavigationRoute(footerComponentId);
 
-    if(process.env.NODE_ENV === "development" && DEBUG_QUERY) {
-      console.log("Fetching navigation data");
-      console.log(headerLinks);
-    }
+    LogLinks(headerLinks);
     setData(headerLinks.concat(footerLinks));
     setDataLoaded(true);
   }

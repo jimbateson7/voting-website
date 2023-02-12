@@ -5,6 +5,7 @@ import {
     APP_CONTENTFUL_ENVIRONMENT,
     APP_CONTENTFUL_SPACE_ID, node_env
 } from "../utils/graphQLfetch";
+import {Logger} from "aws-amplify";
 
 export const mapNavData = (root: QueryResult) => {
 
@@ -13,7 +14,8 @@ export const mapNavData = (root: QueryResult) => {
   root.data.navigationGroup.navigationItemCollection.items.map(
     (navItem, index) => {
       if (!navItem) {
-        console.log(`nav item ${index} was null`);
+        const logger = new Logger('null');
+        logger.error(`nav item ${index} was null`);       
         return null;
       }
       validNavItems.push(navItem);
