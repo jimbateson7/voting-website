@@ -1,8 +1,8 @@
-import { getNavigationJson } from "../repositories/Navigation/request";
-import React, { useEffect, useState } from "react";
-import { NavigationItem, NavTypes } from "../repositories/Navigation/types";
-import { Link } from "react-router-dom";
-import { DynamicNavDropDown, TDynamicNav } from "./DynamicNav";
+import {getNavigationJson} from "../repositories/Navigation/request";
+import React, {useEffect, useState} from "react";
+import {NavigationItem, NavTypes} from "../repositories/Navigation/types";
+import {Link} from "react-router-dom";
+import {DynamicNavDropDown, TDynamicNav} from "./DynamicNav";
 
 export const DynamicNavList = (props: TDynamicNav) => {
   let { id } = props;
@@ -39,6 +39,7 @@ export const DynamicNavList = (props: TDynamicNav) => {
                   {"Vote"}
                 </Link>
               );
+            case NavTypes.VideoPage:
             case NavTypes.BlogPost:
               return (
                 <Link key={index} to={navItem.slug ?? ""} className="nav-link">

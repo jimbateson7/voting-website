@@ -36,7 +36,7 @@ function renderOptions(links) {
         // find the entry in the entryMap by ID
         const entry = entryBlockMap.get(node.data.target.sys.id);
 
-        if (entry.__typename === "BlogPost") {
+        if (entry.__typename === "BlogPost" || entry.__typename === "VideoPage") {
           return (
               
                   <a href={entry.slug} className={"card"}>                    
@@ -46,7 +46,7 @@ function renderOptions(links) {
               
           );
         }
-  
+       
         if (entry.__typename === "YoutubeVideoEmbed") {
           // take the video url and extract the video id so we can clean it up
         
