@@ -1,6 +1,6 @@
 ﻿import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { BLOCKS, INLINES } from "@contentful/rich-text-types";
-import {extractYoutubeVideoId} from "../utils/utilities";
+import {extractYoutubeVideoId, extractYoutubeVideoUrl} from "../utils/utilities";
 
 function renderOptions(links) {
   // create an asset map
@@ -49,11 +49,8 @@ function renderOptions(links) {
   
         if (entry.__typename === "YoutubeVideoEmbed") {
           // take the video url and extract the video id so we can clean it up
-          let video = entry.ytembedUrl;
-          let videoId = extractYoutubeVideoId(video);
-          let autoPlay = entry.autoplay ? 1 : 0; 
-          let videoUrl = `https://www.youtube.com/embed/${videoId}?&autoplay=${autoPlay}"`;
-       
+        
+          let videoUrl =extractYoutubeVideoUrl(entry.ytembedUrl, entry.autoPlay)
           return (
               
             <div className={"videoIframe"}>
@@ -75,10 +72,19 @@ function renderOptions(links) {
       [BLOCKS.EMBEDDED_ASSET]: (node, next) => {
         // find the asset in the assetMap by ID
         const asset = assetMap.get(node.data.target.sys.id);
-        
+        console.log("Asset found: " );
+        console.log(asset);
+        if(asset.url.endsWith("pdf"))
+        {
+          return <a href={asset.url}>See PDF: {asset.title}</a>
+        }
+        else
+        {
+          return <img src={asset.url} title={asset.title}></img>
+        }
         // render the asset accordingly
-       
-          return <a href={asset.url}>Visit PDF</a>
+        
+          
       },
     },
   };
