@@ -9,15 +9,7 @@ import {
 import { richTextToReactNode } from "./contentfulRenderFunction";
 
 export async function mapBlogData(result: QueryResult): Promise<TPage> {
-  if (result.errors) {
-    console.log("Errors reported:");
-    console.log(result.errors);
-    console.log("Space Id:" + APP_CONTENTFUL_SPACE_ID);
-    console.log("Token:" + APP_CONTENTFUL_ACCESS_TOKEN);
-    console.log("environment:" + APP_CONTENTFUL_ENVIRONMENT);
-    console.log("system environment:" +node_env);
-    console.log("url:" + CONTENT_URL);
-  }
+
   const actualPost = result.data.blogPostCollection.items[0];
 
   let react = null;

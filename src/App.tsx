@@ -12,6 +12,7 @@ import NoPage from "./pages/NoPage";
 import LoadingPage from "./pages/LoadingPage";
 import {DEBUG_QUERY, refreshPreview} from "./repositories/utils/preview";
 import {extractYoutubeVideoId} from "./repositories/utils/utilities";
+import {VideoPage} from "./components/VideoPage";
 
 
 export const headerComponentId = "2EASI81WCZEAsg9bRP370U";
@@ -89,6 +90,14 @@ function App() {
                     path={navItem.slug ?? "blog"}
                     element={<ArticlePage slug={navItem.slug ?? "blog"} />}
                   />
+                );
+              case NavTypes.VideoPage:
+                return (
+                    <Route
+                        key={index}
+                        path={navItem.slug ?? "blog"}
+                        element={<VideoPage slug={navItem.slug ?? "blog"} />}
+                    />
                 );
 
               default:

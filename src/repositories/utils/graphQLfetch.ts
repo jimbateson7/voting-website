@@ -1,4 +1,7 @@
 //todo consider having this as a typed generic
+import {HandleErrors} from "./utilities";
+import {QueryResult} from "./types";
+
 export const node_env =process.env.NODE_ENV;
 
 //temp override while I work out why env variables dont work
@@ -28,5 +31,8 @@ export const fetchData = async <TType>(
     },
     body: JSON.stringify({ query }),
   };
-  return await fetch(url, options).then((res) => res.json());
+  return await fetch(url, options).then((res) => {
+      const result = res.json();
+      HandleErrors(result)
+      return result});
 };

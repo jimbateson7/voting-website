@@ -18,6 +18,7 @@ export interface NavigationItemCollection {
 export enum NavTypes {
     VotingPage = "VotingPage",
     BlogPost = "BlogPost",
+    VideoPage = "VideoPage",
     NavigationGroup = "NavigationGroup",
     ExternalLink = "ExternalLink"
     
