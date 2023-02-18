@@ -5,16 +5,17 @@ import {
     APP_CONTENTFUL_ENVIRONMENT,
     APP_CONTENTFUL_SPACE_ID, node_env
 } from "../utils/graphQLfetch";
-import {Logger} from "aws-amplify";
+import {getLogger} from "../../utils/logger";
+
 
 export const mapNavData = (root: QueryResult) => {
-
     
   let validNavItems: NavigationItem[] = [];
   root.data.navigationGroup.navigationItemCollection.items.map(
     (navItem, index) => {
       if (!navItem) {
-        const logger = new Logger('null');
+         
+        const logger =  getLogger('null')
         logger.error(`nav item ${index} was null`);       
         return null;
       }

@@ -6,8 +6,9 @@ import {
     CONTENT_URL,
     node_env
 } from "./graphQLfetch";
-import { Logger } from 'aws-amplify';
+
 import {DEBUG_QUERY} from "./preview";
+import {getLogger} from "../../utils/logger";
 
 export const extractYoutubeVideoId = (fullUrl?: string): string => {
     if (!fullUrl) return "Invalid Video";
@@ -27,7 +28,7 @@ export const extractYoutubeVideoUrl = (video: string, autoPlay: boolean = false)
 
 export function LogLinks(sentLinks:any)
 {
-    const logger = new Logger('Footer Log');
+    const logger = getLogger('Footer Log');
     if(process.env.NODE_ENV === "development" && DEBUG_QUERY) {
         logger.info("Fetching link data");
         logger.info(sentLinks);
@@ -35,7 +36,7 @@ export function LogLinks(sentLinks:any)
 }
 export function LogQuery(query:string)
 {
-    const logger = new Logger('Query Log');
+    const logger = getLogger('Query Log');
     logger.info("Query called is:")
     logger.info(query);
     logger.info("EOF Query")
@@ -44,7 +45,7 @@ export function LogQuery(query:string)
 }
 
 export function HandleErrors(result:any) {
-    const logger = new Logger('Query Error');
+    const logger = getLogger('Query Error');
     if (result.errors) {
         logger.error("Errors reported:");
         logger.error(result.errors);

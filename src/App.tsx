@@ -1,37 +1,22 @@
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 
 import "./App.scss";
 import Layout from "../src/pages/Layout";
-import { getNavigationJson } from "./repositories/Navigation/request";
-import { NavigationItem, NavTypes } from "./repositories/Navigation/types";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import {NavigationItem, NavTypes} from "./repositories/Navigation/types";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
 import VotingPage from "./pages/VotingPage";
-import { ArticlePage } from "./components/Page";
+import {ArticlePage} from "./components/Page";
 import MemberArea from "./pages/MemberArea";
 import NoPage from "./pages/NoPage";
 import LoadingPage from "./pages/LoadingPage";
-import {DEBUG_QUERY, refreshPreview} from "./repositories/utils/preview";
+import {refreshPreview} from "./repositories/utils/preview";
 import {extractYoutubeVideoId, LogLinks} from "./repositories/utils/utilities";
 import {VideoPage} from "./components/VideoPage";
-
-
+import {flattenNavigationRoute} from "./FlattenNavigationRoute";
 
 export const headerComponentId = "2EASI81WCZEAsg9bRP370U";
 export const footerComponentId = "4NIP2EIoA7na6BuwxArtLi";
 
-export async function flattenNavigationRoute(
-  id: string
-): Promise<NavigationItem[]> {
-  let dataFetched = await getNavigationJson(id);
-  let childIds: string[] = dataFetched
-    .filter((x) => x.__typename == NavTypes.NavigationGroup)
-    .map((x) => x.sys?.id ?? "INVALID")
-    .filter((x) => x != "INVALID");
-  for (const childId of childIds) {
-    dataFetched = dataFetched.concat(await flattenNavigationRoute(childId));
-  }
-  return dataFetched;
-}
 
 function App() {
   async function fetchData() {
@@ -52,7 +37,7 @@ function App() {
   useEffect(() => {
     fetchData().catch(console.error);
   }, []);
-
+  
   
   const createDynamicRoutes = () => {
     return (

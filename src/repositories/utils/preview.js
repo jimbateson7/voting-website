@@ -1,5 +1,4 @@
-﻿import {Logger} from "aws-amplify";
-
+﻿
 let preview = false;
 export function getPreview()
 {

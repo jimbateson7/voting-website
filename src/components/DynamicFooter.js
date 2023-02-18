@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { NavigationItem } from "../repositories/Navigation/types";
 import { getNavigationJson } from "../repositories/Navigation/request";
 import { Link } from "react-router-dom";
-import { flattenNavigationRoute } from "../App";
 import {DEBUG_QUERY} from "../repositories/utils/preview";
 import {LogLinks} from "../repositories/utils/utilities";
+import {flattenNavigationRoute} from "../FlattenNavigationRoute";
 
 export const DynamicFooter = ({ id }) => {
   const [links, setLinks] = useState([{ link: "privacy", title: "privacy" }]);

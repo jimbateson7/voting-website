@@ -1,11 +1,11 @@
 ﻿import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { BLOCKS, INLINES } from "@contentful/rich-text-types";
 import {extractYoutubeVideoId, extractYoutubeVideoUrl} from "../utils/utilities";
-import {Logger} from "aws-amplify";
+import {getLogger} from "../../utils/logger";
 
 function renderOptions(links) {
-
-  const logger = new Logger('Rich text render log', 'INFO');
+  
+  const logger = getLogger('Rich text render log', 'INFO');
   // create an asset map
   const assetMap = new Map();
   // loop through the assets and add them to the map
