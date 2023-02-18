@@ -22,7 +22,7 @@ export const VoteControls = ({ voted, setVoted }: TVoteControls) => {
     if (localGuid) {
       fetchVoteCounts(true).catch(console.error);
     }
-  }, [voted]);
+  }, []);
 
   const fetchVoteCounts = async (checkGuid: boolean) => {
     let localGuid = localStorage.getItem(localStorageKey);
@@ -62,29 +62,27 @@ export const VoteControls = ({ voted, setVoted }: TVoteControls) => {
       localStorage.setItem(localStorageKey, localGuid);
     }
     
-   // if (!voted) {
-      //todo is this strong enough for what we need now? or should we still try and save ip or something?
-      //im thinking we add rate limiting and call it a day on this :)
+    if (!voted || choice != voteChoice) {
+
       const  existingVotes = (await (
           await DataStore.query(Vote, (v) => v.voterId.eq(localGuid))
       ));
       const hasIdAlreadyVoted =  existingVotes.length != 0;
-      
+    
       if(hasIdAlreadyVoted)
       {
           const existingVote = existingVotes[0];
           await DataStore.delete( existingVote);
       }
       
-      await DataStore.save(
+       await DataStore.save(
         new Vote({ choice: choice, voterId: localGuid })
       ).then((x) => {
         fetchVoteCounts(true);
-      });
-      
+      });      
       
       setVoted(true);
-   // }
+    }
   };
 
   return (
