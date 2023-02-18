@@ -6,18 +6,23 @@ import {
     CONTENT_URL,
     node_env
 } from "./graphQLfetch";
-
-export const extractYoutubeVideoId = (fullUrl?: string): string => {
-    if (!fullUrl) return "Invalid Video";
+function isEmptyOrSpaces(str : string){
+    return str === null || str.match(/^ *$/) !== null;
+}
+export const extractYoutubeVideoId = (fullUrl?: string): string | undefined=> {
+    if (!fullUrl  || isEmptyOrSpaces(fullUrl)) return undefined;
 
     //this way someone can add a "watch/embed/share/the id" yt link and it will still work
     const youtubeId = fullUrl.slice(-11);
-
-    return youtubeId;
+    
+    return isEmptyOrSpaces(youtubeId) ? undefined : youtubeId;
 };
 
-export const extractYoutubeVideoUrl = (video: string, autoPlay: boolean = false): string => {
+export const extractYoutubeVideoUrl = (video: string, autoPlay: boolean = false): string | undefined => {
     let videoId = extractYoutubeVideoId(video);
+    if(!videoId)
+        return undefined;
+    
     let autoPlayUrl = autoPlay ? 1 : 0;
     let videoUrl = `https://www.youtube.com/embed/${videoId}?&autoplay=${autoPlayUrl}`;
     return videoUrl;

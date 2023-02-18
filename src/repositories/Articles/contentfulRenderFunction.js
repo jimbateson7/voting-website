@@ -51,7 +51,7 @@ function renderOptions(links) {
           // take the video url and extract the video id so we can clean it up
         
           let videoUrl =extractYoutubeVideoUrl(entry.ytembedUrl, entry.autoPlay)
-          return (
+          return videoUrl ? (
               
             <div className={"videoIframe"}>
               <iframe
@@ -63,7 +63,7 @@ function renderOptions(links) {
                 allowFullScreen
               ></iframe>
             </div>
-          );
+          ) : null;
         }
         if (entry.__typename === "GenericImage") {
           return <img src={entry.image.url} alt={entry.title} />;

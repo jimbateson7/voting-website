@@ -5,7 +5,7 @@ import "./Page.scss";
 import {getVideoPageJson} from "../repositories/VideoPage/request";
 export interface TVideoPage {
   header: string;
-  videoUrl: string;
+  videoUrl: string | undefined;
   videoTitle: string;
   autoPlay:boolean;
 }
@@ -29,7 +29,7 @@ export const VideoPage = (props: TArticlePage) => {
   return (
     <>   
       <h1>{data.header}</h1>
-      <div className={"videoIframe"}>
+      <div className={"videoIframe"}>        
         <iframe
             className="video"
             src={data.videoUrl} //todo autoplay
