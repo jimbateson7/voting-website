@@ -18,6 +18,7 @@ function Share({ postVoteVideo }) {
       ></iframe> : null }
 
       <h2>PLEASE SHARE</h2>
+      <p>Thanks very much for voting.  It's very important to get as many peole voting as possible so please share with your family and your friends!</p>
       <div className="social-links">
         <Link to="https://www.facebook.com/sharer/sharer.php?u=https%3A//ourplanetourpeople.com">
           <FaFacebook style={{ color: '#4267B2', fontSize: '3rem', padding: '.25rem' }} />
