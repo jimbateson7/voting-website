@@ -48,7 +48,8 @@ svg {
   margin: 1rem;
 
   &.voted-this {
-    
+    border: yellow 3px ;
+    border-style: dashed;
   }
   &.voted-other {
     opacity: 0.6;
