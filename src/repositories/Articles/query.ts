@@ -3,6 +3,7 @@
 //graphqlplayground
 
 import {DEBUG_QUERY, getPreview} from "../utils/preview";
+import {navigationGroup} from "../Navigation/query";
 
 export function generatePostQuery(slug: string) {
 
@@ -50,6 +51,11 @@ export function generatePostQuery(slug: string) {
                   title
                   
                 }
+                ... on  NavigationGroup{
+                  __typename                 
+                  title
+                  ${navigationGroup}
+                }
                 ... on  YoutubeVideoEmbed{
                   __typename
                   ytembedUrl
@@ -77,7 +83,7 @@ export function generatePostQuery(slug: string) {
     }
   }
 `;
-  if(process.env.NODE_ENV == "development" && DEBUG_QUERY) console.log(query);
+ /* if(process.env.NODE_ENV == "development" && DEBUG_QUERY) */console.log(query);
  
   return query;
 }

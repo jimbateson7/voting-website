@@ -4,14 +4,42 @@
 //2EASI81WCZEAsg9bRP370U
 import {DEBUG_QUERY, getPreview} from "../utils/preview";
 
-export function generateNavQuery(id: string) {
-
-  const isPreview = getPreview();
-  const query =  `
-  query findNavById{
-  navigationGroup(id: "${id}" preview:${isPreview}) {
- 
-      navigationItemCollection(limit: 10) {
+function buildNavigationGroup(levels:number):string
+{
+    levels--
+    if(levels >= 0)
+        return `navigationItemCollection(limit: 10) {
+        items {
+          __typename
+          ... on VideoPage {
+            title
+            slug
+            video{ytembedUrl,autoPlay,title}
+          }
+          ... on BlogPost {
+            title
+            slug
+          }
+          ... on ExternalLink {
+            title
+            url
+          }
+          ... on NavigationGroup {
+            title            
+            sys{id}            
+             ${buildNavigationGroup(levels)}
+          }
+          ... on VotingPage {
+            title
+            introVideo
+            postVoteVideo
+          }
+        }
+      }`;
+    return "";
+}
+export const navigationGroup = buildNavigationGroup(2)
+/*export const navigationGroup =`navigationItemCollection(limit: 10) {
         items {
           __typename
           ... on VideoPage {
@@ -27,10 +55,9 @@ export function generateNavQuery(id: string) {
             url
           }
           ... on NavigationGroup {
-            title
-            
-            sys{id}
-            
+            title            
+            sys{id}            
+             ${buildNavigationGroup(1)}
           }
           ... on VotingPage {
             title
@@ -38,7 +65,16 @@ export function generateNavQuery(id: string) {
             postVoteVideo
           }
         }
-      }
+      }`
+*/
+export function generateNavQuery(id: string) {
+
+  const isPreview = getPreview();
+  const query =  `
+  query findNavById{
+  navigationGroup(id: "${id}" preview:${isPreview}) {
+ 
+      ${navigationGroup}
     }
   }
 
