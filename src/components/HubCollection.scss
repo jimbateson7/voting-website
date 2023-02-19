@@ -1,8 +1,8 @@
-.hub
+.cards
 {
   display: flex;
   flex-direction: row;
-  flex-flow: column wrap;
+  flex-flow: row wrap;
   align-items: center;
   justify-content: center;
 }
@@ -11,7 +11,8 @@
   
   text-decoration: none;
   color: inherit;
-
+  width: 200px;
+  height: 200px;
 
   border: 1px solid #eaeaea;
   border-radius: 15px;
@@ -36,5 +37,15 @@
     align-items: center;
     justify-content: center;
   }
+ 
 
+}
+//todo probablu doesnt need its own class?
+.video-card
+{
+  width: 50%;
+  height: 100%;
+  padding: 0;
+  
+  a{text-decoration: none!important;}
 }

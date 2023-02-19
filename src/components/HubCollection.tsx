@@ -29,8 +29,8 @@ export const HubCard = (props:THubCard) =>{
 }
 export const VideoHubCard = (props:TVidoHubCard) =>{
     return (
-        <div className="card-content card">
-        <a href={props.link}>{props.title}</a>
+        <div className="card-content card video-card">
+        <a href={props.link}><h3>{props.title}</h3></a>
         <VideoEmbed title={props.videoTitle} url={props.videoUrl} autoplay={false}/>
     </div>)
 }
@@ -75,8 +75,11 @@ export const HubCollection = (props: THubCollection) =>{
     return (
         <div className="hub">
             {props.title ? <h2 id={createAnchorLinkFromTitle(props.title)}>{props.title}</h2> : null}
-            {mainHubCards}
+           
+            <div className="cards">
+            {mainHubCards}</div>
             <hr/>
+           
             {subHubCollections}
         </div>);       
       
