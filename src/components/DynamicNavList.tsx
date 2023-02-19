@@ -48,7 +48,8 @@ export const DynamicNavList = (props: TDynamicNav) => {
               );
             case NavTypes.NavigationGroup:
               return (
-                <DynamicNavDropDown
+                  navItem.hideInHeader ? null :
+                      <DynamicNavDropDown
                   key={index}
                   id={navItem?.sys?.id ?? "123"}
                   title={navItem.title}

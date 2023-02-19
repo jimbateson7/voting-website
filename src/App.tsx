@@ -85,6 +85,7 @@ function App() {
                 );
         
               case NavTypes.BlogPost:
+                
                 return (
                   <Route
                     key={index}

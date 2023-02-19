@@ -26,6 +26,7 @@ export enum NavTypes {
 
 export interface NavigationItem {
     __typename: NavTypes
+    hideInHeader:boolean
     introVideo?: string
     postVoteVideo?: string
     title?: string   

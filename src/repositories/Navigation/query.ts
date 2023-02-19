@@ -9,6 +9,8 @@ function buildNavigationGroup(levels:number):string
     levels--
     if(levels >= 0)
         return `navigationItemCollection(limit: 10) {
+        
+        
         items {
           __typename
           ... on VideoPage {
@@ -28,7 +30,9 @@ function buildNavigationGroup(levels:number):string
             title            
             sys{id}            
              ${buildNavigationGroup(levels)}
+             hideInHeader
           }
+       
           ... on VotingPage {
             title
             introVideo
@@ -39,34 +43,7 @@ function buildNavigationGroup(levels:number):string
     return "";
 }
 export const navigationGroup = buildNavigationGroup(3)
-/*export const navigationGroup =`navigationItemCollection(limit: 10) {
-        items {
-          __typename
-          ... on VideoPage {
-            title
-            slug
-          }
-          ... on BlogPost {
-            title
-            slug
-          }
-          ... on ExternalLink {
-            title
-            url
-          }
-          ... on NavigationGroup {
-            title            
-            sys{id}            
-             ${buildNavigationGroup(1)}
-          }
-          ... on VotingPage {
-            title
-            introVideo
-            postVoteVideo
-          }
-        }
-      }`
-*/
+
 export function generateNavQuery(id: string) {
 
   const isPreview = getPreview();

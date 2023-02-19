@@ -16,7 +16,8 @@ export const mapNavData = (root: QueryResult) => {
         console.log(`nav item ${index} was null`);
         return null;
       }
-      validNavItems.push(navItem);
+      
+        validNavItems.push(navItem);
     }
   );
 

@@ -23,8 +23,9 @@ export const ArticlePage = (props: TArticlePage) => {
     richText: null,
   });
 
+  
   useEffect(() => {
-    fetchData().catch(console.error);
+    fetchData().catch(reason => {console.log(reason)});
   }, [slug]);
 
   const styleClass = data.heroImageUrl ? "heroWithImage" : "hero";
