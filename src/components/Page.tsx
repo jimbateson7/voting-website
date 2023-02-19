@@ -1,6 +1,7 @@
 ﻿import { ReactNode, useEffect, useState } from "react";
 
 import "./Page.scss";
+import "./HubCollection.scss";
 import { getPageJson } from "../repositories/Articles/request";
 export interface TPage {
   header: string;
