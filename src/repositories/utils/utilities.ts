@@ -7,6 +7,14 @@ import {
     node_env
 } from "./graphQLfetch";
 
+export function createAnchorLinkFromTitle(link:string) :string
+{
+    let text = `${link}`;
+    text = text.trim().toLowerCase();
+    text = text.replace(" ", "-");
+    return text;
+}
+
 export const extractYoutubeVideoId = (fullUrl?: string): string => {
     if (!fullUrl) return "Invalid Video";
 

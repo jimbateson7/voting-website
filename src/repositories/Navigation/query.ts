@@ -38,7 +38,7 @@ function buildNavigationGroup(levels:number):string
       }`;
     return "";
 }
-export const navigationGroup = buildNavigationGroup(2)
+export const navigationGroup = buildNavigationGroup(3)
 /*export const navigationGroup =`navigationItemCollection(limit: 10) {
         items {
           __typename

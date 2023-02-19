@@ -1,6 +1,10 @@
 ﻿import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { BLOCKS, INLINES } from "@contentful/rich-text-types";
-import {extractYoutubeVideoId, extractYoutubeVideoUrl} from "../utils/utilities";
+import {createAnchorLinkFromTitle, extractYoutubeVideoUrl} from "../utils/utilities";
+import {HubCollection} from "../../components/HubCollection";
+import {VideoEmbed} from "../../components/VideoEmbed";
+
+
 
 function renderOptions(links) {
   // create an asset map
@@ -22,30 +26,7 @@ function renderOptions(links) {
     entryMap.set(entry.sys.id, entry);
   }
   const entryBlockMap = entryMap;
-  function createAnchorLink(link)
-  {
-    let text = `${link}`;
-    text = text.trim().toLowerCase();
-    text = text.replace(" ", "-");
-    return text;
-  }
-
-  function videoEmbed(title, url, autoplay) {
-    let videoUrl = extractYoutubeVideoUrl(url, autoplay)
-    return (
-
-        <div className={"videoIframe"}>
-          <iframe
-              className="video"
-              src={videoUrl}
-              title={title}
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowFullScreen
-          ></iframe>
-        </div>
-    );
-  }
+  
 
   return {
     // other options...
@@ -58,57 +39,21 @@ function renderOptions(links) {
       },
       [BLOCKS.HEADING_2]:(node, children) =>
       {
-          return <h2 id={`${children}`}>{children}</h2>
+        let text = createAnchorLinkFromTitle(children);
+          return <h2 id={`${text}`}>{children}</h2>
         },
       [BLOCKS.HEADING_3]:(node, children) =>
       {
-         let text = createAnchorLink(children);
+         let text = createAnchorLinkFromTitle(children);
          return <h3 id={text}>{children}</h3>
       },
       [BLOCKS.EMBEDDED_ENTRY]: (node, children) => {
         // find the entry in the entryMap by ID
-        const entry = entryBlockMap.get(node.data.target.sys.id);
-
-        function handleNavItems(items) {
-          if(!items)
-            return [];
-          
-          let nodesUnderneath = [];          
-          let nodes = [];
-          
-          items.forEach((x,i) => {
-            let link = x.slug ?? `#${createAnchorLink(x.title)}`;
-
-            
-            if (x.__typename === "NavigationGroup") {             
-              nodesUnderneath.push(<h3 id={createAnchorLink(x.title)}>{x.title}</h3>)
-              nodesUnderneath.push(handleNavItems(x.navigationItemCollection?.items))         
-            }
-
-            if (x.__typename === "VideoPage") {
-              nodes.push(<div className={"card"} key={i}>
-                <div className="card-content">
-                  <a href={link}>{x.title}</a>
-                  {videoEmbed(x.video.title,x.video.ytembedUrl,false)}
-                </div>
-              </div>)
-            }
-            else {
-              nodes.push(<a href={link} className={"card"} key={i}>
-                <div className="card-content">
-                  <h2>{x.title}</h2>
-                </div>
-              </a>)
-            }
-          })
-          nodes =   nodes.concat(nodesUnderneath);
-          return nodes;
-        }
+        const entry = entryBlockMap.get(node.data.target.sys.id);        
 
         if(entry.__typename === "NavigationGroup")
         {
-          return handleNavItems(entry.navigationItemCollection.items);
-
+          return <HubCollection items={entry.navigationItemCollection.items}></HubCollection>
         }
         if (entry.__typename === "BlogPost" || entry.__typename === "VideoPage") {
           return (
@@ -122,8 +67,8 @@ function renderOptions(links) {
         }
        
         if (entry.__typename === "YoutubeVideoEmbed") {
-          // take the video url and extract the video id so we can clean it up
-          return videoEmbed(entry.title, entry.ytembedUrl, entry.autoPlay);
+          // take the video url and extract the video id so we can clean it up       
+          return <VideoEmbed url={entry.ytembedUrl} title={entry.title} autoplay={entry.autoPlay}></VideoEmbed>
         }
         if (entry.__typename === "GenericImage") {
           return <img src={entry.image.url} alt={entry.title} />;
@@ -136,6 +81,7 @@ function renderOptions(links) {
         console.log(asset);
         if(asset.url.endsWith("pdf"))
         {
+
           return <a href={asset.url}>See PDF: {asset.title}</a>
         }
         else
