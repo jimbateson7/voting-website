@@ -1,6 +1,6 @@
 import {DataStore} from "@aws-amplify/datastore";
 import {Choice, Vote} from "../models";
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {Button, Col, Row} from "react-bootstrap";
 import {v4 as generateGuid} from "uuid";
 import {FaThumbsDown, FaThumbsUp} from "react-icons/fa";
@@ -16,24 +16,16 @@ export const VoteControls = ({ voted, setVoted }: TVoteControls) => {
   const [voteChoice, setVoteChoice] = useState<Choice | undefined>(undefined)
   const localStorageKey = "voterId";
 
-  useEffect(() => {
-    let localGuid = localStorage.getItem(localStorageKey);
-
-    if (localGuid) {
-      fetchVoteCounts(true).catch(console.error);
-    }
-  }, []);
-
-  const fetchVoteCounts = async (checkGuid: boolean) => {
+  const fetchVoteCounts = useCallback(async (checkGuid:boolean) => {
     let localGuid = localStorage.getItem(localStorageKey);
 
     const votes = (await (
         await DataStore.query(Vote, (v) => v.voterId.eq(localGuid))
     ));
     const hasVoted =
-      votes.length != 0;
+        votes.length !== 0;
     setVoted(hasVoted);
-    
+
     if(hasVoted)
     {
       const vote = votes[0];
@@ -42,17 +34,30 @@ export const VoteControls = ({ voted, setVoted }: TVoteControls) => {
 
     if (checkGuid || hasVoted) {
       setNumNoVotes(
-        await (
-          await DataStore.query(Vote, (v) => v.choice.eq(Choice.NO))
-        ).length
+          await (
+              await DataStore.query(Vote, (v) => v.choice.eq(Choice.NO))
+          ).length
       );
       setNumYesVotes(
-        await (
-          await DataStore.query(Vote, (v) => v.choice.eq(Choice.YES))
-        ).length
+          await (
+              await DataStore.query(Vote, (v) => v.choice.eq(Choice.YES))
+          ).length
       );
     }
-  };
+  }, [setVoted])
+  
+  
+  
+  
+  useEffect(() => {
+    let localGuid = localStorage.getItem(localStorageKey);
+
+    if (localGuid) {
+      fetchVoteCounts(true).catch(console.error);
+    }
+  }, [fetchVoteCounts]);
+
+  
 
   const SaveVoteToDb = async (choice: Choice) => {
     let localGuid = localStorage.getItem(localStorageKey);
@@ -62,12 +67,12 @@ export const VoteControls = ({ voted, setVoted }: TVoteControls) => {
       localStorage.setItem(localStorageKey, localGuid);
     }
     
-    if (!voted || choice != voteChoice) {
+    if (!voted || choice !== voteChoice) {
 
       const  existingVotes = (await (
           await DataStore.query(Vote, (v) => v.voterId.eq(localGuid))
       ));
-      const hasIdAlreadyVoted =  existingVotes.length != 0;
+      const hasIdAlreadyVoted =  existingVotes.length !== 0;
     
       if(hasIdAlreadyVoted)
       {

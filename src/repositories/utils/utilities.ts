@@ -54,7 +54,7 @@ export function LogQuery(query:string)
     logger.info(query);
     logger.info("EOF Query")
 
-    //if(process.env.NODE_ENV == "development" && DEBUG_QUERY) console.log(query);
+    if(process.env.NODE_ENV === "development" && DEBUG_QUERY) console.log(query);
 }
 
 export function HandleErrors(result:any) {
@@ -76,9 +76,9 @@ export async function flattenNavigationRoute(
 
     let dataFetched = await getNavigationJson(id);
     let childIds: string[] = dataFetched
-        .filter((x) => x.__typename == ContentTypes.NavigationGroup)
+        .filter((x) => x.__typename === ContentTypes.NavigationGroup)
         .map((x) => x.sys?.id ?? "INVALID")
-        .filter((x) => x != "INVALID");
+        .filter((x) => x !== "INVALID");
     for (const childId of childIds) {
         dataFetched = dataFetched.concat(await flattenNavigationRoute(childId));
     }

@@ -89,7 +89,7 @@ function renderOptions(links) {
         }
         else
         {
-          return <img src={asset.url} title={asset.title}></img>
+          return <img alt={""} src={asset.url} title={asset.title}></img>
         }          
           
       },
@@ -97,5 +97,5 @@ function renderOptions(links) {
   };
 }
 
-export const richTextToReactNode = (json, links) =>
+export const richTextToReactNodes = (json, links) =>
   documentToReactComponents(json, renderOptions(links));

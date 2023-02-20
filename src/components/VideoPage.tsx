@@ -1,5 +1,4 @@
-﻿import {  useEffect, useState } from "react";
-
+﻿import {useCallback, useEffect, useState} from "react";
 import "./Page.scss";
 
 import {getVideoPageJson} from "../repositories/VideoPage/request";
@@ -14,17 +13,20 @@ export type TArticlePage = {
 };
 export const VideoPage = (props: TArticlePage) => {
   let { slug } = props;
-  async function fetchData() {
+
+  const fetchData = useCallback(async () => {
     let dataFetched = await getVideoPageJson(slug);
     setData(dataFetched);
-  }
+  }, [slug])
+
+
   const [data, setData] = useState<TVideoPage>({
     header: "...video", videoTitle: "UnknownVideo", videoUrl: "", autoPlay:false
   });
 
   useEffect(() => {
     fetchData().catch(console.error);
-  }, [slug]);
+  }, [slug,fetchData]);
 
   return (
     <>   

@@ -2,7 +2,6 @@
 //https://app.contentful.com/spaces/fojlfyn3xufg/environments/staging/entries/1n9FMvYa8MWstVI19atW2w
 //graphqlplayground
 //2EASI81WCZEAsg9bRP370U
-import {DEBUG_QUERY, getPreview} from "../utils/preview";
 
 const blogPost = `title
             slug`;

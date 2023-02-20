@@ -6,7 +6,6 @@ import {DEBUG_QUERY, getPreview} from "../utils/preview";
 import {LogQuery} from "../utils/utilities";
 
 export function generatePostQuery(slug: string) {
-
  
   const isPreview = getPreview();
   const query = `query videoPageCollectionQuery {

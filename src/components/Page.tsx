@@ -1,5 +1,4 @@
-﻿import { ReactNode, useEffect, useState } from "react";
-
+﻿import {ReactNode, useCallback, useEffect, useState} from "react";
 import "./Page.scss";
 import "./HubCollection.scss";
 import { getPageJson } from "../repositories/Articles/request";
@@ -14,19 +13,20 @@ export type TArticlePage = {
 };
 export const ArticlePage = (props: TArticlePage) => {
   let { slug } = props;
-  async function fetchData() {
+
+  const fetchData = useCallback(async () => {
     let dataFetched = await getPageJson(slug);
     setData(dataFetched);
-  }
+  }, [slug])
+  
   const [data, setData] = useState<TPage>({
     header: "...",
     richText: null,
   });
-
   
   useEffect(() => {
     fetchData().catch(reason => {console.log(reason)});
-  }, [slug]);
+  }, [slug,fetchData]);
 
   const styleClass = data.heroImageUrl ? "heroWithImage" : "hero";
   return (

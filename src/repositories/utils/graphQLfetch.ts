@@ -1,6 +1,5 @@
 //todo consider having this as a typed generic
 import {HandleErrors} from "./utilities";
-import {QueryResult} from "./types";
 
 export const node_env =process.env.NODE_ENV;
 
@@ -8,7 +7,7 @@ export const node_env =process.env.NODE_ENV;
 export const developmentSpace = "master" //todo set to development when i work out whats going on with that...
 export const APP_CONTENTFUL_SPACE_ID = process.env.REACT_APP_CONTENTFUL_SPACE_ID ?? "fojlfyn3xufg";
 export const APP_CONTENTFUL_ACCESS_TOKEN = process.env.REACT_APP_CONTENTFUL_ACCESS_TOKEN ?? "-kDKoZzkrGEjncgbgYjRQjA3fx9XT6cF20Lqyzrf7Vs";
-export const APP_CONTENTFUL_ENVIRONMENT = process.env.REACT_APP_CONTENTFUL_ENVIRONMENT ?? node_env=="development" ? developmentSpace: "master";
+export const APP_CONTENTFUL_ENVIRONMENT = process.env.REACT_APP_CONTENTFUL_ENVIRONMENT ?? node_env==="development" ? developmentSpace: "master";
 
 const TOKEN = APP_CONTENTFUL_ACCESS_TOKEN; 
 const SPACE = APP_CONTENTFUL_SPACE_ID; 

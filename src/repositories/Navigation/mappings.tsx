@@ -1,17 +1,11 @@
 import { NavigationItem, QueryResult } from "./types";
-import {
-    CONTENT_URL,
-    APP_CONTENTFUL_ACCESS_TOKEN,
-    APP_CONTENTFUL_ENVIRONMENT,
-    APP_CONTENTFUL_SPACE_ID, node_env
-} from "../utils/graphQLfetch";
 import {getLogger} from "../../utils/logger";
 
 
 export const mapNavData = (root: QueryResult) => {
     
   let validNavItems: NavigationItem[] = [];
-  root.data.navigationGroup.navigationItemCollection.items.map(
+  root.data.navigationGroup.navigationItemCollection.items.forEach(
     (navItem, index) => {
       if (!navItem) {
          

@@ -1,5 +1,5 @@
 import {getNavigationJson} from "../repositories/Navigation/request";
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import {NavigationItem, ContentTypes} from "../repositories/Navigation/types";
 import {Link} from "react-router-dom";
 import {DynamicNavDropDown, TDynamicNav} from "./DynamicNav";
@@ -7,16 +7,16 @@ import {DynamicNavDropDown, TDynamicNav} from "./DynamicNav";
 export const DynamicNavList = (props: TDynamicNav) => {
   let { id } = props;
 
-  async function fetchData() {
+  const fetchData = useCallback(async () => {
     let dataFetched = await getNavigationJson(id);
     setData(dataFetched);
-  }
-
+  }, [id])
+  
   const [data, setData] = useState<NavigationItem[]>();
 
   useEffect(() => {
     fetchData().catch(console.error);
-  }, []);
+  }, [fetchData]);
   return (
     <>
       {data &&

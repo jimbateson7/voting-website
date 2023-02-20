@@ -1,15 +1,12 @@
 //generate by
 //https://app.contentful.com/spaces/fojlfyn3xufg/environments/staging/entries/1n9FMvYa8MWstVI19atW2w
 //graphqlplayground
-
-import {DEBUG_QUERY, getPreview} from "../utils/preview";
+import {getPreview} from "../utils/preview";
 import {navigationGroup} from "../Navigation/query";
 import {LogQuery} from "../utils/utilities";
 import {QueryBlocks} from "../Common/query";
 
-export function generatePostQuery(slug: string) {
-
- 
+export function generatePostQuery(slug: string) { 
   const isPreview = getPreview();
   const query = `query blogPostCollectionQuery{
     blogPostCollection(limit: 1, where: {slug: "${slug}"}, preview:${isPreview}) {
