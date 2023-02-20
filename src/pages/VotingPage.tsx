@@ -4,8 +4,8 @@ import { VoteControls } from "../components/VoteControls";
 import { Row } from "react-bootstrap";
 
 interface TVotingPage {
-  introVideoId: string;
-  postVoteVideoId: string;
+  introVideoId: string | undefined;
+  postVoteVideoId: string | undefined;
   title: string;
   showIntroVideo: boolean;
   showSharePanel: boolean;
@@ -16,11 +16,12 @@ interface TVotingPage {
 const VotingPage = (props: TVotingPage) => {
   let { introVideoId, postVoteVideoId, title, showIntroVideo, showSharePanel, voted, setVoted } = props;
   //pretty sure both of these are meant to be auto-play, but should probably think of something to use extractYoutubeVideoUrl
-  let introVideo = `https://www.youtube.com/embed/${introVideoId}?&autoplay=1`;
-  let postVideo = `https://www.youtube.com/embed/${postVoteVideoId}?&autoplay=1`;
+  let introVideo = `https://www.youtube.com/embed/${introVideoId}`; //?&autoplay=1`;
+ 
+  let postVideo = postVoteVideoId ?  `https://www.youtube.com/embed/${postVoteVideoId}?&autoplay=1` : undefined;
   return (
     <>
-      {showIntroVideo
+      {showIntroVideo && introVideo
         ? <Row>
             <iframe
               className="intro-video"

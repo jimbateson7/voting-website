@@ -23,7 +23,7 @@ svg {
   &.thumbs-up {
     color: green;
   }
-
+ 
   &.thumbs-down {
     color: red;
   }
@@ -47,6 +47,15 @@ svg {
   border-radius: 1rem;
   margin: 1rem;
 
+  &.voted-this {
+    border: yellow 3px ;
+    border-style: dashed;
+  }
+  &.voted-other {
+    opacity: 0.6;
+    cursor: pointer;
+  }
+
   span {
     display: block;
     font-weight: bold;
@@ -55,9 +64,11 @@ svg {
     &.yes {
       color: green;
     }
+    
 
     &.no {
       color: red;
     }
+    
   }
 }

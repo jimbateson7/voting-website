@@ -3,8 +3,11 @@ import { FaFacebook, FaLinkedin, FaTwitter, FaInstagram, FaWhatsapp, FaEnvelope 
 import './Share.scss';
 
 function Share({ postVoteVideo }) {
+  
   return (
     <div className="share frame-shadow">
+
+      {postVoteVideo ? 
       <iframe
         className="video"
         src={postVoteVideo} // TODO: Should this auto-play when component loads after vote? If so, append "?autoplay=1" to URL
@@ -12,9 +15,10 @@ function Share({ postVoteVideo }) {
         frameBorder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         allowFullScreen
-      ></iframe>
+      ></iframe> : null }
 
       <h2>PLEASE SHARE</h2>
+      <p>Thanks very much for voting.  It's very important to get as many peole voting as possible so please share with your family and your friends!</p>
       <div className="social-links">
         <Link to="https://www.facebook.com/sharer/sharer.php?u=https%3A//ourplanetourpeople.com">
           <FaFacebook style={{ color: '#4267B2', fontSize: '3rem', padding: '.25rem' }} />
