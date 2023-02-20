@@ -5,16 +5,18 @@ import {
     APP_CONTENTFUL_ENVIRONMENT,
     APP_CONTENTFUL_SPACE_ID, node_env
 } from "../utils/graphQLfetch";
-import {HandleErrors} from "../utils/utilities";
+import {getLogger} from "../../utils/logger";
+
 
 export const mapNavData = (root: QueryResult) => {
-    HandleErrors(root);
     
   let validNavItems: NavigationItem[] = [];
   root.data.navigationGroup.navigationItemCollection.items.map(
     (navItem, index) => {
       if (!navItem) {
-        console.log(`nav item ${index} was null`);
+         
+        const logger =  getLogger('Nav-Info')
+        logger.error(`nav item ${index} was null`);       
         return null;
       }
       

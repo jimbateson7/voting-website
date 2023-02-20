@@ -4,9 +4,12 @@ import {createAnchorLinkFromTitle} from "../utils/utilities";
 import {HubCollection} from "../../components/HubCollection";
 import {VideoEmbed} from "../../components/VideoEmbed";
 import {AssetTypes, ContentTypes} from "../Navigation/types";
+import {getLogger} from "../../utils/logger";
 
 
 function renderOptions(links) {
+  
+  const logger = getLogger('Rich text render log', 'INFO');
   // create an asset map
   const assetMap = new Map();
   // loop through the assets and add them to the map
@@ -77,8 +80,8 @@ function renderOptions(links) {
       [BLOCKS.EMBEDDED_ASSET]: (node, next) => {
         // find the asset in the assetMap by ID
         const asset = assetMap.get(node.data.target.sys.id);
-        console.log("Asset found: " );
-        console.log(asset);
+        logger.info("Asset found: " );
+        logger.info(asset);
         // render the asset accordingly     
         if(asset.url.endsWith("pdf"))
         {

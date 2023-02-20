@@ -4,6 +4,7 @@
 
 import {DEBUG_QUERY, getPreview} from "../utils/preview";
 import {navigationGroup} from "../Navigation/query";
+import {LogQuery} from "../utils/utilities";
 import {QueryBlocks} from "../Common/query";
 
 export function generatePostQuery(slug: string) {
@@ -82,7 +83,7 @@ export function generatePostQuery(slug: string) {
     }
   }
 `;
-  if(process.env.NODE_ENV == "development" && DEBUG_QUERY) console.log(query);
- 
+
+  LogQuery(query);
   return query;
 }

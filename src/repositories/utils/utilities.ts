@@ -20,6 +20,9 @@ export function createAnchorLinkFromTitle(link:string) :string
     return text;
 }
 
+import {DEBUG_QUERY} from "./preview";
+import {getLogger} from "../../utils/logger";
+
 export const extractYoutubeVideoId = (fullUrl?: string): string => {
     if (!fullUrl  || isEmptyOrSpaces(fullUrl)) return undefined;
 
@@ -38,15 +41,35 @@ export const extractYoutubeVideoUrl = (video: string, autoPlay: boolean = false)
     let videoUrl = `https://www.youtube.com/embed/${videoId}?&autoplay=${autoPlayUrl}`;
     return videoUrl;
 };
+
+export function LogLinks(sentLinks:any)
+{
+    const logger = getLogger('Footer Log');
+    if(process.env.NODE_ENV === "development" && DEBUG_QUERY) {
+        logger.info("Fetching link data");
+        logger.info(sentLinks);
+    }
+}
+export function LogQuery(query:string)
+{
+    const logger = getLogger('Query Log');
+    logger.info("Query called is:")
+    logger.info(query);
+    logger.info("EOF Query")
+
+    //if(process.env.NODE_ENV == "development" && DEBUG_QUERY) console.log(query);
+}
+
 export function HandleErrors(result:any) {
+    const logger = getLogger('Query Error');
     if (result.errors) {
-        console.log("Errors reported:");
-        console.log(result.errors);
-        console.log("Space Id:" + APP_CONTENTFUL_SPACE_ID);
-        console.log("Token:" + APP_CONTENTFUL_ACCESS_TOKEN);
-        console.log("environment:" + APP_CONTENTFUL_ENVIRONMENT);
-        console.log("system environment:" + node_env);
-        console.log("url:" + CONTENT_URL);
+        logger.error("Errors reported:");
+        logger.error(result.errors);
+        logger.error("Space Id:" + APP_CONTENTFUL_SPACE_ID);
+        logger.error("Token:" + APP_CONTENTFUL_ACCESS_TOKEN);
+        logger.error("environment:" + APP_CONTENTFUL_ENVIRONMENT);
+        logger.error("system environment:" + node_env);
+        logger.error("url:" + CONTENT_URL);
     }
 }
 

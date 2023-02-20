@@ -4,6 +4,7 @@
 //2EASI81WCZEAsg9bRP370U
 import {DEBUG_QUERY, getPreview} from "../utils/preview";
 import {QueryBlocks} from "../Common/query";
+import {LogQuery} from "../utils/utilities";
 
 function buildNavigationGroup(levels:number):string
 {
@@ -41,7 +42,7 @@ export function generateNavQuery(id: string) {
     }
   }`;
     
-    if(process.env.NODE_ENV == "development" && DEBUG_QUERY) console.log(query);
 
+  LogQuery(query)
     return query;
 }

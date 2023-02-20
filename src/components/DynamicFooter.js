@@ -12,10 +12,7 @@ export const DynamicFooter = ({ id }) => {
     let sentLinks = slugs.map((x) => ({ link: x.slug, title: x.title }));
     setLinks(sentLinks);
     
-    if(process.env.NODE_ENV === "development" && DEBUG_QUERY) {
-      console.log("Fetching footer data");
-      console.log(sentLinks);
-    }
+     LogLinks(sentLinks)
   }
 
   useEffect(() => {
