@@ -1,0 +1,67 @@
+.cards
+{
+  display: flex;
+  flex-direction: row;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: center;
+}
+.card
+{
+  
+  text-decoration: none;
+  color: inherit;
+  width: 200px;
+  height: 200px;
+
+  border: 1px solid #eaeaea;
+  border-radius: 15px;
+  box-shadow:
+          0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+          0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+          0 12.5px 10px rgba(0, 0, 0, 0.06),
+          0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+          0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+          0 100px 80px rgba(0, 0, 0, 0.12);
+
+  display: inline-block;
+  padding: 1rem;
+  
+  margin: 1rem;
+  position: relative;
+
+  div {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+ 
+  
+}
+
+
+//todo probably doesnt need its own class?
+
+.video-card
+{
+  div {
+    display: block;
+  }
+  width: 300px;
+  padding: 0;
+  
+  a{text-decoration: none!important;
+  color:black}:hover
+              {
+                color: var(--bs-link-hover-color) ;
+              }
+
+  .videoIframe .video
+  {
+    width: 90%;
+    height: 80%;
+    padding: 0;
+  }
+}

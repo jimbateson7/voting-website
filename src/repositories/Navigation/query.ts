@@ -3,48 +3,46 @@
 //graphqlplayground
 //2EASI81WCZEAsg9bRP370U
 import {DEBUG_QUERY, getPreview} from "../utils/preview";
+import {QueryBlocks} from "../Common/query";
+import {LogQuery} from "../utils/utilities";
 
-export function generateNavQuery(id: string) {
-
-  const isPreview = getPreview();
-  const query =  `
-  query findNavById{
-  navigationGroup(id: "${id}" preview:${isPreview}) {
- 
-      navigationItemCollection(limit: 10) {
+function buildNavigationGroup(levels:number):string
+{
+    levels--
+    if(levels >= 0)
+        return `navigationItemCollection(limit: 10) {
+        
+        
         items {
-          __typename
-          ... on VideoPage {
-            title
-            slug
-          }
-          ... on BlogPost {
-            title
-            slug
-          }
+          ${QueryBlocks.BasicNavigationItems}
           ... on ExternalLink {
             title
             url
-          }
+          } 
           ... on NavigationGroup {
-            title
-            
-            sys{id}
-            
-          }
-          ... on VotingPage {
-            title
-            introVideo
-            postVoteVideo
+            title            
+            sys{id}            
+             ${buildNavigationGroup(levels)}
+             hideInHeader
           }
         }
-      }
+      }`;
+    return "";
+}
+export const navigationGroup = buildNavigationGroup(3)
+
+export function generateNavQuery(id: string) {
+
+    const isPreview = getPreview();
+    const query =  `
+  query findNavById{
+  navigationGroup(id: "${id}" preview:${isPreview}) {
+ 
+      ${navigationGroup}
     }
-  }
+  }`;
+    
 
-
-`;
-  if(process.env.NODE_ENV == "development" && DEBUG_QUERY) console.log(query);
-  
-  return query;
+  LogQuery(query)
+    return query;
 }

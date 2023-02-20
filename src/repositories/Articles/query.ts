@@ -3,6 +3,9 @@
 //graphqlplayground
 
 import {DEBUG_QUERY, getPreview} from "../utils/preview";
+import {navigationGroup} from "../Navigation/query";
+import {LogQuery} from "../utils/utilities";
+import {QueryBlocks} from "../Common/query";
 
 export function generatePostQuery(slug: string) {
 
@@ -29,8 +32,7 @@ export function generatePostQuery(slug: string) {
                 }
                 __typename
                 ... on BlogPost {
-                  title
-                  slug
+                  ${QueryBlocks.BlogPost}
                 }
               }
               block {
@@ -40,8 +42,7 @@ export function generatePostQuery(slug: string) {
                 __typename
             
                 ... on  BlogPost{                  
-                  slug
-                  title
+                  ${QueryBlocks.BlogPost}
                 }
           
                  ... on  GenericImage{
@@ -49,6 +50,11 @@ export function generatePostQuery(slug: string) {
                   image{url}
                   title
                   
+                }
+                ... on  NavigationGroup{
+                  __typename                 
+                  title
+                  ${navigationGroup}
                 }
                 ... on  YoutubeVideoEmbed{
                   __typename
@@ -77,7 +83,7 @@ export function generatePostQuery(slug: string) {
     }
   }
 `;
-  if(process.env.NODE_ENV == "development" && DEBUG_QUERY) console.log(query);
- 
+
+  LogQuery(query);
   return query;
 }

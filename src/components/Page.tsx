@@ -1,6 +1,7 @@
 ﻿import { ReactNode, useEffect, useState } from "react";
 
 import "./Page.scss";
+import "./HubCollection.scss";
 import { getPageJson } from "../repositories/Articles/request";
 export interface TPage {
   header: string;
@@ -22,8 +23,9 @@ export const ArticlePage = (props: TArticlePage) => {
     richText: null,
   });
 
+  
   useEffect(() => {
-    fetchData().catch(console.error);
+    fetchData().catch(reason => {console.log(reason)});
   }, [slug]);
 
   const styleClass = data.heroImageUrl ? "heroWithImage" : "hero";

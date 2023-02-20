@@ -1,9 +1,9 @@
-import { DataStore } from "@aws-amplify/datastore";
-import { Choice, Vote } from "../models";
-import { useEffect, useState } from "react";
-import { Col, Row, Button } from "react-bootstrap";
-import { v4 as generateGuid } from "uuid";
-import { FaThumbsUp, FaThumbsDown } from "react-icons/fa";
+import {DataStore} from "@aws-amplify/datastore";
+import {Choice, Vote} from "../models";
+import {useEffect, useState} from "react";
+import {Button, Col, Row} from "react-bootstrap";
+import {v4 as generateGuid} from "uuid";
+import {FaThumbsDown, FaThumbsUp} from "react-icons/fa";
 
 interface TVoteControls {
   voted: boolean;
@@ -13,7 +13,7 @@ interface TVoteControls {
 export const VoteControls = ({ voted, setVoted }: TVoteControls) => {
   const [numYesVotes, setNumYesVotes] = useState(0);
   const [numNoVotes, setNumNoVotes] = useState(0);
-
+  const [voteChoice, setVoteChoice] = useState<Choice | undefined>(undefined)
   const localStorageKey = "voterId";
 
   useEffect(() => {
@@ -22,16 +22,23 @@ export const VoteControls = ({ voted, setVoted }: TVoteControls) => {
     if (localGuid) {
       fetchVoteCounts(true).catch(console.error);
     }
-  }, [voted]);
+  }, []);
 
   const fetchVoteCounts = async (checkGuid: boolean) => {
     let localGuid = localStorage.getItem(localStorageKey);
 
-    const hasVoted =
-      (await (
+    const votes = (await (
         await DataStore.query(Vote, (v) => v.voterId.eq(localGuid))
-      ).length) != 0;
+    ));
+    const hasVoted =
+      votes.length != 0;
     setVoted(hasVoted);
+    
+    if(hasVoted)
+    {
+      const vote = votes[0];
+      setVoteChoice(vote.choice as Choice);
+    }
 
     if (checkGuid || hasVoted) {
       setNumNoVotes(
@@ -54,23 +61,26 @@ export const VoteControls = ({ voted, setVoted }: TVoteControls) => {
       localGuid = generateGuid();
       localStorage.setItem(localStorageKey, localGuid);
     }
+    
+    if (!voted || choice != voteChoice) {
 
-    if (!voted) {
-      //todo is this strong enough for what we need now? or should we still try and save ip or something?
-      //im thinking we add rate limiting and call it a day on this :)
-
-      const hasIdAlreadyVoted =
-        (await (
+      const  existingVotes = (await (
           await DataStore.query(Vote, (v) => v.voterId.eq(localGuid))
-        ).length) != 0;
-
-      if (!hasIdAlreadyVoted) {
-        await DataStore.save(
-          new Vote({ choice: choice, voterId: localGuid })
-        ).then((x) => {
-          fetchVoteCounts(true);
-        });
+      ));
+      const hasIdAlreadyVoted =  existingVotes.length != 0;
+    
+      if(hasIdAlreadyVoted)
+      {
+          const existingVote = existingVotes[0];
+          await DataStore.delete( existingVote);
       }
+      
+       await DataStore.save(
+        new Vote({ choice: choice, voterId: localGuid })
+      ).then((x) => {
+        fetchVoteCounts(true);
+      });      
+      
       setVoted(true);
     }
   };
@@ -106,12 +116,12 @@ export const VoteControls = ({ voted, setVoted }: TVoteControls) => {
           <Row>
             <h2>Thanks For Voting</h2>
             <h3>See how others have voted:</h3>
-            <Col xs={4} md={3} lg={2} xl={1} className="vote-count">
-              <FaThumbsUp className="thumbs-up" />
+            <Col xs={4} md={3} lg={2} xl={1} className={`vote-count voted-${voteChoice === Choice.YES ? "this" : "other"}`}>
+              <FaThumbsUp className={`thumbs-up`}  onClick={() => SaveVoteToDb(Choice.YES)}/>
               <span className="yes">{numYesVotes}</span>
             </Col>
-            <Col xs={4} md={3} lg={2} xl={1} className="vote-count">
-              <FaThumbsDown className="thumbs-down" />
+            <Col xs={4} md={3} lg={2} xl={1} className={`vote-count voted-${voteChoice === Choice.NO ? "this" : "other"}`}>
+              <FaThumbsDown className={`thumbs-down`}  onClick={() => SaveVoteToDb(Choice.NO)}/>
               <span className="no">{numNoVotes}</span>
             </Col>
           </Row>
