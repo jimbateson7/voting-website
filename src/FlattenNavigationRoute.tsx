@@ -1,4 +1,4 @@
-﻿import {NavigationItem, NavTypes} from "./repositories/Navigation/types";
+﻿import {ContentTypes, NavigationItem} from "./repositories/Navigation/types";
 import {getNavigationJson} from "./repositories/Navigation/request";
 
 export async function flattenNavigationRoute(
@@ -6,7 +6,7 @@ export async function flattenNavigationRoute(
 ): Promise<NavigationItem[]> {
     let dataFetched = await getNavigationJson(id);
     let childIds: string[] = dataFetched
-        .filter((x) => x.__typename == NavTypes.NavigationGroup)
+        .filter((x) => x.__typename == ContentTypes.NavigationGroup)
         .map((x) => x.sys?.id ?? "INVALID")
         .filter((x) => x != "INVALID");
     for (const childId of childIds) {

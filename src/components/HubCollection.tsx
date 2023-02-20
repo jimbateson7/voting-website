@@ -2,6 +2,7 @@ import React from "react";
 import {createAnchorLinkFromTitle} from "../repositories/utils/utilities";
 import "./HubCollection.scss";
 import {VideoEmbed} from "./VideoEmbed";
+import {ContentTypes} from "../repositories/Navigation/types";
 
 export type THubCollection = {
     items: []
@@ -37,9 +38,9 @@ export const VideoHubCard = (props:TVidoHubCard) =>{
 export const HubCollection = (props: THubCollection) =>{
     let subHubCollections: any[] = [];
     let mainHubCards: any[] = [];
-    createNavItems(props.items);
+    createHubCards(props.items);
     
-    function createNavItems(items:[]) {
+    function createHubCards(items:[]) {
         if(!items)
             return [];
        
@@ -48,7 +49,7 @@ export const HubCollection = (props: THubCollection) =>{
             let link = x.slug ?? `#${createAnchorLinkFromTitle(x.title)}`;
 
             switch (x.__typename) {
-                case "NavigationGroup":
+                case ContentTypes.NavigationGroup:
                     //add card that will link to new hub
                     mainHubCards.push(
                         <HubCard title={x.title} link={link} key={i}/>
@@ -56,10 +57,10 @@ export const HubCollection = (props: THubCollection) =>{
                     //create a new hub at the bottom              
                     subHubCollections.push(<HubCollection title={x.title} items={x.navigationItemCollection?.items}/>)
                     break;
-                case "VideoPage":
+                case ContentTypes.VideoPage:
                     mainHubCards.push(
                         <VideoHubCard title={x.title} link={link} videoTitle={x.video.title}
-                                      videoUrl={x.video.ytembedUr} key={i}/>
+                                      videoUrl={x.video.ytembedUrl} key={i}/>
                     )
                     break;
                 default:

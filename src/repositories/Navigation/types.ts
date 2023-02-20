@@ -20,8 +20,7 @@ export enum ContentTypes {
     BlogPost = "BlogPost",
     VideoPage = "VideoPage",
     NavigationGroup = "NavigationGroup",
-    ExternalLink = "ExternalLink",
-    
+    ExternalLink = "ExternalLink",   
     
 }
 export enum AssetTypes

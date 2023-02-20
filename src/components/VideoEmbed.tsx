@@ -8,8 +8,9 @@ export type TVideoEmbed = {
 };
 
 export const VideoEmbed = (props: TVideoEmbed) =>{
+    
     const videoUrl = extractYoutubeVideoUrl(props.url ?? "", props.autoplay)
-    return (<div className={"videoIframe"}>
+    return (props.url ? (<div className={"videoIframe"}>
         <iframe
             className="video"
             src={videoUrl}
@@ -18,5 +19,5 @@ export const VideoEmbed = (props: TVideoEmbed) =>{
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowFullScreen
         ></iframe>
-    </div>);
+    </div>) : null);
 }

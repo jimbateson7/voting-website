@@ -38,14 +38,30 @@
     justify-content: center;
   }
  
-
+  
 }
+
+
 //todo probably doesnt need its own class?
+
 .video-card
 {
-  width: 50%;
-  height: 100%;
+  div {
+    display: block;
+  }
+  width: 300px;
   padding: 0;
   
-  a{text-decoration: none!important;}
+  a{text-decoration: none!important;
+  color:black}:hover
+              {
+                color: var(--bs-link-hover-color) ;
+              }
+
+  .videoIframe .video
+  {
+    width: 90%;
+    height: 80%;
+    padding: 0;
+  }
 }
