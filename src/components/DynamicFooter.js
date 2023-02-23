@@ -10,7 +10,7 @@ export const DynamicFooter = ({ id }) => {
 		setLinks(sentLinks);
 		
 		LogLinks(sentLinks)
-	}, [id])
+    }, [id])
 
     useEffect(() => {
     fetchData().catch(console.error);

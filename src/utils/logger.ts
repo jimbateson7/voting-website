@@ -15,3 +15,5 @@ export function getLogger(name:string)
     logger.addPluggable(new AWSCloudWatchProvider());
     return logger;
 }
+
+

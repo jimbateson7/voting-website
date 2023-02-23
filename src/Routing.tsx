@@ -10,7 +10,7 @@ import MemberArea from "./pages/MemberArea";
 import NoPage from "./pages/NoPage";
 import LoadingPage from "./pages/LoadingPage";
 import {DEBUG_QUERY, refreshPreview} from "./repositories/utils/preview";
-import {extractYoutubeVideoId} from "./repositories/utils/utilities";
+import {extractYoutubeVideoId, LogLinks} from "./repositories/utils/utilities";
 import {VideoPage} from "./components/VideoPage";
 import {getAllNavData} from "./repositories/Common/request";
 
@@ -21,9 +21,8 @@ function Routing() {
   async function fetchData() {
     let links = await getAllNavData(); //todo we should probably just split this into the 3 arrays, save switching on typename below
     if(process.env.NODE_ENV === "development" && DEBUG_QUERY) 
-    {
-      console.log("Fetching routing data");
-      console.log(links);
+    {      
+      LogLinks(links,"routing");
     }
     setData(links);
     setDataLoaded(true);

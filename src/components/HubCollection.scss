@@ -6,13 +6,14 @@
   align-items: center;
   justify-content: center;
 }
+
 .card
 {
   
   text-decoration: none;
   color: inherit;
-  width: 200px;
-  height: 200px;
+  width: 10rem;
+  height: 10rem;
 
   border: 1px solid #eaeaea;
   border-radius: 15px;
@@ -36,6 +37,15 @@
     width: 100%;
     align-items: center;
     justify-content: center;
+
+   
+    h2,
+    h3 {
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+
+    }
   }
   
 }
@@ -44,7 +54,7 @@
 {
   hr
   {
-    padding-bottom: 20rem;
+    padding-bottom: 5rem;
   }  
 }
 //todo probably doesnt need its own class?
@@ -54,7 +64,8 @@
   div {
     display: block;
   }
-  width: 300px;
+  width: 20rem;
+  height: 20rem;
   padding: 0;
   
   a{text-decoration: none!important;

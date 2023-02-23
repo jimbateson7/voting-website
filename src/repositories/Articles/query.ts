@@ -51,6 +51,7 @@ export function generatePostQuery(slug: string) {
                 ... on  NavigationGroup{
                   __typename                 
                   title
+                  showVideoThumbnailsInHub
                   ${navigationGroup}
                 }
                 ... on  YoutubeVideoEmbed{

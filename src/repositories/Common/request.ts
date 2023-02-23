@@ -1,6 +1,7 @@
 import {fetchDataContentful} from "../utils/graphQLfetch";
 import {QueryResult} from "./types";
 import {NavigationItem} from "../Navigation/types";
+import {LogErrors, LogException} from "../utils/utilities";
 
 
 
@@ -46,9 +47,8 @@ export const getAllNavData = () => {
     const query = generateAllPagesQuery();
     return fetchDataContentful<QueryResult>(query).then((root: QueryResult) => {
         if(root.errors)
-            console.log(root.errors)
-        else
-            console.log(root)
+            LogErrors(root.errors)
+       
         return mapAllSlugs(root); //todo handle failure outside of function
     });
 };

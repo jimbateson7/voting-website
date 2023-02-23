@@ -39,13 +39,30 @@ export const extractYoutubeVideoUrl = (video: string, autoPlay: boolean = false)
     return videoUrl;
 };
 
-export function LogLinks(sentLinks:any)
+export function LogLinks(sentLinks: any, name: string = "footer")
 {
-    const logger = getLogger('Footer Log');
+    const logger = getLogger(name +' Log');
     if(process.env.NODE_ENV === "development" && DEBUG_QUERY) {
         logger.info("Fetching link data");
         logger.info(sentLinks);
     }
+}
+export function LogErrors(... params : any[]) {
+    const logger = getLogger('Error Log');
+   params.forEach( x => 
+        logger.error(x)
+    );
+
+    if(process.env.NODE_ENV === "development" && DEBUG_QUERY) console.log(params);
+}
+
+export function LogException(ex:string) {
+    const logger = getLogger('Exception Log');
+    logger.error("Exception called is:")
+    logger.error(ex);
+    logger.error("EOF Query")
+
+    if(process.env.NODE_ENV === "development" && DEBUG_QUERY) console.log(ex);
 }
 export function LogQuery(query:string)
 {

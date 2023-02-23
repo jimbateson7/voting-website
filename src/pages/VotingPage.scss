@@ -25,12 +25,12 @@ svg {
   padding: .25rem;
 
   &.thumbs-up {   
-    color: darkgoldenrod;
+    color: var(--agree-vote);
   }
  
   &.thumbs-down {
     
-    color: blue;
+    color: var(--disagree-vote);
   }
 }
 
@@ -67,12 +67,12 @@ svg {
     font-size: 2rem;
 
     &.yes {
-      color: green;
+      color: var(--agree-vote);
     }
     
 
     &.no {
-      color: red;
+      color: var(--disagree-votes);
     }
     
   }
