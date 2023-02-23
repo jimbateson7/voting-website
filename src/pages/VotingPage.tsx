@@ -21,15 +21,6 @@ const VotingPage = (props: TVotingPage) => {
   let introVideo = `https://www.youtube.com/embed/${introVideoId}`; //?&autoplay=1`;
 
   let postVideo = postVoteVideoId ?  `https://www.youtube.com/embed/${postVoteVideoId}?&autoplay=1` : undefined;
-
-  const checkElapsedTime = (e:any) => {
-    console.log(e);
-    const duration = e.target.getDuration();
-    const currentTime = e.target.getCurrentTime();
-    if (currentTime / duration > 0.95) {
-      
-    }
-  };
   
   return (
     <>
@@ -44,10 +35,6 @@ const VotingPage = (props: TVotingPage) => {
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowFullScreen>
             </iframe>
-            <YouTube
-                videoId={introVideo}
-                onStateChange={(e) => checkElapsedTime(e)}
-            />
           </Row>
         : null
       }
