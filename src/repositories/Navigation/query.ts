@@ -6,6 +6,7 @@ import {getPreview} from "../utils/preview";
 import {QueryBlocks} from "../Common/query";
 import {LogQuery} from "../utils/utilities";
 
+//todo rename to "Page Group"
 function buildNavigationGroup(levels:number):string
 {
     levels--
@@ -24,6 +25,7 @@ function buildNavigationGroup(levels:number):string
             sys{id}            
              ${buildNavigationGroup(levels)}
              hideInHeader
+             showVideoThumbnailsInHub
           }
         }
       }`;
@@ -39,6 +41,7 @@ export function generateNavQuery(id: string) {
   navigationGroup(id: "${id}" preview:${isPreview}) {
  
       ${navigationGroup}
+      
     }
   }`;
     

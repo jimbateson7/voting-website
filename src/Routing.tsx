@@ -56,6 +56,7 @@ function Routing() {
                         postVoteVideoId={extractYoutubeVideoId(
                           navItem.postVoteVideo
                         )}
+                        showStatistics={navItem.showVoteStatistics ?? false}
                         title={navItem.title ?? ""}
                         showIntroVideo={!voted}
                         showSharePanel={voted}

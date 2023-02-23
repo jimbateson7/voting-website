@@ -7,6 +7,7 @@ interface TVotingPage {
   introVideoId: string | undefined;
   postVoteVideoId: string | undefined;
   title: string;
+  showStatistics: boolean;
   showIntroVideo: boolean;
   showSharePanel: boolean;
   voted: boolean;
@@ -39,7 +40,7 @@ const VotingPage = (props: TVotingPage) => {
         <div className="frame">
           <div className="frame-content">
             <h1>{title}</h1>
-            <VoteControls voted={voted} setVoted={setVoted} />
+            <VoteControls voted={voted} setVoted={setVoted} showStatistics={props.showStatistics} />
           </div>
         </div>
       </Row>

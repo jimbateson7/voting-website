@@ -43,8 +43,10 @@ export interface VideoPAge extends BasePage
 export interface NavigationItem {
     __typename: ContentTypes
     hideInHeader:boolean //todo deprecate
+    showVideoThumbnailsInHub?: boolean
     introVideo?: string
     postVoteVideo?: string
+    showVoteStatistics?: boolean;
     title?: string   
     url?:  string
     slug?: string

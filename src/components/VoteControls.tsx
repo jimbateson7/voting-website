@@ -8,9 +8,10 @@ import {FaThumbsDown, FaThumbsUp} from "react-icons/fa";
 interface TVoteControls {
   voted: boolean;
   setVoted: Function;
+  showStatistics: boolean;
 }
 
-export const VoteControls = ({ voted, setVoted }: TVoteControls) => {
+export const VoteControls = ({ voted, setVoted,showStatistics}: TVoteControls) => {
   const [numYesVotes, setNumYesVotes] = useState(0);
   const [numNoVotes, setNumNoVotes] = useState(0);
   const [voteChoice, setVoteChoice] = useState<Choice | undefined>(undefined)
@@ -120,15 +121,16 @@ export const VoteControls = ({ voted, setVoted }: TVoteControls) => {
         <>
           <Row>
             <h2>Thanks For Voting</h2>
-            <h3>See how others have voted:</h3>
+            {showStatistics ? <h3>See how others have voted:</h3> : null}
             <Col xs={4} md={3} lg={2} xl={1} className={`vote-count voted-${voteChoice === Choice.YES ? "this" : "other"}`}>
               <FaThumbsUp className={`thumbs-up`}  onClick={() => SaveVoteToDb(Choice.YES)}/>
-              <span className="yes">{numYesVotes}</span>
+              {showStatistics ? <span className="yes">{numYesVotes}</span>: null}
             </Col>
             <Col xs={4} md={3} lg={2} xl={1} className={`vote-count voted-${voteChoice === Choice.NO ? "this" : "other"}`}>
               <FaThumbsDown className={`thumbs-down`}  onClick={() => SaveVoteToDb(Choice.NO)}/>
-              <span className="no">{numNoVotes}</span>
+              {showStatistics ? <span className="no">{numNoVotes}</span>: null}
             </Col>
+            <p>This shows your previous vote: You are free to change this at any time</p>
           </Row>
         </>
       )}

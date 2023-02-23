@@ -11,6 +11,7 @@ const videoPage = `title
             video{ytembedUrl,autoPlay,title}`;
 
 const votingPage = `title
+            showVoteStatistics
             introVideo
             postVoteVideo`;
 

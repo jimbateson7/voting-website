@@ -58,10 +58,21 @@ export const HubCollection = (props: THubCollection) =>{
                     subHubCollections.push(<HubCollection title={x.title} items={x.navigationItemCollection?.items}/>)
                     break;
                 case ContentTypes.VideoPage:
-                    mainHubCards.push(
-                        <VideoHubCard title={x.title} link={link} videoTitle={x.video.title}
-                                      videoUrl={x.video.ytembedUrl} key={i}/>
-                    )
+                
+                    if(x.showVideoThumbnailsInHub)
+                    {
+                        mainHubCards.push(
+                            <VideoHubCard title={x.title} link={link} videoTitle={x.video.title}
+                                          videoUrl={x.video.ytembedUrl} key={i}/>
+                        ) 
+                    }
+                    else
+                    {
+                        mainHubCards.push(
+                            <HubCard title={x.title} link={link} key={i}/>
+                        )
+                    }
+                    
                     break;
                 default:
                     mainHubCards.push(
