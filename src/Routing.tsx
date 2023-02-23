@@ -57,8 +57,8 @@ function Routing() {
                         )}
                         showStatistics={navItem.showVoteStatistics ?? false}
                         title={navItem.title ?? ""}
-                        showIntroVideo={!voted}
-                        showSharePanel={voted}
+                        showIntroVideo={true}
+                        showSharePanel={true}
                         voted={voted}
                         setVoted={setVoted}
                       />
