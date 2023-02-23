@@ -130,7 +130,7 @@ export const VoteControls = ({ voted, setVoted,showStatistics}: TVoteControls) =
               <FaThumbsDown className={`thumbs-down`}  onClick={() => SaveVoteToDb(Choice.NO)}/>
               {showStatistics ? <span className="no">{numNoVotes}</span>: null}
             </Col>
-            <p>This shows your previous vote: You are free to change this at any time</p>
+            <h3>This shows your previous vote: You are free to change this at any time</h3>
           </Row>
         </>
       )}

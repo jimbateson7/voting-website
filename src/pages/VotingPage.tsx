@@ -22,7 +22,7 @@ const VotingPage = (props: TVotingPage) => {
   let postVideo = postVoteVideoId ?  `https://www.youtube.com/embed/${postVoteVideoId}?&autoplay=1` : undefined;
   return (
     <>
-      {showIntroVideo && introVideo
+      {true && introVideo
         ? <Row>
             <iframe
               className="intro-video"
@@ -45,7 +45,7 @@ const VotingPage = (props: TVotingPage) => {
         </div>
       </Row>
 
-      {showSharePanel
+      {true
         ? <Row>
             <Share postVoteVideo={postVideo} />
           </Row>
