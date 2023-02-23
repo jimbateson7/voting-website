@@ -7,6 +7,8 @@ import {ContentTypes} from "../repositories/Navigation/types";
 export type THubCollection = {
     items: []
     title?:string;
+    showVideoThumbNails: boolean
+    parentTitle?:string;
 };
 
 export type THubCard =
@@ -47,19 +49,20 @@ export const HubCollection = (props: THubCollection) =>{
 
         items.forEach((x:any,i) => {
             let link = x.slug ?? `#${createAnchorLinkFromTitle(x.title)}`;
-
+            
             switch (x.__typename) {
                 case ContentTypes.NavigationGroup:
                     //add card that will link to new hub
                     mainHubCards.push(
                         <HubCard title={x.title} link={link} key={i}/>
                     )
-                    //create a new hub at the bottom              
-                    subHubCollections.push(<HubCollection title={x.title} items={x.navigationItemCollection?.items}/>)
+                    //create a new hub at the bottom
+                   
+                    subHubCollections.push(<HubCollection showVideoThumbNails={x.showVideoThumbnailsInHub ?? false} parentTitle={props.title} title={x.title} items={x.navigationItemCollection?.items}/>)
                     break;
                 case ContentTypes.VideoPage:
-                
-                    if(x.showVideoThumbnailsInHub)
+                    
+                    if(props.showVideoThumbNails)
                     {
                         mainHubCards.push(
                             <VideoHubCard title={x.title} link={link} videoTitle={x.video.title}
@@ -71,8 +74,7 @@ export const HubCollection = (props: THubCollection) =>{
                         mainHubCards.push(
                             <HubCard title={x.title} link={link} key={i}/>
                         )
-                    }
-                    
+                    }                    
                     break;
                 default:
                     mainHubCards.push(
@@ -83,9 +85,11 @@ export const HubCollection = (props: THubCollection) =>{
         })
         
     }
-    
+  //  const title = props.parentTitle ? props.title + ": " + x.title : x.title;
     return (
         <div className="hub">
+
+            {props.parentTitle ? <h2>{props.parentTitle}:</h2> : null}
             {props.title ? <h2 id={createAnchorLinkFromTitle(props.title)}>{props.title}</h2> : null}
            
             <div className="cards">

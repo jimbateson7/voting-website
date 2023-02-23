@@ -23,8 +23,7 @@ function buildNavigationGroup(levels:number):string
           ... on NavigationGroup {
             title            
             sys{id}            
-             ${buildNavigationGroup(levels)}
-             hideInHeader
+             ${buildNavigationGroup(levels)}           
              showVideoThumbnailsInHub
           }
         }

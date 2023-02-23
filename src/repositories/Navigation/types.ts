@@ -35,14 +35,13 @@ export interface BasePage
     slug: string
     title: string
 }
-export interface VideoPAge extends BasePage
+export interface VideoPage extends BasePage
 {
     url?:  string
 }
 
 export interface NavigationItem {
-    __typename: ContentTypes
-    hideInHeader:boolean //todo deprecate
+    __typename: ContentTypes 
     showVideoThumbnailsInHub?: boolean
     introVideo?: string
     postVoteVideo?: string

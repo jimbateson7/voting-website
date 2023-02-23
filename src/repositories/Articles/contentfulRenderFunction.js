@@ -56,7 +56,7 @@ function renderOptions(links) {
 
         if(entry.__typename === ContentTypes.NavigationGroup)
         {
-          return <HubCollection items={entry.navigationItemCollection.items}></HubCollection>
+          return <HubCollection showVideoThumbNails={entry.showVideoThumbnailsInHub ?? false} items={entry.navigationItemCollection.items}></HubCollection>
         }
         if (entry.__typename === ContentTypes.BlogPost || entry.__typename === ContentTypes.VideoPage) {
           return (
