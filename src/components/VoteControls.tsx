@@ -4,6 +4,7 @@ import {useCallback, useEffect, useState} from "react";
 import {Button, Col, Row} from "react-bootstrap";
 import {v4 as generateGuid} from "uuid";
 import {FaThumbsDown, FaThumbsUp} from "react-icons/fa";
+import {localStorageKey} from "../pages/VotingPage";
 
 interface TVoteControls {
   voted: boolean;
@@ -18,7 +19,7 @@ export const VoteControls = ({ voted, setVoted,showStatistics,votingThankYou,vot
   const [numYesVotes, setNumYesVotes] = useState(0);
   const [numNoVotes, setNumNoVotes] = useState(0);
   const [voteChoice, setVoteChoice] = useState<Choice | undefined>(undefined)
-  const localStorageKey = "voterId";
+  
 
   const fetchVoteCounts = useCallback(async (checkGuid:boolean) => {
     let localGuid = localStorage.getItem(localStorageKey);
