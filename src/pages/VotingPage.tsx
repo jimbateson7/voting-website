@@ -44,7 +44,7 @@ const VotingPage = (props: TVotingPage) => {
       <Row>
         <div className="frame">
           <div className="frame-content">
-            <h1>{title}</h1>
+            <h2 className="question">{title}</h2>
             <VoteControls voted={voted} setVoted={setVoted} showStatistics={props.showStatistics} />
           </div>
         </div>
