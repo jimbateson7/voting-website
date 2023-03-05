@@ -1,7 +1,8 @@
 :root {
-  --agree-vote: darkgoldenrod;
-  --disagree-vote:blue;
+  --secondary: #538177;
+  --tertiary: #123e50;
 }
+
 .row {
   text-align: center;
   justify-content: center;
@@ -26,13 +27,12 @@ svg {
   font-size: 3rem;
   padding: .25rem;
 
-  &.thumbs-up {   
-    color: var(--agree-vote);
+  &.thumbs-up {
+    color: var(--secondary);
   }
- 
+
   &.thumbs-down {
-    
-    color: var(--disagree-vote);
+    color: var(--secondary);
   }
 }
 
@@ -45,37 +45,5 @@ svg {
       transform: scale(1.5);
       transition: transform ease-in-out .25s;
     }
-  }
-}
-
-.vote-count {
-  background-color: white;
-  padding: .5rem;
-  border-radius: 1rem;
-  margin: 1rem;
-
-  &.voted-this {
-    border: yellow 3px ;
-    border-style: dashed;
-  }
-  &.voted-other {
-    opacity: 0.6;
-    cursor: pointer;
-  }
-
-  span {
-    display: block;
-    font-weight: bold;
-    font-size: 2rem;
-
-    &.yes {
-      color: var(--agree-vote);
-    }
-    
-
-    &.no {
-      color: var(--disagree-votes);
-    }
-    
   }
 }

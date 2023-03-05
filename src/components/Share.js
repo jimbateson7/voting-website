@@ -19,15 +19,15 @@ function Share({ postVoteVideo, shareText, shareSubText }) {
       <h2>{shareText}</h2>
       <p>Thanks very much for voting.  It's very important to get as many peole voting as possible so please share with your family and your friends! {shareSubText}</p>
       <div className="social-links">
-        <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//ourplanetourpeople.com" target="_blank">
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//ourplanetourpeople.com" target="_blank" rel="noreferrer">
           <FaFacebook style={{ color: '#4267B2', fontSize: '3rem', padding: '.25rem' }} />
         </a>
 
-        <a href="https://twitter.com/intent/tweet?text=Should%20our%20action%20plans%20be%20based%20on%20responding%20to%20worst%20case%20scenarios?%20Cast%20your%20vote%20at%20https%3A//ourplanetourpeople.com" target="_blank">
+        <a href="https://twitter.com/intent/tweet?text=Should%20our%20action%20plans%20be%20based%20on%20responding%20to%20worst%20case%20scenarios?%20Cast%20your%20vote%20at%20https%3A//ourplanetourpeople.com" target="_blank" rel="noreferrer">
           <FaTwitter style={{ color: '#1DA1F2', fontSize: '3rem', padding: '.25rem' }} />
         </a>
 
-        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//ourplanetourpeople.com" target="_blank">
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//ourplanetourpeople.com" target="_blank" rel="noreferrer">
           <FaLinkedin style={{ color: '#2D62C1', fontSize: '3rem', padding: '.25rem' }} />
         </a>
 
