@@ -3,6 +3,7 @@ import React, {useCallback, useEffect, useState} from "react";
 import {NavigationItem, ContentTypes} from "../repositories/Navigation/types";
 import {Link} from "react-router-dom";
 import {DynamicNavDropDown, TDynamicNav} from "./DynamicNav";
+import Nav from "react-bootstrap/Nav";
 
 export const DynamicNavList = (props: TDynamicNav) => {
   let { id } = props;
@@ -35,16 +36,17 @@ export const DynamicNavList = (props: TDynamicNav) => {
               );
             case ContentTypes.VotingPage:
               return (
-                <Link key={index} to={navItem.slug ?? ""} className="nav-link">
+                <Nav.Link key={index} href={navItem.slug ?? ""} className="nav-link">
                   {"Vote"}
-                </Link>
+                </Nav.Link>
               );
             case ContentTypes.VideoPage:
             case ContentTypes.BlogPost:
               return (
-                <Link key={index} to={navItem.slug ?? ""} className="nav-link">
+              
+                <Nav.Link key={index} href={navItem.slug ?? ""} className="nav-link">
                   {navItem.title}
-                </Link>
+                </Nav.Link>
               );
             case ContentTypes.NavigationGroup:
               return (

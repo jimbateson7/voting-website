@@ -23,7 +23,7 @@ export const DynamicNav = (props: TDynamicNav) => {
   let { id, title } = props;
 
   return (
-    <Navbar.Collapse id="basic-navbar-nav">
+    <>
       <Nav className="me-auto">
         <DynamicNavList id={id} title={title}></DynamicNavList>
       </Nav>
@@ -32,6 +32,6 @@ export const DynamicNav = (props: TDynamicNav) => {
           Member Area
         </Link>
       </Nav>
-    </Navbar.Collapse>
+</>
   );
 };
