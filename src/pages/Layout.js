@@ -2,6 +2,7 @@
 import logo from "../logo.png";
 
 import { Link, Outlet } from "react-router-dom";
+import '@aws-amplify/ui-react/styles.css';
 import "./Layout.scss";
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
