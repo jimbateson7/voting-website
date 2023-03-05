@@ -10,6 +10,7 @@ export async function mapVideoData(result: QueryResult): Promise<TVideoPage> {
     header: actualPost.title,
     autoPlay: actualPost.video.autoPlay,
     videoTitle: actualPost.video.title,
+       
     videoUrl: video,
   };
   return model;

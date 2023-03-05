@@ -10,9 +10,10 @@ const videoPage = `title
             slug
             video{ytembedUrl,autoPlay,title}`;
 
-const votingPage = `title
-            showVoteStatistics
-            introVideo
+const votingPage = `title,            
+            introductionText,
+            showVoteStatistics,
+            introVideo,
             postVoteVideo`;
 
 const basicNavItems = `

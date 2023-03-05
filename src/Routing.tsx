@@ -56,6 +56,7 @@ function Routing() {
                           navItem.postVoteVideo
                         )}
                         showStatistics={navItem.showVoteStatistics ?? false}
+                        introText={navItem.introductionText ?? "Voting"}
                         title={navItem.title ?? ""}
                         showIntroVideo={true}
                         showSharePanel={true}
