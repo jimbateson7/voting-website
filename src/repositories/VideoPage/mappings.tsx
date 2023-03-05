@@ -9,8 +9,7 @@ export async function mapVideoData(result: QueryResult): Promise<TVideoPage> {
   const model: TVideoPage = {
     header: actualPost.title,
     autoPlay: actualPost.video.autoPlay,
-    videoTitle: actualPost.video.title,
-       
+    videoTitle: actualPost.video.title,       
     videoUrl: video,
   };
   return model;
