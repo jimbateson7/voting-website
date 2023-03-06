@@ -24,10 +24,10 @@ const Layout = () => {
             <img
               alt="Our Planet Our People logo"
               src={logo}
-              onClick={toggleExpanded}
+              onClick={() => {setExpanded(false)}}
             />{" "}
           </Link>
-          <Navbar.Toggle onClick={() => setExpanded(!expanded)} aria-controls="responsive-navbar-nav" />
+          <Navbar.Toggle onClick={toggleExpanded} aria-controls="responsive-navbar-nav" />
            <Navbar.Collapse id="responsive-navbar-nav">
                <Nav className="me-auto">
                    <DynamicNavList id={headerComponentId} onSelect={() => {setExpanded(false)}}></DynamicNavList>
