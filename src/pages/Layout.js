@@ -16,6 +16,7 @@ import {DynamicNavList} from "../components/DynamicNavList";
 const Layout = () => {
 
     const [expanded, setExpanded] = useState(false);
+    const toggleExpanded = () => setExpanded(!expanded);
   return (
     <>
         <Navbar  expanded={expanded} collapseOnSelect expand="lg" variant="light" bg="light" fixed="top" >            
@@ -24,10 +25,10 @@ const Layout = () => {
             <img
               alt="Our Planet Our People logo"
               src={logo}
-              onClick={() => setExpanded(false)}
+              onClick={toggleExpanded}
             />{" "}
           </Link>
-          <Navbar.Toggle onClick={() => setExpanded(expanded ? false : "expanded")} aria-controls="responsive-navbar-nav" />
+          <Navbar.Toggle onClick={() => setExpanded(!expanded)} aria-controls="responsive-navbar-nav" />
            <Navbar.Collapse id="responsive-navbar-nav">
                <Nav className="me-auto">
                    <DynamicNavList id={headerComponentId} title={"bob"} onSelect={() => {setExpanded(false)}}></DynamicNavList>
