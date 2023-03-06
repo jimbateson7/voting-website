@@ -58,7 +58,7 @@ export const DynamicNavList = (props: TDynamicNav) => {
             case ContentTypes.NavigationGroup:
               return (            
               <NavDropdown key={index} title={navItem.title ?? "_"} id="basic-nav-dropdown">
-                <DynamicNavList id={navItem?.sys?.id ?? "123"}></DynamicNavList>
+                <DynamicNavList onSelect={onSelect} id={navItem?.sys?.id ?? "123"}></DynamicNavList>
               </NavDropdown>
               );
             default:
