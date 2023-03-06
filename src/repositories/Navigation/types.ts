@@ -46,6 +46,7 @@ export interface NavigationItem {
     introVideo?: string
     postVoteVideo?: string
     showVoteStatistics?: boolean;
+    introductionText?: string;
     title?: string   
     url?:  string
     slug?: string

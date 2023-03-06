@@ -8,6 +8,7 @@ interface TVotingPage {
   introVideoId: string | undefined;
   postVoteVideoId: string | undefined;
   title: string;
+  introText:string;
   showStatistics: boolean;
   showIntroVideo: boolean;
   showSharePanel: boolean;
@@ -24,6 +25,7 @@ const VotingPage = (props: TVotingPage) => {
   
   return (
     <>
+      <h1>{props.introText}</h1>
       {showIntroVideo && introVideo
         ? <Row>
             <iframe
@@ -42,7 +44,7 @@ const VotingPage = (props: TVotingPage) => {
       <Row>
         <div className="frame">
           <div className="frame-content">
-            <h1>{title}</h1>
+            <h2 className="question">{title}</h2>
             <VoteControls voted={voted} setVoted={setVoted} showStatistics={props.showStatistics} />
           </div>
         </div>

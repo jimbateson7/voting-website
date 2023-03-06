@@ -2,6 +2,7 @@ import {fetchDataContentful} from "../utils/graphQLfetch";
 import {QueryResult} from "./types";
 import {NavigationItem} from "../Navigation/types";
 import {LogErrors, LogException} from "../utils/utilities";
+import {QueryBlocks} from "./query";
 
 
 
@@ -25,10 +26,7 @@ function generateAllPagesQuery()
   votingPageCollection{
     items {
     __typename
-  	  introVideo
-      postVoteVideo
-      title
-  		 
+  	  ${QueryBlocks.VotingPage}  		 
       # add the fields you want to query
     }
   }

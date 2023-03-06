@@ -17,6 +17,7 @@ export function generatePostQuery(slug: string) {
       __typename
       slug
       title
+      
       video{ytembedUrl,autoPlay,title}
       # add the fields you want to query
     }
