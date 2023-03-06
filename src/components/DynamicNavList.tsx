@@ -3,11 +3,10 @@ import React, {useCallback, useEffect, useState} from "react";
 import {NavigationItem, ContentTypes} from "../repositories/Navigation/types";
 import Nav from "react-bootstrap/Nav";
 import {NavDropdown} from "react-bootstrap";
-import {Link, NavLink} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 
 export type TDynamicNav = {
   id: string;
-  title?: string;
   onSelect?: ()=>{};
 };
 

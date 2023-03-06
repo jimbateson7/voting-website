@@ -31,7 +31,7 @@ const Layout = () => {
           <Navbar.Toggle onClick={() => setExpanded(!expanded)} aria-controls="responsive-navbar-nav" />
            <Navbar.Collapse id="responsive-navbar-nav">
                <Nav className="me-auto">
-                   <DynamicNavList id={headerComponentId} title={"bob"} onSelect={() => {setExpanded(false)}}></DynamicNavList>
+                   <DynamicNavList id={headerComponentId} onSelect={() => {setExpanded(false)}}></DynamicNavList>
                </Nav>
                <Nav>
                    <Nav.Link to="memberArea" className="nav-link">
