@@ -3,15 +3,16 @@ import React, {useCallback, useEffect, useState} from "react";
 import {NavigationItem, ContentTypes} from "../repositories/Navigation/types";
 import Nav from "react-bootstrap/Nav";
 import {NavDropdown} from "react-bootstrap";
+import {NavLink} from "react-router-dom";
 
 export type TDynamicNav = {
   id: string;
-  title?: string;
+  onSelect?: ()=>{};
 };
 
 
 export const DynamicNavList = (props: TDynamicNav) => {
-  let { id } = props;
+  let { id, onSelect } = props;
 
   const fetchData = useCallback(async () => {
     let dataFetched = await getNavigationJson(id);
@@ -41,7 +42,7 @@ export const DynamicNavList = (props: TDynamicNav) => {
               );
             case ContentTypes.VotingPage:
               return (
-                <Nav.Link key={index} href={navItem.slug ?? ""} className="nav-link">
+                <Nav.Link onClick={onSelect} as={NavLink} key={index} to={navItem.slug ?? ""} className="nav-link">
                   {"Vote"}
                 </Nav.Link>
               );
@@ -49,14 +50,14 @@ export const DynamicNavList = (props: TDynamicNav) => {
             case ContentTypes.BlogPost:
               return (
               
-                <Nav.Link key={index} href={navItem.slug ?? ""} className="nav-link">
+                <Nav.Link onClick={onSelect} as={NavLink} key={index} to={navItem.slug ?? ""} className="nav-link">
                   {navItem.title}
                 </Nav.Link>
               );
             case ContentTypes.NavigationGroup:
               return (            
               <NavDropdown key={index} title={navItem.title ?? "_"} id="basic-nav-dropdown">
-                <DynamicNavList id={navItem?.sys?.id ?? "123"}></DynamicNavList>
+                <DynamicNavList onSelect={onSelect} id={navItem?.sys?.id ?? "123"}></DynamicNavList>
               </NavDropdown>
               );
             default:
