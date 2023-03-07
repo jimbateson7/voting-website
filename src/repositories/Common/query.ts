@@ -14,6 +14,10 @@ const votingPage = `title,
             introductionText,
             showVoteStatistics,
             introVideo,
+            votingThankYou,
+            votingPostVoteExplanation,
+            shareHeading,
+            shareSubHeading,
             postVoteVideo`;
 
 const basicNavItems = `

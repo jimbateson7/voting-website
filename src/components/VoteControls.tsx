@@ -9,9 +9,12 @@ interface TVoteControls {
   voted: boolean;
   setVoted: Function;
   showStatistics: boolean;
+  votingThankYou?: string;
+  votingPostVoteExplanation?: string;
+
 }
 
-export const VoteControls = ({ voted, setVoted,showStatistics}: TVoteControls) => {
+export const VoteControls = ({ voted, setVoted,showStatistics,votingThankYou,votingPostVoteExplanation}: TVoteControls) => {
   const [numYesVotes, setNumYesVotes] = useState(0);
   const [numNoVotes, setNumNoVotes] = useState(0);
   const [voteChoice, setVoteChoice] = useState<Choice | undefined>(undefined)
@@ -120,7 +123,7 @@ export const VoteControls = ({ voted, setVoted,showStatistics}: TVoteControls) =
       {voted && (
         <>
           <Row>
-            <h2>Thanks For Voting</h2>
+            <h2>{votingThankYou}</h2>
             {showStatistics ? <h3>See how others have voted:</h3> : null}
             <Col xs={4} md={3} lg={2} xl={1} className={`vote-count voted-${voteChoice === Choice.YES ? "this" : "other"}`}>
               <FaThumbsUp className={`thumbs-up`}  onClick={() => SaveVoteToDb(Choice.YES)}/>
@@ -130,7 +133,7 @@ export const VoteControls = ({ voted, setVoted,showStatistics}: TVoteControls) =
               <FaThumbsDown className={`thumbs-down`}  onClick={() => SaveVoteToDb(Choice.NO)}/>
               {showStatistics ? <span className="no">{numNoVotes}</span>: null}
             </Col>
-            <h3>This shows your previous vote: You are free to change this at any time</h3>
+            <h3>{votingPostVoteExplanation}</h3>
           </Row>
         </>
       )}
