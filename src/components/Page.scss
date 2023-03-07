@@ -1,4 +1,8 @@
-﻿
+﻿:root {
+  --secondary: #538177;
+  --tertiary: #123e50;
+}
+
 html {
   scroll-padding-top: 8rem;
 }
@@ -8,7 +12,7 @@ html {
 
   &::before {
     transform: skew(3deg, -1deg);
-    background-color: #538177;
+    background-color: var(--secondary);
     content: "";
     width: 85%;
     height: 95%;
@@ -32,7 +36,7 @@ html {
 
   &::after {
     transform: skew(-2deg);
-    background-color: #123e50;
+    background-color: var(--tertiary);
     content: "";
     position: absolute;
     top: 1rem;
@@ -58,7 +62,7 @@ html {
     z-index: 1;
     position: relative;
     padding: 2rem 4.5rem 2rem 3rem;
-    
+
     @media (min-width: 768px) {
       padding-bottom: 4rem;
     }

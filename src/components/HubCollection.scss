@@ -1,83 +1,36 @@
-.cards
-{
-  display: flex;
-  flex-direction: row;
-  flex-flow: row wrap;
-  align-items: center;
-  justify-content: center;
+:root {
+  --primary: #64CBD0;
 }
 
-.card
-{
-  
-  text-decoration: none;
-  color: inherit;
-  width: 10rem;
-  height: 10rem;
+.hub {
+  display: grid;
+  grid-gap: 2rem;
 
-  border: 1px solid #eaeaea;
-  border-radius: 15px;
-  box-shadow:
-          0 2.8px 2.2px rgba(0, 0, 0, 0.034),
-          0 6.7px 5.3px rgba(0, 0, 0, 0.048),
-          0 12.5px 10px rgba(0, 0, 0, 0.06),
-          0 22.3px 17.9px rgba(0, 0, 0, 0.072),
-          0 41.8px 33.4px rgba(0, 0, 0, 0.086),
-          0 100px 80px rgba(0, 0, 0, 0.12);
+  @media (min-width: 540px) {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
 
-  display: inline-block;
-  padding: 1rem;
-  
-  margin: 1rem;
-  position: relative;
+  .card {
+    border: 1px solid #e6e6e6;
+    border-top: 5px solid var(--primary);
+    padding: 1.5rem;
+    text-decoration: none;
+  }
+}
 
-  div {
-    display: flex;
-    height: 100%;
+.video-card {
+  min-height: 20rem;
+
+  a {
+    text-decoration: none;
+  }
+
+  .videoIframe {
     width: 100%;
-    align-items: center;
-    justify-content: center;
+    height: 100%;
 
-   
-    h2,
-    h3 {
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-
+    .video {
+      width: 100%;
     }
-  }
-  
-}
-
-.hub
-{
-  hr
-  {
-    padding-bottom: 5rem;
-  }  
-}
-//todo probably doesnt need its own class?
-
-.video-card
-{
-  div {
-    display: block;
-  }
-  width: 20rem;
-  height: 20rem;
-  padding: 0;
-  
-  a{text-decoration: none!important;
-  color:black}:hover
-              {
-                color: var(--bs-link-hover-color) ;
-              }
-
-  .videoIframe .video
-  {
-    width: 90%;
-    height: 80%;
-    padding: 0;
   }
 }

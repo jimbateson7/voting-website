@@ -6,7 +6,6 @@ import {ContentTypes, NavigationItem} from "./repositories/Navigation/types";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import VotingPage from "./pages/VotingPage";
 import {ArticlePage} from "./components/Page";
-import MemberArea from "./pages/MemberArea";
 import NoPage from "./pages/NoPage";
 import LoadingPage from "./pages/LoadingPage";
 import {DEBUG_QUERY, refreshPreview} from "./repositories/utils/preview";
@@ -98,12 +97,7 @@ function Routing() {
       <Routes>
         <Route path="/" element={<Layout />}>
           {createDynamicRoutes()}
-          <Route
-            path="memberArea"
-            element={<MemberArea signOut={null} user={null} />}
-          />
           {dataLoaded ?  <Route path="*" element={<LoadingPage />} /> : <Route path="*" element={<NoPage />} />}
-          
         </Route>
       </Routes>
     </BrowserRouter>

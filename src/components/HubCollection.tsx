@@ -1,4 +1,3 @@
-import React from "react";
 import {createAnchorLinkFromTitle} from "../repositories/utils/utilities";
 import "./HubCollection.scss";
 import {VideoEmbed} from "./VideoEmbed";
@@ -47,10 +46,12 @@ export const HubCard = (props:THubCard) =>{
 }
 export const VideoHubCard = (props:TVidoHubCard) =>{
     return (
-        <div className="card-content card video-card" key={props.ukey}>
-        <a href={props.link}><h3>{props.title}</h3></a>
-        <VideoEmbed title={props.videoTitle} url={props.videoUrl} autoplay={false}/>
-    </div>)
+      <div className="card video-card">
+        <div className="card-content" key={props.ukey}>
+          <a href={props.link}><h2>{props.title}</h2></a>
+          <VideoEmbed title={props.videoTitle} url={props.videoUrl} autoplay={false}/>
+        </div>
+      </div>)
 }
 export const HubCollection = (props: THubCollection) =>{
     let subHubCollections: any[] = [];
@@ -105,14 +106,9 @@ export const HubCollection = (props: THubCollection) =>{
    
     return (
         <div className="hub"  key={ props.ukey ? props.ukey : 0} >
-
             {props.parentTitle ? <h2>{props.parentTitle}:</h2> : null}
             {props.title ? <h2  id={createAnchorLinkFromTitle(props.title)}>{props.title}</h2> : null}
-           
-            <div className="cards">
-            {mainHubCards}</div>
-            <hr/>
-           
+            {mainHubCards}
             {subHubCollections}
         </div>);       
       
