@@ -9,6 +9,10 @@ interface TVotingPage {
   postVoteVideoId: string | undefined;
   title: string;
   introText:string;
+  votingThankYou?: string;
+  votingPostVoteExplanation?: string;
+  shareHeading?: string;
+  shareSubHeading?: string;
   showStatistics: boolean;
   showIntroVideo: boolean;
   showSharePanel: boolean;
@@ -45,14 +49,14 @@ const VotingPage = (props: TVotingPage) => {
         <div className="frame">
           <div className="frame-content">
             <h2 className="question">{title}</h2>
-            <VoteControls voted={voted} setVoted={setVoted} showStatistics={props.showStatistics} />
+            <VoteControls voted={voted} setVoted={setVoted} showStatistics={props.showStatistics} votingPostVoteExplanation={props.votingPostVoteExplanation} votingThankYou={props.votingThankYou} />
           </div>
         </div>
       </Row>
 
       {showSharePanel
         ? <Row>
-            <Share postVoteVideo={postVideo} />
+            <Share postVoteVideo={postVideo} shareText={props.shareHeading} shareSubText={props.shareSubHeading} />
           </Row>
         : null
       }

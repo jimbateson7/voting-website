@@ -47,6 +47,10 @@ export interface NavigationItem {
     postVoteVideo?: string
     showVoteStatistics?: boolean;
     introductionText?: string;
+    votingThankYou?: string;
+    votingPostVoteExplanation?: string;
+    shareHeading?: string;
+    shareSubHeading?: string;
     title?: string   
     url?:  string
     slug?: string

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { FaFacebook, FaLinkedin, FaTwitter, FaInstagram, FaWhatsapp, FaEnvelope } from 'react-icons/fa';
 import './Share.scss';
 
-function Share({ postVoteVideo }) {
+function Share({ postVoteVideo, shareText, shareSubText }) {
   
   return (
     <div className="share frame-shadow">
@@ -17,8 +17,8 @@ function Share({ postVoteVideo }) {
         allowFullScreen
       ></iframe> : null }
 
-      <h2>PLEASE SHARE THIS PAGE</h2>
-      <p>Thanks very much for voting.  It's very important to get as many peole voting as possible so please share with your family and your friends!</p>
+      <h2>{shareText}</h2>
+      <p>Thanks very much for voting.  It's very important to get as many peole voting as possible so please share with your family and your friends! {shareSubText}</p>
       <div className="social-links">
         <Link to="https://www.facebook.com/sharer/sharer.php?u=https%3A//ourplanetourpeople.com">
           <FaFacebook style={{ color: '#4267B2', fontSize: '3rem', padding: '.25rem' }} />
