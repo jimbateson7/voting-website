@@ -50,6 +50,7 @@ function Routing() {
                     index
                     element={
                       <VotingPage
+                          heading={navItem.heading}
                         introVideoId={extractYoutubeVideoId(navItem.introVideo)}
                         postVoteVideoId={extractYoutubeVideoId(
                           navItem.postVoteVideo

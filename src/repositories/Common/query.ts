@@ -13,6 +13,7 @@ const videoPage = `title
 const votingPage = `title,            
             introductionText,
             showVoteStatistics,
+            heading,
             introVideo,
             votingThankYou,
             votingPostVoteExplanation,
