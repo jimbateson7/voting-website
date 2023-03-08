@@ -132,9 +132,9 @@ export const VoteControls = ({ voted, setVoted,showStatistics,votingThankYou,vot
                   onClick={() => SaveVoteToDb(Choice.YES)}
                   title= {voteChoice === Choice.YES ? "You voted Yes" : "Change vote to Yes"} >                
                 <FaThumbsUp className="thumbs-up"/>
-              </Button>
-           
-              {showStatistics ? <span className="yes">{numYesVotes}</span>: null}
+                {showStatistics ? <span className="yes">{numYesVotes}</span>: null}
+              </Button>          
+              
             </Col>
             <Col xs={4} md={3} lg={2} xl={1} className={`vote-count voted-${voteChoice === Choice.NO ? "this" : "other"}`}>
               <Button
@@ -144,9 +144,9 @@ export const VoteControls = ({ voted, setVoted,showStatistics,votingThankYou,vot
                  
                   title= {voteChoice === Choice.NO ? "You voted No" : "Change vote to No"} >
                 <FaThumbsDown className="thumbs-down" />
-              </Button>
-            
-              {showStatistics ? <span className="no">{numNoVotes}</span>: null}
+                {showStatistics ? <span className="no">{numNoVotes}</span>: null}
+              </Button>           
+             
             </Col>
             <h3>{votingPostVoteExplanation}</h3>
           </Row>
