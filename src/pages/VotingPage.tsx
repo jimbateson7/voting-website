@@ -8,6 +8,7 @@ interface TVotingPage {
   introVideoId: string | undefined;
   postVoteVideoId: string | undefined;
   title: string;
+  heading?: string;
   introText:string;
   votingThankYou?: string;
   votingPostVoteExplanation?: string;
@@ -29,7 +30,8 @@ const VotingPage = (props: TVotingPage) => {
   
   return (
     <>
-      <h1>{props.introText}</h1>
+      {props.heading ? <h1>{props.heading}</h1>: null}
+      <p>{props.introText}</p>
       {showIntroVideo && introVideo
         ? <Row>
             <iframe

@@ -45,6 +45,7 @@ export interface NavigationItem {
     showVideoThumbnailsInHub?: boolean
     introVideo?: string
     postVoteVideo?: string
+    heading?: string;
     showVoteStatistics?: boolean;
     introductionText?: string;
     votingThankYou?: string;

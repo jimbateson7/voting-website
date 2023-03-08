@@ -50,12 +50,17 @@ function Routing() {
                     index
                     element={
                       <VotingPage
+                          heading={navItem.heading}
                         introVideoId={extractYoutubeVideoId(navItem.introVideo)}
                         postVoteVideoId={extractYoutubeVideoId(
                           navItem.postVoteVideo
                         )}
                         showStatistics={navItem.showVoteStatistics ?? false}
-                        introText={navItem.introductionText ?? "Voting"}
+                        introText={navItem.introductionText ?? ""}
+                        votingThankYou={navItem.votingThankYou ?? ""}
+                        votingPostVoteExplanation={navItem.votingPostVoteExplanation}
+                        shareHeading={navItem.shareHeading}
+                        shareSubHeading={navItem.shareSubHeading}                        
                         title={navItem.title ?? ""}
                         showIntroVideo={true}
                         showSharePanel={true}
