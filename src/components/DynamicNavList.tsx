@@ -1,28 +1,35 @@
-import { getNavigationJson } from "../repositories/Navigation/request";
-import React, { useEffect, useState } from "react";
-import { NavigationItem, NavTypes } from "../repositories/Navigation/types";
-import { Link } from "react-router-dom";
-import { DynamicNavDropDown, TDynamicNav } from "./DynamicNav";
+import {getNavigationJson} from "../repositories/Navigation/request";
+import React, {useCallback, useEffect, useState} from "react";
+import {NavigationItem, ContentTypes} from "../repositories/Navigation/types";
+import Nav from "react-bootstrap/Nav";
+import {NavDropdown} from "react-bootstrap";
+import {NavLink} from "react-router-dom";
+
+export type TDynamicNav = {
+  id: string;
+  onSelect?: ()=>{};
+};
+
 
 export const DynamicNavList = (props: TDynamicNav) => {
-  let { id } = props;
+  let { id, onSelect } = props;
 
-  async function fetchData() {
+  const fetchData = useCallback(async () => {
     let dataFetched = await getNavigationJson(id);
     setData(dataFetched);
-  }
-
+  }, [id])
+  
   const [data, setData] = useState<NavigationItem[]>();
 
   useEffect(() => {
     fetchData().catch(console.error);
-  }, []);
+  }, [fetchData]);
   return (
     <>
       {data &&
         data.map((navItem, index) => {
           switch (navItem.__typename) {
-            case NavTypes.ExternalLink:
+            case ContentTypes.ExternalLink:
               return (
                 <a
                   key={index}
@@ -33,25 +40,25 @@ export const DynamicNavList = (props: TDynamicNav) => {
                   {navItem.title}
                 </a>
               );
-            case NavTypes.VotingPage:
+            case ContentTypes.VotingPage:
               return (
-                <Link key={index} to={navItem.slug ?? ""} className="nav-link">
+                <Nav.Link onClick={onSelect} as={NavLink} key={index} to={navItem.slug ?? ""} className="nav-link">
                   {"Vote"}
-                </Link>
+                </Nav.Link>
               );
-            case NavTypes.BlogPost:
+            case ContentTypes.VideoPage:
+            case ContentTypes.BlogPost:
               return (
-                <Link key={index} to={navItem.slug ?? ""} className="nav-link">
+              
+                <Nav.Link onClick={onSelect} as={NavLink} key={index} to={navItem.slug ?? ""} className="nav-link">
                   {navItem.title}
-                </Link>
+                </Nav.Link>
               );
-            case NavTypes.NavigationGroup:
-              return (
-                <DynamicNavDropDown
-                  key={index}
-                  id={navItem?.sys?.id ?? "123"}
-                  title={navItem.title}
-                ></DynamicNavDropDown>
+            case ContentTypes.NavigationGroup:
+              return (            
+              <NavDropdown key={index} title={navItem.title ?? "_"} id="basic-nav-dropdown">
+                <DynamicNavList onSelect={onSelect} id={navItem?.sys?.id ?? "123"}></DynamicNavList>
+              </NavDropdown>
               );
             default:
               return <></>;

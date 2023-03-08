@@ -1,12 +1,12 @@
 //generate by
 //https://app.contentful.com/spaces/fojlfyn3xufg/environments/staging/entries/1n9FMvYa8MWstVI19atW2w
 //graphqlplayground
+import {getPreview} from "../utils/preview";
+import {navigationGroup} from "../Navigation/query";
+import {LogQuery} from "../utils/utilities";
+import {QueryBlocks} from "../Common/query";
 
-import {DEBUG_QUERY, getPreview} from "../utils/preview";
-
-export function generatePostQuery(slug: string) {
-
- 
+export function generatePostQuery(slug: string) { 
   const isPreview = getPreview();
   const query = `query blogPostCollectionQuery{
     blogPostCollection(limit: 1, where: {slug: "${slug}"}, preview:${isPreview}) {
@@ -29,8 +29,7 @@ export function generatePostQuery(slug: string) {
                 }
                 __typename
                 ... on BlogPost {
-                  title
-                  slug
+                  ${QueryBlocks.BlogPost}
                 }
               }
               block {
@@ -40,8 +39,7 @@ export function generatePostQuery(slug: string) {
                 __typename
             
                 ... on  BlogPost{                  
-                  slug
-                  title
+                  ${QueryBlocks.BlogPost}
                 }
           
                  ... on  GenericImage{
@@ -50,10 +48,17 @@ export function generatePostQuery(slug: string) {
                   title
                   
                 }
+                ... on  NavigationGroup{
+                  __typename                 
+                  title
+                  showVideoThumbnailsInHub
+                  ${navigationGroup}
+                }
                 ... on  YoutubeVideoEmbed{
                   __typename
                   ytembedUrl
                   title
+                  autoPlay
                   
                 }
               }
@@ -76,7 +81,7 @@ export function generatePostQuery(slug: string) {
     }
   }
 `;
-  if(process.env.NODE_ENV == "development" && DEBUG_QUERY) console.log(query);
- 
+
+  LogQuery(query);
   return query;
 }

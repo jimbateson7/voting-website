@@ -1,42 +1,35 @@
-import { useEffect, useState } from "react";
-import { NavigationItem } from "../repositories/Navigation/types";
-import { getNavigationJson } from "../repositories/Navigation/request";
+import {useCallback, useEffect, useState} from "react";
 import { Link } from "react-router-dom";
-import { flattenNavigationRoute } from "../App";
-import {DEBUG_QUERY} from "../repositories/utils/preview";
+import {flattenNavigationRoute, LogLinks} from "../repositories/utils/utilities";
 
 export const DynamicFooter = ({ id }) => {
-  const [links, setLinks] = useState([{ link: "privacy", title: "privacy" }]);
+	const [links, setLinks] = useState([]);
+	const fetchData = useCallback(async () => {
+		let slugs = await flattenNavigationRoute(id);
+		let sentLinks = slugs.map((x) => ({ link: x.slug, title: x.title }));
+		setLinks(sentLinks);
+		
+		LogLinks(sentLinks)
+    }, [id])
 
-  async function fetchData() {
-    let slugs = await flattenNavigationRoute(id);
-    let sentLinks = slugs.map((x) => ({ link: x.slug, title: x.title }));
-    setLinks(sentLinks);
-    
-    if(process.env.NODE_ENV === "development" && DEBUG_QUERY) {
-      console.log("Fetching footer data");
-      console.log(sentLinks);
-    }
-  }
-
-  useEffect(() => {
+    useEffect(() => {
     fetchData().catch(console.error);
-  }, []);
+    }, [fetchData]);
 
-  return (
-    <footer className="bg-light">
-      <ul>
-        {links &&
-          links.map((x,index) => {
-            return (
-              <li key={index}>
-                <Link to={`/${x.link}`} className="nav-link">
-                  {x.title}
-                </Link>
-              </li>
-            );
-          })}
-      </ul>
-    </footer>
-  );
+    return (
+        <footer className="bg-light">
+          <ul>
+            {links &&
+              links.map((x,index) => {
+                return (
+                  <li key={index}>
+                    <Link to={`/${x.link}`} className="nav-link">
+                      {x.title}
+                    </Link>
+                  </li>
+                );
+              })}
+          </ul>
+        </footer>
+    );
 };

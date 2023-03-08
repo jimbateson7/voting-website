@@ -1,3 +1,8 @@
+:root {
+  --secondary: #538177;
+  --tertiary: #123e50;
+}
+
 .row {
   text-align: center;
   justify-content: center;
@@ -10,22 +15,24 @@
     }
   }
 
-  h1 {
+  h1, .question {
     font-weight: bold;
     margin-bottom: 2rem;
   }
+  
 }
+
 
 svg {
   font-size: 3rem;
   padding: .25rem;
 
   &.thumbs-up {
-    color: green;
+    color: var(--tertiary);
   }
 
   &.thumbs-down {
-    color: red;
+    color: var(--secondary);
   }
 }
 
@@ -41,23 +48,14 @@ svg {
   }
 }
 
+
 .vote-count {
-  background-color: white;
-  padding: .5rem;
-  border-radius: 1rem;
-  margin: 1rem;
 
-  span {
-    display: block;
-    font-weight: bold;
-    font-size: 2rem;
 
-    &.yes {
-      color: green;
-    }
 
-    &.no {
-      color: red;
-    }
-  }
+
+  
+
+  
 }
+

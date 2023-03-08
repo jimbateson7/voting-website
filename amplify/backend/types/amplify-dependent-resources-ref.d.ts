@@ -1,4 +1,11 @@
 export type AmplifyDependentResourcesAttributes = {
+  "analytics": {
+    "ourplanetourpeoplewe": {
+      "Id": "string",
+      "Region": "string",
+      "appName": "string"
+    }
+  },
   "api": {
     "OurPlanetOurPeopleweb": {
       "GraphQLAPIEndpointOutput": "string",

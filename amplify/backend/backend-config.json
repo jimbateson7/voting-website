@@ -1,4 +1,10 @@
 {
+  "analytics": {
+    "ourplanetourpeoplewe": {
+      "providerPlugin": "awscloudformation",
+      "service": "Pinpoint"
+    }
+  },
   "api": {
     "OurPlanetOurPeopleweb": {
       "dependsOn": [],
