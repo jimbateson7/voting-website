@@ -98,7 +98,7 @@ export const VoteControls = ({ voted, setVoted,showStatistics,votingThankYou,vot
     <>
       {!voted && (
         <Row>
-          <Col xs={6} md={2}>
+          <Col xs={4} md={3} lg={2} xl={1} >
             <Button
               variant="light"
               size="lg"
@@ -108,7 +108,7 @@ export const VoteControls = ({ voted, setVoted,showStatistics,votingThankYou,vot
             </Button>
           </Col>
 
-          <Col xs={6} md={2}>
+          <Col xs={4} md={3} lg={2} xl={1} >
             <Button
               variant="light"
               size="lg"
@@ -126,11 +126,26 @@ export const VoteControls = ({ voted, setVoted,showStatistics,votingThankYou,vot
             <h2>{votingThankYou}</h2>
             {showStatistics ? <h3>See how others have voted:</h3> : null}
             <Col xs={4} md={3} lg={2} xl={1} className={`vote-count voted-${voteChoice === Choice.YES ? "this" : "other"}`}>
-              <FaThumbsUp className={`thumbs-up`}  onClick={() => SaveVoteToDb(Choice.YES)}/>
+              <Button
+                  variant= {voteChoice === Choice.YES ? "light" : "dark"} 
+                  size="lg"
+                  onClick={() => SaveVoteToDb(Choice.YES)}
+                  title= {voteChoice === Choice.YES ? "You voted Yes" : "Change vote to Yes"} >                
+                <FaThumbsUp className="thumbs-up"/>
+              </Button>
+           
               {showStatistics ? <span className="yes">{numYesVotes}</span>: null}
             </Col>
             <Col xs={4} md={3} lg={2} xl={1} className={`vote-count voted-${voteChoice === Choice.NO ? "this" : "other"}`}>
-              <FaThumbsDown className={`thumbs-down`}  onClick={() => SaveVoteToDb(Choice.NO)}/>
+              <Button
+                  variant= {voteChoice === Choice.NO ? "light" : "dark"}
+                  size="lg"
+                  onClick={() => SaveVoteToDb(Choice.NO)}
+                 
+                  title= {voteChoice === Choice.NO ? "You voted No" : "Change vote to No"} >
+                <FaThumbsDown className="thumbs-down" />
+              </Button>
+            
               {showStatistics ? <span className="no">{numNoVotes}</span>: null}
             </Col>
             <h3>{votingPostVoteExplanation}</h3>
