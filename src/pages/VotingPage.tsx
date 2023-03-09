@@ -33,7 +33,9 @@ const VotingPage = (props: TVotingPage) => {
       {props.heading ? <h1>{props.heading}</h1>: null}
       <p>{props.introText}</p>
       {showIntroVideo && introVideo
-        ? <Row>
+        ? <Row >
+            <div className="video-container">
+            <div className="aspect-ratio">
             <iframe
               className="intro-video"
               src={introVideo} // TODO: If no voterId present, append "?autoplay=1"
@@ -42,7 +44,7 @@ const VotingPage = (props: TVotingPage) => {
              // onLoad={ () => window.addEventListener('message', onMessageReceived, false)}
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowFullScreen>
-            </iframe>
+            </iframe></div></div>
           </Row>
         : null
       }
