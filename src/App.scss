@@ -35,11 +35,3 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
-.frame-shadow {
-  @media (min-width: 768px) {
-    box-shadow: 3px 3px 8px 2px;
-    width: max-content;
-    padding: 1rem 3rem;
-  }
-}
