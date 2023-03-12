@@ -17,6 +17,7 @@ export const VideoPage = (props: TArticlePage) => {
 
   const fetchData = useCallback(async () => {
     let dataFetched = await getVideoPageJson(slug);
+  
     setData(dataFetched);
   }, [slug])
 
@@ -25,6 +26,7 @@ export const VideoPage = (props: TArticlePage) => {
     header: "", videoTitle: "UnknownVideo", videoUrl: "", autoPlay: false
   });
 
+    console.log(data)
   useEffect(() => {
     fetchData().catch(console.error);
   }, [slug, fetchData]);
@@ -32,12 +34,12 @@ export const VideoPage = (props: TArticlePage) => {
   return (
     <>
       <h1>{data.header}</h1>
-      {data.introText ? <p>data.introText</p> : null}
+        {data.introText ? <p className="introText">{data.introText}</p> : null}
        <div className="videoIframe">     
         <iframe
           className="video"
           src={data.videoUrl} //todo autoplay
-          title={data.videoTitle}
+          title={data.videoTitle}   
           frameBorder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           allowFullScreen
