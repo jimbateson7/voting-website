@@ -9,6 +9,7 @@ html {
 
 .frame {
   position: relative;
+  top: 1.25rem;
 
   &::before {
     transform: skew(3deg, -1deg);
@@ -113,5 +114,11 @@ img {
 
   h1 {
     margin-bottom: 2rem;
+  }
+}
+
+.introText {
+  @media (min-width: 768px) {
+    font-size: 1.2rem;
   }
 }
