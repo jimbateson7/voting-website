@@ -98,7 +98,7 @@ export const VoteControls = ({ voted, setVoted,showStatistics,votingThankYou,vot
     <>
       {!voted && (
         <Row>
-          <Col xs={4} md={3} lg={2} xl={1} >
+          <Col xs={6} md={3} lg={2} xl={1} >
             <Button
               variant="light"
               size="lg"
@@ -108,7 +108,7 @@ export const VoteControls = ({ voted, setVoted,showStatistics,votingThankYou,vot
             </Button>
           </Col>
 
-          <Col xs={4} md={3} lg={2} xl={1} >
+          <Col xs={6} md={3} lg={2} xl={1} >
             <Button
               variant="light"
               size="lg"
@@ -125,7 +125,7 @@ export const VoteControls = ({ voted, setVoted,showStatistics,votingThankYou,vot
           <Row>
             <h2>{votingThankYou}</h2>
             {showStatistics ? <h3>See how others have voted:</h3> : null}
-            <Col xs={4} md={3} lg={2} xl={1} className={`vote-count voted-${voteChoice === Choice.YES ? "this" : "other"}`}>
+            <Col xs={6} md={3} lg={2} xl={1} className={`vote-count voted-${voteChoice === Choice.YES ? "this" : "other"}`}>
               <Button
                   variant= {voteChoice === Choice.YES ? "light" : "dark"} 
                   size="lg"
@@ -136,7 +136,7 @@ export const VoteControls = ({ voted, setVoted,showStatistics,votingThankYou,vot
            
               {showStatistics ? <span className="yes">{numYesVotes}</span>: null}
             </Col>
-            <Col xs={4} md={3} lg={2} xl={1} className={`vote-count voted-${voteChoice === Choice.NO ? "this" : "other"}`}>
+            <Col xs={6} md={3} lg={2} xl={1} className={`vote-count voted-${voteChoice === Choice.NO ? "this" : "other"}`}>
               <Button
                   variant= {voteChoice === Choice.NO ? "light" : "dark"}
                   size="lg"

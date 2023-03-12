@@ -4,7 +4,7 @@ import './Share.scss';
 function Share({ postVoteVideo, shareText, shareSubText }) {
   
   return (
-    <div className="share frame-shadow">
+    <div className="share">
 
       {postVoteVideo ? 
       <iframe

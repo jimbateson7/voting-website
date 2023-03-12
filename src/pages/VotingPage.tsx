@@ -31,7 +31,7 @@ const VotingPage = (props: TVotingPage) => {
   return (
     <>
       {props.heading ? <h1>{props.heading}</h1>: null}
-      <p>{props.introText}</p>
+      <p className="introText">{props.introText}</p>
       {showIntroVideo && introVideo
         ? <Row>
             <iframe

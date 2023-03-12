@@ -33,12 +33,6 @@ const Layout = () => {
                <Nav className="me-auto">
                    <DynamicNavList id={headerComponentId} onSelect={() => {setExpanded(false)}}></DynamicNavList>
                </Nav>
-               <Nav>
-                   <Nav.Link to="memberArea" className="nav-link">
-                       Member Area
-                   </Nav.Link>
-               </Nav>
-          
            </Navbar.Collapse>
         </Container>
       </Navbar>

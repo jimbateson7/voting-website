@@ -17,6 +17,7 @@ export interface VideoItem {
   __typename: string
   slug: string
   title: string
+  introText?: string,
   video:Video
 }
 
