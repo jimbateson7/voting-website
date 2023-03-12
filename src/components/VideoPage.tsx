@@ -3,7 +3,8 @@ import "./Page.scss";
 
 import { getVideoPageJson } from "../repositories/VideoPage/request";
 export interface TVideoPage {
-  header: string;
+  header: string
+  introText?: string;
   videoUrl: string | undefined;
   videoTitle: string;
   autoPlay: boolean;
@@ -21,7 +22,7 @@ export const VideoPage = (props: TArticlePage) => {
 
 
   const [data, setData] = useState<TVideoPage>({
-    header: "...video", videoTitle: "UnknownVideo", videoUrl: "", autoPlay: false
+    header: "", videoTitle: "UnknownVideo", videoUrl: "", autoPlay: false
   });
 
   useEffect(() => {
@@ -31,7 +32,8 @@ export const VideoPage = (props: TArticlePage) => {
   return (
     <>
       <h1>{data.header}</h1>
-      <div className="videoIframe">
+      {data.introText ? <p>data.introText</p> : null}
+       <div className="videoIframe">     
         <iframe
           className="video"
           src={data.videoUrl} //todo autoplay
