@@ -117,8 +117,9 @@ img {
   }
 }
 
-.introText {
+.introText,
+p:first-of-type {
   @media (min-width: 768px) {
-    font-size: 1.2rem;
+    font-size: 1.2em;
   }
 }
