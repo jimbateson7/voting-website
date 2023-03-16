@@ -47,6 +47,9 @@ function renderOptions(links) {
         let text = createAnchorLinkFromTitle(children);
         return <h3 id={text}>{children}</h3>
       },
+      [BLOCKS.PARAGRAPH]: (node, children) => {
+        return <p key={children} className="introText">{children}</p>
+      },
       [BLOCKS.EMBEDDED_ENTRY]: (node, children) => {
         // find the entry in the entryMap by ID
         const entry = entryBlockMap.get(node.data.target.sys.id);
