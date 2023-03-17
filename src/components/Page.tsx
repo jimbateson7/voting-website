@@ -2,8 +2,7 @@
 import "./Page.scss";
 import "./HubCollection.scss";
 import { getPageJson } from "../repositories/Articles/request";
-import {Logger} from "aws-amplify";
-import {LogException, LogQuery} from "../repositories/utils/utilities";
+import {LogException} from "../repositories/utils/utilities";
 export interface TPage {
   header: string;
   heroImageUrl?: string;
