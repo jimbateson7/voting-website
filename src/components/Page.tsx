@@ -35,12 +35,10 @@ export const ArticlePage = (props: TArticlePage) => {
 
       <div className={styleClass}>
         <h1>{data.header}</h1>
-        <p className="introText">a test of paragraph in normal</p>
         {data.heroImageUrl ? (
           <img src={data.heroImageUrl} alt={data.heroImageAltText}></img>
         ) : null}
-      </div>
-      
+      </div>      
 
       <div>{data.richText ? data.richText : <p>...</p>}</div>
 
