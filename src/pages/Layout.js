@@ -16,6 +16,7 @@ import {CookieConsent} from "react-cookie-consent";
 
 import { Analytics } from 'aws-amplify';
 import {localStorageVotingIdKey} from "./VotingPage";
+import {v4 as generateGuid} from "uuid";
 
 
 const Layout = () => {
@@ -24,11 +25,14 @@ const Layout = () => {
     const [analyticsEnabled, setAnalyticsEnabled] = useState(false);
     const toggleExpanded = () => setExpanded(!expanded);
     let userGuid = localStorage.getItem(localStorageVotingIdKey);
-    
+    if (!userGuid) {
+        userGuid = generateGuid();
+        localStorage.setItem(localStorageVotingIdKey, userGuid);
+    }
     
     useEffect( () => {
         let trackingAttributes = {
-            userGuid: userGuid
+            userId: userGuid         
         }
         Analytics.autoTrack('pageView', {
             enable: analyticsEnabled,

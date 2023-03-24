@@ -37,7 +37,6 @@ const VotingPage = (props: TVotingPage) => {
     userGuid = generateGuid();
     localStorage.setItem(localStorageVotingIdKey, userGuid);
   }
-
   
   //todo https://www.freecodecamp.org/news/use-the-youtube-iframe-api-in-react/
   return (
