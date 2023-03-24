@@ -4,7 +4,6 @@ import "./HubCollection.scss";
 import { getPageJson } from "../repositories/Articles/request";
 import {Analytics, Logger} from "aws-amplify";
 import {LogException, LogQuery} from "../repositories/utils/utilities";
-import {analyticsEnabled} from "../App";
 export interface TPage {
   header: string;
   heroImageUrl?: string;
@@ -29,24 +28,7 @@ export const ArticlePage = (props: TArticlePage) => {
   
   useEffect(() => {
     fetchData().catch(reason => {LogException(reason)});
-
-    Analytics.autoTrack('pageView', {     
-      enable: analyticsEnabled,   
-      eventName: 'pageView',
-      attributes: {
-        attr: 'attr'
-      },
-
-      type: 'multiPageApp',
-      
-      provider: 'AWSPinpoint',
-    
-      getUrl: () => {
-        // the default function
-        return window.location.origin + window.location.pathname;
-      }
-    });
-    
+        
   }, [slug,fetchData]);
 
   const styleClass = data.heroImageUrl ? "heroWithImage" : "hero";

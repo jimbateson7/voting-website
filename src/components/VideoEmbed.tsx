@@ -1,4 +1,5 @@
-import { extractYoutubeVideoUrl } from "../repositories/utils/utilities";
+import {extractYoutubeVideoId, extractYoutubeVideoUrl} from "../repositories/utils/utilities";
+import {TrackedYoutubeVideo} from "../pages/TrackedYoutubeVideo";
 
 export type TVideoEmbed = {
   title: string;
@@ -9,28 +10,13 @@ export type TVideoEmbed = {
 
 export const VideoEmbed = (props: TVideoEmbed) => {
 
-  const videoUrl = extractYoutubeVideoUrl(props.url ?? "", props.autoplay)
+ 
+  const videoId = extractYoutubeVideoId(props.url )
+  return  (<TrackedYoutubeVideo pageTitle={"Voting Page"}
+    videoId={videoId}
+    autoPlay={props.autoplay}
+    showFrame={props.showFrame}
+    videoTitle={"Introduction Video"}/>)
 
-  return (props.showFrame
-    ? (
-      <div className="videoIframe">
-        <iframe
-          className="video"
-          src={videoUrl}
-          title={props.title}
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowFullScreen>
-        </iframe>
-      </div>)
-    : (
-      <iframe
-        className="video"
-        src={videoUrl}
-        title={props.title}
-        frameBorder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowFullScreen>
-      </iframe>)
-  );
+  
 }

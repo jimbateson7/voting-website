@@ -9,16 +9,52 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { footerComponentId, headerComponentId } from "../Routing";
 import {DynamicFooter} from "../components/DynamicFooter";
-import React, { useState} from "react";
+import React, {useEffect, useState} from "react";
 
 import {DynamicNavList} from "../components/DynamicNavList";
+import {CookieConsent} from "react-cookie-consent";
+
+import { Analytics } from 'aws-amplify';
+import {localStorageVotingIdKey} from "./VotingPage";
+
 
 const Layout = () => {
 
     const [expanded, setExpanded] = useState(false);
+    const [analyticsEnabled, setAnalyticsEnabled] = useState(false);
     const toggleExpanded = () => setExpanded(!expanded);
-  return (
+    let userGuid = localStorage.getItem(localStorageVotingIdKey);
+    
+    
+    useEffect( () => {
+        let trackingAttributes = {
+            userGuid: userGuid
+        }
+        Analytics.autoTrack('pageView', {
+            enable: analyticsEnabled,
+            autoSessionRecord: analyticsEnabled,
+            eventName: 'pageView',
+            attributes: trackingAttributes,
+
+            type: 'multiPageApp',
+            provider: 'AWSPinpoint',
+
+            getUrl: () => {
+                // the default function
+                return window.location.origin + window.location.pathname;
+            }});
+    } , [analyticsEnabled]);
+   
+   
+    if(analyticsEnabled)
+        Analytics.enable()
+    else
+        Analytics.disable()
+
+
+    return (
     <>
+        
         <Navbar  expanded={expanded} collapseOnSelect expand="lg" variant="light" bg="light" fixed="top" >            
        <Container>
           <Link to="/" className="navbar-brand">
@@ -39,11 +75,35 @@ const Layout = () => {
 
       <main>
         <Container>
+           
+            
           <Outlet />
+           
         </Container>
+          
       </main>
-
+        <CookieConsent
+            location="bottom"
+            buttonText="Ok I Accept"
+            cookieName="OurPeopleOurPlanetAnalyticsAcceptance"         
+            declineButtonText={"No Thank You"}
+           // buttonStyle={{ color: "#4e503b", fontSize: "13px" }}
+           // declineButtonStyle={{ color: "#4e503b", fontSize: "13px" }}
+            expires={150}
+            enableDeclineButton
+            onDecline={() => {
+                setAnalyticsEnabled(false)
+            }}
+            onAccept={(acceptedByScrolling) => {
+            
+                setAnalyticsEnabled(true)
+            }}
+        >
+            This website uses cookies to enhance the user experience.{" "}
+           
+        </CookieConsent>
       <DynamicFooter id={footerComponentId}></DynamicFooter>
+       
     </>
   );
 };

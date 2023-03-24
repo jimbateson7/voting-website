@@ -4,7 +4,7 @@ import {useCallback, useEffect, useState} from "react";
 import {Button, Col, Row} from "react-bootstrap";
 import {v4 as generateGuid} from "uuid";
 import {FaThumbsDown, FaThumbsUp} from "react-icons/fa";
-import {localStorageKey} from "../pages/VotingPage";
+import {localStorageVotingIdKey} from "../pages/VotingPage";
 
 interface TVoteControls {
   voted: boolean;
@@ -22,7 +22,7 @@ export const VoteControls = ({ voted, setVoted,showStatistics,votingThankYou,vot
   
 
   const fetchVoteCounts = useCallback(async (checkGuid:boolean) => {
-    let localGuid = localStorage.getItem(localStorageKey);
+    let localGuid = localStorage.getItem(localStorageVotingIdKey);
 
     const votes = (await (
         await DataStore.query(Vote, (v) => v.voterId.eq(localGuid))
@@ -55,7 +55,7 @@ export const VoteControls = ({ voted, setVoted,showStatistics,votingThankYou,vot
   
   
   useEffect(() => {
-    let localGuid = localStorage.getItem(localStorageKey);
+    let localGuid = localStorage.getItem(localStorageVotingIdKey);
 
     if (localGuid) {
       fetchVoteCounts(true).catch(console.error);
@@ -65,11 +65,11 @@ export const VoteControls = ({ voted, setVoted,showStatistics,votingThankYou,vot
   
 
   const SaveVoteToDb = async (choice: Choice) => {
-    let localGuid = localStorage.getItem(localStorageKey);
+    let localGuid = localStorage.getItem(localStorageVotingIdKey);
 
     if (!localGuid) {
       localGuid = generateGuid();
-      localStorage.setItem(localStorageKey, localGuid);
+      localStorage.setItem(localStorageVotingIdKey, localGuid);
     }
     
     if (!voted || choice !== voteChoice) {
