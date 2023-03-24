@@ -65,7 +65,7 @@ const VotingPage = (props: TVotingPage) => {
           </div>
         </div>
       </Row>
-
+x
       {showSharePanel
         ? <Row>
             <Share postVoteVideo={postVideo} shareText={props.shareHeading} shareSubText={props.shareSubHeading} />

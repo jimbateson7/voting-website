@@ -2,6 +2,24 @@
   --primary: #64CBD0;
 }
 
+.CookieConsent
+{
+  background-color:  var(  --tertiary )!important;
+  button
+  {
+    background-color: var(--secondary  )!important;
+    color: white!important;
+  }
+
+  @media screen and (min-width: 768px) {
+    display: flex;
+  }
+
+  @media screen and (min-width: 1200px) {
+    display: flex;
+  }
+}
+
 html {
   height: 100%;
   box-sizing: border-box;

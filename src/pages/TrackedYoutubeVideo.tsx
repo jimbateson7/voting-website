@@ -1,7 +1,7 @@
 import YouTube, {YouTubeProps} from "react-youtube";
 import {Analytics} from "aws-amplify";
 import {localStorageVotingIdKey} from "./VotingPage";
-
+import "./TrackedYoutubeVideo.scss";
 export interface TrackedVideoProps {
     pageTitle: string;
     videoTitle: string;
@@ -22,7 +22,7 @@ export const TrackedYoutubeVideo = (props: TrackedVideoProps) => {
     const timeWindow = 1000;
 
     let content = <YouTube
-                        className="video"
+                        className="t-video"
                        title={props.videoTitle}
                        opts={videoOptions}
                        videoId={props.videoId}
@@ -56,16 +56,17 @@ export const TrackedYoutubeVideo = (props: TrackedVideoProps) => {
     />
     
     if(!props.videoId)return <></>;
-    return (props.showFrame
-            ? (
-
-                <div className="videoIframe">
-
+    return(
+        <div className="video-container">
+            <div className="aspect-ratio">
+                {props.showFrame
+                ? <div className="videoIframe">
                     {content}
-                </div>)
-            : (
-            <>{content}</>
-            )
-    );
+                    </div>
+                : <>{content}</>
+                }
+            </div>
+        </div>
+        );
   
 }

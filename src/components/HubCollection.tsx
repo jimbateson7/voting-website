@@ -1,7 +1,8 @@
-import { createAnchorLinkFromTitle } from "../repositories/utils/utilities";
+import {createAnchorLinkFromTitle, extractYoutubeVideoId} from "../repositories/utils/utilities";
 import "./HubCollection.scss";
 import { VideoEmbed } from "./VideoEmbed";
 import { ContentTypes } from "../repositories/Navigation/types";
+import {TrackedYoutubeVideo} from "../pages/TrackedYoutubeVideo";
 
 export type THubCollection = {
   items: []
@@ -46,7 +47,11 @@ export const VideoHubCard = (props: TVidoHubCard) => {
     <div className="card video-card">
       <div className="card-content" key={props.ukey}>
         <a href={props.link}><h2>{props.title}</h2></a>
-        <VideoEmbed title={props.videoTitle} url={props.videoUrl} autoplay={false} showFrame={false} />
+        <TrackedYoutubeVideo
+                             videoId={extractYoutubeVideoId(props.videoUrl)}
+                             autoPlay={false} 
+                             showFrame={true}  
+                             pageTitle={props.title} videoTitle={props.videoTitle}/>
       </div>
     </div>)
 }

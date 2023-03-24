@@ -2,6 +2,8 @@
 import "./Page.scss";
 
 import { getVideoPageJson } from "../repositories/VideoPage/request";
+import {TrackedYoutubeVideo} from "../pages/TrackedYoutubeVideo";
+import {extractYoutubeVideoId} from "../repositories/utils/utilities";
 export interface TVideoPage {
   header: string
   introText?: string;
@@ -33,16 +35,12 @@ export const VideoPage = (props: TArticlePage) => {
     <>
       <h1>{data.header}</h1>
         {data.introText ? <p className="introText">{data.introText}</p> : null}
-       <div className="videoIframe">     
-        <iframe
-          className="video"
-          src={data.videoUrl} //todo autoplay
-          title={data.videoTitle}   
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowFullScreen
-        ></iframe>
-      </div>
+        <TrackedYoutubeVideo pageTitle={data.header} 
+                             videoTitle={data.videoTitle} 
+                             videoId={extractYoutubeVideoId(data.videoUrl)}
+                             showFrame={true} 
+                             autoPlay={data.autoPlay}></TrackedYoutubeVideo>
+       
 
     </>
   );
