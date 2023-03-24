@@ -4,6 +4,8 @@ import {useCallback, useEffect, useState} from "react";
 import {Button, Col, Row} from "react-bootstrap";
 import {v4 as generateGuid} from "uuid";
 import {FaThumbsDown, FaThumbsUp} from "react-icons/fa";
+import {localStorageVotingIdKey} from "../pages/VotingPage";
+import {Analytics} from "aws-amplify";
 
 interface TVoteControls {
   voted: boolean;
@@ -18,10 +20,10 @@ export const VoteControls = ({ voted, setVoted,showStatistics,votingThankYou,vot
   const [numYesVotes, setNumYesVotes] = useState(0);
   const [numNoVotes, setNumNoVotes] = useState(0);
   const [voteChoice, setVoteChoice] = useState<Choice | undefined>(undefined)
-  const localStorageKey = "voterId";
+  
 
   const fetchVoteCounts = useCallback(async (checkGuid:boolean) => {
-    let localGuid = localStorage.getItem(localStorageKey);
+    let localGuid = localStorage.getItem(localStorageVotingIdKey);
 
     const votes = (await (
         await DataStore.query(Vote, (v) => v.voterId.eq(localGuid))
@@ -54,7 +56,7 @@ export const VoteControls = ({ voted, setVoted,showStatistics,votingThankYou,vot
   
   
   useEffect(() => {
-    let localGuid = localStorage.getItem(localStorageKey);
+    let localGuid = localStorage.getItem(localStorageVotingIdKey);
 
     if (localGuid) {
       fetchVoteCounts(true).catch(console.error);
@@ -64,11 +66,11 @@ export const VoteControls = ({ voted, setVoted,showStatistics,votingThankYou,vot
   
 
   const SaveVoteToDb = async (choice: Choice) => {
-    let localGuid = localStorage.getItem(localStorageKey);
+    let localGuid = localStorage.getItem(localStorageVotingIdKey);
 
     if (!localGuid) {
       localGuid = generateGuid();
-      localStorage.setItem(localStorageKey, localGuid);
+      localStorage.setItem(localStorageVotingIdKey, localGuid);
     }
     
     if (!voted || choice !== voteChoice) {
@@ -77,12 +79,31 @@ export const VoteControls = ({ voted, setVoted,showStatistics,votingThankYou,vot
           await DataStore.query(Vote, (v) => v.voterId.eq(localGuid))
       ));
       const hasIdAlreadyVoted =  existingVotes.length !== 0;
-    
+
+      
+      
       if(hasIdAlreadyVoted)
       {
+        await Analytics.record({
+          name: 'Changed Vote',
+          // Attribute values must be strings
+          attributes: {
+            choice: choice,
+            userId: `${localGuid}`,
+          }
+        })
+        
           const existingVote = existingVotes[0];
           await DataStore.delete( existingVote);
       }
+      await Analytics.record({
+        name: 'Voted',
+        // Attribute values must be strings
+        attributes: {
+          choice: choice,
+          userId: `${localGuid}`,
+        }
+      })
       
        await DataStore.save(
         new Vote({ choice: choice, voterId: localGuid })

@@ -1,6 +1,20 @@
+
+:root {
+  --planetBlue: #34BBC0;
+
+}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+.CookieConsent
+{
+  background-color:  var(  --tertiary )!important;
+  button
+  {
+    background-color: var(--secondary  )!important;
+    color: white!important;
+  }
 }
 html {
   font-size: 16px;
