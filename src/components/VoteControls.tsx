@@ -86,6 +86,7 @@ export const VoteControls = ({ voted, setVoted,showStatistics,votingThankYou,vot
       {
         await Analytics.record({
           name: 'Changed Vote',
+          immediate: true,
           // Attribute values must be strings
           attributes: {
             choice: choice,
@@ -98,6 +99,7 @@ export const VoteControls = ({ voted, setVoted,showStatistics,votingThankYou,vot
       }
       await Analytics.record({
         name: 'Voted',
+        immediate: true,
         // Attribute values must be strings
         attributes: {
           choice: choice,

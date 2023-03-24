@@ -27,21 +27,24 @@ export const TrackedYoutubeVideo = (props: TrackedVideoProps) => {
                        opts={videoOptions}
                        videoId={props.videoId}
                        onPlay={() => Analytics.record({
-                           name: 'videoStarted',
+                           name: 'Video Started',
                            // Attribute values must be strings
                            attributes: {
                                title: props.videoTitle,
                                userId: `${userGuid}`,
                                page: props.pageTitle
-                           }
+                           },
+                           immediate: true
                        })}
-
+                        
                        onEnd={(e) => Analytics.record({
-                           name: 'videoEnded',
+                           name: 'Video Ended',
 
                            // Attribute values must be strings
-                           metrics: {timeWatched: e.target.getCurrentTime()},
+                           metrics: {timeWatched: e.target.getCurrentTime()},                           
+                           immediate: true,
                            attributes: {
+                               
                                title: props.videoTitle,
                                userId: `${userGuid}`,
                                page: props.pageTitle,
