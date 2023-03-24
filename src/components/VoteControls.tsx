@@ -5,6 +5,7 @@ import {Button, Col, Row} from "react-bootstrap";
 import {v4 as generateGuid} from "uuid";
 import {FaThumbsDown, FaThumbsUp} from "react-icons/fa";
 import {localStorageVotingIdKey} from "../pages/VotingPage";
+import {Analytics} from "aws-amplify";
 
 interface TVoteControls {
   voted: boolean;
@@ -78,12 +79,31 @@ export const VoteControls = ({ voted, setVoted,showStatistics,votingThankYou,vot
           await DataStore.query(Vote, (v) => v.voterId.eq(localGuid))
       ));
       const hasIdAlreadyVoted =  existingVotes.length !== 0;
-    
+
+      
+      
       if(hasIdAlreadyVoted)
       {
+        await Analytics.record({
+          name: 'Changed Vote',
+          // Attribute values must be strings
+          attributes: {
+            choice: choice,
+            userId: `${localGuid}`,
+          }
+        })
+        
           const existingVote = existingVotes[0];
           await DataStore.delete( existingVote);
       }
+      await Analytics.record({
+        name: 'Voted',
+        // Attribute values must be strings
+        attributes: {
+          choice: choice,
+          userId: `${localGuid}`,
+        }
+      })
       
        await DataStore.save(
         new Vote({ choice: choice, voterId: localGuid })
