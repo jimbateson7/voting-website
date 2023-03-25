@@ -9,14 +9,16 @@ export type THubCollection = {
   title?: string;
   showVideoThumbNails: boolean
   parentTitle?: string;
-  ukey?: number;
+  pageTitle?:string;
+  uniqueKey?: string;
 };
 
 export type THubCard =
   {
-    title: string;
+    cardTitle: string;
+    pageTitle: string;
     link: string;
-    ukey: number;
+    uniqueKey: string;
   }
 export type TVidoHubCard = THubCard &
 {
@@ -24,7 +26,7 @@ export type TVidoHubCard = THubCard &
   videoUrl: string;
 }
 export const HubCard = (props: THubCard) => {
-  const title = props.title;
+  const title = props.cardTitle;
   const breakPoint = 40;
   const scaleFactor = 70;
   const overrideFontSize = (title.length > breakPoint);
@@ -34,7 +36,7 @@ export const HubCard = (props: THubCard) => {
     overrideFontSizeTo = `${dynamicSize}rem`;
   }
   return (
-    <a href={props.link} className={"card"} key={props.ukey}>
+    <a href={props.link} className={"card"} key={props.uniqueKey}>
       <div className="card-content">
         {overrideFontSize
           ? <h2 font-overridded={overrideFontSize} style={{ fontSize: overrideFontSizeTo }}>{title}</h2>
@@ -45,13 +47,15 @@ export const HubCard = (props: THubCard) => {
 export const VideoHubCard = (props: TVidoHubCard) => {
   return (
     <div className="card video-card">
-      <div className="card-content" key={props.ukey}>
-        <a href={props.link}><h2>{props.title}</h2></a>
+      <div className="card-content" key={props.uniqueKey}>
+        <a href={props.link}><h2>{props.cardTitle}</h2></a>
         <TrackedYoutubeVideo
-                             videoId={extractYoutubeVideoId(props.videoUrl)}
-                             autoPlay={false} 
-                             showFrame={false}  
-                             pageTitle={props.title} videoTitle={props.videoTitle}/>
+            videoId={extractYoutubeVideoId(props.videoUrl)}
+            autoPlay={false}
+            showFrame={false}
+            pageTitle={props.pageTitle} 
+            
+            videoTitle={props.videoTitle}/>
       </div>
     </div>)
 }
@@ -59,41 +63,43 @@ export const HubCollection = (props: THubCollection) => {
   let subHubCollections: any[] = [];
   let mainHubCards: any[] = [];
   createHubCards(props.items);
-
+  const pageTitle = props.pageTitle ?? props.parentTitle ?? "hub_page";
+ 
+  
   function createHubCards(items: []) {
     if (!items)
       return [];
-
+    const pageTitle = props.pageTitle ?? props.parentTitle ?? "hub_page";
     items.forEach((x: any, i) => {
       let link = x.slug ?? `#${createAnchorLinkFromTitle(x.title)}`;
-
+      const key = `${x.title}-card-${i}`;
       switch (x.__typename) {
         case ContentTypes.NavigationGroup:
           //add card that will link to new hub
           mainHubCards.push(
-            <HubCard title={x.title} link={link} ukey={i} />
+            <HubCard pageTitle={pageTitle} cardTitle={x.title} link={link} uniqueKey={key} />
           )
           //create a new hub at the bottom
 
-          subHubCollections.push(<HubCollection showVideoThumbNails={x.showVideoThumbnailsInHub ?? false} parentTitle={props.title} title={x.title} items={x.navigationItemCollection?.items} ukey={i} />)
+          subHubCollections.push(<HubCollection pageTitle={pageTitle} showVideoThumbNails={x.showVideoThumbnailsInHub ?? false} parentTitle={props.title} title={x.title} items={x.navigationItemCollection?.items} uniqueKey={"subhub"+key} />)
           break;
         case ContentTypes.VideoPage:
 
           if (props.showVideoThumbNails) {
             mainHubCards.push(
-              <VideoHubCard title={x.title} link={link} videoTitle={x.video.title}
-                videoUrl={x.video.ytembedUrl} ukey={i} />
+              <VideoHubCard pageTitle={pageTitle} cardTitle={x.title} link={link} videoTitle={x.video.title}
+                            videoUrl={x.video.ytembedUrl} uniqueKey={key} />
             )
           }
           else {
             mainHubCards.push(
-              <HubCard title={x.title} link={link} ukey={i} />
+              <HubCard pageTitle={pageTitle} cardTitle={x.title} link={link} uniqueKey={key} />
             )
           }
           break;
         default:
           mainHubCards.push(
-            <HubCard title={x.title} link={link} ukey={i} />
+            <HubCard pageTitle={pageTitle} cardTitle={x.title} link={link} uniqueKey={key} />
           )
           break;
       }
@@ -101,9 +107,9 @@ export const HubCollection = (props: THubCollection) => {
 
   }
   //  const title = props.parentTitle ? props.title + ": " + x.title : x.title;
-
+  
   return (
-    <div className="hub" key={props.ukey ? props.ukey : 0} >
+    <div className="hub" key={props.uniqueKey ? `${props.title}-${props.uniqueKey}` : `${props.parentTitle}-${props.title}`} >
       {props.parentTitle ? <h2>{props.parentTitle}:</h2> : null}
       {props.title ? <h2 id={createAnchorLinkFromTitle(props.title)}>{props.title}</h2> : null}
       {mainHubCards}

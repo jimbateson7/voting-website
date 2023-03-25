@@ -54,9 +54,8 @@ function renderOptions(links) {
         // find the entry in the entryMap by ID
         const entry = entryBlockMap.get(node.data.target.sys.id);
 
-        if (entry.__typename === ContentTypes.NavigationGroup) {
-          console.log(entry)
-          return <HubCollection showVideoThumbNails={entry.showVideoThumbnailsInHub ?? false} items={entry.navigationItemCollection.items}></HubCollection>
+        if (entry.__typename === ContentTypes.NavigationGroup) { 
+          return <HubCollection pageTitle={entry} showVideoThumbNails={entry.showVideoThumbnailsInHub ?? false} items={entry.navigationItemCollection.items}></HubCollection>
         }
         if (entry.__typename === ContentTypes.BlogPost || entry.__typename === ContentTypes.VideoPage) {
           return (
