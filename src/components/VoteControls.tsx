@@ -79,33 +79,39 @@ export const VoteControls = ({ voted, setVoted,showStatistics,votingThankYou,vot
           await DataStore.query(Vote, (v) => v.voterId.eq(localGuid))
       ));
       const hasIdAlreadyVoted =  existingVotes.length !== 0;
-
-      
+     
       
       if(hasIdAlreadyVoted)
       {
-        await Analytics.record({
-          name: 'Changed Vote',
-          immediate: true,
+         Analytics.record({
+          name: 'Changed_Vote',
+          //immediate: true,
           // Attribute values must be strings
           attributes: {
-            choice: choice,
-            userId: `${localGuid}`,
+            choice: `${choice?.toString()}`,
+            userId: `${localGuid?.toString()}`,
           }
         })
         
           const existingVote = existingVotes[0];
           await DataStore.delete( existingVote);
       }
-      await Analytics.record({
-        name: 'Voted',
-        immediate: true,
-        // Attribute values must be strings
-        attributes: {
-          choice: choice,
-          userId: `${localGuid}`,
+      else {
+        try {
+          Analytics.record({
+            name: 'Voted',
+            immediate: true,
+            // Attribute values must be strings
+            attributes: {
+              choice: `${choice?.toString()}`,
+              userId: `${localGuid?.toString()}`,
+            }
+          })
+        } catch (e) {
+          
+          console.log(e);
         }
-      })
+      }
       
        await DataStore.save(
         new Vote({ choice: choice, voterId: localGuid })

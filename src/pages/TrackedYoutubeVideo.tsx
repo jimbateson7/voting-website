@@ -19,40 +19,59 @@ export const TrackedYoutubeVideo = (props: TrackedVideoProps) => {
         },
     };
 
-    const timeWindow = 1000;
+   
 
+    function getAttributes(event:any)
+    {
+        const timeWindow = 1000;
+        const attributes = {
+            video_title: props.videoTitle,
+            userId: `${userGuid ?? ""}`,
+            page: props.pageTitle,
+            playedTime: event.target.getCurrentTime().toString(),
+            timeLeftOnVideo: (event.target.getDuration() - event.target.getCurrentTime()).toString(),
+            videoPlayedUntilEnd: (event.target.getCurrentTime() >= (event.target.getDuration() - timeWindow)).toString()
+        }
+        return attributes;
+    }
+    
     let content = <YouTube
                         className="t-video"
                        title={props.videoTitle}
                        opts={videoOptions}
                        videoId={props.videoId}
-                       onPlay={() => Analytics.record({
-                           name: 'Video Started',
-                           // Attribute values must be strings
-                           attributes: {
-                               title: props.videoTitle,
-                               userId: `${userGuid}`,
-                               page: props.pageTitle
-                           },
-                           immediate: true
-                       })}
-                        
-                       onEnd={(e) => Analytics.record({
-                           name: 'Video Ended',
-
-                           // Attribute values must be strings
-                           metrics: {timeWatched: e.target.getCurrentTime()},                           
-                           immediate: true,
-                           attributes: {
-                               
-                               title: props.videoTitle,
-                               userId: `${userGuid}`,
-                               page: props.pageTitle,
-                               playedTime: e.target.getCurrentTime().toString(),
-                               timeLeftOnVideo: (e.target.getSimpleDuration() - e.target.getCurrentTime()).toString(),
-                               videoPlayedUntilEnd: (e.target.getCurrentTime() >= (e.target.getSimpleDuration() - timeWindow)).toString()
-                           }
-                       })}
+                       onPlay={(e) => {
+                                try {
+                                    Analytics.record({
+                                        name: 'Video_Played',
+                                        metrics: {timeWatched: e.target.getCurrentTime()},
+                                        attributes: getAttributes(e)
+                                    })
+                                }
+                                 catch (e) {
+                                    console.log("failed to analyse") 
+                                     console.log(e);
+                                 }
+                            }
+                        }
+                        onPause={(e) =>
+                        {
+                            Analytics.record({
+                                name: 'Video_Paused',
+                                metrics: {timeWatched: e.target.getCurrentTime()},
+                                attributes: getAttributes(e)
+                            })}
+                        }
+                     
+                       onEnd={(e) =>
+                       {
+                           
+                           Analytics.record({
+                           name: 'Video_Watched_To_End',                           
+                           metrics: {timeWatched: e.target.getCurrentTime()},
+                           attributes: getAttributes(e)
+                             })}
+    }
     />
     
     if(!props.videoId)return <></>;
