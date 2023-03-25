@@ -50,7 +50,7 @@ export const VideoHubCard = (props: TVidoHubCard) => {
         <TrackedYoutubeVideo
                              videoId={extractYoutubeVideoId(props.videoUrl)}
                              autoPlay={false} 
-                             showFrame={true}  
+                             showFrame={false}  
                              pageTitle={props.title} videoTitle={props.videoTitle}/>
       </div>
     </div>)

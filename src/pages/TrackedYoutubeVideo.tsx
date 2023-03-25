@@ -35,7 +35,9 @@ export const TrackedYoutubeVideo = (props: TrackedVideoProps) => {
         return attributes;
     }
     
-    let content = <YouTube
+    let content =(<div className="video-container">
+            <div className="aspect-ratio">
+                <YouTube
                         className="t-video"
                        title={props.videoTitle}
                        opts={videoOptions}
@@ -73,19 +75,18 @@ export const TrackedYoutubeVideo = (props: TrackedVideoProps) => {
                              })}
     }
     />
+                </div></div>)
     
     if(!props.videoId)return <></>;
     return(
-        <div className="video-container">
-            <div className="aspect-ratio">
-                {props.showFrame
+       
+                props.showFrame
                 ? <div className="videoIframe">
                     {content}
                     </div>
                 : <>{content}</>
-                }
-            </div>
-        </div>
+                
+     
         );
   
 }
