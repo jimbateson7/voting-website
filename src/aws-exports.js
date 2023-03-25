@@ -30,10 +30,6 @@ const awsmobile = {
     "aws_cognito_verification_mechanisms": [
         "EMAIL"
     ],
-    Logging: {
-        logGroupName: 'our-people',
-        logStreamName: '1-our-people',
-    },
     
 };
 

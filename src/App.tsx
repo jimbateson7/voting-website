@@ -4,6 +4,12 @@ import {Amplify, Analytics} from "aws-amplify";
 import {localStorageVotingIdKey} from "./pages/VotingPage";
 import {v4 as generateGuid} from "uuid";
 
+Amplify.configure(
+    {Logging: {
+  logGroupName: 'our-people',
+      logStreamName: '1-our-people',
+}})
+
 Amplify.configure(awsconfig);
 
 const recordPageVisit = () => {
