@@ -47,6 +47,8 @@ const Layout = () => {
                 // the default function
                 return window.location.origin + window.location.pathname;
             }});
+
+        Analytics.record({name: "Page_View", attributes:{ page: window.location.pathname}});
     } , [analyticsEnabled]);
    
    

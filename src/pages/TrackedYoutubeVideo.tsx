@@ -20,17 +20,42 @@ export const TrackedYoutubeVideo = (props: TrackedVideoProps) => {
     };
 
    
-
+    function getMetrics(event:any)
+    {
+        let timeWatched = 0;
+        try {
+            timeWatched= event.target.getCurrentTime();
+        }
+        catch (e)
+        {
+            console.log("video event play back error");
+            console.log(e);
+        }
+        return  {amountOfVideoWatched: timeWatched};
+    }
     function getAttributes(event:any)
     {
         const timeWindow = 1000;
+        let timeLeftOnVideo=  "unknown";
+        let playedTime = "unknown";
+        let videoPlayedUntilEnd =  "unknown";
+        
+        try {
+            timeLeftOnVideo=  (event?.target?.getDuration() ?? 0 - event?.target?.getCurrentTime() ?? 0).toString();
+            playedTime =  event?.target?.getCurrentTime();
+            videoPlayedUntilEnd = (event?.target?.getCurrentTime() >= (event?.target?.getDuration() - timeWindow)).toString();
+        }
+        catch (e) {
+            console.log("video play back error");
+            console.log(e);
+        }
         const attributes = {
             video_title: props.videoTitle,
             userId: `${userGuid ?? ""}`,
             page: props.pageTitle,
-            playedTime: event.target.getCurrentTime().toString(),
-            timeLeftOnVideo: (event.target.getDuration() - event.target.getCurrentTime()).toString(),
-            videoPlayedUntilEnd: (event.target.getCurrentTime() >= (event.target.getDuration() - timeWindow)).toString()
+            playedTime:playedTime,
+            timeLeftOnVideo: timeLeftOnVideo,
+            videoPlayedUntilEnd:videoPlayedUntilEnd
         }
         return attributes;
     }
@@ -46,7 +71,7 @@ export const TrackedYoutubeVideo = (props: TrackedVideoProps) => {
                                 try {
                                     Analytics.record({
                                         name: 'Video_Played',
-                                        metrics: {timeWatched: e.target.getCurrentTime()},
+                                        metrics:getMetrics(e),
                                         attributes: getAttributes(e)
                                     })
                                 }
@@ -60,7 +85,7 @@ export const TrackedYoutubeVideo = (props: TrackedVideoProps) => {
                         {
                             Analytics.record({
                                 name: 'Video_Paused',
-                                metrics: {timeWatched: e.target.getCurrentTime()},
+                                metrics:getMetrics(e),
                                 attributes: getAttributes(e)
                             })}
                         }
@@ -69,8 +94,8 @@ export const TrackedYoutubeVideo = (props: TrackedVideoProps) => {
                        {
                            
                            Analytics.record({
-                           name: 'Video_Watched_To_End',                           
-                           metrics: {timeWatched: e.target.getCurrentTime()},
+                           name: 'Video_Watched_To_End', 
+                            metrics:getMetrics(e),
                            attributes: getAttributes(e)
                              })}
     }
