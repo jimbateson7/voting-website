@@ -39,7 +39,7 @@ const Layout = () => {
             autoSessionRecord: analyticsEnabled,
             eventName: 'pageView',
             attributes: trackingAttributes,
-
+            
             type: 'multiPageApp',
             provider: 'AWSPinpoint',
 

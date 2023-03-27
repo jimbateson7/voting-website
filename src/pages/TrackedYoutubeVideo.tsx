@@ -2,6 +2,7 @@ import YouTube, {YouTubeProps} from "react-youtube";
 import {Analytics} from "aws-amplify";
 import {localStorageVotingIdKey} from "./VotingPage";
 import "./TrackedYoutubeVideo.scss";
+import {useEffect, useState} from "react";
 export interface TrackedVideoProps {
     pageTitle: string;
     videoTitle: string;
@@ -10,6 +11,32 @@ export interface TrackedVideoProps {
     autoPlay: boolean;
 }
 export const TrackedYoutubeVideo = (props: TrackedVideoProps) => {
+
+    const [videoPlaying,setVideoPlaying] = useState<boolean>(false);
+    useEffect(() => {    
+
+        //set up record
+        function userLeft(ev: any) {
+
+            const attributes = {
+                video_title: props.videoTitle,
+                userId: `${userGuid ?? ""}`,
+                page: props.pageTitle
+            }
+            if(videoPlaying) {
+                Analytics.record({
+                    name: 'User_Left_Page_Without_Finishing_Video',
+                    attributes: attributes
+                })
+            }
+        }
+        window.addEventListener('beforeunload', userLeft)
+
+        return () => {
+            window.removeEventListener('beforeunload', userLeft)
+        }
+    })
+    
     let userGuid = localStorage.getItem(localStorageVotingIdKey);
     const videoOptions: YouTubeProps['opts'] = {
 
@@ -17,43 +44,45 @@ export const TrackedYoutubeVideo = (props: TrackedVideoProps) => {
             autoplay: props.autoPlay,
             allow: "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         },
-    };
-
-   
+    }; 
+           
     function getMetrics(event:any)
     {
         let timeWatched = 0;
+        let percentageWatched = 0;
         try {
             timeWatched= event.target.getCurrentTime();
+            percentageWatched=Math.floor((event?.target?.getCurrentTime() / event?.target?.getDuration()) * 100);
         }
         catch (e)
         {
             console.log("video event play back error");
             console.log(e);
         }
-        return  {amountOfVideoWatched: timeWatched};
+        return  {amountOfVideoWatched: timeWatched, percentageWatched:percentageWatched};
     }
     function getAttributes(event:any)
-    {
+    {      
         const timeWindow = 1000;
         let timeLeftOnVideo=  "unknown";
         let playedTime = "unknown";
         let videoPlayedUntilEnd =  "unknown";
-        
+        let playedPercentage = "0%"
         try {
             timeLeftOnVideo=  (event?.target?.getDuration() ?? 0 - event?.target?.getCurrentTime() ?? 0).toString();
             playedTime =  event?.target?.getCurrentTime();
+            playedPercentage = Math.floor((event?.target?.getCurrentTime() / event?.target?.getDuration()) * 100).toString()+"%";
             videoPlayedUntilEnd = (event?.target?.getCurrentTime() >= (event?.target?.getDuration() - timeWindow)).toString();
         }
         catch (e) {
-            console.log("video play back error");
-            console.log(e);
+  
         }
         const attributes = {
             video_title: props.videoTitle,
             userId: `${userGuid ?? ""}`,
             page: props.pageTitle,
             playedTime:playedTime,
+            playedPercentage: playedPercentage,
             timeLeftOnVideo: timeLeftOnVideo,
             videoPlayedUntilEnd:videoPlayedUntilEnd
         }
@@ -68,6 +97,7 @@ export const TrackedYoutubeVideo = (props: TrackedVideoProps) => {
                        opts={videoOptions}
                        videoId={props.videoId}
                        onPlay={(e) => {
+                                setVideoPlaying(true);
                                 try {
                                     Analytics.record({
                                         name: 'Video_Played',
@@ -92,7 +122,7 @@ export const TrackedYoutubeVideo = (props: TrackedVideoProps) => {
                      
                        onEnd={(e) =>
                        {
-                           
+                           setVideoPlaying(false);
                            Analytics.record({
                            name: 'Video_Watched_To_End', 
                             metrics:getMetrics(e),
