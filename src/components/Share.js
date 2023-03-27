@@ -1,7 +1,27 @@
 import { FaFacebook, FaLinkedin, FaTwitter, FaInstagram, FaEnvelope } from 'react-icons/fa';
 import './Share.scss';
+import {Analytics} from "aws-amplify";
+import {localStorageVotingIdKey} from "../pages/VotingPage";
 
 function Share({ postVoteVideo, shareText, shareSubText }) {
+
+
+
+
+  const record = (socialMedia) =>
+  {
+    let userGuid = localStorage.getItem(localStorageVotingIdKey);
+    const attributes = {
+      userId: `${userGuid ?? ""}`,
+      page: "Voting Page",
+    }
+    
+    Analytics.record({
+      name: `${socialMedia}_Share_Button_Clicked`,      
+      attributes: attributes
+    });
+  }
+  
   
   return (
     <div className="share">
@@ -20,23 +40,23 @@ function Share({ postVoteVideo, shareText, shareSubText }) {
       <p>{shareSubText}</p>
       <div className="social-links">
         <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//ourplanetourpeople.com" target="_blank" rel="noreferrer">
-          <FaFacebook style={{ color: '#4267B2', fontSize: '3rem', padding: '.25rem' }} />
+          <FaFacebook onClick={() => record("Facebook")} style={{ color: '#4267B2', fontSize: '3rem', padding: '.25rem' }} />
         </a>
 
         <a href="https://twitter.com/intent/tweet?text=Should%20our%20action%20plans%20be%20based%20on%20responding%20to%20worst%20case%20scenarios?%20Cast%20your%20vote%20at%20https%3A//ourplanetourpeople.com" target="_blank" rel="noreferrer">
-          <FaTwitter style={{ color: '#1DA1F2', fontSize: '3rem', padding: '.25rem' }} />
+          <FaTwitter onClick={() => record("Twitter")} style={{ color: '#1DA1F2', fontSize: '3rem', padding: '.25rem' }} />
         </a>
 
         <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//ourplanetourpeople.com" target="_blank" rel="noreferrer">
-          <FaLinkedin style={{ color: '#2D62C1', fontSize: '3rem', padding: '.25rem' }} />
+          <FaLinkedin onClick={() => record("LinkedIn")}style={{ color: '#2D62C1', fontSize: '3rem', padding: '.25rem' }} />
         </a>
 
         <a href="https://www.instagram.com/">
-          <FaInstagram style={{ fontSize: '3rem', padding: '.25rem' }} />
+          <FaInstagram onClick={() => record("Instagram")}  style={{ fontSize: '3rem', padding: '.25rem' }} />
         </a>
 
         <a href="mailto:?subject=Should%20our%20action%20plans%20be%20based%20on%20responding%20to%20worst%20case%20scenarios?&body=Cast%20your%20vote%20at%20https%3A//ourplanetourpeople.com">
-          <FaEnvelope style={{ color: '#F5BA48', fontSize: '3rem', padding: '.25rem' }} />
+          <FaEnvelope onClick={() => record("Email")} style={{ color: '#F5BA48', fontSize: '3rem', padding: '.25rem' }} />
         </a>
       </div>
     </div>
