@@ -17,6 +17,7 @@ import {CookieConsent} from "react-cookie-consent";
 import { Analytics } from 'aws-amplify';
 import {localStorageVotingIdKey} from "./VotingPage";
 import {v4 as generateGuid} from "uuid";
+import {DisableAnalytics, EnableAnalytics, recordUse} from "../utils/analytics";
 
 
 const Layout = () => {
@@ -48,15 +49,15 @@ const Layout = () => {
                 return window.location.origin + window.location.pathname;
             }});
 
-        Analytics.record({name: "Page_View", attributes:{ page: window.location.pathname}});
+        recordUse({name: "Page_View", userGuid, attributes:{ page: window.location.pathname}});
     } , [analyticsEnabled]);
    
    
     if(analyticsEnabled)
-        Analytics.enable()
+        EnableAnalytics()
     else
-        Analytics.disable()
-
+        DisableAnalytics();
+        
 
     return (
     <>

@@ -3,6 +3,7 @@ import {Analytics} from "aws-amplify";
 import {localStorageVotingIdKey} from "./VotingPage";
 import "./TrackedYoutubeVideo.scss";
 import {useEffect, useState} from "react";
+import {recordUse} from "../utils/analytics";
 export interface TrackedVideoProps {
     pageTitle: string;
     videoTitle: string;
@@ -24,10 +25,10 @@ export const TrackedYoutubeVideo = (props: TrackedVideoProps) => {
                 page: props.pageTitle
             }
             if(videoPlaying) {
-                Analytics.record({
-                    name: 'User_Left_Page_Without_Finishing_Video',
+                recordUse({
+                    name: 'User_Left_Page_Without_Finishing_Video',                    
                     attributes: attributes
-                })
+                },userGuid)
             }
         }
         window.addEventListener('beforeunload', userLeft)
@@ -99,11 +100,11 @@ export const TrackedYoutubeVideo = (props: TrackedVideoProps) => {
                        onPlay={(e) => {
                                 setVideoPlaying(true);
                                 try {
-                                    Analytics.record({
+                                    recordUse({
                                         name: 'Video_Played',
                                         metrics:getMetrics(e),
                                         attributes: getAttributes(e)
-                                    })
+                                    },userGuid)
                                 }
                                  catch (e) {
                                     console.log("failed to analyse") 
@@ -113,21 +114,21 @@ export const TrackedYoutubeVideo = (props: TrackedVideoProps) => {
                         }
                         onPause={(e) =>
                         {
-                            Analytics.record({
+                            recordUse({
                                 name: 'Video_Paused',
                                 metrics:getMetrics(e),
                                 attributes: getAttributes(e)
-                            })}
+                            },userGuid)}
                         }
                      
                        onEnd={(e) =>
                        {
                            setVideoPlaying(false);
-                           Analytics.record({
+                           recordUse({
                            name: 'Video_Watched_To_End', 
                             metrics:getMetrics(e),
                            attributes: getAttributes(e)
-                             })}
+                             },userGuid)}
     }
     />
                 </div></div>)
