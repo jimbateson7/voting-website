@@ -14,6 +14,10 @@ type TTrackingItem = {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     attributes?: EventAttributes;// Record<string, any>;
     userID: string;
+
+    event: string;
+    eventLabel?: string;
+
   
 };
 
@@ -34,7 +38,9 @@ export const pushToGaDatalayer = (name:string, userId:string, eventData?: EventA
         window.dataLayer.push({
             name: name,
             attributes: eventData,
-            userID: userId     
+            userID: userId    ,
+            event:name,
+            eventLabel: userId,
         });
     }
 };
