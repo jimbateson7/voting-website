@@ -69,11 +69,13 @@ export const TrackedYoutubeVideo = (props: TrackedVideoProps) => {
         let playedTime = "unknown";
         let videoPlayedUntilEnd =  "unknown";
         let playedPercentage = "0%"
+        let page = props.pageTitle;
+        page = page.length > 10 ? "HubPage" : page;
         try {
             timeLeftOnVideo=  (event?.target?.getDuration() ?? 0 - event?.target?.getCurrentTime() ?? 0).toString();
             playedTime =  event?.target?.getCurrentTime();
             playedPercentage = Math.floor((event?.target?.getCurrentTime() / event?.target?.getDuration()) * 100).toString()+"%";
-            //videoPlayedUntilEnd = (event?.target?.getCurrentTime() >= (event?.target?.getDuration() - timeWindow)).toString();
+            videoPlayedUntilEnd = (event?.target?.getCurrentTime() >= (event?.target?.getDuration() - timeWindow)).toString();
         }
         catch (e) {
   
@@ -81,11 +83,10 @@ export const TrackedYoutubeVideo = (props: TrackedVideoProps) => {
         const attributes = {
             video_title: props.videoTitle,
             userId: `${userGuid ?? ""}`,
-            page: props.pageTitle,
+            page: page,
             playedTime:playedTime,
             playedPercentage: playedPercentage,
-            timeLeftOnVideo: timeLeftOnVideo,
-            videoPlayedUntilEnd:videoPlayedUntilEnd
+            timeLeftOnVideo: timeLeftOnVideo            
         }
         return attributes;
     }
