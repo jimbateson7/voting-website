@@ -64,7 +64,7 @@ export const TrackedYoutubeVideo = (props: TrackedVideoProps) => {
     }
     function getAttributes(event:any)
     {      
-        const timeWindow = 1000;
+        const timeWindow = 10;
         let timeLeftOnVideo=  "unknown";
         let playedTime = "unknown";
         let videoPlayedUntilEnd =  "unknown";
@@ -73,7 +73,7 @@ export const TrackedYoutubeVideo = (props: TrackedVideoProps) => {
             timeLeftOnVideo=  (event?.target?.getDuration() ?? 0 - event?.target?.getCurrentTime() ?? 0).toString();
             playedTime =  event?.target?.getCurrentTime();
             playedPercentage = Math.floor((event?.target?.getCurrentTime() / event?.target?.getDuration()) * 100).toString()+"%";
-            videoPlayedUntilEnd = (event?.target?.getCurrentTime() >= (event?.target?.getDuration() - timeWindow)).toString();
+            //videoPlayedUntilEnd = (event?.target?.getCurrentTime() >= (event?.target?.getDuration() - timeWindow)).toString();
         }
         catch (e) {
   
