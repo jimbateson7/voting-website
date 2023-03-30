@@ -25,17 +25,18 @@ const Layout = () => {
     const [expanded, setExpanded] = useState(false);
     const [analyticsEnabled, setAnalyticsEnabled] = useState(getCookieConsentValue("OurPeopleOurPlanetAnalyticsAcceptance") ?? false);
     const toggleExpanded = () => setExpanded(!expanded);
-    let userGuid = localStorage.getItem(localStorageVotingIdKey);
-    if (!userGuid) {
-        userGuid = generateGuid();
-        localStorage.setItem(localStorageVotingIdKey, userGuid);
-    }
+    
     useEffect( () => {},[])
     {
         //console.log(getCookieConsentValue("OurPeopleOurPlanetAnalyticsAcceptance"));
         //InitAnalytics();
     }
     useEffect( () => {
+        let userGuid = localStorage.getItem(localStorageVotingIdKey);
+        if (!userGuid) {
+            userGuid = generateGuid();
+            localStorage.setItem(localStorageVotingIdKey, userGuid);
+        }
         let trackingAttributes = {
             userId: userGuid         
         }
