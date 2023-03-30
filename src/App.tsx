@@ -3,6 +3,8 @@ import awsconfig from './aws-exports';
 import {Amplify, Analytics} from "aws-amplify";
 import {localStorageVotingIdKey} from "./pages/VotingPage";
 import {v4 as generateGuid} from "uuid";
+import gtag from "./utils/gtag";
+import {InitAnalytics} from "./utils/analytics";
 
 Amplify.configure(
     {Logging: {
@@ -11,6 +13,7 @@ Amplify.configure(
 }})
 
 Amplify.configure(awsconfig);
+InitAnalytics();
 
 const recordPageVisit = () => {
 

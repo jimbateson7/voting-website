@@ -12,29 +12,34 @@ import {DynamicFooter} from "../components/DynamicFooter";
 import React, {useEffect, useState} from "react";
 
 import {DynamicNavList} from "../components/DynamicNavList";
-import {CookieConsent} from "react-cookie-consent";
+import {CookieConsent, getCookieConsentValue} from "react-cookie-consent";
 
 import { Analytics } from 'aws-amplify';
 import {localStorageVotingIdKey} from "./VotingPage";
 import {v4 as generateGuid} from "uuid";
-import {DisableAnalytics, EnableAnalytics, recordUse} from "../utils/analytics";
+import {DisableAnalytics, EnableAnalytics, InitAnalytics, recordUse} from "../utils/analytics";
 
 
 const Layout = () => {
-
+    
     const [expanded, setExpanded] = useState(false);
-    const [analyticsEnabled, setAnalyticsEnabled] = useState(false);
+    const [analyticsEnabled, setAnalyticsEnabled] = useState(getCookieConsentValue("OurPeopleOurPlanetAnalyticsAcceptance"));
     const toggleExpanded = () => setExpanded(!expanded);
     let userGuid = localStorage.getItem(localStorageVotingIdKey);
     if (!userGuid) {
         userGuid = generateGuid();
         localStorage.setItem(localStorageVotingIdKey, userGuid);
     }
-    
+    useEffect( () => {},[])
+    {
+        //console.log(getCookieConsentValue("OurPeopleOurPlanetAnalyticsAcceptance"));
+        //InitAnalytics();
+    }
     useEffect( () => {
         let trackingAttributes = {
             userId: userGuid         
         }
+        
         Analytics.autoTrack('pageView', {
             enable: analyticsEnabled,
             autoSessionRecord: analyticsEnabled,
@@ -49,10 +54,11 @@ const Layout = () => {
                 return window.location.origin + window.location.pathname;
             }});
 
-        recordUse({name: "Page_View", userGuid, attributes:{ page: window.location.pathname}});
+        
+
+        //recordUse({name: "Page_View", userGuid, attributes:{ page: window.location.pathname}});
     } , [analyticsEnabled]);
-   
-   
+
     if(analyticsEnabled)
         EnableAnalytics()
     else

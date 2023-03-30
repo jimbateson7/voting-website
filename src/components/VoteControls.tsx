@@ -6,6 +6,7 @@ import {v4 as generateGuid} from "uuid";
 import {FaThumbsDown, FaThumbsUp} from "react-icons/fa";
 import {localStorageVotingIdKey} from "../pages/VotingPage";
 import {Analytics} from "aws-amplify";
+import {recordUse} from "../utils/analytics";
 
 interface TVoteControls {
   voted: boolean;
@@ -83,7 +84,7 @@ export const VoteControls = ({ voted, setVoted,showStatistics,votingThankYou,vot
       
       if(hasIdAlreadyVoted)
       {
-         Analytics.record({
+         recordUse({
           name: 'Changed_Vote',
           //immediate: true,
           // Attribute values must be strings
@@ -91,14 +92,14 @@ export const VoteControls = ({ voted, setVoted,showStatistics,votingThankYou,vot
             choice: `${choice?.toString()}`,
             userId: `${localGuid?.toString()}`,
           }
-        })
+        },localGuid)
         
           const existingVote = existingVotes[0];
           await DataStore.delete( existingVote);
       }
       else {
         try {
-          Analytics.record({
+          recordUse({
             name: 'Voted',
             immediate: true,
             // Attribute values must be strings
@@ -106,7 +107,7 @@ export const VoteControls = ({ voted, setVoted,showStatistics,votingThankYou,vot
               choice: `${choice?.toString()}`,
               userId: `${localGuid?.toString()}`,
             }
-          })
+          },localGuid)
         } catch (e) {
           
           console.log(e);

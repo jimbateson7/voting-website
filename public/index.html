@@ -25,6 +25,18 @@
     -->
     <title>Our Planet Our People</title>
 
+    <script id="datalayer" data-nscript="beforeInteractive">
+        window.dataLayer = window.dataLayer || [];
+         function gtag(){
+         	dataLayer.push(arguments);
+         }
+        // eslint-disable-next-line prefer-rest-params
+         gtag('consent', 'default', {
+         	'ad_storage': 'denied',
+         	'analytics_storage':'denied',
+         	'wait_for_update': 500
+         });
+      </script>
 
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -36,10 +48,7 @@
 </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WKS2MGS"
-                      height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
+
     
     <div id="root"></div>
     <!--
