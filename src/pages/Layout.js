@@ -56,7 +56,7 @@ const Layout = () => {
 
         
 
-        //recordUse({name: "Page_View", userGuid, attributes:{ page: window.location.pathname}});
+        recordUse({name: "Page_View", userGuid, attributes:{ page: window.location.pathname}});
     } , [analyticsEnabled]);
 
     if(analyticsEnabled)
