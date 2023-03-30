@@ -12,10 +12,11 @@ function Share({ postVoteVideo, shareText, shareSubText }) {
     const attributes = {
       userId: `${userGuid ?? ""}`,
       page: "Voting Page",
+      socialMediaUsed:socialMedia,
     }
     
     recordUse({
-      name: `${socialMedia}_Share_Button_Clicked`,      
+      name: `Share_Button_Clicked`,      
       attributes: attributes
     },userGuid);
   }
