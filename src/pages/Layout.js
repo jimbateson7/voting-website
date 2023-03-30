@@ -33,7 +33,7 @@ const Layout = () => {
     }
     useEffect( () => {
         let userGuid = localStorage.getItem(localStorageVotingIdKey);
-        if (!userGuid) {
+        if (!userGuid || userGuid.length < 1) {
             userGuid = generateGuid();
             localStorage.setItem(localStorageVotingIdKey, userGuid);
         }
