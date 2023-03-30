@@ -1,11 +1,9 @@
 import { FaFacebook, FaLinkedin, FaTwitter, FaInstagram, FaEnvelope } from 'react-icons/fa';
 import './Share.scss';
-import {Analytics} from "aws-amplify";
 import {localStorageVotingIdKey} from "../pages/VotingPage";
+import {recordUse} from "../utils/analytics";
 
 function Share({ postVoteVideo, shareText, shareSubText }) {
-
-
 
 
   const record = (socialMedia) =>
@@ -16,10 +14,10 @@ function Share({ postVoteVideo, shareText, shareSubText }) {
       page: "Voting Page",
     }
     
-    Analytics.record({
+    recordUse({
       name: `${socialMedia}_Share_Button_Clicked`,      
       attributes: attributes
-    });
+    },userGuid);
   }
   
   

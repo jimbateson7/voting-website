@@ -1,10 +1,11 @@
 ﻿import Share from "../components/Share";
 import "./VotingPage.scss";
+// @ts-ignore
 import {VoteControls} from "../components/VoteControls";
 import {Row} from "react-bootstrap";
 import {v4 as generateGuid} from "uuid";
+// @ts-ignore
 import {TrackedYoutubeVideo} from "./TrackedYoutubeVideo";
-
 
 export const localStorageVotingIdKey = "voterId";
 interface TVotingPage {

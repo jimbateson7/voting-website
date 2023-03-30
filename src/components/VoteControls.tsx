@@ -5,7 +5,7 @@ import {Button, Col, Row} from "react-bootstrap";
 import {v4 as generateGuid} from "uuid";
 import {FaThumbsDown, FaThumbsUp} from "react-icons/fa";
 import {localStorageVotingIdKey} from "../pages/VotingPage";
-import {Analytics} from "aws-amplify";
+
 import {recordUse} from "../utils/analytics";
 
 interface TVoteControls {

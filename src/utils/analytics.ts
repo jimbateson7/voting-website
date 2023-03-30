@@ -34,10 +34,7 @@ export const pushToGaDatalayer = (name:string, userId:string, eventData?: EventA
         window.dataLayer.push({         
             event:"analytics_event",
             eventName: name,
-            eventAttributes: eventData
-          //  choice: eventData ? eventData["choice"] : undefined,
-          //  userID: userId,            
-          
+            eventAttributes: eventData          
         });
     }
 };
@@ -67,7 +64,6 @@ export function InitAnalytics() {
 }
 export function DisableAnalytics()
 {
-
     if (typeof window !== 'undefined') {
         gtag('consent', 'update', {
             analytics_storage: 'denied',
@@ -81,10 +77,6 @@ export function DisableAnalytics()
 
 export function recordUse(e: AnalyticsEvent, userId?:string | null) {
     
-    //if(window.gaEnabled) {
-       // console.log("event " + e.name);
-        pushToGaDatalayer(e.name, userId ?? "unknown_user", e.attributes)
-    //}
-    
+    pushToGaDatalayer(e.name, userId ?? "unknown_user", e.attributes)
     Analytics.record(e)
 }
