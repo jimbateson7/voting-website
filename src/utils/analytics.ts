@@ -2,18 +2,19 @@ import {AnalyticsEvent} from "@aws-amplify/analytics/lib-esm/types";
 import {Analytics} from "aws-amplify";
 import {EventAttributes} from "@aws-amplify/analytics/src/types/Analytics";
 import gtag from "./gtag";
-
+import { DataStore } from '@aws-amplify/datastore';
+import { Event } from "../models"
 
 type TTrackingItem = {
-   
+
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     eventAttributes?: EventAttributes;// Record<string, any>;
-  //  userID: string;
+    //  userID: string;
     eventName: string;
     event: string;
-  //  eventLabel?: string;
-  //  choice?:string;
-  
+    //  eventLabel?: string;
+    //  choice?:string;
+
 };
 
 declare global {
@@ -28,13 +29,13 @@ declare global {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const pushToGaDatalayer = (name:string, userId:string, eventData?: EventAttributes): void => {
-    
+
     if (typeof window !== 'undefined') {
         window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push({         
+        window.dataLayer.push({
             event:"analytics_event",
             eventName: name,
-            eventAttributes: eventData          
+            eventAttributes: eventData
         });
     }
 };
@@ -49,7 +50,7 @@ export function EnableAnalytics() {
             ad_storage: 'granted'
         });
     }
-        
+
     Analytics.enable();
 }
 export function InitAnalytics() {
@@ -69,14 +70,24 @@ export function DisableAnalytics()
             analytics_storage: 'denied',
             ad_storage: 'denied'
         });
-    }   
-    
+    }
+
     window.gaEnabled = false;
     Analytics.disable();
 }
 
 export function recordUse(e: AnalyticsEvent, userId?:string | null) {
-    
+
     pushToGaDatalayer(e.name, userId ?? "unknown_user", e.attributes)
     Analytics.record(e)
+
+    if(window.gaEnabled ) {
+        DataStore.save(
+            new Event({
+                "userId": userId,
+                "eventName": e.name,
+                "attributes":  JSON.stringify(e.attributes)
+            })
+        );
+    }
 }

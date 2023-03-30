@@ -29,24 +29,24 @@ export default function EventCreateForm(props) {
     ...rest
   } = props;
   const initialValues = {
-    userGuid: "",
-    name: "",
-    attribues: "",
+    userId: "",
+    eventName: "",
+    attributes: "",
   };
-  const [userGuid, setUserGuid] = React.useState(initialValues.userGuid);
-  const [name, setName] = React.useState(initialValues.name);
-  const [attribues, setAttribues] = React.useState(initialValues.attribues);
+  const [userId, setUserId] = React.useState(initialValues.userId);
+  const [eventName, setEventName] = React.useState(initialValues.eventName);
+  const [attributes, setAttributes] = React.useState(initialValues.attributes);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
-    setUserGuid(initialValues.userGuid);
-    setName(initialValues.name);
-    setAttribues(initialValues.attribues);
+    setUserId(initialValues.userId);
+    setEventName(initialValues.eventName);
+    setAttributes(initialValues.attributes);
     setErrors({});
   };
   const validations = {
-    userGuid: [],
-    name: [],
-    attribues: [{ type: "JSON" }],
+    userId: [],
+    eventName: [],
+    attributes: [{ type: "JSON" }],
   };
   const runValidationTasks = async (
     fieldName,
@@ -73,9 +73,9 @@ export default function EventCreateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
-          userGuid,
-          name,
-          attribues,
+          userId,
+          eventName,
+          attributes,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -122,81 +122,81 @@ export default function EventCreateForm(props) {
       {...rest}
     >
       <TextField
-        label="User guid"
+        label="User id"
         isRequired={false}
         isReadOnly={false}
-        value={userGuid}
+        value={userId}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              userGuid: value,
-              name,
-              attribues,
+              userId: value,
+              eventName,
+              attributes,
             };
             const result = onChange(modelFields);
-            value = result?.userGuid ?? value;
+            value = result?.userId ?? value;
           }
-          if (errors.userGuid?.hasError) {
-            runValidationTasks("userGuid", value);
+          if (errors.userId?.hasError) {
+            runValidationTasks("userId", value);
           }
-          setUserGuid(value);
+          setUserId(value);
         }}
-        onBlur={() => runValidationTasks("userGuid", userGuid)}
-        errorMessage={errors.userGuid?.errorMessage}
-        hasError={errors.userGuid?.hasError}
-        {...getOverrideProps(overrides, "userGuid")}
+        onBlur={() => runValidationTasks("userId", userId)}
+        errorMessage={errors.userId?.errorMessage}
+        hasError={errors.userId?.hasError}
+        {...getOverrideProps(overrides, "userId")}
       ></TextField>
       <TextField
-        label="Name"
+        label="Event name"
         isRequired={false}
         isReadOnly={false}
-        value={name}
+        value={eventName}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              userGuid,
-              name: value,
-              attribues,
+              userId,
+              eventName: value,
+              attributes,
             };
             const result = onChange(modelFields);
-            value = result?.name ?? value;
+            value = result?.eventName ?? value;
           }
-          if (errors.name?.hasError) {
-            runValidationTasks("name", value);
+          if (errors.eventName?.hasError) {
+            runValidationTasks("eventName", value);
           }
-          setName(value);
+          setEventName(value);
         }}
-        onBlur={() => runValidationTasks("name", name)}
-        errorMessage={errors.name?.errorMessage}
-        hasError={errors.name?.hasError}
-        {...getOverrideProps(overrides, "name")}
+        onBlur={() => runValidationTasks("eventName", eventName)}
+        errorMessage={errors.eventName?.errorMessage}
+        hasError={errors.eventName?.hasError}
+        {...getOverrideProps(overrides, "eventName")}
       ></TextField>
       <TextAreaField
-        label="Attribues"
+        label="Attributes"
         isRequired={false}
         isReadOnly={false}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              userGuid,
-              name,
-              attribues: value,
+              userId,
+              eventName,
+              attributes: value,
             };
             const result = onChange(modelFields);
-            value = result?.attribues ?? value;
+            value = result?.attributes ?? value;
           }
-          if (errors.attribues?.hasError) {
-            runValidationTasks("attribues", value);
+          if (errors.attributes?.hasError) {
+            runValidationTasks("attributes", value);
           }
-          setAttribues(value);
+          setAttributes(value);
         }}
-        onBlur={() => runValidationTasks("attribues", attribues)}
-        errorMessage={errors.attribues?.errorMessage}
-        hasError={errors.attribues?.hasError}
-        {...getOverrideProps(overrides, "attribues")}
+        onBlur={() => runValidationTasks("attributes", attributes)}
+        errorMessage={errors.attributes?.errorMessage}
+        hasError={errors.attributes?.hasError}
+        {...getOverrideProps(overrides, "attributes")}
       ></TextAreaField>
       <Flex
         justifyContent="space-between"

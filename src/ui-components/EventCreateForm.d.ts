@@ -13,21 +13,21 @@ export declare type ValidationResponse = {
 };
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
 export declare type EventCreateFormInputValues = {
-    userGuid?: string;
-    name?: string;
-    attribues?: string;
+    userId?: string;
+    eventName?: string;
+    attributes?: string;
 };
 export declare type EventCreateFormValidationValues = {
-    userGuid?: ValidationFunction<string>;
-    name?: ValidationFunction<string>;
-    attribues?: ValidationFunction<string>;
+    userId?: ValidationFunction<string>;
+    eventName?: ValidationFunction<string>;
+    attributes?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type EventCreateFormOverridesProps = {
     EventCreateFormGrid?: PrimitiveOverrideProps<GridProps>;
-    userGuid?: PrimitiveOverrideProps<TextFieldProps>;
-    name?: PrimitiveOverrideProps<TextFieldProps>;
-    attribues?: PrimitiveOverrideProps<TextAreaFieldProps>;
+    userId?: PrimitiveOverrideProps<TextFieldProps>;
+    eventName?: PrimitiveOverrideProps<TextFieldProps>;
+    attributes?: PrimitiveOverrideProps<TextAreaFieldProps>;
 } & EscapeHatchProps;
 export declare type EventCreateFormProps = React.PropsWithChildren<{
     overrides?: EventCreateFormOverridesProps | undefined | null;
