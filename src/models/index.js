@@ -7,10 +7,9 @@ const Choice = {
   "NO": "NO"
 };
 
-const { Event, Vote } = initSchema(schema);
+const { Vote } = initSchema(schema);
 
 export {
-  Event,
   Vote,
   Choice
 };
