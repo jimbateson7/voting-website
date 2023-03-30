@@ -1,9 +1,9 @@
 import YouTube, {YouTubeProps} from "react-youtube";
-import {Analytics} from "aws-amplify";
-import {localStorageVotingIdKey} from "./VotingPage";
 import "./TrackedYoutubeVideo.scss";
 import {useEffect, useState} from "react";
 import {recordUse} from "../utils/analytics";
+// @ts-ignore
+import {localStorageVotingIdKey} from "./VotingPage";
 export interface TrackedVideoProps {
     pageTitle: string;
     videoTitle: string;
@@ -90,8 +90,10 @@ export const TrackedYoutubeVideo = (props: TrackedVideoProps) => {
         return attributes;
     }
     
-    let content =(<div className="video-container">
-            <div className="aspect-ratio">
+    // @ts-ignore
+    // @ts-ignore
+    const content =(<div className="video-container">
+            <div className="aspect-ratio">              
                 <YouTube
                         className="t-video"
                        title={props.videoTitle}
