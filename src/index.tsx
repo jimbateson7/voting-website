@@ -14,7 +14,6 @@ import "./index.scss";
 
 import App from "./App";
 
-Amplify.configure(awsconfig);
 
 const rootElement = document.getElementById("root");
 if (!rootElement) throw new Error("Failed to find the root element");

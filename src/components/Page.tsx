@@ -2,7 +2,7 @@
 import "./Page.scss";
 import "./HubCollection.scss";
 import { getPageJson } from "../repositories/Articles/request";
-import {Logger} from "aws-amplify";
+import {Analytics, Logger} from "aws-amplify";
 import {LogException, LogQuery} from "../repositories/utils/utilities";
 export interface TPage {
   header: string;
@@ -28,6 +28,7 @@ export const ArticlePage = (props: TArticlePage) => {
   
   useEffect(() => {
     fetchData().catch(reason => {LogException(reason)});
+        
   }, [slug,fetchData]);
 
   const styleClass = data.heroImageUrl ? "heroWithImage" : "hero";
@@ -39,8 +40,7 @@ export const ArticlePage = (props: TArticlePage) => {
         {data.heroImageUrl ? (
           <img src={data.heroImageUrl} alt={data.heroImageAltText}></img>
         ) : null}
-      </div>
-      
+      </div>      
 
       <div>{data.richText ? data.richText : <p>...</p>}</div>
 

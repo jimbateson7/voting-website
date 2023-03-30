@@ -1,6 +1,6 @@
 ﻿const LoadingPage = () => {
-  return <div class="spinner-border text-primary" role="status">
-    <span class="visually-hidden">Loading...</span>
+  return <div className="spinner-border text-primary" role="status">
+    <span className="visually-hidden">Loading...</span>
   </div>;
 };
 export default LoadingPage;

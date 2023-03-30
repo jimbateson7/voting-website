@@ -4,6 +4,9 @@ import {useCallback, useEffect, useState} from "react";
 import {Button, Col, Row} from "react-bootstrap";
 import {v4 as generateGuid} from "uuid";
 import {FaThumbsDown, FaThumbsUp} from "react-icons/fa";
+import {localStorageVotingIdKey} from "../pages/VotingPage";
+import {Analytics} from "aws-amplify";
+import {recordUse} from "../utils/analytics";
 
 interface TVoteControls {
   voted: boolean;
@@ -18,10 +21,10 @@ export const VoteControls = ({ voted, setVoted,showStatistics,votingThankYou,vot
   const [numYesVotes, setNumYesVotes] = useState(0);
   const [numNoVotes, setNumNoVotes] = useState(0);
   const [voteChoice, setVoteChoice] = useState<Choice | undefined>(undefined)
-  const localStorageKey = "voterId";
+  
 
   const fetchVoteCounts = useCallback(async (checkGuid:boolean) => {
-    let localGuid = localStorage.getItem(localStorageKey);
+    let localGuid = localStorage.getItem(localStorageVotingIdKey);
 
     const votes = (await (
         await DataStore.query(Vote, (v) => v.voterId.eq(localGuid))
@@ -54,7 +57,7 @@ export const VoteControls = ({ voted, setVoted,showStatistics,votingThankYou,vot
   
   
   useEffect(() => {
-    let localGuid = localStorage.getItem(localStorageKey);
+    let localGuid = localStorage.getItem(localStorageVotingIdKey);
 
     if (localGuid) {
       fetchVoteCounts(true).catch(console.error);
@@ -64,11 +67,11 @@ export const VoteControls = ({ voted, setVoted,showStatistics,votingThankYou,vot
   
 
   const SaveVoteToDb = async (choice: Choice) => {
-    let localGuid = localStorage.getItem(localStorageKey);
+    let localGuid = localStorage.getItem(localStorageVotingIdKey);
 
     if (!localGuid) {
       localGuid = generateGuid();
-      localStorage.setItem(localStorageKey, localGuid);
+      localStorage.setItem(localStorageVotingIdKey, localGuid);
     }
     
     if (!voted || choice !== voteChoice) {
@@ -77,11 +80,38 @@ export const VoteControls = ({ voted, setVoted,showStatistics,votingThankYou,vot
           await DataStore.query(Vote, (v) => v.voterId.eq(localGuid))
       ));
       const hasIdAlreadyVoted =  existingVotes.length !== 0;
-    
+     
+      
       if(hasIdAlreadyVoted)
       {
+         recordUse({
+          name: 'Changed_Vote',
+          //immediate: true,
+          // Attribute values must be strings
+          attributes: {
+            choice: `${choice?.toString()}`,
+            userId: `${localGuid?.toString()}`,
+          }
+        },localGuid)
+        
           const existingVote = existingVotes[0];
           await DataStore.delete( existingVote);
+      }
+      else {
+        try {
+          recordUse({
+            name: 'Voted',
+            immediate: true,
+            // Attribute values must be strings
+            attributes: {
+              choice: `${choice?.toString()}`,
+              userId: `${localGuid?.toString()}`,
+            }
+          },localGuid)
+        } catch (e) {
+          
+          console.log(e);
+        }
       }
       
        await DataStore.save(
@@ -98,7 +128,8 @@ export const VoteControls = ({ voted, setVoted,showStatistics,votingThankYou,vot
     <>
       {!voted && (
         <Row>
-          <Col xs={6} md={3} lg={2} xl={1} >
+          <Col xs lg="4"/>
+          <Col  >
             <Button
               variant="light"
               size="lg"
@@ -108,7 +139,7 @@ export const VoteControls = ({ voted, setVoted,showStatistics,votingThankYou,vot
             </Button>
           </Col>
 
-          <Col xs={6} md={3} lg={2} xl={1} >
+          <Col >
             <Button
               variant="light"
               size="lg"
@@ -117,6 +148,8 @@ export const VoteControls = ({ voted, setVoted,showStatistics,votingThankYou,vot
               <FaThumbsDown className="thumbs-down" />
             </Button>
           </Col>
+
+          <Col xs lg="4"/>
         </Row>
       )}
 
@@ -125,18 +158,19 @@ export const VoteControls = ({ voted, setVoted,showStatistics,votingThankYou,vot
           <Row>
             <h2>{votingThankYou}</h2>
             {showStatistics ? <h3>See how others have voted:</h3> : null}
-            <Col xs={6} md={3} lg={2} xl={1} className={`vote-count voted-${voteChoice === Choice.YES ? "this" : "other"}`}>
+            <Col xs lg="4"/>
+            <Col  className={`vote-count voted-${voteChoice === Choice.YES ? "this" : "other"}`}>
               <Button
                   variant= {voteChoice === Choice.YES ? "light" : "dark"} 
                   size="lg"
                   onClick={() => SaveVoteToDb(Choice.YES)}
                   title= {voteChoice === Choice.YES ? "You voted Yes" : "Change vote to Yes"} >                
                 <FaThumbsUp className="thumbs-up"/>
-              </Button>
-           
-              {showStatistics ? <span className="yes">{numYesVotes}</span>: null}
+                {showStatistics ? <span className="yes">{numYesVotes}</span>: null}
+              </Button>          
+              
             </Col>
-            <Col xs={6} md={3} lg={2} xl={1} className={`vote-count voted-${voteChoice === Choice.NO ? "this" : "other"}`}>
+            <Col className={`vote-count voted-${voteChoice === Choice.NO ? "this" : "other"}`}>
               <Button
                   variant= {voteChoice === Choice.NO ? "light" : "dark"}
                   size="lg"
@@ -144,10 +178,12 @@ export const VoteControls = ({ voted, setVoted,showStatistics,votingThankYou,vot
                  
                   title= {voteChoice === Choice.NO ? "You voted No" : "Change vote to No"} >
                 <FaThumbsDown className="thumbs-down" />
+                {showStatistics ? <span className="no">{numNoVotes}</span>: null}
               </Button>
             
-              {showStatistics ? <span className="no">{numNoVotes}</span>: null}
+              
             </Col>
+            <Col xs lg="4"/>
             <h3>{votingPostVoteExplanation}</h3>
           </Row>
         </>
