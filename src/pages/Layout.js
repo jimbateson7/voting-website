@@ -23,7 +23,7 @@ import {DisableAnalytics, EnableAnalytics, InitAnalytics, recordUse} from "../ut
 const Layout = () => {
     
     const [expanded, setExpanded] = useState(false);
-    const [analyticsEnabled, setAnalyticsEnabled] = useState(getCookieConsentValue("OurPeopleOurPlanetAnalyticsAcceptance"));
+    const [analyticsEnabled, setAnalyticsEnabled] = useState(getCookieConsentValue("OurPeopleOurPlanetAnalyticsAcceptance") ?? false);
     const toggleExpanded = () => setExpanded(!expanded);
     let userGuid = localStorage.getItem(localStorageVotingIdKey);
     if (!userGuid) {
