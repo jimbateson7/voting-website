@@ -69,8 +69,8 @@ export const TrackedYoutubeVideo = (props: TrackedVideoProps) => {
         let playedTime = "unknown";
         let videoPlayedUntilEnd =  "unknown";
         let playedPercentage = "0%"
-        let page = props.pageTitle;
-        page = page.length > 10 ? "HubPage" : page;
+        let page = window?.location?.pathname ?? "HubPage";
+        
         try {
             timeLeftOnVideo=  (event?.target?.getDuration() ?? 0 - event?.target?.getCurrentTime() ?? 0).toString();
             playedTime =  event?.target?.getCurrentTime();
