@@ -46,7 +46,7 @@ const VotingPage = (props: TVotingPage) => {
       <p className="introText">{props.introText}</p>
       {showIntroVideo && introVideo
         ?
-          <Row>
+          <Row className="votingPage">
             <TrackedYoutubeVideo autoPlay={false}
                                  showFrame={false}
                                   pageTitle={"Voting Page"} 

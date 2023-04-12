@@ -35,13 +35,14 @@ export const VideoPage = (props: TArticlePage) => {
     <>
       <h1>{data.header}</h1>
         {data.introText ? <p className="introText">{data.introText}</p> : null}
-        <TrackedYoutubeVideo pageTitle={data.header} 
+        <TrackedYoutubeVideo 
+                             pageTitle={data.header} 
                              videoTitle={data.videoTitle} 
                              videoId={extractYoutubeVideoId(data.videoUrl)}
                              showFrame={true} 
                              autoPlay={data.autoPlay}></TrackedYoutubeVideo>
-       
 
-    </>
+
+  </>
   );
 };

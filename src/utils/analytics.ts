@@ -3,7 +3,7 @@ import {Analytics} from "aws-amplify";
 import {EventAttributes} from "@aws-amplify/analytics/src/types/Analytics";
 import gtag from "./gtag";
 import { DataStore } from '@aws-amplify/datastore';
-import { Event } from "../models"
+import { Event } from '../models';
 
 type TTrackingItem = {
 
