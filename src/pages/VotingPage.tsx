@@ -25,6 +25,28 @@ interface TVotingPage {
   setVoted: Function;
 }
 
+export interface IContentfulContent extends IRichText {
+  json: Document;
+  links?: Link;
+}
+export class ContentfulContent implements IContentfulContent
+{
+  get json(): Document {
+    return this._json;
+  }
+
+  set json(value: Document) {
+    this._json = value;
+  }
+
+  renderReactNode() :ReactNode
+  {
+
+  }
+
+  private _json: Document;
+}
+
 
 const VotingPage = (props: TVotingPage) => {
   let { introVideoId, postVoteVideoId, title, showIntroVideo, showSharePanel, voted, setVoted } = props;
@@ -38,6 +60,9 @@ const VotingPage = (props: TVotingPage) => {
     userGuid = generateGuid();
     localStorage.setItem(localStorageVotingIdKey, userGuid);
   }
+
+ 
+  
   
   //todo https://www.freecodecamp.org/news/use-the-youtube-iframe-api-in-react/
   return (
