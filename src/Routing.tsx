@@ -47,7 +47,7 @@ function Routing() {
                 return (
                   <Route
                     key={index}
-                    index
+                    path={"vote"}                    
                     element={
                       <VotingPage
                           heading={navItem.heading}
@@ -72,10 +72,20 @@ function Routing() {
                 );
         
               case ContentTypes.BlogPost:
-                
+                if(navItem.slug == "index")
+                {
+                  return (
+                      <Route
+                          key={index}
+                          index
+                          element={<ArticlePage slug={navItem.slug ?? "blog"} />}
+                      />
+                  );
+                }
                 return (
                   <Route
                     key={index}
+                    
                     path={navItem.slug ?? "blog"}
                     element={<ArticlePage slug={navItem.slug ?? "blog"} />}
                   />

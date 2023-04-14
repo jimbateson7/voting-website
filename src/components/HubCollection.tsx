@@ -96,7 +96,12 @@ export const HubCollection = (props: THubCollection) => {
               <HubCard pageTitle={pageTitle} cardTitle={x.title} link={link} uniqueKey={key} />
             )
           }
-          break;
+          break; 
+          case ContentTypes.VotingPage:
+            mainHubCards.push(
+                <HubCard pageTitle={pageTitle} cardTitle={x.cardTitle} link={"vote"} uniqueKey={key} />
+            )
+            break;
         default:
           mainHubCards.push(
             <HubCard pageTitle={pageTitle} cardTitle={x.title} link={link} uniqueKey={key} />

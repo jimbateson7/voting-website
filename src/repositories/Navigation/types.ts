@@ -44,6 +44,7 @@ export interface NavigationItem {
     __typename: ContentTypes 
     showVideoThumbnailsInHub?: boolean
     introVideo?: string
+    cardTitle?:string;
     postVoteVideo?: string
     heading?: string;
     showVoteStatistics?: boolean;

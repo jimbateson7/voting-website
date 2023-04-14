@@ -25,29 +25,6 @@ interface TVotingPage {
   setVoted: Function;
 }
 
-export interface IContentfulContent extends IRichText {
-  json: Document;
-  links?: Link;
-}
-export class ContentfulContent implements IContentfulContent
-{
-  get json(): Document {
-    return this._json;
-  }
-
-  set json(value: Document) {
-    this._json = value;
-  }
-
-  renderReactNode() :ReactNode
-  {
-
-  }
-
-  private _json: Document;
-}
-
-
 const VotingPage = (props: TVotingPage) => {
   let { introVideoId, postVoteVideoId, title, showIntroVideo, showSharePanel, voted, setVoted } = props;
   //pretty sure both of these are meant to be auto-play, but should probably think of something to use extractYoutubeVideoUrl
@@ -60,26 +37,12 @@ const VotingPage = (props: TVotingPage) => {
     userGuid = generateGuid();
     localStorage.setItem(localStorageVotingIdKey, userGuid);
   }
-
- 
   
   
   //todo https://www.freecodecamp.org/news/use-the-youtube-iframe-api-in-react/
   return (
     <>
-      {props.heading ? <h1>{props.heading}</h1>: null}
-      <p className="introText">{props.introText}</p>
-      {showIntroVideo && introVideo
-        ?
-          <Row className="votingPage">
-            <TrackedYoutubeVideo autoPlay={false}
-                                 showFrame={false}
-                                  pageTitle={"Voting Page"} 
-                                 videoId={introVideoId} 
-                                 videoTitle={"Introduction Video"}/>
-          </Row>
-        : null
-      }   
+      {props.heading ? <h1>{props.heading}</h1>: null}      
       
       <Row>
         <div className="frame">
@@ -96,6 +59,7 @@ const VotingPage = (props: TVotingPage) => {
           </Row>
         : null
       }
+     
     </>
   );
 };
