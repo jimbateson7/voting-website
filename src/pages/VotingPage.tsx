@@ -30,7 +30,7 @@ const VotingPage = (props: TVotingPage) => {
   //pretty sure both of these are meant to be auto-play, but should probably think of something to use extractYoutubeVideoUrl
   let introVideo = `https://www.youtube.com/embed/${introVideoId}`; //?&autoplay=1`; 
   let postVideo = postVoteVideoId ?  `https://www.youtube.com/embed/${postVoteVideoId}?&autoplay=1` : undefined;
-
+  showIntroVideo = showIntroVideo && (introVideoId ? introVideoId?.length > 1 : false);
   let userGuid = localStorage.getItem(localStorageVotingIdKey);
   
   if (!userGuid) {
@@ -44,6 +44,17 @@ const VotingPage = (props: TVotingPage) => {
     <>
       {props.heading ? <h1>{props.heading}</h1>: null}
       {props.introText ? <p className="introText">{props.introText}</p>: null}
+      {showIntroVideo && introVideo
+          ?
+          <Row>
+            <TrackedYoutubeVideo autoPlay={false}
+                                 showFrame={false}
+                                 pageTitle={"Voting Page"}
+                                 videoId={introVideoId}
+                                 videoTitle={"Introduction Video"}/>
+          </Row>
+          : null
+      }
       <Row>
         <div className="frame">
           <div className="frame-content">
