@@ -42,8 +42,8 @@ const VotingPage = (props: TVotingPage) => {
   //todo https://www.freecodecamp.org/news/use-the-youtube-iframe-api-in-react/
   return (
     <>
-      {props.heading ? <h1>{props.heading}</h1>: null}      
-      
+      {props.heading ? <h1>{props.heading}</h1>: null}
+      {props.introText ? <p className="introText">{props.introText}</p>: null}
       <Row>
         <div className="frame">
           <div className="frame-content">
