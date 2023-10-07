@@ -51,6 +51,12 @@
     "categories": {
       "auth": {
         "ourplanetourpeoplewe21f343b1": {}
+      },
+      "analytics": {
+        "ourplanetourpeoplewe": {}
+      },
+      "api": {
+        "OurPlanetOurPeopleweb": {}
       }
     }
   }
