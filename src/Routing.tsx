@@ -44,6 +44,7 @@ function Routing() {
           data.map((navItem, index) => {
             switch (navItem.__typename) {
               case ContentTypes.VotingPage:
+            
                 return (
                   <Route
                     key={index}

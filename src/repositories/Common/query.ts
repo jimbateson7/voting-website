@@ -20,6 +20,7 @@ const votingPage = `title,
             votingPostVoteExplanation,
             shareHeading,
             shareSubHeading,
+            slug,
             postVoteVideo`;
 
 const basicNavItems = `

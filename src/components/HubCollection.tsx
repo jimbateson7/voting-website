@@ -73,6 +73,7 @@ export const HubCollection = (props: THubCollection) => {
     items.forEach((x: any, i) => {
       let link = x.slug ?? `#${createAnchorLinkFromTitle(x.title)}`;
       const key = `${x.title}-card-${i}`;
+      
       switch (x.__typename) {
         case ContentTypes.NavigationGroup:
           //add card that will link to new hub
@@ -99,7 +100,7 @@ export const HubCollection = (props: THubCollection) => {
           break; 
           case ContentTypes.VotingPage:
             mainHubCards.push(
-                <HubCard pageTitle={pageTitle} cardTitle={x.cardTitle} link={"vote"} uniqueKey={key} />
+                <HubCard pageTitle={pageTitle} cardTitle={x.cardTitle} link={link} uniqueKey={key} />
             )
             break;
         default:

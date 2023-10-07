@@ -18,6 +18,7 @@ import { Analytics } from 'aws-amplify';
 import {localStorageVotingIdKey} from "./VotingPage";
 import {v4 as generateGuid} from "uuid";
 import {DisableAnalytics, EnableAnalytics, InitAnalytics, recordUse} from "../utils/analytics";
+import Share from "../components/Share";
 
 
 const Layout = () => {
@@ -82,7 +83,10 @@ const Layout = () => {
            <Navbar.Collapse id="responsive-navbar-nav">
                <Nav className="me-auto">
                    <DynamicNavList id={headerComponentId} onSelect={() => {setExpanded(false)}}></DynamicNavList>
+                  
+
                </Nav>
+               
            </Navbar.Collapse>
         </Container>
       </Navbar>
