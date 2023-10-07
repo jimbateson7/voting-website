@@ -9,7 +9,8 @@
       "UnauthRoleName": "amplify-ourplanetourpeoplewe-staging-141233-unauthRole",
       "StackName": "amplify-ourplanetourpeoplewe-staging-141233",
       "StackId": "arn:aws:cloudformation:eu-west-2:118215360718:stack/amplify-ourplanetourpeoplewe-staging-141233/549d2710-8e95-11ed-904c-02797f609212",
-      "AmplifyAppId": "d253rfe6hkcov5"
+      "AmplifyAppId": "d253rfe6hkcov5",
+      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-ourplanetourpeoplewe-staging-141233-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
     },
     "categories": {
       "auth": {
@@ -20,6 +21,18 @@
       },
       "analytics": {
         "ourplanetourpeoplewe": {}
+      },
+      "function": {
+        "ourplanetourpeoplewe21f343b1DefineAuthChallenge": {},
+        "ourplanetourpeoplewe21f343b1CreateAuthChallenge": {},
+        "ourplanetourpeoplewe21f343b1VerifyAuthChallengeResponse": {
+          "RECAPTCHASECRET": ""
+        },
+        "ourplanetourpeoplewe21f343b1CustomMessage": {
+          "REDIRECTURL": "http://ourclimate2050.co.uk/members",
+          "EMAILSUBJECT": "Welcome To Our Climate 2050",
+          "EMAILMESSAGE": ""
+        }
       }
     }
   },
