@@ -14,7 +14,7 @@ import {VideoPage} from "./components/VideoPage";
 import {getAllNavData} from "./repositories/Common/request";
 
 export const headerComponentId = "2EASI81WCZEAsg9bRP370U";
-export const footerComponentId = "4NIP2EIoA7na6BuwxArtLi";
+export const footerComponentId = "3u1pE30pV8DPDLIq2Ki49w";
 
 function Routing() {
   async function fetchData() {
@@ -47,7 +47,7 @@ function Routing() {
                 return (
                   <Route
                     key={index}
-                    path={"vote"}                    
+                    path={navItem.slug}                     
                     element={
                       <VotingPage
                           heading={navItem.heading}
