@@ -8,37 +8,32 @@ import {QueryBlocks} from "./query";
 
 function generateAllPagesQuery()
 {
-    const query =  `query navQuery {
-  blogPostCollection {
-    items {
-  		 slug
-  		 __typename
-      # add the fields you want to query
-    }
+    const query =  `query pageQuery {
+      allBlogPostModels {
+       __typename
+       ${QueryBlocks.BlogPost}  	
+    
   }
-  videoPageCollection{
-    items {
-  		 slug
-  		 __typename
-      # add the fields you want to query
-    }
+  allVideoPageModels{
+         __typename
+      ${QueryBlocks.VideoPost}  	
+    
   }
-  votingPageCollection{
-    items {
+  allVotingPageModels{
+    
     __typename
   	  ${QueryBlocks.VotingPage}  		 
-      # add the fields you want to query
-    }
+
+    
   }
 }`    
     return query;
 }
 function mapAllSlugs(root: QueryResult) :NavigationItem[]
 {
-    // todo there may be something a bit smarter we can do in graphql 
-    return root.data.videoPageCollection.items
-                .concat(root.data.blogPostCollection.items)
-                .concat(root.data.votingPageCollection.items);
+    return root.data.allVideoPageModels
+                .concat(root.data.allBlogPostModels)
+                .concat(root.data.allVotingPageModels);
 }
 
 export const getAllNavData = () => {

@@ -13,8 +13,8 @@ import {extractYoutubeVideoId, LogLinks} from "./repositories/utils/utilities";
 import {VideoPage} from "./components/VideoPage";
 import {getAllNavData} from "./repositories/Common/request";
 
-export const headerComponentId = "2EASI81WCZEAsg9bRP370U";
-export const footerComponentId = "3u1pE30pV8DPDLIq2Ki49w";
+export const headerComponentId = "P36f8RaOQUuxcV5US2-A8Q"; //todo this is a bit rubbish
+export const footerComponentId = "dxEPpDQESBe0OBIqTxIDbg";
 
 function Routing() {
   async function fetchData() {

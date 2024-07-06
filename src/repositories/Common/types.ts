@@ -6,11 +6,14 @@ export interface QueryResult {
 }
 
 export interface Data {
-    videoPageCollection: SlugCollection
-    blogPostCollection: SlugCollection;
-    votingPageCollection: SlugCollection;
+    allVideoPageModels: NavigationItem[]
+    allBlogPostModels: NavigationItem[];
+    allVotingPageModels: NavigationItem[];
 }
 
-export interface SlugCollection {
-    items: NavigationItem[]
-}
+export type TArticlePage = {
+    slug: string;
+    title?:string;
+};
+
+

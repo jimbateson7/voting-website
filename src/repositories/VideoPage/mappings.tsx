@@ -3,8 +3,12 @@ import {TVideoPage} from "../../components/VideoPage";
 
 export async function mapVideoData(result: QueryResult): Promise<TVideoPage> {
   
-  const actualPost = result.data.videoPageCollection.items[0] as VideoItem;
+  const actualPost = result.data.allVideoPageModels.shift() as VideoItem;
 
+  if(!actualPost)
+  {
+    throw new Error("no video data");
+  }
   return {
     header: actualPost.title,
     autoPlay: actualPost.video.autoPlay,

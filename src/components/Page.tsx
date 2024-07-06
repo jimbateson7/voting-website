@@ -2,17 +2,15 @@
 import "./Page.scss";
 import "./HubCollection.scss";
 import { getPageJson } from "../repositories/Articles/request";
-import {Analytics, Logger} from "aws-amplify";
-import {LogException, LogQuery} from "../repositories/utils/utilities";
+import {LogException} from "../repositories/utils/utilities";
+import {TArticlePage} from "../repositories/Common/types";
 export interface TPage {
   header: string;
   heroImageUrl?: string;
   heroImageAltText?: string;
   richText: ReactNode;
 }
-export type TArticlePage = {
-  slug: string;
-};
+
 export const ArticlePage = (props: TArticlePage) => {
   let { slug } = props;
 

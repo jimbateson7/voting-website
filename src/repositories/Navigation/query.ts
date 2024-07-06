@@ -1,7 +1,6 @@
 //generate by
 //https://app.contentful.com/spaces/fojlfyn3xufg/environments/staging/entries/1n9FMvYa8MWstVI19atW2w
-//graphqlplayground
-//2EASI81WCZEAsg9bRP370U
+
 import {getPreview} from "../utils/preview";
 import {QueryBlocks} from "../Common/query";
 import {LogQuery} from "../utils/utilities";
@@ -11,22 +10,27 @@ function buildNavigationGroup(levels:number):string
 {
     levels--
     if(levels >= 0)
-        return `navigationItemCollection(limit: 10) {
+        return `
+        
+        __typename
+        id
+ 
+        navigationItem {
         
         
-        items {
+    
           ${QueryBlocks.BasicNavigationItems}
-          ... on ExternalLink {
+          ... on ExternalLinkModelRecord {
             title
             url
           } 
-          ... on NavigationGroup {
+          ... on NavigationGroupModelRecord  {
             title            
-            sys{id}            
+            id         
              ${buildNavigationGroup(levels)}           
              showVideoThumbnailsInHub
           }
-        }
+        
       }`;
     return "";
 }
@@ -37,7 +41,7 @@ export function generateNavQuery(id: string) {
     const isPreview = getPreview();
     const query =  `
   query findNavById{
-  navigationGroup(id: "${id}" preview:${isPreview}) {
+    allNavigationGroupModels(filter:{id: {eq:"${id}"}}) {
  
       ${navigationGroup}
       

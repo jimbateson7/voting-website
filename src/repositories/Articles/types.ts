@@ -1,17 +1,15 @@
+import type { StructuredText as TStructuredText } from 'datocms-structured-text-utils';
 
-import type { Document, Link } from '@contentful/rich-text-types';
 export interface QueryResult {
   data: Data;
   errors: [];
 }
 
 export interface Data {
-  blogPostCollection: BlogPostCollection;
+  allBlogPostModels: Item[];
 }
 
-export interface BlogPostCollection {
-  items: Item[];
-}
+
 
 export interface Image {
   title: string;
@@ -25,7 +23,7 @@ export interface Item {
   author: Author;
   slug: string;
   image: Image;
-  body: ContentfulContent;
+  body: TStructuredText; //ContentfulContent;
 }
 
 export interface Sys {
@@ -37,10 +35,11 @@ export interface Author {
   image: any;
 }
 
+/*
 export interface ContentfulContent {
-  json: Document;
+  value: Document;
   links: Link;
-}
+}*/
 
 
 

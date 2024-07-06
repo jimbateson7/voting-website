@@ -1,26 +1,24 @@
+import {Video} from "../VideoPage/types";
+
 export interface QueryResult {
     data: Data
     errors:{}
 }
 
-export interface Data {
-    navigationGroup: NavigationGroup
+export interface Data {  
+    allNavigationGroupModels: NavigationItem[]
 }
 
 export interface NavigationGroup {
-    navigationItemCollection: NavigationItemCollection
-}
-
-export interface NavigationItemCollection {
-    items: NavigationItem[]
+    navigationItem: NavigationItem[]
 }
 
 export enum ContentTypes {
-    VotingPage = "VotingPage",
-    BlogPost = "BlogPost",
-    VideoPage = "VideoPage",
-    NavigationGroup = "NavigationGroup",
-    ExternalLink = "ExternalLink",   
+    VotingPage = "VotingPageModelRecord",
+    BlogPost = "BlogPostModelRecord",
+    VideoPage = "VideoPageModelRecord",
+    NavigationGroup = "NavigationGroupModelRecord",
+    ExternalLink = "ExternalLinkModelRecord",   
     
 }
 export enum AssetTypes
@@ -40,7 +38,7 @@ export interface VideoPage extends BasePage
     url?:  string
 }
 
-export interface NavigationItem {
+export interface NavigationItem extends NavigationGroup {
     __typename: ContentTypes 
     showVideoThumbnailsInHub?: boolean
     introVideo?: string
@@ -56,9 +54,7 @@ export interface NavigationItem {
     title?: string   
     url?:  string
     slug?: string
-    sys?: Sys
+    video?:Video
+    id:string;
 }
 
-export interface Sys {
-    id: string
-}

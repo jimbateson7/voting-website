@@ -4,6 +4,8 @@ import "./Page.scss";
 import { getVideoPageJson } from "../repositories/VideoPage/request";
 import {TrackedYoutubeVideo} from "../pages/TrackedYoutubeVideo";
 import {extractYoutubeVideoId} from "../repositories/utils/utilities";
+import {TArticlePage} from "../repositories/Common/types";
+
 export interface TVideoPage {
   header: string
   introText?: string;
@@ -11,9 +13,7 @@ export interface TVideoPage {
   videoTitle: string;
   autoPlay: boolean;
 }
-export type TArticlePage = {
-  slug: string;
-};
+
 export const VideoPage = (props: TArticlePage) => {
   let { slug } = props;
 

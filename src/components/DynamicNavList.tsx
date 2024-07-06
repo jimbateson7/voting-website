@@ -1,6 +1,6 @@
 import {getNavigationJson} from "../repositories/Navigation/request";
 import React, {useCallback, useEffect, useState} from "react";
-import {NavigationItem, ContentTypes} from "../repositories/Navigation/types";
+import {NavigationItem, ContentTypes, NavigationGroup} from "../repositories/Navigation/types";
 import Nav from "react-bootstrap/Nav";
 import {NavDropdown} from "react-bootstrap";
 import {NavLink} from "react-router-dom";
@@ -8,26 +8,28 @@ import {NavLink} from "react-router-dom";
 export type TDynamicNav = {
   id: string;
   onSelect?: ()=>{};
+  itemGroup?:NavigationItem[];
 };
 
 
 export const DynamicNavList = (props: TDynamicNav) => {
-  let { id, onSelect } = props;
+  let { id, itemGroup, onSelect } = props;
 
   const fetchData = useCallback(async () => {
     let dataFetched = await getNavigationJson(id);
     setData(dataFetched);
   }, [id])
   
-  const [data, setData] = useState<NavigationItem[]>();
+  const [data, setData] = useState<NavigationItem[]>(itemGroup ?? []);
 
   useEffect(() => {
-    fetchData().catch(console.error);
+    if(!data.length)
+      fetchData().catch(console.error);
   }, [fetchData]);
   return (
     <>
       {data &&
-        data.map((navItem, index) => {
+        data.map((navItem :NavigationItem, index) => {
           switch (navItem.__typename) {
             case ContentTypes.ExternalLink:
               return (
@@ -57,7 +59,7 @@ export const DynamicNavList = (props: TDynamicNav) => {
             case ContentTypes.NavigationGroup:
               return (            
               <NavDropdown key={index} title={navItem.title ?? "_"} id="basic-nav-dropdown">
-                <DynamicNavList onSelect={onSelect} id={navItem?.sys?.id ?? "123"}></DynamicNavList>
+                <DynamicNavList onSelect={onSelect} itemGroup={(navItem).navigationItem}  id={navItem?.id ?? "123"}></DynamicNavList>
               </NavDropdown>
               );
             default:

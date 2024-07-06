@@ -1,7 +1,6 @@
 import {
     APP_CONTENTFUL_ACCESS_TOKEN,
     APP_CONTENTFUL_ENVIRONMENT,
-    APP_CONTENTFUL_SPACE_ID,
     CONTENT_URL,
     node_env
 } from "./graphQLfetch";
@@ -14,7 +13,7 @@ function isEmptyOrSpaces(str : string){
     return str === null || str.match(/^ *$/) !== null;
 }
 
-export function createAnchorLinkFromTitle(link:string) :string
+export function createAnchorLinkFromTitle(link?:string) :string
 {
     let text = `${link}`;
     text = text.trim().toLowerCase();
@@ -79,7 +78,6 @@ export function HandleErrors(result:any) {
     if (result.errors) {
         logger.error("Errors reported:");
         logger.error(result.errors);
-        logger.error("Space Id:" + APP_CONTENTFUL_SPACE_ID);
         logger.error("Token:" + APP_CONTENTFUL_ACCESS_TOKEN);
         logger.error("environment:" + APP_CONTENTFUL_ENVIRONMENT);
         logger.error("system environment:" + node_env);
@@ -94,7 +92,7 @@ export async function flattenNavigationRoute(
     let dataFetched = await getNavigationJson(id);
     let childIds: string[] = dataFetched
         .filter((x) => x.__typename === ContentTypes.NavigationGroup)
-        .map((x) => x.sys?.id ?? "INVALID")
+        .map((x) => x?.id ?? "INVALID")
         .filter((x) => x !== "INVALID");
     for (const childId of childIds) {
         dataFetched = dataFetched.concat(await flattenNavigationRoute(childId));
