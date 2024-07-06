@@ -2,6 +2,5 @@
   "AppSyncApiName": "OurPlanetOurPeopleweb",
   "DynamoDBBillingMode": "PAY_PER_REQUEST",
   "DynamoDBEnableServerSideEncryption": false,
-  "CreateAPIKey": 1,
-  "APIKeyExpirationEpoch": 1544745428
+  "AuthModeLastUpdated": "2023-01-07T14:18:55.388Z"
 }
