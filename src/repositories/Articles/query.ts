@@ -9,76 +9,52 @@ import {QueryBlocks} from "../Common/query";
 export function generatePostQuery(slug: string) { 
   const isPreview = getPreview();
   const query = `query blogPostCollectionQuery{
-    blogPostCollection(limit: 1, where: {slug: "${slug}"}, preview:${isPreview}) {
-      items {
-        sys {
-          id
-        }
+    allBlogPostModels(first: 1, filter: {slug: {eq:"${slug}"}}) 
+    {
+      
+      
+        id        
         title,       
         author{name,image{title,url}}
         slug    
-        image{title,url,description}
+        image{title,url,alt}
+        
         body {
-          json
-          
-          links {
-            entries {
-              inline {
-                sys {
-                  id
-                }
-                __typename
-                ... on BlogPost {
-                  ${QueryBlocks.BlogPost}
-                }
-              }
-              block {
-                sys {
-                  id
-                }
-                __typename
+              value 
+              
+                  links
+                  {       
+        
+                        ... on  BlogPostModelRecord{                  
+                          ${QueryBlocks.BlogPost}
+                        }
+                  
+                         ... on  GenericImageModelRecord{
+                          __typename
+                          image{url}
+                          title
+                          
+                        }
+                        ... on  NavigationGroupModelRecord{
+                          __typename                 
+                          title
+                          showVideoThumbnailsInHub
+                          ${navigationGroup}
+                        }
+                        ... on  YoutubeVideoEmbedModelRecord{
+                          __typename
+                          ytembedUrl
+                          title
+                          autoPlay
+                          
+                        }
+                      
+                  }
             
-                ... on  BlogPost{                  
-                  ${QueryBlocks.BlogPost}
-                }
-          
-                 ... on  GenericImage{
-                  __typename
-                  image{url}
-                  title
-                  
-                }
-                ... on  NavigationGroup{
-                  __typename                 
-                  title
-                  showVideoThumbnailsInHub
-                  ${navigationGroup}
-                }
-                ... on  YoutubeVideoEmbed{
-                  __typename
-                  ytembedUrl
-                  title
-                  autoPlay
-                  
-                }
               }
-            }
-            assets {
-              block {
-                sys {
-                  id
-                }
-                url
-                title
-                width
-                height
-                description
-              }
-            }
-          }
-        }
+        
       }
-    }
+    
   }
 `;
 

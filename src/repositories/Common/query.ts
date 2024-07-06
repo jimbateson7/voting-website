@@ -25,14 +25,14 @@ const votingPage = `title,
 
 const basicNavItems = `
           __typename
-          ... on VideoPage {
+          ... on VideoPageModelRecord {
             ${videoPage}
           }
-          ... on BlogPost {
+          ... on BlogPostModelRecord {
             ${blogPost}
           }
               
-          ... on VotingPage {
+          ... on VotingPageModelRecord{
             ${votingPage}
           }`
 

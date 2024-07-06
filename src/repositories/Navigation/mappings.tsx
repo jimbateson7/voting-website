@@ -5,7 +5,7 @@ import {getLogger} from "../../utils/logger";
 export const mapNavData = (root: QueryResult) => {
     
   let validNavItems: NavigationItem[] = [];
-  root.data.navigationGroup.navigationItemCollection.items.forEach(
+  root.data.allNavigationGroupModels.forEach(
     (navItem, index) => {
       if (!navItem) {
          
@@ -14,7 +14,7 @@ export const mapNavData = (root: QueryResult) => {
         return null;
       }
       
-        validNavItems.push(navItem);
+        validNavItems.push(...navItem.navigationItem);
     }
   );
     

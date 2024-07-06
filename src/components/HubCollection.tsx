@@ -1,11 +1,11 @@
 import {createAnchorLinkFromTitle, extractYoutubeVideoId} from "../repositories/utils/utilities";
 import "./HubCollection.scss";
 import { VideoEmbed } from "./VideoEmbed";
-import { ContentTypes } from "../repositories/Navigation/types";
+import {ContentTypes, NavigationItem} from "../repositories/Navigation/types";
 import {TrackedYoutubeVideo} from "../pages/TrackedYoutubeVideo";
 
 export type THubCollection = {
-  items: []
+  items: NavigationItem[]
   title?: string;
   showVideoThumbNails: boolean
   parentTitle?: string;
@@ -15,7 +15,7 @@ export type THubCollection = {
 
 export type THubCard =
   {
-    cardTitle: string;
+    cardTitle?: string;
     pageTitle: string;
     link: string;
     uniqueKey: string;
@@ -26,7 +26,7 @@ export type TVidoHubCard = THubCard &
   videoUrl: string;
 }
 export const HubCard = (props: THubCard) => {
-  const title = props.cardTitle;
+  const title = props.cardTitle ?? "";
   const breakPoint = 40;
   const scaleFactor = 70;
   const overrideFontSize = (title.length > breakPoint);
@@ -66,11 +66,11 @@ export const HubCollection = (props: THubCollection) => {
   const pageTitle = props.pageTitle ?? props.parentTitle ?? "hub_page";
  
   
-  function createHubCards(items: []) {
+  function createHubCards(items:NavigationItem[]) {
     if (!items)
       return [];
     const pageTitle = props.pageTitle ?? props.parentTitle ?? "hub_page";
-    items.forEach((x: any, i) => {
+    items.forEach((x: NavigationItem, i) => {
       let link = x.slug ?? `#${createAnchorLinkFromTitle(x.title)}`;
       const key = `${x.title}-card-${i}`;
       
@@ -82,14 +82,14 @@ export const HubCollection = (props: THubCollection) => {
           )
           //create a new hub at the bottom
 
-          subHubCollections.push(<HubCollection pageTitle={pageTitle} showVideoThumbNails={x.showVideoThumbnailsInHub ?? false} parentTitle={props.title} title={x.title} items={x.navigationItemCollection?.items} uniqueKey={"subhub"+key} />)
+          subHubCollections.push(<HubCollection pageTitle={pageTitle} showVideoThumbNails={x.showVideoThumbnailsInHub ?? false} parentTitle={props.title} title={x.title} items={x.navigationItem} uniqueKey={"subhub"+key} />)
           break;
         case ContentTypes.VideoPage:
 
           if (props.showVideoThumbNails) {
             mainHubCards.push(
-              <VideoHubCard pageTitle={pageTitle} cardTitle={x.title} link={link} videoTitle={x.video.title}
-                            videoUrl={x.video.ytembedUrl} uniqueKey={key} />
+              <VideoHubCard pageTitle={pageTitle} cardTitle={x.title} link={link} videoTitle={x.video?.title ?? ""}
+                            videoUrl={x.video?.ytembedUrl ?? ""} uniqueKey={key} />
             )
           }
           else {

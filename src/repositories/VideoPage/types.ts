@@ -5,12 +5,9 @@ export interface QueryResult {
 }
 
 export interface Data {
-  videoPageCollection: VideoPageCollection
+  allVideoPageModels: VideoItem[]
 }
 
-export interface VideoPageCollection {
-  items: VideoItem[]
-}
 
 export interface VideoItem {
   sys: Sys

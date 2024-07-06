@@ -5,22 +5,23 @@
 import {DEBUG_QUERY, getPreview} from "../utils/preview";
 import {LogQuery} from "../utils/utilities";
 
-export function generatePostQuery(slug: string) {
+export function generateVideoPageQuery(slug: string) {
  
   const isPreview = getPreview();
   const query = `query videoPageCollectionQuery {
-  videoPageCollection(limit: 1,where:{slug:"${slug}"}, preview:${isPreview}) {
-    items {
-      sys {
-        id
-      }
+  allVideoPageModels(first: 1, filter: {slug: {eq:"${slug}"}}) 
+  {
+    
+      
+       id
+      
       __typename
       slug
       title
       introText
       video{ytembedUrl,autoPlay,title}
       # add the fields you want to query
-    }
+    
   }
 }`
   
