@@ -99,6 +99,20 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
+                "questionId": {
+                    "name": "questionId",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "country": {
+                    "name": "country",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -153,5 +167,5 @@ export const schema = {
     },
     "nonModels": {},
     "codegenVersion": "3.4.4",
-    "version": "e681cb17ca5abc451e7a763d582d43bd"
+    "version": "ca5d68173582228c3d269e2995da1634"
 };

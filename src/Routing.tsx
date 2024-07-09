@@ -29,7 +29,7 @@ function Routing() {
 
   const [data, setData] = useState<NavigationItem[]>();
   const [dataLoaded, setDataLoaded] = useState(false);
-  const [voted, setVoted] = useState(false);
+  
   
   refreshPreview();
   
@@ -62,11 +62,10 @@ function Routing() {
                         votingPostVoteExplanation={navItem.votingPostVoteExplanation}
                         shareHeading={navItem.shareHeading}
                         shareSubHeading={navItem.shareSubHeading}                        
-                        title={navItem.title ?? ""}
                         showIntroVideo={true}
                         showSharePanel={true}
-                        voted={voted}
-                        setVoted={setVoted}
+                 
+                          questions={navItem.questions}
                       />
                     }
                   />

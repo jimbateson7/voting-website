@@ -73,6 +73,8 @@ export function LogQuery(query:string)
     if(process.env.NODE_ENV === "development" && DEBUG_QUERY) console.log(query);
 }
 
+
+
 export function HandleErrors(result:any) {
     const logger = getLogger('Query Error');
     if (result.errors) {
@@ -99,3 +101,4 @@ export async function flattenNavigationRoute(
     }
     return dataFetched;
 }
+

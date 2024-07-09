@@ -7,54 +7,53 @@ import {FaThumbsDown, FaThumbsUp} from "react-icons/fa";
 import {localStorageVotingIdKey} from "../pages/VotingPage";
 
 import {recordUse} from "../utils/analytics";
+import {getCountry} from "../repositories/utils/country";
 
 interface TVoteControls {
-  voted: boolean;
-  setVoted: Function;
+
   showStatistics: boolean;
   votingThankYou?: string;
   votingPostVoteExplanation?: string;
-
+  questionId: string;
 }
 
-export const VoteControls = ({ voted, setVoted,showStatistics,votingThankYou,votingPostVoteExplanation}: TVoteControls) => {
+export const VoteControls = ({ showStatistics,votingThankYou,votingPostVoteExplanation,questionId}: TVoteControls) => {
   const [numYesVotes, setNumYesVotes] = useState(0);
   const [numNoVotes, setNumNoVotes] = useState(0);
   const [voteChoice, setVoteChoice] = useState<Choice | undefined>(undefined)
-  
 
+  const voted = voteChoice != undefined;
+  
   const fetchVoteCounts = useCallback(async (checkGuid:boolean) => {
     let localGuid = localStorage.getItem(localStorageVotingIdKey);
 
-    const votes = (await (
-        await DataStore.query(Vote, (v) => v.voterId.eq(localGuid))
-    ));
-    const hasVoted =
-        votes.length !== 0;
-    setVoted(hasVoted);
-
+    /*const votes = (await (
+        await DataStore.query(Vote, (v) => v.voterId.eq(localGuid) && v.questionId.eq(questionId))
+    ));*/
+    const votes =     await DataStore.query(Vote, (v) => v.and(v => [v.voterId.eq(localGuid), v.questionId.eq(questionId)] ));
+    
+    
+    const aVote = votes.shift();
+    const hasVoted =!!aVote;
+    
+ 
     if(hasVoted)
-    {
-      const vote = votes[0];
-      setVoteChoice(vote.choice as Choice);
+    {      
+      setVoteChoice(aVote.choice as Choice);
     }
 
     if (checkGuid || hasVoted) {
+      const noVotes =  (await DataStore.query(Vote, (v) => v.and(v=> [v.choice.eq(Choice.NO), v.questionId.eq(questionId)]) )).length;
+      const yesVotes =  (await DataStore.query(Vote, (v) => v.and(v=> [v.choice.eq(Choice.YES), v.questionId.eq(questionId)]))).length;
       setNumNoVotes(
-          await (
-              await DataStore.query(Vote, (v) => v.choice.eq(Choice.NO))
-          ).length
+          noVotes
       );
       setNumYesVotes(
-          await (
-              await DataStore.query(Vote, (v) => v.choice.eq(Choice.YES))
-          ).length
+          yesVotes
       );
     }
-  }, [setVoted])
-  
-  
-  
+  }, [voteChoice])
+     
   
   useEffect(() => {
     let localGuid = localStorage.getItem(localStorageVotingIdKey);
@@ -76,11 +75,11 @@ export const VoteControls = ({ voted, setVoted,showStatistics,votingThankYou,vot
     
     if (!voted || choice !== voteChoice) {
 
-      const  existingVotes = (await (
-          await DataStore.query(Vote, (v) => v.voterId.eq(localGuid))
-      ));
-      const hasIdAlreadyVoted =  existingVotes.length !== 0;
-     
+      const  existingVotes =   await DataStore.query(Vote, (v) => v.and(v => [v.voterId?.eq(localGuid), v.questionId?.eq(questionId)]))
+      
+      const aExistingVote = existingVotes.shift();
+      const hasIdAlreadyVoted =  !!aExistingVote;
+      const country = getCountry() as string;
       
       if(hasIdAlreadyVoted)
       {
@@ -91,11 +90,12 @@ export const VoteControls = ({ voted, setVoted,showStatistics,votingThankYou,vot
           attributes: {
             choice: `${choice?.toString()}`,
             userId: `${localGuid?.toString()}`,
+            questionId: `${questionId?.toString()}`,
+            country: `${country}`
           }
-        },localGuid)
-        
-          const existingVote = existingVotes[0];
-          await DataStore.delete( existingVote);
+        },localGuid)        
+         
+          await DataStore.delete( aExistingVote);
       }
       else {
         try {
@@ -106,7 +106,8 @@ export const VoteControls = ({ voted, setVoted,showStatistics,votingThankYou,vot
             attributes: {
               choice: `${choice?.toString()}`,
               userId: `${localGuid?.toString()}`,
-            }
+              questionId: `${questionId?.toString()}`,
+              country: `${country}`            }
           },localGuid)
         } catch (e) {
           
@@ -115,14 +116,16 @@ export const VoteControls = ({ voted, setVoted,showStatistics,votingThankYou,vot
       }
       
        await DataStore.save(
-        new Vote({ choice: choice, voterId: localGuid })
+        new Vote({ choice: choice, voterId: localGuid, questionId:questionId,country:country })
       ).then((x) => {
         fetchVoteCounts(true);
       });      
       
-      setVoted(true);
+      
     }
   };
+
+  showStatistics = true;
 
   return (
     <>

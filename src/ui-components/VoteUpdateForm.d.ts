@@ -25,16 +25,22 @@ export declare type ValidationFunction<T> = (value: T, validationResponse: Valid
 export declare type VoteUpdateFormInputValues = {
     voterId?: string;
     choice?: string;
+    questionId?: string;
+    country?: string;
 };
 export declare type VoteUpdateFormValidationValues = {
     voterId?: ValidationFunction<string>;
     choice?: ValidationFunction<string>;
+    questionId?: ValidationFunction<string>;
+    country?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type VoteUpdateFormOverridesProps = {
     VoteUpdateFormGrid?: PrimitiveOverrideProps<GridProps>;
     voterId?: PrimitiveOverrideProps<TextFieldProps>;
     choice?: PrimitiveOverrideProps<SelectFieldProps>;
+    questionId?: PrimitiveOverrideProps<TextFieldProps>;
+    country?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type VoteUpdateFormProps = React.PropsWithChildren<{
     overrides?: VoteUpdateFormOverridesProps | undefined | null;

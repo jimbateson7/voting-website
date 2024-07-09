@@ -10,7 +10,7 @@ const videoPage = `title
             slug
             video{ytembedUrl,autoPlay,title}`;
 
-const votingPage = `title,  
+const votingPage = ` 
             cardTitle,          
             introductionText,
             showVoteStatistics,
@@ -21,7 +21,12 @@ const votingPage = `title,
             shareHeading,
             shareSubHeading,
             slug,
-            postVoteVideo`;
+            postVoteVideo
+            questions {
+                ... on QuestionRecord { questionTitle, id}
+            }
+
+            `;
 
 const basicNavItems = `
           __typename

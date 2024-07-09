@@ -49,6 +49,8 @@ type EagerVote = {
   readonly id: string;
   readonly voterId?: string | null;
   readonly choice: Choice | keyof typeof Choice;
+  readonly questionId?: string | null;
+  readonly country?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -61,6 +63,8 @@ type LazyVote = {
   readonly id: string;
   readonly voterId?: string | null;
   readonly choice: Choice | keyof typeof Choice;
+  readonly questionId?: string | null;
+  readonly country?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
