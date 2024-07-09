@@ -25,30 +25,44 @@ export type TVidoHubCard = THubCard &
   videoTitle: string;
   videoUrl: string;
 }
-export const HubCard = (props: THubCard) => {
-  const title = props.cardTitle ?? "";
+
+function getOverrideFontSize(title:string) : string | undefined
+{
   const breakPoint = 40;
   const scaleFactor = 70;
   const overrideFontSize = (title.length > breakPoint);
-  let overrideFontSizeTo = "";
+  
   if (overrideFontSize) {
     let dynamicSize = (scaleFactor / title.length);
-    overrideFontSizeTo = `${dynamicSize}rem`;
+    return`${dynamicSize/2}rem`;
   }
+  return undefined;
+}
+export const HubCard = (props: THubCard) => {
+  const title = props.cardTitle ?? "";
+  const overrideFontSizeTo = getOverrideFontSize(title);
   return (
     <a href={props.link} className={"card"} key={props.uniqueKey}>
       <div className="card-content">
-        {overrideFontSize
-          ? <h2 font-overridded={overrideFontSize} style={{ fontSize: overrideFontSizeTo }}>{title}</h2>
-          : <h2>{title}</h2>}
+        {overrideFontSizeTo
+          ? <h2 className="card-title"font-overridded={!!overrideFontSizeTo} style={{ fontSize: overrideFontSizeTo }}>{title}</h2>
+          : <h2 className="card-title">{title}</h2>}
       </div>
     </a>)
 }
 export const VideoHubCard = (props: TVidoHubCard) => {
+  const title = props.cardTitle ?? "";
+  const overrideFontSizeTo = getOverrideFontSize(title);
   return (
     <div className="card video-card">
       <div className="card-content" key={props.uniqueKey}>
-        <a href={props.link}><h2>{props.cardTitle}</h2></a>
+        <a href={props.link}>
+          {overrideFontSizeTo
+              ? <h2 className="card-title" font-overridded={!!overrideFontSizeTo} style={{ fontSize: overrideFontSizeTo }}>{title}</h2>
+              : <h2 className="card-title">{title}</h2>}
+                  
+        
+        </a>
         <TrackedYoutubeVideo
             videoId={extractYoutubeVideoId(props.videoUrl)}
             autoPlay={false}
