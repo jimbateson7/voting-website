@@ -1,5 +1,6 @@
-export function getCountry() {
-    const countries = {
+export function getCountryList()
+{
+    return {
         AD: "Andorra",
         AE: "United Arab Emirates",
         AF: "Afghanistan",
@@ -250,6 +251,10 @@ export function getCountry() {
         ZM: "Zambia",
         ZW: "Zimbabwe"
     };
+}
+export function getCountry() {
+
+    const countries = getCountryList();
     const timezones = {
         "Africa/Abidjan": {
             u: 0,

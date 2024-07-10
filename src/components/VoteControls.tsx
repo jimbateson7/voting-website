@@ -8,6 +8,7 @@ import {localStorageVotingIdKey} from "../pages/VotingPage";
 
 import {recordUse} from "../utils/analytics";
 import {getCountry} from "../repositories/utils/country";
+import {VoteResults} from "./VoteResults";
 
 interface TVoteControls {
 
@@ -16,7 +17,6 @@ interface TVoteControls {
   votingPostVoteExplanation?: string;
   questionId: string;
 }
-
 export const VoteControls = ({ showStatistics,votingThankYou,votingPostVoteExplanation,questionId}: TVoteControls) => {
   const [numYesVotes, setNumYesVotes] = useState(0);
   const [numNoVotes, setNumNoVotes] = useState(0);
@@ -128,69 +128,74 @@ export const VoteControls = ({ showStatistics,votingThankYou,votingPostVoteExpla
   showStatistics = true;
 
   return (
-    <>
-      {!voted && (
+      <>
+        {!voted && (
+            <Row>
+              <Col xs lg="4"/>
+              <Col>
+                <Button
+                    variant="light"
+                    size="lg"
+                    onClick={() => SaveVoteToDb(Choice.YES)}
+                    title="Yes">
+                  <FaThumbsUp className="thumbs-up"/>
+                </Button>
+              </Col>
+
+              <Col>
+                <Button
+                    variant="light"
+                    size="lg"
+                    onClick={() => SaveVoteToDb(Choice.NO)}
+                    title="No">
+                  <FaThumbsDown className="thumbs-down"/>
+                </Button>
+              </Col>
+
+              <Col xs lg="4"/>
+            </Row>
+        )}
+
+        {voted && (
+
+            <Row>
+
+
+              <Col xs lg="4"/>
+              <Col className={`vote-count voted-${voteChoice === Choice.YES ? "this" : "other"}`}>
+                <Button
+                    variant={voteChoice === Choice.YES ? "light" : "dark"}
+                    size="lg"
+                    onClick={() => SaveVoteToDb(Choice.YES)}
+                    title={voteChoice === Choice.YES ? "You voted Yes" : "Change vote to Yes"}>
+                  <FaThumbsUp className="thumbs-up"/>
+                  {showStatistics ? <span className="yes">{numYesVotes}</span> : null}
+                </Button>
+
+              </Col>
+              <Col className={`vote-count voted-${voteChoice === Choice.NO ? "this" : "other"}`}>
+                <Button
+                    variant={voteChoice === Choice.NO ? "light" : "dark"}
+                    size="lg"
+                    onClick={() => SaveVoteToDb(Choice.NO)}
+
+                    title={voteChoice === Choice.NO ? "You voted No" : "Change vote to No"}>
+                  <FaThumbsDown className="thumbs-down"/>
+                  {showStatistics ? <span className="no">{numNoVotes}</span> : null}
+                </Button>
+
+
+              </Col>
+              <Col xs lg="4"/>
+              <h3>{votingPostVoteExplanation}</h3>
+            </Row>
+
+        )}
+
         <Row>
-          <Col xs lg="4"/>
-          <Col  >
-            <Button
-              variant="light"
-              size="lg"
-              onClick={() => SaveVoteToDb(Choice.YES)}
-              title="Yes">
-              <FaThumbsUp className="thumbs-up"/>
-            </Button>
-          </Col>
-
-          <Col >
-            <Button
-              variant="light"
-              size="lg"
-              onClick={() => SaveVoteToDb(Choice.NO)}
-              title="No">
-              <FaThumbsDown className="thumbs-down" />
-            </Button>
-          </Col>
-
-          <Col xs lg="4"/>
+          <VoteResults questionId={questionId}/>
         </Row>
-      )}
-
-      {voted && (
-        <>
-          <Row>
-            <h2>{votingThankYou}</h2>
-            {showStatistics ? <h3>See how others have voted:</h3> : null}
-            <Col xs lg="4"/>
-            <Col  className={`vote-count voted-${voteChoice === Choice.YES ? "this" : "other"}`}>
-              <Button
-                  variant= {voteChoice === Choice.YES ? "light" : "dark"} 
-                  size="lg"
-                  onClick={() => SaveVoteToDb(Choice.YES)}
-                  title= {voteChoice === Choice.YES ? "You voted Yes" : "Change vote to Yes"} >                
-                <FaThumbsUp className="thumbs-up"/>
-                {showStatistics ? <span className="yes">{numYesVotes}</span>: null}
-              </Button>          
-              
-            </Col>
-            <Col className={`vote-count voted-${voteChoice === Choice.NO ? "this" : "other"}`}>
-              <Button
-                  variant= {voteChoice === Choice.NO ? "light" : "dark"}
-                  size="lg"
-                  onClick={() => SaveVoteToDb(Choice.NO)}
-                 
-                  title= {voteChoice === Choice.NO ? "You voted No" : "Change vote to No"} >
-                <FaThumbsDown className="thumbs-down" />
-                {showStatistics ? <span className="no">{numNoVotes}</span>: null}
-              </Button>
-            
-              
-            </Col>
-            <Col xs lg="4"/>
-            <h3>{votingPostVoteExplanation}</h3>
-          </Row>
-        </>
-      )}
-    </>
+        {voted && <h3>{votingThankYou} {voteChoice.toLowerCase()}</h3>}
+      </>
   );
 };
