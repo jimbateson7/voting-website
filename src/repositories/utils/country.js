@@ -1,6 +1,9 @@
 export function getCountryList()
 {
     return {
+      
+        GB: "United Kingdom",
+        US: "United States of America",
         AD: "Andorra",
         AE: "United Arab Emirates",
         AF: "Afghanistan",
@@ -77,7 +80,7 @@ export function getCountryList()
         FO: "Faroe Islands",
         FR: "France",
         GA: "Gabon",
-        GB: "United Kingdom",
+        
         GD: "Grenada",
         GE: "Georgia",
         GF: "French Guiana",
@@ -233,7 +236,7 @@ export function getCountryList()
         UA: "Ukraine",
         UG: "Uganda",
         UM: "United States Minor Outlying Islands",
-        US: "United States of America",
+      
         UY: "Uruguay",
         UZ: "Uzbekistan",
         VA: "Holy See",

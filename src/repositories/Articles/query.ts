@@ -5,11 +5,17 @@ import {getPreview} from "../utils/preview";
 import {navigationGroup} from "../Navigation/query";
 import {LogQuery} from "../utils/utilities";
 import {QueryBlocks} from "../Common/query";
+export function generatePostQueryPaginated(page:number, blogsPerPage:number = 10) {
 
-export function generatePostQuery(slug: string) { 
-  const isPreview = getPreview();
-  const query = `query blogPostCollectionQuery{
-    allBlogPostModels(first: 1, filter: {slug: {eq:"${slug}"}}) 
+    const first:number = blogsPerPage;
+    const skip: number = page * blogsPerPage;
+    return generatePostQueryFrom(undefined, first, skip);
+}
+
+function generatePostQueryFrom(sentSlug: string | undefined, first: number, skip: number) {
+    const queryString = sentSlug ? `, filter: {slug: {eq:"${sentSlug}"}}` : "";
+    const query = `query blogPostCollectionQuery{
+    allBlogPostModels(first: ${first}, skip:${skip} ${queryString}, fallbackLocales:[en, en_US]) 
     {
       
       
@@ -58,6 +64,14 @@ export function generatePostQuery(slug: string) {
   }
 `;
 
-  LogQuery(query);
-  return query;
+    LogQuery(query);
+    return query;
+}
+
+export function generatePostQuery(slug: string) { 
+  const isPreview = getPreview();
+  const first:number = 1; 
+  const skip: number = 0;
+  const sentSlug: string | undefined = slug;
+    return generatePostQueryFrom(sentSlug, first, skip);
 }

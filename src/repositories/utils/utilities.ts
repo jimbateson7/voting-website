@@ -40,37 +40,42 @@ export const extractYoutubeVideoUrl = (video: string, autoPlay: boolean = false)
 
 export function LogLinks(sentLinks: any, name: string = "footer")
 {
-    const logger = getLogger(name +' Log');
-    if(process.env.NODE_ENV === "development" && DEBUG_QUERY) {
-        logger.info("Fetching link data");
-        logger.info(sentLinks);
-    }
+    if(process.env.NODE_ENV !== "development" || !DEBUG_QUERY) return;
+    
+    const logger = getLogger(name +' Log');   
+    logger.info("Fetching link data");
+    logger.info(sentLinks);
+    
 }
 export function LogErrors(... params : any[]) {
+    if(process.env.NODE_ENV !== "development" || !DEBUG_QUERY) return;
+    
     const logger = getLogger('Error Log');
    params.forEach( x => 
         logger.error(x)
     );
-
-    if(process.env.NODE_ENV === "development" && DEBUG_QUERY) console.log(params);
 }
 
 export function LogException(ex:string) {
+    if(process.env.NODE_ENV !== "development" || !DEBUG_QUERY) return;
+    
     const logger = getLogger('Exception Log');
     logger.error("Exception called is:")
     logger.error(ex);
     logger.error("EOF Query")
 
-    if(process.env.NODE_ENV === "development" && DEBUG_QUERY) console.log(ex);
+ 
 }
 export function LogQuery(query:string)
 {
+    if(process.env.NODE_ENV !== "development" || !DEBUG_QUERY) return;
+    
     const logger = getLogger('Query Log');
     logger.info("Query called is:")
     logger.info(query);
     logger.info("EOF Query")
 
-    if(process.env.NODE_ENV === "development" && DEBUG_QUERY) console.log(query);
+   
 }
 
 

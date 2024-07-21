@@ -1,16 +1,15 @@
-import { QueryResult } from "./types";
-import { TPage} from "../../components/Page";
+import {Item, QueryResult} from "./types";
+
 import React from 'react';
 import {getLogger} from "../../utils/logger";
 import { ReactNode } from "react";
-import { renderMarkRule, renderNodeRule, StructuredText } from 'react-datocms';
-import { isParagraph, isHeading } from 'datocms-structured-text-utils';
+import { renderNodeRule, StructuredText } from 'react-datocms';
+import { isParagraph } from 'datocms-structured-text-utils';
 import type { StructuredText as TStructuredText } from 'datocms-structured-text-utils';
-import {AssetTypes, ContentTypes, NavigationItem} from "../Navigation/types";
+import { ContentTypes, NavigationItem} from "../Navigation/types";
 import {HubCollection} from "../../components/HubCollection";
-import {VideoEmbed} from "../../components/VideoEmbed";
 import {TArticlePage} from "../Common/types";
-
+import {TPage} from "../../components/PageData";
 
 
 function datoRichTextToReactNode(content: TStructuredText): ReactNode {
@@ -62,6 +61,7 @@ function datoRichTextToReactNode(content: TStructuredText): ReactNode {
                       </a>
                   );
               }
+         
               return <pre>props</pre>
           }}
             /* 
@@ -196,30 +196,33 @@ function datoRichTextToReactNode(content: TStructuredText): ReactNode {
 }
 
 
+export function mapBlogPost(actualPost: Item| undefined) {
+    if (!actualPost) {
+        throw new Error("no blog post")
+    }
+    let react = null;
+    try {
+        react = datoRichTextToReactNode(actualPost.body);
+    } catch (e) {
+        const logger = getLogger('Exception');
+        logger.error(e);
+    }
+
+    const model: TPage = {
+        header: actualPost.title,
+        heroImageUrl: actualPost.image?.url,
+        heroImageAltText: actualPost.image?.description,
+        richText: react,
+    };
+    return model;
+}
 
 export async function mapBlogData(result: QueryResult): Promise<TPage> {
   
   const actualPost = result.data.allBlogPostModels.shift();
-  
-  if(!actualPost)
-  {
-    throw new Error("no blog post")
-  }
-  let react = null;
-  try {
-    react = datoRichTextToReactNode(actualPost.body);
-  } catch (e) {
-    const logger = getLogger('Exception');
-    logger.error(e);
-  }
 
-  const model: TPage = {
-    header: actualPost.title,
-    heroImageUrl: actualPost.image?.url,
-    heroImageAltText: actualPost.image?.description,
-    richText: react,
-  };
-  return model;
+  
+    return mapBlogPost(actualPost);
 }
 
 

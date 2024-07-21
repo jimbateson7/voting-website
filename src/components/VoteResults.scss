@@ -1,14 +1,68 @@
 .chart-container
 {
-  width: 33%;
-  margin: auto;
-  font-size: 20px;
 
 
-  align-content: center;
-  padding-bottom: 45px;
+  margin:auto;
+
+
+  width: 120%;
+  margin-left: 7.5%;
+  
+  /*
+  &:hover
+  {
+    
+    transform: scale(1.55);
+    background-color: rgba(255,255,255,0.75);
+    border-radius:25px;
+    
+  }*/
+  &:hover
+  {
+
+    transform: scale(1.05);
+    
+
+  }
+  transition: transform 0.25s;
+
 }
 
-.vote-results {
-  padding: 10px;
+
+.chart {
+
+ 
+  
 }
+
+select {
+  /* Make it transparent */
+  background-color: transparent;
+  /* Remove borders */
+  border: none;
+  /* Remove default shadow */
+  box-shadow: none;
+  /* Adjust padding for spacing (optional) */
+  padding: 5px 10px;
+  /* Inherit text color from parent elements (optional) */
+  color: inherit;
+  /* Indicate interactivity (optional) */
+  cursor: pointer;
+  /* Optional: Add a subtle rounded corner */
+  border-radius: 2px;
+  text-align: center;
+  width: 99%;
+}
+
+/* Style the dropdown options (optional) */
+select option {
+  background-color: #fff; /* White background for options */
+  color: #000; /* Black text for options */
+}
+
+/* Style the focused option (optional) */
+select:focus {
+  /* Highlight the selected option (optional) */
+  outline: 1px solid blue; /* Adjust highlight color as needed */
+}
+
