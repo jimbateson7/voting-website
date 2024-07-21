@@ -31,8 +31,10 @@ export default function VoteUpdateForm(props) {
   const initialValues = {
     voterId: "",
     choice: "",
+
     questionId: "",
     country: "",
+
   };
   const [voterId, setVoterId] = React.useState(initialValues.voterId);
   const [choice, setChoice] = React.useState(initialValues.choice);
