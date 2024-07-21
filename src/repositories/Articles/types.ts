@@ -7,6 +7,7 @@ export interface QueryResult {
 
 export interface Data {
   allBlogPostModels: Item[];
+  allBlogPostModelNews: Item[];
 }
 
 export interface Image {

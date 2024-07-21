@@ -9,6 +9,7 @@ export interface TPage {
 
 export const PageData = (data: TPage) => {
 
+
     const styleClass = data.heroImageUrl ? "heroWithImage" : "hero";
     return (
         <>

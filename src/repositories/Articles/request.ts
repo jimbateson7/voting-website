@@ -13,7 +13,7 @@ export const getPageJson = (slug: string) => {
 export const getPagesJson = (pageNumber: number, blogsPerPage:number = 10) => {
   const query = generatePostQueryPaginated(pageNumber,blogsPerPage);
   return fetchDataContentful<QueryResult>(query).then((root: QueryResult) => {
-    return root.data.allBlogPostModels.map(mapBlogPost)
+    return root.data.allBlogPostModelNews.map(mapBlogPost)
    
   });
 };

@@ -7,6 +7,7 @@ import {v4 as generateGuid} from "uuid";
 // @ts-ignore
 import {TrackedYoutubeVideo} from "./TrackedYoutubeVideo";
 import {TQuestionBlock} from "../repositories/Navigation/types";
+import {BlogList} from "../components/BlogList";
 
 export const localStorageVotingIdKey = "voterId";
 
@@ -78,7 +79,9 @@ const VotingPage = (props: TVotingPage) => {
           </Row>
         : null
       */}
-     
+      <Row>
+        <BlogList />
+      </Row>
     </>
   );
 };
