@@ -19,11 +19,11 @@ export const fetchData = async <TType>(
   url: string,
   query: string
 ): Promise<TType> => {  
-    
+   /* 
     console.log("--------------Query---------------------")
     console.log(query);
     console.log("--------------EOF Query---------------------")
-    
+    */
   const options = {
     method: "POST",
     headers: {
