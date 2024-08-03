@@ -1,6 +1,12 @@
 :root {
   --secondary: #538177;
   --tertiary: #123e50;
+  
+  --secondary20Brighter: #6ea296;
+  --tertiary20Brighter:#217293;
+
+  --secondary50Brighter: #a4c5be;
+  --tertiary50Brighter:#57b3d9;
 }
 
 .row {
@@ -25,14 +31,15 @@
 svg {
   font-size: 2.5rem;
   padding: .25rem;
-  filter:brightness(2);
+  
   &.thumbs-up {
-    color: var(--tertiary);
-   
+    color: var(--tertiary20Brighter);
+    
   }
 
   &.thumbs-down {
-    color: var(--secondary);
+    color: var(--secondary20Brighter);
+    
   }
 }
 
@@ -43,6 +50,8 @@ svg {
 
     svg {
       transform: scale(1.5);
+
+      filter:brightness(1.5);
       transition: transform ease-in-out .25s;
     }
   }

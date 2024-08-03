@@ -38,20 +38,30 @@ export const VoteResults = ({questionId}: { questionId: string }) => {
         }
     }, [selectedCountry]);
 
-    ChartJS.register(ArcElement, Tooltip, Legend); // Register required elements
+    
+    ChartJS.register(ArcElement, Tooltip); // Register required elements
+
 
     const chartData = {
         datasets: [
             {
-                data: [yesVotes, noVotes],
-                backgroundColor: ['green', 'grey'],
-                hoverBackgroundColor: ['lightgreen', 'lightcoral'],
+                data: [noVotes,yesVotes],
+                backgroundColor: ['#6ea296', '#217293'],
+                hoverBackgroundColor: ['#a4c5be', '#57b3d9'],
+                    
             },
         ],
-        labels: ['Yes', 'No'],
+        labels: ['No', 'Yes'],
+        
     };
+    
+    const chartOptions =   {
+      
+       
+    }
 
-
+        
+        
     interface Country {
         [code: string]: string;
     }
@@ -96,7 +106,7 @@ export const VoteResults = ({questionId}: { questionId: string }) => {
             <Col>
                 <div className={"chart-container"} data-hovered={isHovered.toString()}>
 
-                    <Doughnut className={"chart"} data={chartData} options={{responsive: true}}
+                    <Doughnut className={"chart"} data={chartData} options={chartOptions} 
                               data-hovered={isHovered.toString()} onMouseEnter={() => setIsHovered(true)}
                               onMouseLeave={() => setIsHovered(false)}/>
 
