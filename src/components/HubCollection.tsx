@@ -1,6 +1,6 @@
 import {createAnchorLinkFromTitle, extractYoutubeVideoId} from "../repositories/utils/utilities";
 import "./HubCollection.scss";
-import { VideoEmbed } from "./VideoEmbed";
+
 import {ContentTypes, NavigationItem} from "../repositories/Navigation/types";
 import {TrackedYoutubeVideo} from "../pages/TrackedYoutubeVideo";
 

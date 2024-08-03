@@ -8,6 +8,7 @@ import {v4 as generateGuid} from "uuid";
 import {TrackedYoutubeVideo} from "./TrackedYoutubeVideo";
 import {TQuestionBlock} from "../repositories/Navigation/types";
 import {BlogList} from "../components/BlogList";
+import Donation from "../components/Donation";
 
 export const localStorageVotingIdKey = "voterId";
 
@@ -27,6 +28,8 @@ interface TVotingPage {
 
   questions?: TQuestionBlock[];
 }
+
+
 
 const VotingPage = (props: TVotingPage) => {
   let { introVideoId, postVoteVideoId, showIntroVideo, showSharePanel} = props;
@@ -79,9 +82,16 @@ const VotingPage = (props: TVotingPage) => {
           </Row>
         : null
       */}
+<Row>
+  <Donation></Donation>
+</Row>
+
       <Row>
         <BlogList />
       </Row>
+
+
+
     </>
   );
 };
