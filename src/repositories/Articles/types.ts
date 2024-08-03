@@ -7,9 +7,8 @@ export interface QueryResult {
 
 export interface Data {
   allBlogPostModels: Item[];
+  allBlogPostModelNews: Item[];
 }
-
-
 
 export interface Image {
   title: string;
@@ -23,7 +22,7 @@ export interface Item {
   author: Author;
   slug: string;
   image: Image;
-  body: TStructuredText; //ContentfulContent;
+  body: TStructuredText; 
 }
 
 export interface Sys {
@@ -34,12 +33,5 @@ export interface Author {
   name: string;
   image: any;
 }
-
-/*
-export interface ContentfulContent {
-  value: Document;
-  links: Link;
-}*/
-
 
 

@@ -30,18 +30,28 @@ export default function VoteCreateForm(props) {
   const initialValues = {
     voterId: "",
     choice: "",
+
+    questionId: "",
+    country: "",
+
   };
   const [voterId, setVoterId] = React.useState(initialValues.voterId);
   const [choice, setChoice] = React.useState(initialValues.choice);
+  const [questionId, setQuestionId] = React.useState(initialValues.questionId);
+  const [country, setCountry] = React.useState(initialValues.country);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     setVoterId(initialValues.voterId);
     setChoice(initialValues.choice);
+    setQuestionId(initialValues.questionId);
+    setCountry(initialValues.country);
     setErrors({});
   };
   const validations = {
     voterId: [],
     choice: [{ type: "Required" }],
+    questionId: [],
+    country: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -71,6 +81,8 @@ export default function VoteCreateForm(props) {
         let modelFields = {
           voterId,
           choice,
+          questionId,
+          country,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -127,6 +139,8 @@ export default function VoteCreateForm(props) {
             const modelFields = {
               voterId: value,
               choice,
+              questionId,
+              country,
             };
             const result = onChange(modelFields);
             value = result?.voterId ?? value;
@@ -152,6 +166,8 @@ export default function VoteCreateForm(props) {
             const modelFields = {
               voterId,
               choice: value,
+              questionId,
+              country,
             };
             const result = onChange(modelFields);
             value = result?.choice ?? value;
@@ -177,6 +193,60 @@ export default function VoteCreateForm(props) {
           {...getOverrideProps(overrides, "choiceoption1")}
         ></option>
       </SelectField>
+      <TextField
+        label="Question id"
+        isRequired={false}
+        isReadOnly={false}
+        value={questionId}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              voterId,
+              choice,
+              questionId: value,
+              country,
+            };
+            const result = onChange(modelFields);
+            value = result?.questionId ?? value;
+          }
+          if (errors.questionId?.hasError) {
+            runValidationTasks("questionId", value);
+          }
+          setQuestionId(value);
+        }}
+        onBlur={() => runValidationTasks("questionId", questionId)}
+        errorMessage={errors.questionId?.errorMessage}
+        hasError={errors.questionId?.hasError}
+        {...getOverrideProps(overrides, "questionId")}
+      ></TextField>
+      <TextField
+        label="Country"
+        isRequired={false}
+        isReadOnly={false}
+        value={country}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              voterId,
+              choice,
+              questionId,
+              country: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.country ?? value;
+          }
+          if (errors.country?.hasError) {
+            runValidationTasks("country", value);
+          }
+          setCountry(value);
+        }}
+        onBlur={() => runValidationTasks("country", country)}
+        errorMessage={errors.country?.errorMessage}
+        hasError={errors.country?.hasError}
+        {...getOverrideProps(overrides, "country")}
+      ></TextField>
       <Flex
         justifyContent="space-between"
         {...getOverrideProps(overrides, "CTAFlex")}

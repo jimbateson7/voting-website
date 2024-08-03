@@ -14,5 +14,7 @@ type Vote @model @auth(rules: [{allow: public}]) {
   id: ID!
   voterId: ID
   choice: Choice!
+  questionId: String
+  country: String
 }
  

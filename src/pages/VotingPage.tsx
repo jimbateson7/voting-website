@@ -6,12 +6,15 @@ import {Row} from "react-bootstrap";
 import {v4 as generateGuid} from "uuid";
 // @ts-ignore
 import {TrackedYoutubeVideo} from "./TrackedYoutubeVideo";
+import {TQuestionBlock} from "../repositories/Navigation/types";
+import {BlogList} from "../components/BlogList";
 
 export const localStorageVotingIdKey = "voterId";
+
+
 interface TVotingPage {
   introVideoId: string | undefined;
   postVoteVideoId: string | undefined;
-  title: string;
   heading?: string;
   introText:string;
   votingThankYou?: string;
@@ -19,14 +22,14 @@ interface TVotingPage {
   shareHeading?: string;
   shareSubHeading?: string;
   showStatistics: boolean;
-  showIntroVideo: boolean;
+  showIntroVideo: boolean; 
   showSharePanel: boolean;
-  voted: boolean;
-  setVoted: Function;
+
+  questions?: TQuestionBlock[];
 }
 
 const VotingPage = (props: TVotingPage) => {
-  let { introVideoId, postVoteVideoId, title, showIntroVideo, showSharePanel, voted, setVoted } = props;
+  let { introVideoId, postVoteVideoId, showIntroVideo, showSharePanel} = props;
   //pretty sure both of these are meant to be auto-play, but should probably think of something to use extractYoutubeVideoUrl
   let introVideo = `https://www.youtube.com/embed/${introVideoId}`; //?&autoplay=1`; 
   let postVideo = postVoteVideoId ?  `https://www.youtube.com/embed/${postVoteVideoId}?&autoplay=1` : undefined;
@@ -55,22 +58,30 @@ const VotingPage = (props: TVotingPage) => {
           </Row>
           : null
       }
-      <Row>
-        <div className="frame">
-          <div className="frame-content">
-            <h2 className="question">{title}</h2>
-            <VoteControls voted={voted} setVoted={setVoted} showStatistics={props.showStatistics} votingPostVoteExplanation={props.votingPostVoteExplanation} votingThankYou={props.votingThankYou} />
-          </div>
-        </div>
-      </Row>
 
-      {showSharePanel
+
+      {props.questions?.map( question =>
+      {
+          return (<Row key={question.id}>
+          <div className="frame">
+            <div className="frame-content">
+              <h2 className="question"> {question.questionTitle}</h2>
+              <VoteControls questionId={question.id} showStatistics={props.showStatistics} votingPostVoteExplanation={props.votingPostVoteExplanation} votingThankYou={props.votingThankYou} />
+
+            </div>
+          </div>
+        </Row>)
+      })}
+
+      {/*showSharePanel
         ? <Row>
             <Share postVoteVideo={postVideo} shareText={props.shareHeading} shareSubText={props.shareSubHeading} />
           </Row>
         : null
-      }
-     
+      */}
+      <Row>
+        <BlogList />
+      </Row>
     </>
   );
 };

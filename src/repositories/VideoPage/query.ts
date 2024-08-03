@@ -9,7 +9,7 @@ export function generateVideoPageQuery(slug: string) {
  
   const isPreview = getPreview();
   const query = `query videoPageCollectionQuery {
-  allVideoPageModels(first: 1, filter: {slug: {eq:"${slug}"}}) 
+  allVideoPageModels(first: 1, filter: {slug: {eq:"${slug}"}} , fallbackLocales:[en, en_US]) 
   {
     
       

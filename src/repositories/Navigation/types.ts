@@ -33,9 +33,11 @@ export interface BasePage
     slug: string
     title: string
 }
-export interface VideoPage extends BasePage
+
+export interface TQuestionBlock
 {
-    url?:  string
+    questionTitle:string,
+    id:string,
 }
 
 export interface NavigationItem extends NavigationGroup {
@@ -56,5 +58,6 @@ export interface NavigationItem extends NavigationGroup {
     slug?: string
     video?:Video
     id:string;
+    questions?: TQuestionBlock[];
 }
 

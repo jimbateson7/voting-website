@@ -53,5 +53,39 @@
       "providerPlugin": "awscloudformation",
       "service": "Cognito"
     }
+  },
+  "parameters": {
+    "AMPLIFY_function_ourplanetourpeoplewe21f343b1CustomMessage_EMAILMESSAGE": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "ourplanetourpeoplewe21f343b1CustomMessage"
+        }
+      ]
+    },
+    "AMPLIFY_function_ourplanetourpeoplewe21f343b1CustomMessage_EMAILSUBJECT": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "ourplanetourpeoplewe21f343b1CustomMessage"
+        }
+      ]
+    },
+    "AMPLIFY_function_ourplanetourpeoplewe21f343b1CustomMessage_REDIRECTURL": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "ourplanetourpeoplewe21f343b1CustomMessage"
+        }
+      ]
+    },
+    "AMPLIFY_function_ourplanetourpeoplewe21f343b1VerifyAuthChallengeResponse_RECAPTCHASECRET": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "ourplanetourpeoplewe21f343b1VerifyAuthChallengeResponse"
+        }
+      ]
+    }
   }
 }

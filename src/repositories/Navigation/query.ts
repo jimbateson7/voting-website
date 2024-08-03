@@ -41,7 +41,7 @@ export function generateNavQuery(id: string) {
     const isPreview = getPreview();
     const query =  `
   query findNavById{
-    allNavigationGroupModels(filter:{id: {eq:"${id}"}}) {
+    allNavigationGroupModels(filter:{id: {eq:"${id}"}} , fallbackLocales:[en, en_US]) {
  
       ${navigationGroup}
       
