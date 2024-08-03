@@ -33,12 +33,12 @@ svg {
   padding: .25rem;
   
   &.thumbs-up {
-    color: var(--tertiary);
+    color: var(--tertiary20Brighter);
     
   }
 
   &.thumbs-down {
-    color: var(--secondary);
+    color: var(--secondary20Brighter);
     
   }
 }
@@ -51,7 +51,7 @@ svg {
     svg {
       transform: scale(1.5);
 
-      filter:brightness(1.6);
+      filter:brightness(1.5);
       transition: transform ease-in-out .25s;
     }
   }
