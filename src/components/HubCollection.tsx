@@ -41,6 +41,7 @@ function getOverrideFontSize(title:string) : string | undefined
 export const HubCard = (props: THubCard) => {
   const title = props.cardTitle ?? "";
   const overrideFontSizeTo = getOverrideFontSize(title);
+  
   return (
     <a href={props.link} className={"card"} key={props.uniqueKey}>
       <div className="card-content">
@@ -52,17 +53,13 @@ export const HubCard = (props: THubCard) => {
 }
 export const VideoHubCard = (props: TVidoHubCard) => {
   const title = props.cardTitle ?? "";
+  const disableTitle = true;
   const overrideFontSizeTo = getOverrideFontSize(title);
   return (
     <div className="card video-card">
       <div className="card-content" key={props.uniqueKey}>
-        <a href={props.link}>
-          {overrideFontSizeTo
-              ? <h2 className="card-title" font-overridded={!!overrideFontSizeTo} style={{ fontSize: overrideFontSizeTo }}>{title}</h2>
-              : <h2 className="card-title">{title}</h2>}
-                  
-        
-        </a>
+
+       
         <TrackedYoutubeVideo
             videoId={extractYoutubeVideoId(props.videoUrl)}
             autoPlay={false}
