@@ -137,8 +137,10 @@ export const VoteControls = ({ showStatistics,votingThankYou,votingPostVoteExpla
             <Row>
 
               <Col  xs lg="4">
+                <Row> <Col  xs lg="3"/><Col><h3>Do you agree or disagree? Vote now</h3></Col></Row>
                 <Row>
                   <Col  xs lg="3"/>
+                 
                 <Col  className={`vote-count voted-${voteChoice === Choice.YES ? "this" : "other"}`}>
                   <Button
                       variant={voteChoice === Choice.YES ? "light" : "dark"}
@@ -166,9 +168,9 @@ export const VoteControls = ({ showStatistics,votingThankYou,votingPostVoteExpla
              
                 </Row>
                 <Row>
-                  
+
+                  {voted ? <VoteResults questionId={questionId}/> : null}
                     
-                    <VoteResults questionId={questionId}/>
                   
                   </Row>
              </Col>
@@ -179,7 +181,7 @@ export const VoteControls = ({ showStatistics,votingThankYou,votingPostVoteExpla
             
             </Row>
 
-        
+            
 
 
         <br/>

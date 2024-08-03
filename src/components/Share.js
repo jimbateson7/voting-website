@@ -1,7 +1,8 @@
-import { FaFacebook, FaLinkedin, FaTwitter, FaInstagram, FaEnvelope } from 'react-icons/fa';
+import {FaFacebook, FaLinkedin, FaTwitter, FaInstagram, FaEnvelope, FaExternalLinkAlt} from 'react-icons/fa';
 import './Share.scss';
 import {localStorageVotingIdKey} from "../pages/VotingPage";
 import {recordUse} from "../utils/analytics";
+import {useEffect, useState} from "react";
 
 function Share({ postVoteVideo, shareText, shareSubText, voted }) {
 
@@ -20,6 +21,37 @@ function Share({ postVoteVideo, shareText, shareSubText, voted }) {
       attributes: attributes
     },userGuid);
   }
+  
+  const [linkAdded, setLinkAdded] = useState(false);
+  
+  useEffect(() =>
+  {
+      if(linkAdded)
+          return;
+      
+      const copyLink = document.getElementById('copy-link');
+
+      copyLink.addEventListener('click', (event) => {
+          event.preventDefault(); // Prevent default link behavior
+
+          // Get the link's href attribute
+          const link = copyLink.href;
+
+          // Create a temporary text area to hold the link
+          const tempInput = document.createElement('textarea');
+          tempInput.value = link;
+          document.body.appendChild(tempInput);
+          tempInput.select();
+          document.execCommand('copy');
+          document.body.removeChild(tempInput);
+
+
+
+          // Provide feedback to the user (optional)
+          alert('Link copied to clipboard!');
+      });
+      setLinkAdded(true);
+  })
   
   
   return (
@@ -71,6 +103,10 @@ function Share({ postVoteVideo, shareText, shareSubText, voted }) {
                               style={{color: '#F5BA48', fontSize: '3rem', padding: '.25rem'}}/>
               </a>
 
+              <a id="copy-link" href="http://wwww.ourplanetourpeople.com">
+                  <FaExternalLinkAlt onClick={() => record("Copy")}
+                              style={{color: '#F5BA48', fontSize: '3rem', padding: '.25rem'}}/>
+              </a>
           </div>
 
       </div>

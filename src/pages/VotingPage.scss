@@ -25,9 +25,10 @@
 svg {
   font-size: 2.5rem;
   padding: .25rem;
-
+  filter:brightness(2);
   &.thumbs-up {
     color: var(--tertiary);
+   
   }
 
   &.thumbs-down {
