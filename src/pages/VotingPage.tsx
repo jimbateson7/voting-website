@@ -79,7 +79,7 @@ const VotingPage = (props: TVotingPage) => {
           <div className="frame">
             <div className="frame-content">
              
-              <VoteControls questionId={question.id} questionTitle={question.questionTitle} showStatistics={props.showStatistics} votingPostVoteExplanation={props.votingPostVoteExplanation} votingThankYou={props.votingThankYou} />
+              <VoteControls video={"https://www.youtube.com/embed/qDRWzVnr4uU?&autoplay=0"} questionId={question.id} questionTitle={question.questionTitle} showStatistics={false} votingPostVoteExplanation={props.votingPostVoteExplanation} votingThankYou={props.votingThankYou} />
 
             </div>
           </div>
@@ -94,7 +94,7 @@ const VotingPage = (props: TVotingPage) => {
       */}
       <Row>
         <h2 id="share-heading" className={voted ? "voted" : ""}>{props.shareHeading}</h2>
-        
+
         <div className="social-links">
           <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//ourplanetourpeople.com" target="_blank"
              rel="noreferrer">
@@ -129,16 +129,27 @@ const VotingPage = (props: TVotingPage) => {
                                style={{color: '#F5BA48', fontSize: '3rem', padding: '.25rem'}}/>
           </a>
         </div>
+        <br/>
+        <br/>
         <Row>
           <Col/>
           <Col>
-          <TrackedYoutubeVideo autoPlay={false}
-                               showFrame={false}
-                            
-                               pageTitle={"Voting Page"}
-                               videoId={"qDRWzVnr4uU"}
-                               videoTitle={"Introduction Video"}/>
-        </Col>
+
+            {props.questions?.map( question =>
+            {
+              return (<Row key={question.id}>
+                <div >
+                  <div>
+
+                    { <VoteControls questionId={question.id} questionTitle={""} showStatistics={true} />}
+                    <VoteResults questionId={"UwO6qO8AQL2tLD7tBPGP7A"}/>
+                  </div>
+                </div>
+              </Row>)
+            })}
+           
+      
+          </Col>
           <Col/>
         </Row>
         <Donation></Donation>
@@ -146,7 +157,7 @@ const VotingPage = (props: TVotingPage) => {
       <Row>
         <Col xs lg="3"/>
         <Col>
-        <VoteResults questionId={"UwO6qO8AQL2tLD7tBPGP7A"}/>
+        
       </Col>
         <Col/>
       </Row>

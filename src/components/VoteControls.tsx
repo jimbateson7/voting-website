@@ -17,8 +17,9 @@ interface TVoteControls {
   votingThankYou?: string;
   votingPostVoteExplanation?: string;
   questionId: string;
+  video?: string;
 }
-export const VoteControls = ({ showStatistics,votingThankYou,votingPostVoteExplanation,questionId,questionTitle}: TVoteControls) => {
+export const VoteControls = ({ showStatistics,votingThankYou,votingPostVoteExplanation,questionId,questionTitle, video}: TVoteControls) => {
   const [numYesVotes, setNumYesVotes] = useState(0);
   const [numNoVotes, setNumNoVotes] = useState(0);
   const [fetchedVotes, setFetchedVotes] = useState(false);
@@ -200,8 +201,8 @@ export const VoteControls = ({ showStatistics,votingThankYou,votingPostVoteExpla
                 
              </Col>
               <Col>
-      
-                <Share voted={voted} postVoteVideo={"https://www.youtube.com/embed/qDRWzVnr4uU?&autoplay=0"} shareText={"Please Share"} shareSubText={""} />
+
+                { video ? <Share voted={voted} postVoteVideo={video} shareText={"Please Share"} shareSubText={""} /> : null}
               </Col>
             
             </Row>
