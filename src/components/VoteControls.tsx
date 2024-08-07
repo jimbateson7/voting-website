@@ -12,13 +12,13 @@ import {VoteResults} from "./VoteResults";
 import Share from "./Share";
 
 interface TVoteControls {
-
+  questionTitle:string;
   showStatistics: boolean;
   votingThankYou?: string;
   votingPostVoteExplanation?: string;
   questionId: string;
 }
-export const VoteControls = ({ showStatistics,votingThankYou,votingPostVoteExplanation,questionId}: TVoteControls) => {
+export const VoteControls = ({ showStatistics,votingThankYou,votingPostVoteExplanation,questionId,questionTitle}: TVoteControls) => {
   const [numYesVotes, setNumYesVotes] = useState(0);
   const [numNoVotes, setNumNoVotes] = useState(0);
   const [fetchedVotes, setFetchedVotes] = useState(false);
@@ -130,6 +130,8 @@ export const VoteControls = ({ showStatistics,votingThankYou,votingPostVoteExpla
      fetchVoteCounts().then( () => setFetchedVotes(true));
   }
 
+  /*scroll down after voting so please share and donat is more prominate*/
+  
   return (
       <>
    
@@ -137,7 +139,7 @@ export const VoteControls = ({ showStatistics,votingThankYou,votingPostVoteExpla
             <Row>
 
               <Col  xs lg="4">
-                <Row> <Col  xs lg="3"/><Col><h3>Do you agree or disagree? Vote now</h3></Col></Row>
+                <Row> <Col  xs lg="3"/><Col><h3 /* style="text-align:left"*/>{questionTitle} </h3></Col></Row>
                 <Row>
                   <Col  xs lg="3"/>
                  

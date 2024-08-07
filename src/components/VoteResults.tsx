@@ -1,6 +1,6 @@
 import {Choice, Vote} from "../models";
 import {DataStore} from "@aws-amplify/datastore";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {getCountryList} from "../repositories/utils/country";
 import {Doughnut} from "react-chartjs-2";
 import "./VoteResults.scss";
@@ -106,7 +106,7 @@ export const VoteResults = ({questionId}: { questionId: string }) => {
             <Col>
                 <div className={"chart-container"} data-hovered={isHovered.toString()}>
 
-                    <Doughnut className={"chart"} data={chartData} options={chartOptions} 
+                    <Doughnut className={"chart"} data={chartData} options={chartOptions}
                               data-hovered={isHovered.toString()} onMouseEnter={() => setIsHovered(true)}
                               onMouseLeave={() => setIsHovered(false)}/>
 
