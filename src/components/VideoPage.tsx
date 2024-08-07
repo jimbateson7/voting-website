@@ -29,6 +29,10 @@ export const VideoPage = (props: TArticlePage) => {
 
   useEffect(() => {
     fetchData().catch(console.error);
+
+  
+    
+    
   }, [slug, fetchData]);
 
   return (

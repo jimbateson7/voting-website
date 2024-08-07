@@ -12,6 +12,7 @@ import Donation from "../components/Donation";
 import {FaEnvelope, FaExternalLinkAlt, FaFacebook, FaInstagram, FaLinkedin, FaTwitter} from "react-icons/fa";
 import React from "react";
 import {Doughnut} from "react-chartjs-2";
+import {VoteResults} from "../components/VoteResults";
 
 export const localStorageVotingIdKey = "voterId";
 
@@ -92,7 +93,7 @@ const VotingPage = (props: TVotingPage) => {
         : null
       */}
       <Row>
-        <h2 className={voted ? "voted" : ""}>{props.shareHeading}</h2>
+        <h2 id="share-heading" className={voted ? "voted" : ""}>{props.shareHeading}</h2>
         
         <div className="social-links">
           <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//ourplanetourpeople.com" target="_blank"
@@ -140,6 +141,13 @@ const VotingPage = (props: TVotingPage) => {
           <Col/>
         </Row>
         <Donation></Donation>
+      </Row>
+      <Row>
+        <Col></Col>
+        <Col>
+        <VoteResults questionId={"UwO6qO8AQL2tLD7tBPGP7A"}/>
+      </Col>
+          <Col></Col>
       </Row>
 
       <Row>
