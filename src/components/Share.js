@@ -68,11 +68,7 @@ function Share({ postVoteVideo, shareText, shareSubText, voted }) {
                   allowFullScreen
               ></iframe> : null}
 
-          <br/>
-          <br/>
-          <br/>
-          <br/>
-          <br/>
+        
 
 
       </div>

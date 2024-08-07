@@ -134,6 +134,7 @@ const VotingPage = (props: TVotingPage) => {
           <Col>
           <TrackedYoutubeVideo autoPlay={false}
                                showFrame={false}
+                            
                                pageTitle={"Voting Page"}
                                videoId={"qDRWzVnr4uU"}
                                videoTitle={"Introduction Video"}/>
@@ -143,11 +144,11 @@ const VotingPage = (props: TVotingPage) => {
         <Donation></Donation>
       </Row>
       <Row>
-        <Col></Col>
+        <Col xs lg="3"/>
         <Col>
         <VoteResults questionId={"UwO6qO8AQL2tLD7tBPGP7A"}/>
       </Col>
-          <Col></Col>
+        <Col/>
       </Row>
 
       <Row>
