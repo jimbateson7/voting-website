@@ -6,7 +6,7 @@ import {Button} from "react-bootstrap";
 const Donation = () => {
 
 
-    const whyDontate = true;
+    const whyDontate = false;
     return whyDontate ?
                 (<>                
                 
