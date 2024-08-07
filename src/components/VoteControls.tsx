@@ -60,7 +60,34 @@ export const VoteControls = ({ showStatistics,votingThankYou,votingPostVoteExpla
      
   
   useEffect(() => {
+
+    const yesVoteButton = document.getElementById('vote-yes');
+    const noVoteButton = document.getElementById('vote-no');
+    const targetHeading = document.getElementById('share-heading');
+
+    if(yesVoteButton && targetHeading) {
+      yesVoteButton.addEventListener('click', () => {
+        targetHeading.scrollIntoView({behavior: 'smooth'});
+      });
+    }
+
+    if(noVoteButton && targetHeading) {
+      noVoteButton.addEventListener('click', () => {
+        targetHeading.scrollIntoView({behavior: 'smooth'});
+      });
+    }
+
+    const video = document.getElementById('main-video');
+   
+    if(video && targetHeading) {
+      video.addEventListener('ended', () => {
+        targetHeading.scrollIntoView({behavior: 'smooth'});
+      });
+    }
+    
     fetchVoteCounts().catch(console.error);
+       
+    
   }, [fetchVoteCounts]);
 
   
@@ -145,6 +172,7 @@ export const VoteControls = ({ showStatistics,votingThankYou,votingPostVoteExpla
                  
                 <Col  className={`vote-count voted-${voteChoice === Choice.YES ? "this" : "other"}`}>
                   <Button
+                      id="vote-yes"
                       variant={voteChoice === Choice.YES ? "light" : "dark"}
                       size="lg"
                       onClick={() => SaveVoteToDb(Choice.YES)}
@@ -159,7 +187,7 @@ export const VoteControls = ({ showStatistics,votingThankYou,votingPostVoteExpla
                       variant={voteChoice === Choice.NO ? "light" : "dark"}
                       size="lg"
                       onClick={() => SaveVoteToDb(Choice.NO)}
-  
+                      id="vote-no"
                       title={voteChoice === Choice.NO ? "You voted No" : "Change vote to No"}>
                     <FaThumbsDown className="thumbs-down"/>
                     {showStatistics  ? <span className="no">{numNoVotes}</span> : null}
@@ -169,12 +197,7 @@ export const VoteControls = ({ showStatistics,votingThankYou,votingPostVoteExpla
                 </Col>
              
                 </Row>
-                <Row>
-
-                  {voted ? <VoteResults questionId={questionId}/> : null}
-                    
-                  
-                  </Row>
+                
              </Col>
               <Col>
       

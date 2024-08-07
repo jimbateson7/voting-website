@@ -59,6 +59,7 @@ function Share({ postVoteVideo, shareText, shareSubText, voted }) {
 
           {postVoteVideo ?
               <iframe
+                  id="main-video"
                   className="video"
                   src={postVoteVideo} // TODO: Should this auto-play when component loads after vote? If so, append "?autoplay=1" to URL
                   title="YouTube video player"
@@ -67,11 +68,7 @@ function Share({ postVoteVideo, shareText, shareSubText, voted }) {
                   allowFullScreen
               ></iframe> : null}
 
-          <br/>
-          <br/>
-          <br/>
-          <br/>
-          <br/>
+        
 
 
       </div>
