@@ -10,9 +10,10 @@ import {TQuestionBlock} from "../repositories/Navigation/types";
 import {BlogList} from "../components/BlogList";
 import Donation from "../components/Donation";
 import {FaEnvelope, FaExternalLinkAlt, FaFacebook, FaInstagram, FaLinkedin, FaTwitter} from "react-icons/fa";
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {Doughnut} from "react-chartjs-2";
 import {VoteResults} from "../components/VoteResults";
+import WhyDonate from "../components/WhyDonateEmbed";
 
 export const localStorageVotingIdKey = "voterId";
 
@@ -36,7 +37,8 @@ interface TVotingPage {
 
 
 const VotingPage = (props: TVotingPage) => {
-  const voted = false; //todo
+  
+  const [voted, setVoted] = useState(false);
   let { introVideoId, postVoteVideoId, showIntroVideo, showSharePanel} = props;
   //pretty sure both of these are meant to be auto-play, but should probably think of something to use extractYoutubeVideoUrl
   let introVideo = `https://www.youtube.com/embed/${introVideoId}`; //?&autoplay=1`; 
@@ -53,6 +55,9 @@ const VotingPage = (props: TVotingPage) => {
   {
     
   }
+
+  const shareHeader = document.getElementById('share-heading');
+  const resultsHeader = document.getElementById('results-heading');
   
   
   //todo https://www.freecodecamp.org/news/use-the-youtube-iframe-api-in-react/
@@ -79,22 +84,22 @@ const VotingPage = (props: TVotingPage) => {
           <div className="frame">
             <div className="frame-content">
              
-              <VoteControls questionId={question.id} questionTitle={question.questionTitle} showStatistics={props.showStatistics} votingPostVoteExplanation={props.votingPostVoteExplanation} votingThankYou={props.votingThankYou} />
-
+              <VoteControls  voteCallBack={ (b) => setVoted(b)} video={"https://www.youtube.com/embed/qDRWzVnr4uU?&autoplay=0"} questionId={question.id} questionTitle={question.questionTitle} showStatistics={false} votingPostVoteExplanation={props.votingPostVoteExplanation} votingThankYou={props.votingThankYou} />
+              <Row>
+                <Col><a href="#share-heading" id="to-share"  >Share</a></Col>
+                <Col><a href="#results-heading" id="to-results">Results</a></Col>
+                {voted ? <Col style={{marginTop: "-12px"}}><Donation/></Col> : null}
+              </Row>
+              <br/>
             </div>
           </div>
         </Row>)
       })}
 
-      {/*showSharePanel
-        ? <Row>
-            <Share postVoteVideo={postVideo} shareText={props.shareHeading} shareSubText={props.shareSubHeading} />
-          </Row>
-        : null
-      */}
+
       <Row>
         <h2 id="share-heading" className={voted ? "voted" : ""}>{props.shareHeading}</h2>
-        
+
         <div className="social-links">
           <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//ourplanetourpeople.com" target="_blank"
              rel="noreferrer">
@@ -129,27 +134,37 @@ const VotingPage = (props: TVotingPage) => {
                                style={{color: '#F5BA48', fontSize: '3rem', padding: '.25rem'}}/>
           </a>
         </div>
-        <Row>
-          <Col/>
-          <Col>
-          <TrackedYoutubeVideo autoPlay={false}
-                               showFrame={false}
-                            
-                               pageTitle={"Voting Page"}
-                               videoId={"qDRWzVnr4uU"}
-                               videoTitle={"Introduction Video"}/>
-        </Col>
-          <Col/>
-        </Row>
-        <Donation></Donation>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+   
+
+            {props.questions?.map(question => {
+              return (<Row key={question.id}>
+                <div className="frame">
+                  <div className="frame-content">
+                    <h2 id="results-heading">Voting Results</h2>
+                    {<VoteControls questionId={question.id} questionTitle={""} showStatistics={true}/>}
+                    <Row>
+                      <Col></Col>
+                      <Col> <VoteResults questionId={question.id}/></Col>
+                      <Col></Col>
+                    </Row>
+                    <br/>
+                    <br/>
+                    <br/>
+                  </div>
+                </div>
+
+              </Row>)
+            })}
+
+
+     
+
       </Row>
-      <Row>
-        <Col xs lg="3"/>
-        <Col>
-        <VoteResults questionId={"UwO6qO8AQL2tLD7tBPGP7A"}/>
-      </Col>
-        <Col/>
-      </Row>
+
 
       <Row>
         <BlogList/>
