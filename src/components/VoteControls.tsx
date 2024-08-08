@@ -17,8 +17,10 @@ interface TVoteControls {
   votingThankYou?: string;
   votingPostVoteExplanation?: string;
   questionId: string;
+  video?: string;
+  voteCallBack?: (voted: boolean) => void;
 }
-export const VoteControls = ({ showStatistics,votingThankYou,votingPostVoteExplanation,questionId,questionTitle}: TVoteControls) => {
+export const VoteControls = ({ showStatistics,votingThankYou,votingPostVoteExplanation,questionId,questionTitle, video,voteCallBack}: TVoteControls) => {
   const [numYesVotes, setNumYesVotes] = useState(0);
   const [numNoVotes, setNumNoVotes] = useState(0);
   const [fetchedVotes, setFetchedVotes] = useState(false);
@@ -37,7 +39,11 @@ export const VoteControls = ({ showStatistics,votingThankYou,votingPostVoteExpla
     const aVote = votes.shift();
     const hasVoted =!!aVote;
     
- 
+    if(voteCallBack)
+    {
+      voteCallBack(hasVoted);
+    }
+    
     if(hasVoted)
     {      
       setVoteChoice(aVote.choice as Choice);
@@ -56,7 +62,7 @@ export const VoteControls = ({ showStatistics,votingThankYou,votingPostVoteExpla
       );
       setFetchedVotes(true);
 
-  }, [voteChoice])
+  }, [voteChoice,voteCallBack])
      
   
   useEffect(() => {
@@ -199,10 +205,11 @@ export const VoteControls = ({ showStatistics,votingThankYou,votingPostVoteExpla
                 </Row>
                 
              </Col>
+              { video ?
               <Col>
-      
-                <Share voted={voted} postVoteVideo={"https://www.youtube.com/embed/qDRWzVnr4uU?&autoplay=0"} shareText={"Please Share"} shareSubText={""} />
-              </Col>
+
+                <Share voted={voted} postVoteVideo={video} shareText={"Please Share"} shareSubText={""} />
+              </Col> : null}
             
             </Row>
 
@@ -210,8 +217,7 @@ export const VoteControls = ({ showStatistics,votingThankYou,votingPostVoteExpla
 
 
         <br/>
-        <br/>
-        <br/>
+      
       </>
   );
 };

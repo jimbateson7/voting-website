@@ -13,7 +13,7 @@ const Donation = () => {
                 <Row>
                     <Col></Col>
                     <Col>
-                        <br/>
+                     
                     <Button onClick={ () => 
                     {
                         const width = window.innerWidth * 0.9; 
