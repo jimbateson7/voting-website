@@ -8,6 +8,21 @@ const blogPost = `title
 
 const videoPage = `title
             slug
+            mainVideo {
+              id,
+              video {
+                      streamingUrl
+                      mp4High: mp4Url(res: high)
+                      mp4Med: mp4Url(res: medium)
+                      mp4Low: mp4Url(res: low)
+                      duration
+                      framerate
+                      thumbJpg: thumbnailUrl(format: jpg)
+                      thumbPng: thumbnailUrl(format: png)
+                      thumbGif: thumbnailUrl(format: gif)
+                    }
+              
+            }  
             video{ytembedUrl,autoPlay,title}`;
 
 const votingPage = ` 
@@ -25,6 +40,21 @@ const votingPage = `
             questions {
                 ... on QuestionRecord { questionTitle, id}
             }
+             mainVideo {
+              id,
+              video {
+                      streamingUrl
+                      mp4High: mp4Url(res: high)
+                      mp4Med: mp4Url(res: medium)
+                      mp4Low: mp4Url(res: low)
+                      duration
+                      framerate
+                      thumbJpg: thumbnailUrl(format: jpg)
+                      thumbPng: thumbnailUrl(format: png)
+                      thumbGif: thumbnailUrl(format: gif)
+                    }
+              
+            }  
 
             `;
 
