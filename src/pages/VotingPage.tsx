@@ -49,6 +49,7 @@ const MainVideo = (props: TVotingPage) => {
             <Row>
                 <TrackedYoutubeVideo autoPlay={false}
                                      showFrame={false}
+                                     onFinish={() => { console.log("finished")}}
                                      pageTitle={"Voting Page"}
                                      videoId={props.introVideoId}
                                      videoTitle={"Introduction Video"}/>
@@ -59,8 +60,8 @@ const MainVideo = (props: TVotingPage) => {
 const VotingPage = (props: TVotingPage) => {
 
     const [voted, setVoted] = useState(false);
-
-
+    const [watched, setWatched] = useState(false);
+    
     let userGuid = localStorage.getItem(localStorageVotingIdKey);
 
     if (!userGuid) {
@@ -90,13 +91,13 @@ const VotingPage = (props: TVotingPage) => {
                                               votingThankYou={props.votingThankYou}/>
                                 </Col>
                                 <Col className={"squashToRow"}>
-                                    <VideoControl datoVideo={props.mainVideo.video} ytUrl={props.introVideoId}/>
+                                    <VideoControl datoVideo={props.mainVideo.video} ytUrl={props.introVideoId} onFinish={() => setWatched(true)}/>
                                 </Col>
                             </Row>
                             <Row>
                                 <Col><a href="#share-heading" id="to-share">Share</a></Col>
                                 <Col><a href="#results-heading" id="to-results">Results</a></Col>
-                                {voted ? <Col style={{marginTop: "-12px"}}><Donation/></Col> : null}
+                                {voted || watched ? <Col style={{marginTop: "-12px"}}><Donation/></Col> : null}
                             </Row>
                            
                         </div>

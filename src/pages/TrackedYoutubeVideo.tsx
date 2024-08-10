@@ -10,6 +10,7 @@ export interface TrackedVideoProps {
     videoId?:string;
     showFrame: boolean;
     autoPlay: boolean;
+    onFinish?: () => void;
 }
 export const TrackedYoutubeVideo = (props: TrackedVideoProps) => {
 
@@ -29,6 +30,8 @@ export const TrackedYoutubeVideo = (props: TrackedVideoProps) => {
                     name: 'User_Left_Page_Without_Finishing_Video',                    
                     attributes: attributes
                 },userGuid)
+                if( props.onFinish)
+                    props.onFinish();
             }
         }
         window.addEventListener('beforeunload', userLeft)
@@ -117,6 +120,8 @@ export const TrackedYoutubeVideo = (props: TrackedVideoProps) => {
                         }
                         onPause={(e) =>
                         {
+                            if( props.onFinish)
+                                props.onFinish();
                             recordUse({
                                 name: 'Video_Paused',
                                 metrics:getMetrics(e),
@@ -127,6 +132,8 @@ export const TrackedYoutubeVideo = (props: TrackedVideoProps) => {
                        onEnd={(e) =>
                        {
                            setVideoPlaying(false);
+                           if( props.onFinish)
+                               props.onFinish();
                            recordUse({
                            name: 'Video_Watched_To_End', 
                             metrics:getMetrics(e),
