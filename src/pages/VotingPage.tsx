@@ -74,13 +74,13 @@ const VotingPage = (props: TVotingPage) => {
         <>
 
             {props.questions?.map(question => {
-                console.log("main video in page")
-                console.log(props.mainVideo.video)
+           
                 return (<Row key={question.id}>
                     <div className="frame">
                         <div className="frame-content">
                             <Row className={"vote-controls"} style={{paddingBottom:"50px"}}>
-                                <Col>
+                                <Col className={"squashToRow"}>
+                                <h2>{question.questionTitle}</h2>
                                 <VoteControls voteCallBack={(b) => setVoted(b)}
                                               video={"https://www.youtube.com/embed/qDRWzVnr4uU?&autoplay=0"}
                                               questionId={question.id}
@@ -88,7 +88,7 @@ const VotingPage = (props: TVotingPage) => {
                                               votingPostVoteExplanation={props.votingPostVoteExplanation}
                                               votingThankYou={props.votingThankYou}/>
                                 </Col>
-                                <Col>
+                                <Col className={"squashToRow"}>
                                     <VideoControl datoVideo={props.mainVideo.video} ytUrl={props.introVideoId}/>
                                 </Col>
                             </Row>

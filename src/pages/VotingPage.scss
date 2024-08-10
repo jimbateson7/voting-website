@@ -56,3 +56,13 @@ svg {
     }
   }
 }
+.squashToRow
+{
+  @media (max-width: 990px) {
+    text-align: center;
+    justify-content: center;
+    flex:unset;
+    padding-bottom: 50px;
+   
+  }
+}

@@ -103,7 +103,7 @@ export const HubCollection = (props: THubCollection) => {
           subHubCollections.push(<HubCollection pageTitle={pageTitle} showVideoThumbNails={x.showVideoThumbnailsInHub ?? false} parentTitle={props.title} title={x.title} items={x.navigationItem} uniqueKey={"subhub"+key} />)
           break;
         case ContentTypes.VideoPage:
-
+      
           if (props.showVideoThumbNails) {
             mainHubCards.push(
               <VideoHubCard pageTitle={pageTitle} cardTitle={x.title} link={link} videoTitle={x.video?.title ?? ""}
