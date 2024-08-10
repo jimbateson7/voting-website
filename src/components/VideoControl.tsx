@@ -7,7 +7,7 @@ import { extractYoutubeVideoIdSafe} from "../repositories/utils/utilities";
 
 
 
-export const VideoControl = ({datoVideo, ytUrl, videoTitle, pageTitle}: {datoVideo: Video | undefined, ytUrl:string | undefined,pageTitle?:string ,videoTitle?:string}) => {
+export const VideoControl = ({onFinish, datoVideo, ytUrl, videoTitle, pageTitle}: {onFinish?: ()=> void,datoVideo: Video | undefined, ytUrl:string | undefined,pageTitle?:string ,videoTitle?:string}) => {
 
     const useDatoVideo = false;
    
@@ -17,6 +17,7 @@ export const VideoControl = ({datoVideo, ytUrl, videoTitle, pageTitle}: {datoVid
             <TrackedYoutubeVideo autoPlay={false}
                                  showFrame={false}
                                  pageTitle={pageTitle ?? "test"}
+                                 onFinish={onFinish}
                                  videoId={extractYoutubeVideoIdSafe(ytUrl)}
                                  videoTitle={videoTitle ?? "test"}/>
         }
