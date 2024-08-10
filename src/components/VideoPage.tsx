@@ -5,13 +5,17 @@ import { getVideoPageJson } from "../repositories/VideoPage/request";
 import {TrackedYoutubeVideo} from "../pages/TrackedYoutubeVideo";
 import {extractYoutubeVideoId} from "../repositories/utils/utilities";
 import {TArticlePage} from "../repositories/Common/types";
+import {Video, VideoPlayer} from "react-datocms";
+import {VideoControl} from "./VideoControl";
+import {types} from "sass";
+import Boolean = types.Boolean;
 
 export interface TVideoPage {
+  mainVideo:{id:string, video:Video | undefined};
   header: string
   introText?: string;
-  videoUrl: string | undefined;
-  videoTitle: string;
-  autoPlay: boolean;
+  videoTitle?: string;
+  video:{ytembedUrl:string,autoPlay:boolean,title:string}
 }
 
 export const VideoPage = (props: TArticlePage) => {
@@ -24,7 +28,7 @@ export const VideoPage = (props: TArticlePage) => {
   }, [slug])
 
   const [data, setData] = useState<TVideoPage>({
-    header: "", videoTitle: "UnknownVideo", videoUrl: "", autoPlay: false
+    header: "", videoTitle: "UnknownVideo",mainVideo:{video:undefined, id:""},introText:"", video:{title:"",autoPlay:false, ytembedUrl:""}
   });
 
   useEffect(() => {
@@ -39,13 +43,8 @@ export const VideoPage = (props: TArticlePage) => {
     <>
       <h1>{data.header}</h1>
         {data.introText ? <p className="introText">{data.introText}</p> : null}
-        <TrackedYoutubeVideo 
-                             pageTitle={data.header} 
-                             videoTitle={data.videoTitle} 
-                             videoId={extractYoutubeVideoId(data.videoUrl)}
-                             showFrame={true} 
-                             autoPlay={data.autoPlay}></TrackedYoutubeVideo>
-
+     
+      <VideoControl datoVideo={data.mainVideo.video} ytUrl={data.video.ytembedUrl} pageTitle={props.title} videoTitle={data.videoTitle}  />
 
   </>
   );

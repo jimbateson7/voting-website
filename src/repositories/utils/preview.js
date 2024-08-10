@@ -14,4 +14,4 @@ export function refreshPreview()
     const isPreview = urlParams.get('preview');
     setPreview(!!isPreview);
 }
-export const DEBUG_QUERY = process.env.REACT_APP_DEBUG_QUERIES ?? true; //todo do off env variable
+export const DEBUG_QUERY = process.env.REACT_APP_DEBUG_QUERIES ?? false; //todo do off env variable

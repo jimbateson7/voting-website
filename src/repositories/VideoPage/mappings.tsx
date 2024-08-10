@@ -3,7 +3,7 @@ import {TVideoPage} from "../../components/VideoPage";
 
 export async function mapVideoData(result: QueryResult): Promise<TVideoPage> {
   
-  const actualPost = result.data.allVideoPageModels.shift() as VideoItem;
+  const actualPost = result?.data?.allVideoPageModels?.shift() as VideoItem;
 
   if(!actualPost)
   {
@@ -11,9 +11,9 @@ export async function mapVideoData(result: QueryResult): Promise<TVideoPage> {
   }
   return {
     header: actualPost.title,
-    autoPlay: actualPost.video.autoPlay,
-    videoTitle: actualPost.video.title,
     introText: actualPost.introText,
-    videoUrl: actualPost.video.ytembedUrl,
+    videoTitle: actualPost.mainVideo?.video?.title ?? undefined,
+    mainVideo: actualPost.mainVideo,
+    video:actualPost.video
   };
 }

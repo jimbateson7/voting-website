@@ -4,8 +4,9 @@ import {getLogger} from "../../utils/logger";
 
 export const mapNavData = (root: QueryResult) => {
     
+
   let validNavItems: NavigationItem[] = [];
-  root.data.allNavigationGroupModels.forEach(
+  root?.data?.allNavigationGroupModels?.forEach(
     (navItem, index) => {
       if (!navItem) {
          

@@ -3,6 +3,8 @@ import "./HubCollection.scss";
 
 import {ContentTypes, NavigationItem} from "../repositories/Navigation/types";
 import {TrackedYoutubeVideo} from "../pages/TrackedYoutubeVideo";
+import {Video, VideoPlayer} from "react-datocms";
+import {VideoControl} from "./VideoControl";
 
 export type THubCollection = {
   items: NavigationItem[]
@@ -24,6 +26,7 @@ export type TVidoHubCard = THubCard &
 {
   videoTitle: string;
   videoUrl: string;
+  mainVideo:{id:string, video:Video | undefined};
 }
 
 function getOverrideFontSize(title:string) : string | undefined
@@ -53,20 +56,20 @@ export const HubCard = (props: THubCard) => {
 }
 export const VideoHubCard = (props: TVidoHubCard) => {
   const title = props.cardTitle ?? "";
-  const disableTitle = true;
+  const disableTitle = false;
   const overrideFontSizeTo = getOverrideFontSize(title);
   return (
     <div className="card video-card">
       <div className="card-content" key={props.uniqueKey}>
-
+        <VideoControl datoVideo={props.mainVideo.video} ytUrl={props.videoUrl} pageTitle={props.pageTitle} videoTitle={props.videoTitle}  />
        
-        <TrackedYoutubeVideo
+        { /*  <TrackedYoutubeVideo
             videoId={extractYoutubeVideoId(props.videoUrl)}
             autoPlay={false}
             showFrame={false}
             pageTitle={props.pageTitle} 
             
-            videoTitle={props.videoTitle}/>
+            videoTitle={props.videoTitle}/> */}
       </div>
     </div>)
 }
@@ -100,7 +103,7 @@ export const HubCollection = (props: THubCollection) => {
           if (props.showVideoThumbNails) {
             mainHubCards.push(
               <VideoHubCard pageTitle={pageTitle} cardTitle={x.title} link={link} videoTitle={x.video?.title ?? ""}
-                            videoUrl={x.video?.ytembedUrl ?? ""} uniqueKey={key} />
+                            videoUrl={x.video?.ytembedUrl ?? ""} uniqueKey={key} mainVideo={x.mainVideo}/>
             )
           }
           else {

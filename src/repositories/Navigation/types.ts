@@ -1,4 +1,5 @@
-import {Video} from "../VideoPage/types";
+import {Video} from "react-datocms/dist/types/VideoPlayer";
+
 
 export interface QueryResult {
     data: Data
@@ -59,5 +60,6 @@ export interface NavigationItem extends NavigationGroup {
     video?:Video
     id:string;
     questions?: TQuestionBlock[];
+    mainVideo:{id:string, video:Video};
 }
 
