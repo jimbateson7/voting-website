@@ -58,11 +58,15 @@ export const VideoHubCard = (props: TVidoHubCard) => {
   const title = props.cardTitle ?? "";
   const disableTitle = false;
   const overrideFontSizeTo = getOverrideFontSize(title);
+
+  console.log(props.videoUrl);
+  
   return (
     <div className="card video-card">
       <div className="card-content" key={props.uniqueKey}>
-        <VideoControl datoVideo={props.mainVideo.video} ytUrl={props.videoUrl} pageTitle={props.pageTitle} videoTitle={props.videoTitle}  />
        
+        <VideoControl datoVideo={props.mainVideo.video} ytUrl={props.videoUrl} pageTitle={props.pageTitle} videoTitle={props.videoTitle}  />
+        
         { /*  <TrackedYoutubeVideo
             videoId={extractYoutubeVideoId(props.videoUrl)}
             autoPlay={false}

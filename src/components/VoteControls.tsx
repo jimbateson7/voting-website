@@ -170,8 +170,11 @@ export const VoteControls = ({
         <>
 
 
-           
-                <Col xs lg="3"/>
+           <Row >
+               
+               <Row ></Row>
+               <Row className={"d-flex align-items-center  gy-3"}>
+                   <Col xs lg="3"/>
                 <Col className={`vote-count voted-${voteChoice === Choice.YES ? "this" : "other"}`}>
                     <Button
                         id="vote-yes"
@@ -197,8 +200,11 @@ export const VoteControls = ({
 
 
                 </Col>
-          
-
+               <Col xs lg="3"/>
+               </Row>
+               <Row lg="3" xl="3" ></Row>
+           </Row>
+           
         </>
     );
 };

@@ -13,6 +13,7 @@ import {VoteResults} from "../components/VoteResults";
 import {SharingControls} from "./SharingControls";
 import {VideoPlayer} from "react-datocms";
 import {Video} from "react-datocms/dist/types/VideoPlayer";
+import {VideoControl} from "../components/VideoControl";
 
 export const localStorageVotingIdKey = "voterId";
 
@@ -78,14 +79,18 @@ const VotingPage = (props: TVotingPage) => {
                 return (<Row key={question.id}>
                     <div className="frame">
                         <div className="frame-content">
-                            <Row className={"vote-controls"}>
+                            <Row className={"vote-controls"} style={{paddingBottom:"50px"}}>
+                                <Col>
                                 <VoteControls voteCallBack={(b) => setVoted(b)}
                                               video={"https://www.youtube.com/embed/qDRWzVnr4uU?&autoplay=0"}
                                               questionId={question.id}
                                               questionTitle={question.questionTitle} showStatistics={false}
                                               votingPostVoteExplanation={props.votingPostVoteExplanation}
                                               votingThankYou={props.votingThankYou}/>
-                                <VideoPlayer data={props.mainVideo.video} />
+                                </Col>
+                                <Col>
+                                    <VideoControl datoVideo={props.mainVideo.video} ytUrl={props.introVideoId}/>
+                                </Col>
                             </Row>
                             <Row>
                                 <Col><a href="#share-heading" id="to-share">Share</a></Col>

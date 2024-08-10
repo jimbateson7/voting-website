@@ -28,7 +28,7 @@ export const extractYoutubeVideoId = (fullUrl?: string): string | undefined => {
     return  fullUrl.slice(-11);
 };
 export const extractYoutubeVideoIdSafe = (fullUrl?: string): string | undefined => {
-    if (!fullUrl  || isEmptyOrSpaces(fullUrl)) return fullUrl;
+    if (!fullUrl  || isEmptyOrSpaces(fullUrl) || fullUrl.length < 11) return fullUrl;
 
     //this way someone can add a "watch/embed/share/the id" yt link and it will still work
     return  fullUrl.slice(-11);

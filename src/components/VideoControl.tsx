@@ -9,10 +9,11 @@ import { extractYoutubeVideoIdSafe} from "../repositories/utils/utilities";
 
 export const VideoControl = ({datoVideo, ytUrl, videoTitle, pageTitle}: {datoVideo: Video | undefined, ytUrl:string | undefined,pageTitle?:string ,videoTitle?:string}) => {
 
-    
+    const useDatoVideo = false;
+   
     return (<>
-
-        {datoVideo ? <VideoPlayer data={datoVideo}></VideoPlayer> :
+    
+        {datoVideo && useDatoVideo ? <VideoPlayer data={datoVideo}></VideoPlayer> :
             <TrackedYoutubeVideo autoPlay={false}
                                  showFrame={false}
                                  pageTitle={pageTitle ?? "test"}

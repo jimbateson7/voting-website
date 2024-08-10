@@ -57,7 +57,7 @@ export interface NavigationItem extends NavigationGroup {
     title?: string   
     url?:  string
     slug?: string
-    video?:Video
+    video?: { ytembedUrl:string, title:string }
     id:string;
     questions?: TQuestionBlock[];
     mainVideo:{id:string, video:Video};
