@@ -40,9 +40,7 @@ export const getAllNavData = () => {
     const query = generateAllPagesQuery();
     return fetchDataContentful<QueryResult>(query).then((root: QueryResult) =>
     {
-        console.log("root data");
-        console.log(root);
-        
+    
         if(root.errors)
             LogErrors(root.errors)
        
