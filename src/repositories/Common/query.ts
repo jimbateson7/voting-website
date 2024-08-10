@@ -26,17 +26,11 @@ const videoPage = `title
             video{ytembedUrl,autoPlay,title}`;
 
 const votingPage = ` 
-            cardTitle,          
-            introductionText,
+            cardTitle,  
             showVoteStatistics,
-            heading,
             introVideo,
-            votingThankYou,
-            votingPostVoteExplanation,
             shareHeading,
-            shareSubHeading,
             slug,
-            postVoteVideo
             questions {
                 ... on QuestionRecord { questionTitle, id}
             }
