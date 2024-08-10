@@ -12,14 +12,13 @@ const videoPage = `title
 
 const votingPage = ` 
             cardTitle,          
-            introductionText,
+        
             showVoteStatistics,
-            heading,
+         
             introVideo,
-            votingThankYou,
-            votingPostVoteExplanation,
+       
             shareHeading,
-            shareSubHeading,
+        
             slug,
             postVoteVideo
             questions {
