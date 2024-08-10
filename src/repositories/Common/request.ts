@@ -31,17 +31,22 @@ function generateAllPagesQuery()
 }
 function mapAllSlugs(root: QueryResult) :NavigationItem[]
 {
-    return root.data.allVideoPageModels
+    return root?.data?.allVideoPageModels
                 .concat(root.data.allBlogPostModels)
                 .concat(root.data.allVotingPageModels);
 }
 
 export const getAllNavData = () => {
     const query = generateAllPagesQuery();
-    return fetchDataContentful<QueryResult>(query).then((root: QueryResult) => {
+    return fetchDataContentful<QueryResult>(query).then((root: QueryResult) =>
+    {
+        console.log("root data");
+        console.log(root);
+        
         if(root.errors)
             LogErrors(root.errors)
        
         return mapAllSlugs(root); //todo handle failure outside of function
+        
     });
 };

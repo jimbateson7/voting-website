@@ -1,3 +1,4 @@
+import { Video } from "react-datocms/video-player";
 
 export interface QueryResult {
   data: Data;
@@ -10,20 +11,17 @@ export interface Data {
 
 
 export interface VideoItem {
+  mainVideo:{id:string, video:Video | undefined};
   sys: Sys
   __typename: string
   slug: string
   title: string
   introText?: string,
-  video:Video
+  video:{ytembedUrl:string,autoPlay:boolean,title:string}
 }
 
 export interface Sys {
   id: string
 }
 
-export interface Video {
-  ytembedUrl: string
-  autoPlay: boolean
-  title: string
-}
+

@@ -20,6 +20,8 @@ export const footerComponentId = "dxEPpDQESBe0OBIqTxIDbg";
 function Routing() {
   async function fetchData() {
     let links = await getAllNavData(); //todo we should probably just split this into the 3 arrays, save switching on typename below
+    console.log("links")
+    console.log(links)
     if(process.env.NODE_ENV === "development" && DEBUG_QUERY) 
     {      
       LogLinks(links,"routing");
@@ -43,11 +45,12 @@ function Routing() {
       <>
         {data &&
           data.map((navItem, index) => {
+         
             switch (navItem.__typename) {
               case ContentTypes.VotingPage:
-
-      
                 
+               console.log("Main Video")
+                console.log(navItem.mainVideo)
                 return (
                   <Route
                     key={index}
@@ -70,6 +73,7 @@ function Routing() {
                         showIntroVideo={true}
                         showSharePanel={true}
                         questions={navItem.questions}
+                          mainVideo={navItem.mainVideo}
                       />
                     }
                   />

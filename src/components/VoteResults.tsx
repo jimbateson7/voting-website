@@ -74,7 +74,7 @@ export const VoteResults = ({questionId}: { questionId: string }) => {
     return (<div className={"vote-results"}>
 
         <Row>
-            <Col xs lg="2"/>
+           
             <Col>
                 <select value={""} onChange={handleCountryChange}>
 
