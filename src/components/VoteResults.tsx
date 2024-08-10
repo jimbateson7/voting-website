@@ -111,6 +111,7 @@ export const VoteResults = ({questionId}: { questionId: string }) => {
                               onMouseLeave={() => setIsHovered(false)}/>
 
                 </div>
+                
             </Col>
         </Row>
 

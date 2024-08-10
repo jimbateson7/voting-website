@@ -67,9 +67,10 @@ const VotingPage = (props: TVotingPage) => {
         userGuid = generateGuid();
         localStorage.setItem(localStorageVotingIdKey, userGuid);
     }
-    console.log("Main Video")
-    console.log(props.mainVideo)
-    console.log("EOF Main Video")
+
+   
+    const mainQuestionText = props.questions ? props.questions[0].questionTitle : "Please Share";
+    
     return (
         <>
 
@@ -101,11 +102,12 @@ const VotingPage = (props: TVotingPage) => {
                         </div>
                     </div>
                 </Row>)
+                
             })}
-
             <Row>
-                <SharingControls voted={voted} shareHeading={props.shareHeading ?? ""}/>
+                <SharingControls voted={voted} shareHeading={props.shareHeading ?? ""} shareButtonText={mainQuestionText}/>
             </Row>
+            
             <Row>
 
 
@@ -120,9 +122,7 @@ const VotingPage = (props: TVotingPage) => {
                                     <Col> <VoteResults questionId={question.id}/></Col>
                                     <Col></Col>
                                 </Row>
-                                <br/>
-                                <br/>
-                                <br/>
+                        
                             </div>
                         </div>
 
