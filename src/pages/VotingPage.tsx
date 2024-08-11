@@ -94,11 +94,13 @@ const VotingPage = (props: TVotingPage) => {
                                     <VideoControl datoVideo={props.mainVideo.video} ytUrl={props.introVideoId} onFinish={() => setWatched(true)}/>
                                 </Col>
                             </Row>
-                            <Row>
+
+                            {voted ? <Row  style={{paddingBottom:"30px"}}>
                                 <Col><a href="#share-heading" id="to-share">Share</a></Col>
                                 <Col><a href="#results-heading" id="to-results">Results</a></Col>
-                                {voted || watched ? <Col style={{marginTop: "-12px"}}><Donation/></Col> : null}
-                            </Row>
+                                {watched ? <Col style={{marginTop: "-12px"}}><Donation/></Col> : null}                           
+                            
+                            </Row> : null}
                            
                         </div>
                     </div>
@@ -108,7 +110,8 @@ const VotingPage = (props: TVotingPage) => {
             <Row>
                 <SharingControls voted={voted} shareHeading={props.shareHeading ?? ""} shareButtonText={mainQuestionText}/>
             </Row>
-            
+
+            {voted ? 
             <Row>
 
 
@@ -131,7 +134,7 @@ const VotingPage = (props: TVotingPage) => {
                 })}
 
 
-            </Row>
+            </Row> : null }
 
 
             <Row>
