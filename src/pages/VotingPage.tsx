@@ -16,7 +16,7 @@ import {Video} from "react-datocms/dist/types/VideoPlayer";
 import {VideoControl} from "../components/VideoControl";
 
 export const localStorageVotingIdKey = "voterId";
-
+export const localStorageWatchedIdKey = "voterWatched";
 
 export interface TVotingPage {
     introVideoId: string | undefined;
@@ -59,7 +59,10 @@ const MainVideo = (props: TVotingPage) => {
 }
 const VotingPage = (props: TVotingPage) => {
 
-    const [voted, setVoted] = useState(false);
+    const lwatchedString = localStorage.getItem(localStorageWatchedIdKey);
+    const lwatched = lwatchedString ? lwatchedString === "true" : false;
+    
+    const [voted, setVoted] = useState(lwatched);
     const [watched, setWatched] = useState(false);
     
     let userGuid = localStorage.getItem(localStorageVotingIdKey);
@@ -67,6 +70,11 @@ const VotingPage = (props: TVotingPage) => {
     if (!userGuid) {
         userGuid = generateGuid();
         localStorage.setItem(localStorageVotingIdKey, userGuid);
+    }
+    function onWatched()
+    {
+        setWatched(true);
+        localStorage.setItem(localStorageWatchedIdKey, "true");
     }
 
    
@@ -91,7 +99,7 @@ const VotingPage = (props: TVotingPage) => {
                                               votingThankYou={props.votingThankYou}/>
                                 </Col>
                                 <Col className={"squashToRow"}>
-                                    <VideoControl datoVideo={props.mainVideo.video} ytUrl={props.introVideoId} onFinish={() => setWatched(true)}/>
+                                    <VideoControl datoVideo={props.mainVideo.video} ytUrl={props.introVideoId} onFinish= {onWatched}/>
                                 </Col>
                             </Row>
 
@@ -109,6 +117,9 @@ const VotingPage = (props: TVotingPage) => {
             })}
             <Row>
                 <SharingControls voted={voted} shareHeading={props.shareHeading ?? ""} shareButtonText={mainQuestionText}/>
+                {voted ? <Row  style={{paddingBottom:"30px"}}>                   
+                    {watched ? <Col style={{marginTop: "-12px"}}><Donation/></Col> : null}
+                </Row> : null}
             </Row>
 
             {voted ? 
@@ -121,7 +132,7 @@ const VotingPage = (props: TVotingPage) => {
                             <div className="frame-content">
                                 <h2 id="results-heading">Voting Results</h2>
                                 {<VoteControls questionId={question.id} questionTitle={""} showStatistics={true}/>}
-                                <Row>
+                                <Row  style={{paddingTop:20}}>
                                     <Col></Col>
                                     <Col> <VoteResults questionId={question.id}/></Col>
                                     <Col></Col>
