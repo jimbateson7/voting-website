@@ -66,10 +66,10 @@ const basicNavItems = `
           }`
 
 export const QueryBlocks =
-{
-    BasicNavigationItems: basicNavItems,
-    BlogPost: blogPost,
-    VideoPost: videoPage,
-    VotingPage: votingPage,
-}
+    {
+        BasicNavigationItems: basicNavItems,
+        BlogPost: blogPost,
+        VideoPost: videoPage,
+        VotingPage: votingPage,
+    }
 

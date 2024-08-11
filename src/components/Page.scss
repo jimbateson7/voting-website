@@ -84,10 +84,12 @@ img {
   position: relative;
   text-align: center;
   color: white;
+
   img {
     max-height: 300px;
     object-fit: cover;
   }
+
   /* Bottom left text */
   h1 {
     position: absolute;

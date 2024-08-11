@@ -7,22 +7,24 @@ import {TArticlePage} from "../repositories/Common/types";
 import {PageData, TPage} from "./PageData";
 
 export const ArticlePage = (props: TArticlePage) => {
-  let { slug } = props;
+    let {slug} = props;
 
-  const fetchData = useCallback(async () => {
-    let dataFetched = await getPageJson(slug);
-    setData(dataFetched);
-  }, [slug])
-  
-  const [data, setData] = useState<TPage>({
-    header: "...",
-    richText: null,
-  });
-  
-  useEffect(() => {
-    fetchData().catch(reason => {LogException(reason)});
-        
-  }, [slug,fetchData]);
- 
-  return (<PageData {...data}/>)
+    const fetchData = useCallback(async () => {
+        let dataFetched = await getPageJson(slug);
+        setData(dataFetched);
+    }, [slug])
+
+    const [data, setData] = useState<TPage>({
+        header: "...",
+        richText: null,
+    });
+
+    useEffect(() => {
+        fetchData().catch(reason => {
+            LogException(reason)
+        });
+
+    }, [slug, fetchData]);
+
+    return (<PageData {...data}/>)
 };

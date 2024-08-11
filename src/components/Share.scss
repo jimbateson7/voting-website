@@ -9,26 +9,27 @@
     height: 315px;
     width: 70%;
 
-   /* &:hover,
-    &:focus {
-      transform: scale(1.20);
-     
-    }
-    transition: transform ease-in-out .25s;*/
+    /* &:hover,
+     &:focus {
+       transform: scale(1.20);
+      
+     }
+     transition: transform ease-in-out .25s;*/
   }
 
   h2 {
     font-weight: bold;
-    
+
     letter-spacing: .25rem;
     font-size: 1.25rem;
   }
-  .voted
-  {
+
+  .voted {
     /*color: red;*/
     text-decoration: underline red;
     transform: scale(1.1);
   }
+
   transition: transform ease-in-out 0.5s;
 
   .social-links {

@@ -2,13 +2,13 @@
 //https://app.contentful.com/spaces/fojlfyn3xufg/environments/staging/entries/1n9FMvYa8MWstVI19atW2w
 //graphqlplayground
 
-import {DEBUG_QUERY, getPreview} from "../utils/preview";
+import {getPreview} from "../utils/preview";
 import {LogQuery} from "../utils/utilities";
 
 export function generateVideoPageQuery(slug: string) {
- 
-  const isPreview = getPreview();
-  const query = `query videoPageCollectionQuery {
+
+    const isPreview = getPreview();
+    const query = `query videoPageCollectionQuery {
   allVideoPageModels(first: 1, filter: {slug: {eq:"${slug}"}} , fallbackLocales:[en, en_US]) 
   {
     
@@ -24,8 +24,8 @@ export function generateVideoPageQuery(slug: string) {
     
   }
 }`
-  
-  LogQuery(query);
 
-  return query;
+    LogQuery(query);
+
+    return query;
 }

@@ -5,8 +5,9 @@
  **************************************************************************/
 
 import * as React from "react";
-import { GridProps, SelectFieldProps, TextFieldProps } from "@aws-amplify/ui-react";
-import { Vote } from "../models";
+import {GridProps, SelectFieldProps, TextFieldProps} from "@aws-amplify/ui-react";
+import {Vote} from "../models";
+
 export declare type EscapeHatchProps = {
     [elementHierarchy: string]: Record<string, unknown>;
 } | null;

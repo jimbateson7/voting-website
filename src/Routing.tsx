@@ -19,130 +19,126 @@ export const footerComponentId = "dxEPpDQESBe0OBIqTxIDbg";
 
 
 const Reset = () => {
-  
-  useEffect( () =>
-  {
-    
-    localStorage.removeItem(localStorageVotingIdKey)
-    localStorage.removeItem(localStorageWatchedIdKey)
-    const statusElement = document.getElementById("status" ); 
-    if(statusElement)
-    {
-      statusElement.innerHTML = "Done";
-    }
-  })
- 
-  
-  return <div  role="status">
-    <span id="status" >Loading...</span>
-  </div>;
+
+    useEffect(() => {
+
+        localStorage.removeItem(localStorageVotingIdKey)
+        localStorage.removeItem(localStorageWatchedIdKey)
+        const statusElement = document.getElementById("status");
+        if (statusElement) {
+            statusElement.innerHTML = "Done";
+        }
+    })
+
+
+    return <div role="status">
+        <span id="status">Loading...</span>
+    </div>;
 };
 
 function Routing() {
-  async function fetchData() {
-    let links = await getAllNavData(); //todo we should probably just split this into the 3 arrays, save switching on typename below
+    async function fetchData() {
+        let links = await getAllNavData(); //todo we should probably just split this into the 3 arrays, save switching on typename below
 
-    if(process.env.NODE_ENV === "development" && DEBUG_QUERY) 
-    {      
-      LogLinks(links,"routing");
+        if (process.env.NODE_ENV === "development" && DEBUG_QUERY) {
+            LogLinks(links, "routing");
+        }
+        setData(links);
+        setDataLoaded(true);
     }
-    setData(links);
-    setDataLoaded(true);
-  }
 
-  const [data, setData] = useState<NavigationItem[]>();
-  const [dataLoaded, setDataLoaded] = useState(false);
-  
-  
-  refreshPreview();
-  
-  useEffect(() => {
-    fetchData().catch(console.error);
-  }, []);
-  
-  
-  
-  const createDynamicRoutes = () => {
+    const [data, setData] = useState<NavigationItem[]>();
+    const [dataLoaded, setDataLoaded] = useState(false);
+
+
+    refreshPreview();
+
+    useEffect(() => {
+        fetchData().catch(console.error);
+    }, []);
+
+
+    const createDynamicRoutes = () => {
+        return (
+            <>
+                {data &&
+                    data.map((navItem, index) => {
+
+                        switch (navItem.__typename) {
+                            case ContentTypes.VotingPage:
+
+                                return (
+                                    <Route
+                                        key={index}
+
+                                        path={"/"}
+                                        index
+                                        element={
+                                            <VotingPage
+                                                heading={navItem.heading}
+                                                introVideoId={extractYoutubeVideoId(navItem.introVideo)}
+                                                postVoteVideoId={extractYoutubeVideoId(
+                                                    navItem.postVoteVideo
+                                                )}
+                                                showStatistics={navItem.showVoteStatistics ?? false}
+                                                introText={navItem.introductionText ?? ""}
+                                                votingThankYou={navItem.votingThankYou ?? ""}
+                                                votingPostVoteExplanation={navItem.votingPostVoteExplanation}
+                                                shareHeading={navItem.shareHeading}
+                                                shareSubHeading={navItem.shareSubHeading}
+                                                showIntroVideo={true}
+                                                showSharePanel={true}
+                                                questions={navItem.questions}
+                                                mainVideo={navItem.mainVideo}
+                                            />
+                                        }
+                                    />
+                                );
+
+                            case ContentTypes.BlogPost:
+
+                                return (
+                                    <Route
+                                        key={index}
+
+                                        path={navItem.slug ?? "blog"}
+                                        element={<ArticlePage slug={navItem.slug ?? "blog"}/>}
+                                    />
+                                );
+                            case ContentTypes.VideoPage:
+                                return (
+                                    <Route
+                                        key={index}
+                                        path={navItem.slug ?? "video"}
+                                        element={<VideoPage slug={navItem.slug ?? "video"}/>}
+                                    />
+                                );
+
+                            default:
+                                return null;
+                        }
+                    })}
+                <Route
+
+
+                    path={"blog_list"}
+                    element={<BlogList/>}
+                />
+            </>
+        );
+    };
+
     return (
-      <>
-        {data &&
-          data.map((navItem, index) => {
-         
-            switch (navItem.__typename) {
-              case ContentTypes.VotingPage:
-            
-                return (
-                  <Route
-                    key={index}
-                    
-                     path={"/"}
-                    index
-                    element={
-                      <VotingPage
-                          heading={navItem.heading}
-                        introVideoId={extractYoutubeVideoId(navItem.introVideo)}
-                        postVoteVideoId={extractYoutubeVideoId(
-                          navItem.postVoteVideo
-                        )}
-                        showStatistics={navItem.showVoteStatistics ?? false}
-                        introText={navItem.introductionText ?? ""}
-                        votingThankYou={navItem.votingThankYou ?? ""}
-                        votingPostVoteExplanation={navItem.votingPostVoteExplanation}
-                        shareHeading={navItem.shareHeading}
-                        shareSubHeading={navItem.shareSubHeading}                        
-                        showIntroVideo={true}
-                        showSharePanel={true}
-                        questions={navItem.questions}
-                          mainVideo={navItem.mainVideo}
-                      />
-                    }
-                  />
-                );
-             
-              case ContentTypes.BlogPost:
-            
-                return (
-                  <Route
-                    key={index}
-                    
-                    path={navItem.slug ?? "blog"}
-                    element={<ArticlePage slug={navItem.slug ?? "blog"} />}
-                  />
-                );
-              case ContentTypes.VideoPage:
-                return (
-                    <Route
-                        key={index}
-                        path={navItem.slug ?? "video"}
-                        element={<VideoPage slug={navItem.slug ?? "video"} />}
-                    />
-                );
-
-              default:
-                return null;
-            }
-          })}
-        <Route
-
-
-            path={"blog_list"}
-            element={<BlogList />}
-        />
-      </>
+        <BrowserRouter>
+            <Routes>
+                <Route path="/" element={<Layout/>}>
+                    {createDynamicRoutes()}
+                    {dataLoaded ? <Route path="*" element={<LoadingPage/>}/> : <Route path="*" element={<NoPage/>}/>}
+                    <Route path="/reset/patrickonly/277205bc-fdf9-4bcb-be07-14a3a3bcc7f4" element={<Reset/>}></Route>
+                </Route>
+            </Routes>
+        </BrowserRouter>
     );
-  };
-
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          {createDynamicRoutes()}
-          {dataLoaded ?  <Route path="*" element={<LoadingPage />} /> : <Route path="*" element={<NoPage />} />}
-          <Route path="/reset/patrickonly/277205bc-fdf9-4bcb-be07-14a3a3bcc7f4" element={<Reset/>}></Route>
-        </Route>
-      </Routes>
-    </BrowserRouter>
-  );
 }
 
 export default Routing;

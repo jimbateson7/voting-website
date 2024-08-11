@@ -1,7 +1,6 @@
-export function getCountryList()
-{
+export function getCountryList() {
     return {
-      
+
         GB: "United Kingdom",
         US: "United States of America",
         AD: "Andorra",
@@ -80,7 +79,7 @@ export function getCountryList()
         FO: "Faroe Islands",
         FR: "France",
         GA: "Gabon",
-        
+
         GD: "Grenada",
         GE: "Georgia",
         GF: "French Guiana",
@@ -236,7 +235,7 @@ export function getCountryList()
         UA: "Ukraine",
         UG: "Uganda",
         UM: "United States Minor Outlying Islands",
-      
+
         UY: "Uruguay",
         UZ: "Uzbekistan",
         VA: "Holy See",
@@ -255,6 +254,7 @@ export function getCountryList()
         ZW: "Zimbabwe"
     };
 }
+
 export function getCountry() {
 
     const countries = getCountryList();
@@ -2874,7 +2874,7 @@ export function getCountry() {
     return country;
 }
 
-function getState(){
+function getState() {
     const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
     if (timezone === "" || !timezone) {

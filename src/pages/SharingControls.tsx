@@ -4,7 +4,7 @@ import React from "react";
 export interface ISharingControls {
     voted: boolean;
     shareHeading: string;
-    shareButtonText?:string;
+    shareButtonText?: string;
 }
 
 export const SharingControls = ({voted, shareHeading, shareButtonText}: ISharingControls) => {
@@ -13,16 +13,15 @@ export const SharingControls = ({voted, shareHeading, shareButtonText}: ISharing
 
 
     }
+
     let twitterShareText = "";
-    
+
     try {
         twitterShareText = shareButtonText ? encodeURIComponent(shareButtonText) : "";
-    }
-    catch (e)
-    {
+    } catch (e) {
         console.log(e);
     }
-   
+
     const emailSubject = twitterShareText;
 
     return (<>
