@@ -2,8 +2,8 @@ import {AnalyticsEvent} from "@aws-amplify/analytics/lib-esm/types";
 import {Analytics} from "aws-amplify";
 import {EventAttributes} from "@aws-amplify/analytics/src/types/Analytics";
 import gtag from "./gtag";
-import { DataStore } from '@aws-amplify/datastore';
-import { Event } from '../models';
+import {DataStore} from '@aws-amplify/datastore';
+import {Event} from '../models';
 
 type TTrackingItem = {
 
@@ -20,20 +20,19 @@ type TTrackingItem = {
 declare global {
     interface Window {
         dataLayer: Array<TTrackingItem>;
-        gtag: (...args:any[]) =>void;
-        gaEnabled:boolean
+        gtag: (...args: any[]) => void;
+        gaEnabled: boolean
     }
 }
 
 
-
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const pushToGaDatalayer = (name:string, userId:string, eventData?: EventAttributes): void => {
+export const pushToGaDatalayer = (name: string, userId: string, eventData?: EventAttributes): void => {
 
     if (typeof window !== 'undefined') {
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({
-            event:"analytics_event",
+            event: "analytics_event",
             eventName: name,
             eventAttributes: eventData
         });
@@ -53,6 +52,7 @@ export function EnableAnalytics() {
 
     Analytics.enable();
 }
+
 export function InitAnalytics() {
     if (typeof window !== 'undefined') {
         /* Set default consent permission - All denied in our case */
@@ -63,8 +63,8 @@ export function InitAnalytics() {
         });
     }
 }
-export function DisableAnalytics()
-{
+
+export function DisableAnalytics() {
     if (typeof window !== 'undefined') {
         gtag('consent', 'update', {
             analytics_storage: 'denied',
@@ -76,17 +76,17 @@ export function DisableAnalytics()
     Analytics.disable();
 }
 
-export function recordUse(e: AnalyticsEvent, userId?:string | null) {
+export function recordUse(e: AnalyticsEvent, userId?: string | null) {
 
     pushToGaDatalayer(e.name, userId ?? "unknown_user", e.attributes)
     Analytics.record(e)
 
-    if(window.gaEnabled ) {
+    if (window.gaEnabled) {
         DataStore.save(
             new Event({
                 "userId": userId,
                 "eventName": e.name,
-                "attributes":  JSON.stringify(e.attributes)
+                "attributes": JSON.stringify(e.attributes)
             })
         );
     }

@@ -6,10 +6,9 @@ import {QueryBlocks} from "../Common/query";
 import {LogQuery} from "../utils/utilities";
 
 //todo rename to "Page Group"
-function buildNavigationGroup(levels:number):string
-{
+function buildNavigationGroup(levels: number): string {
     levels--
-    if(levels >= 0)
+    if (levels >= 0)
         return `
         
         __typename
@@ -34,12 +33,13 @@ function buildNavigationGroup(levels:number):string
       }`;
     return "";
 }
+
 export const navigationGroup = buildNavigationGroup(3)
 
 export function generateNavQuery(id: string) {
 
     const isPreview = getPreview();
-    const query =  `
+    const query = `
   query findNavById{
     allNavigationGroupModels(filter:{id: {eq:"${id}"}} , fallbackLocales:[en, en_US]) {
  
@@ -47,8 +47,8 @@ export function generateNavQuery(id: string) {
       
     }
   }`;
-    
 
-  LogQuery(query)
+
+    LogQuery(query)
     return query;
 }

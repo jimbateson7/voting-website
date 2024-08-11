@@ -1,12 +1,12 @@
 :root {
   --secondary: #538177;
   --tertiary: #123e50;
-  
+
   --secondary20Brighter: #6ea296;
-  --tertiary20Brighter:#217293;
+  --tertiary20Brighter: #217293;
 
   --secondary50Brighter: #a4c5be;
-  --tertiary50Brighter:#57b3d9;
+  --tertiary50Brighter: #57b3d9;
 }
 
 .row {
@@ -25,21 +25,21 @@
     font-weight: bold;
     margin-bottom: 2rem;
   }
-  
+
 }
 
 svg {
   font-size: 2.5rem;
   padding: .25rem;
-  
+
   &.thumbs-up {
     color: var(--tertiary20Brighter);
-    
+
   }
 
   &.thumbs-down {
     color: var(--secondary20Brighter);
-    
+
   }
 }
 
@@ -51,18 +51,18 @@ svg {
     svg {
       transform: scale(1.5);
 
-      filter:brightness(1.5);
+      filter: brightness(1.5);
       transition: transform ease-in-out .25s;
     }
   }
 }
-.squashToRow
-{
+
+.squashToRow {
   @media (max-width: 990px) {
     text-align: center;
     justify-content: center;
-    flex:unset;
+    flex: unset;
     padding-bottom: 50px;
-   
+
   }
 }

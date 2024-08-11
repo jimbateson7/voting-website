@@ -1,16 +1,16 @@
 // @ts-check
-import { initSchema } from '@aws-amplify/datastore';
-import { schema } from './schema';
+import {initSchema} from '@aws-amplify/datastore';
+import {schema} from './schema';
 
 const Choice = {
-  "YES": "YES",
-  "NO": "NO"
+    "YES": "YES",
+    "NO": "NO"
 };
 
-const { Event, Vote } = initSchema(schema);
+const {Event, Vote} = initSchema(schema);
 
 export {
-  Event,
-  Vote,
-  Choice
+    Event,
+    Vote,
+    Choice
 };

@@ -3,10 +3,10 @@ import {Video} from "react-datocms/dist/types/VideoPlayer";
 
 export interface QueryResult {
     data: Data
-    errors:{}
+    errors: {}
 }
 
-export interface Data {  
+export interface Data {
     allNavigationGroupModels: NavigationItem[]
 }
 
@@ -19,33 +19,31 @@ export enum ContentTypes {
     BlogPost = "BlogPostModelRecord",
     VideoPage = "VideoPageModelRecord",
     NavigationGroup = "NavigationGroupModelRecord",
-    ExternalLink = "ExternalLinkModelRecord",   
-    
-}
-export enum AssetTypes
-{
-    YoutubeVideoEmbed = "YoutubeVideoEmbed",
-    GenericImage =  "GenericImage",
+    ExternalLink = "ExternalLinkModelRecord",
+
 }
 
-export interface BasePage
-{
+export enum AssetTypes {
+    YoutubeVideoEmbed = "YoutubeVideoEmbed",
+    GenericImage = "GenericImage",
+}
+
+export interface BasePage {
     __typename: ContentTypes
     slug: string
     title: string
 }
 
-export interface TQuestionBlock
-{
-    questionTitle:string,
-    id:string,
+export interface TQuestionBlock {
+    questionTitle: string,
+    id: string,
 }
 
 export interface NavigationItem extends NavigationGroup {
-    __typename: ContentTypes 
+    __typename: ContentTypes
     showVideoThumbnailsInHub?: boolean
     introVideo?: string
-    cardTitle?:string;
+    cardTitle?: string;
     postVoteVideo?: string
     heading?: string;
     showVoteStatistics?: boolean;
@@ -54,12 +52,12 @@ export interface NavigationItem extends NavigationGroup {
     votingPostVoteExplanation?: string;
     shareHeading?: string;
     shareSubHeading?: string;
-    title?: string   
-    url?:  string
+    title?: string
+    url?: string
     slug?: string
-    video?: { ytembedUrl:string, title:string }
-    id:string;
+    video?: { ytembedUrl: string, title: string }
+    id: string;
     questions?: TQuestionBlock[];
-    mainVideo:{id:string, video:Video};
+    mainVideo: { id: string, video: Video };
 }
 

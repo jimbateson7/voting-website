@@ -1,17 +1,17 @@
-﻿
-let preview = false;
-export function getPreview()
-{
+﻿let preview = false;
+
+export function getPreview() {
     return preview
 }
-export function setPreview(value)
-{
+
+export function setPreview(value) {
     preview = value;
 }
-export function refreshPreview()
-{
+
+export function refreshPreview() {
     const urlParams = new URLSearchParams(window.location.search);
     const isPreview = urlParams.get('preview');
     setPreview(!!isPreview);
 }
+
 export const DEBUG_QUERY = process.env.REACT_APP_DEBUG_QUERIES ?? false; //todo do off env variable

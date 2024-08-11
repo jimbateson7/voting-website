@@ -1,5 +1,4 @@
-
 export interface QueryResult<TData> {
-  data: TData;
-  errors: [];
+    data: TData;
+    errors: [];
 }

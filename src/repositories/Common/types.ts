@@ -2,7 +2,7 @@ import {NavigationItem} from "../Navigation/types";
 
 export interface QueryResult {
     data: Data
-    errors:{}
+    errors: {}
 }
 
 export interface Data {
@@ -13,7 +13,7 @@ export interface Data {
 
 export type TArticlePage = {
     slug: string;
-    title?:string;
+    title?: string;
 };
 
 

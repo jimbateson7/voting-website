@@ -4,7 +4,7 @@ import React, {useEffect, useState} from "react";
 import {getCountryList} from "../repositories/utils/country";
 import {Doughnut} from "react-chartjs-2";
 import "./VoteResults.scss";
-import {Chart as ChartJS, ArcElement, Tooltip, Legend} from 'chart.js';
+import {ArcElement, Chart as ChartJS, Tooltip} from 'chart.js';
 import {Col, Row} from "react-bootstrap";
 
 
@@ -38,30 +38,26 @@ export const VoteResults = ({questionId}: { questionId: string }) => {
         }
     }, [selectedCountry]);
 
-    
+
     ChartJS.register(ArcElement, Tooltip); // Register required elements
 
 
     const chartData = {
         datasets: [
             {
-                data: [noVotes,yesVotes],
+                data: [noVotes, yesVotes],
                 backgroundColor: ['#6ea296', '#217293'],
                 hoverBackgroundColor: ['#a4c5be', '#57b3d9'],
-                    
+
             },
         ],
         labels: ['No', 'Yes'],
-        
-    };
-    
-    const chartOptions =   {
-      
-       
-    }
 
-        
-        
+    };
+
+    const chartOptions = {}
+
+
     interface Country {
         [code: string]: string;
     }
@@ -73,8 +69,8 @@ export const VoteResults = ({questionId}: { questionId: string }) => {
 
     return (<div className={"vote-results"}>
 
-        <Row  style={{paddingBottom:20}}>
-           
+        <Row style={{paddingBottom: 20}}>
+
             <Col>
                 <select value={""} onChange={handleCountryChange}>
 
@@ -100,7 +96,7 @@ export const VoteResults = ({questionId}: { questionId: string }) => {
                     })}
                 </select>
             </Col>
-            
+
         </Row>
         <Row>
             <Col>
@@ -111,7 +107,7 @@ export const VoteResults = ({questionId}: { questionId: string }) => {
                               onMouseLeave={() => setIsHovered(false)}/>
 
                 </div>
-                
+
             </Col>
         </Row>
 

@@ -1,69 +1,69 @@
 import {Item, QueryResult} from "./types";
 
-import React from 'react';
+import React, {ReactNode} from 'react';
 import {getLogger} from "../../utils/logger";
-import { ReactNode } from "react";
-import { renderNodeRule, StructuredText } from 'react-datocms';
-import { isParagraph } from 'datocms-structured-text-utils';
-import type { StructuredText as TStructuredText } from 'datocms-structured-text-utils';
-import { ContentTypes, NavigationItem} from "../Navigation/types";
+import {renderNodeRule, StructuredText} from 'react-datocms';
+import type {StructuredText as TStructuredText} from 'datocms-structured-text-utils';
+import {isParagraph} from 'datocms-structured-text-utils';
+import {ContentTypes, NavigationItem} from "../Navigation/types";
 import {HubCollection} from "../../components/HubCollection";
 import {TArticlePage} from "../Common/types";
 import {TPage} from "../../components/PageData";
 
 
 function datoRichTextToReactNode(content: TStructuredText): ReactNode {
- 
-  //see https://github.com/datocms/react-datocms/blob/master/docs/structured-text.md for documentation
-  return (
-      <StructuredText
-          data={content}
-          customNodeRules={[
-            renderNodeRule(
-                isParagraph,
-                ({ adapter: { renderNode }, node, children, key }) => {
-                  // If the paragraph contains an inline record, remove the surrounding p tags
-                  if (node.children[0]?.type === 'inlineItem') {
-                    return (
-                        <React.Fragment key={key}>
-                          {children}
-                        </React.Fragment>
-                    );
-                  } else {
-                    // Otherwise render the p tags
-                    return renderNode(
-                        'p',
-                        {
-                          key,
-                        },
-                        children,
-                    );
-                  }
-                },
-            ),
-          ]}
-          renderInlineRecord={({ record }) => {
-              // eslint-disable-next-line @typescript-eslint/no-unused-vars
-              const {__typename, id, ...props} = record;
+
+    //see https://github.com/datocms/react-datocms/blob/master/docs/structured-text.md for documentation
+    return (
+        <StructuredText
+            data={content}
+            customNodeRules={[
+                renderNodeRule(
+                    isParagraph,
+                    ({adapter: {renderNode}, node, children, key}) => {
+                        // If the paragraph contains an inline record, remove the surrounding p tags
+                        if (node.children[0]?.type === 'inlineItem') {
+                            return (
+                                <React.Fragment key={key}>
+                                    {children}
+                                </React.Fragment>
+                            );
+                        } else {
+                            // Otherwise render the p tags
+                            return renderNode(
+                                'p',
+                                {
+                                    key,
+                                },
+                                children,
+                            );
+                        }
+                    },
+                ),
+            ]}
+            renderInlineRecord={({record}) => {
+                // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                const {__typename, id, ...props} = record;
                 console.log(props);
-              if (__typename === ContentTypes.NavigationGroup) {
-                  const navItem = record as unknown as NavigationItem;
-                  return (<HubCollection pageTitle={record.id} showVideoThumbNails={navItem?.showVideoThumbnailsInHub ?? false}
-                                         items={navItem.navigationItem}></HubCollection>);
-              }
-              if (__typename === ContentTypes.BlogPost || record.__typename === ContentTypes.VideoPage) {
-                  const page = record as unknown as TArticlePage;
-                  return (
-                      <a href={page.slug} className={"card"}>
-                          <div className="card-content">
-                              <h2>{page.title}</h2>
-                          </div>
-                      </a>
-                  );
-              }
-         
-              return <pre>props</pre>
-          }}
+                if (__typename === ContentTypes.NavigationGroup) {
+                    const navItem = record as unknown as NavigationItem;
+                    return (<HubCollection pageTitle={record.id}
+                                           showVideoThumbNails={navItem?.showVideoThumbnailsInHub ?? false}
+                                           items={navItem.navigationItem}></HubCollection>);
+                }
+                if (__typename === ContentTypes.BlogPost || record.__typename === ContentTypes.VideoPage) {
+                    const page = record as unknown as TArticlePage;
+                    return (
+                        <a href={page.slug} className={"card"}>
+                            <div className="card-content">
+                                <h2>{page.title}</h2>
+                            </div>
+                        </a>
+                    );
+                }
+
+                return <pre>props</pre>
+            }}
             /* 
 
               if (__typename === AssetTypes.YoutubeVideoEmbed) {
@@ -167,36 +167,36 @@ function datoRichTextToReactNode(content: TStructuredText): ReactNode {
               default:
                 return null;
             }*/
-         // }}
-          
-          renderBlock={({ record }) => {
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            const { __typename, id, ...props } = record;
+            // }}
 
-            switch (__typename) {
-              case 'ContentTableRecord': {
-                const table = (props.htmlTable as string).replace(
-                    /height="[^"]+"/,
-                    '',
-                );
-                return (
-                    <div
-                        dangerouslySetInnerHTML={{
-                          __html: table,
-                        }}
-                    ></div>
-                );
-              }
-              default:
-                return null;
-            }
-          }}
-      ></StructuredText>
-  );
+            renderBlock={({record}) => {
+                // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                const {__typename, id, ...props} = record;
+
+                switch (__typename) {
+                    case 'ContentTableRecord': {
+                        const table = (props.htmlTable as string).replace(
+                            /height="[^"]+"/,
+                            '',
+                        );
+                        return (
+                            <div
+                                dangerouslySetInnerHTML={{
+                                    __html: table,
+                                }}
+                            ></div>
+                        );
+                    }
+                    default:
+                        return null;
+                }
+            }}
+        ></StructuredText>
+    );
 }
 
 
-export function mapBlogPost(actualPost: Item| undefined) {
+export function mapBlogPost(actualPost: Item | undefined) {
     if (!actualPost) {
         throw new Error("no blog post")
     }
@@ -218,10 +218,10 @@ export function mapBlogPost(actualPost: Item| undefined) {
 }
 
 export async function mapBlogData(result: QueryResult): Promise<TPage> {
-  
-  const actualPost = result.data.allBlogPostModels.shift();
 
-  
+    const actualPost = result.data.allBlogPostModels.shift();
+
+
     return mapBlogPost(actualPost);
 }
 
