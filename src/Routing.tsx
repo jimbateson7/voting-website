@@ -4,7 +4,7 @@ import "./App.scss";
 import Layout from "../src/pages/Layout";
 import {ContentTypes, NavigationItem} from "./repositories/Navigation/types";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import VotingPage from "./pages/VotingPage";
+import VotingPage, {localStorageVotingIdKey, localStorageWatchedIdKey} from "./pages/VotingPage";
 import {ArticlePage} from "./components/Article";
 import NoPage from "./pages/NoPage";
 import LoadingPage from "./pages/LoadingPage";
@@ -16,6 +16,27 @@ import {BlogList} from "./components/BlogList";
 
 export const headerComponentId = "P36f8RaOQUuxcV5US2-A8Q"; //todo this is a bit rubbish
 export const footerComponentId = "dxEPpDQESBe0OBIqTxIDbg";
+
+
+const Reset = () => {
+  
+  useEffect( () =>
+  {
+    
+    localStorage.removeItem(localStorageVotingIdKey)
+    localStorage.removeItem(localStorageWatchedIdKey)
+    const statusElement = document.getElementById("status" ); 
+    if(statusElement)
+    {
+      statusElement.innerHTML = "Done";
+    }
+  })
+ 
+  
+  return <div  role="status">
+    <span id="status" >Loading...</span>
+  </div>;
+};
 
 function Routing() {
   async function fetchData() {
@@ -38,6 +59,8 @@ function Routing() {
   useEffect(() => {
     fetchData().catch(console.error);
   }, []);
+  
+  
   
   const createDynamicRoutes = () => {
     return (
@@ -115,7 +138,7 @@ function Routing() {
         <Route path="/" element={<Layout />}>
           {createDynamicRoutes()}
           {dataLoaded ?  <Route path="*" element={<LoadingPage />} /> : <Route path="*" element={<NoPage />} />}
-          
+          <Route path="/reset/patrickonly/277205bc-fdf9-4bcb-be07-14a3a3bcc7f4" element={<Reset/>}></Route>
         </Route>
       </Routes>
     </BrowserRouter>
