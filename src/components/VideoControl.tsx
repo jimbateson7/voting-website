@@ -1,5 +1,5 @@
 import React from "react";
-import "./VoteResults.scss";
+import "./VideoControl.scss"
 import {Video} from "react-datocms/dist/types/VideoPlayer";
 import {VideoPlayer} from "react-datocms";
 import {TrackedYoutubeVideo} from "../pages/TrackedYoutubeVideo";
@@ -26,7 +26,8 @@ export const VideoControl = ({onFinish, datoVideo, ytUrl, videoTitle, pageTitle,
                 poster={videoThumbnail}
                 onEnded={onFinish}          
                 onPlay={onFinish}
-                
+                accentColor="#57b3d9"
+              
                 data={datoVideo}></VideoPlayer> :
             <TrackedYoutubeVideo autoPlay={false}
                                  showFrame={false}

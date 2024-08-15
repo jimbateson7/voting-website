@@ -122,8 +122,8 @@ const VotingPage = (props: TVotingPage) => {
                             </Row>
 
                             {voted ? <Row style={{paddingBottom: "30px"}}>
-                                <Col><a href="#share-heading" id="to-share" className="btn btn-secondary">Share</a></Col>
-                                <Col><a href="#results-heading" id="to-results" className="btn btn-secondary">Results</a></Col>
+                                <Col><a href="#share-heading" id="to-share" className="btn btn-primary">Share</a></Col>
+                                <Col><a href="#results-heading" id="to-results" className="btn btn-primary">Results</a></Col>
                                 {watched ? <Col ><Donation/></Col> : null}
     
                             </Row> : null}
