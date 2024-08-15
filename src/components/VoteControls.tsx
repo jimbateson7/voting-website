@@ -16,7 +16,7 @@ interface TVoteControls {
     votingThankYou?: string;
     votingPostVoteExplanation?: string;
     questionId: string;
-    video?: string;
+
     voteCallBack?: (voted: boolean) => void;
 }
 

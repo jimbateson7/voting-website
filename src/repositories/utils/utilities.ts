@@ -48,8 +48,8 @@ export function LogLinks(sentLinks: any, name: string = "footer") {
 }
 
 export function LogErrors(...params: any[]) {
-    if (process.env.NODE_ENV !== "development" || !DEBUG_QUERY) return;
-
+    if (process.env.NODE_ENV !== "development") return;
+    
     const logger = getLogger('Error Log');
     params.forEach(x =>
         logger.error(x)

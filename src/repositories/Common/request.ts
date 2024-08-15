@@ -39,8 +39,10 @@ export const getAllNavData = () => {
     return fetchDataContentful<QueryResult>(query).then((root: QueryResult) => {
 
        
-        if (root.errors)
+        if (root.errors) {
+            console.log(root.errors)
             LogErrors(root.errors)
+        }
 
         return mapAllSlugs(root); //todo handle failure outside of function
 

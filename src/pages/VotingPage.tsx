@@ -21,6 +21,7 @@ export const localStorageWatchedIdKey = "voterWatched";
 
 export interface TVotingPage {
     introVideoId: string | undefined;
+    videoThumbnail: {responsiveImage:{src:string}} | undefined;
     postVoteVideoId: string | undefined;
     heading?: string;
     introText: string;
@@ -38,28 +39,7 @@ export interface TVotingPage {
 }
 
 
-const MainVideo = (props: TVotingPage) => {
-    const introVideo = `https://www.youtube.com/embed/${props.introVideoId}`; //?&autoplay=1`;
-    const showIntroVideo = props.showIntroVideo && (props.introVideoId ? props.introVideoId?.length > 1 : false);
 
-    return (<>
-        {props.heading ? <h1>{props.heading}</h1> : null}
-        {props.introText ? <p className="introText">{props.introText}</p> : null}
-        {showIntroVideo && introVideo
-            ?
-            <Row>
-                <TrackedYoutubeVideo autoPlay={false}
-                                     showFrame={false}
-                                     onFinish={() => {
-                                         console.log("finished")
-                                     }}
-                                     pageTitle={"Voting Page"}
-                                     videoId={props.introVideoId}
-                                     videoTitle={"Introduction Video"}/>
-            </Row>
-            : null
-        } </>)
-}
 const VotingPage = (props: TVotingPage) => {
 
     const lwatchedString = localStorage.getItem(localStorageWatchedIdKey);
@@ -129,7 +109,7 @@ const VotingPage = (props: TVotingPage) => {
                                     <StructuredText data={question.questionTitleSt}/>
                                     </span>
                                     <VoteControls voteCallBack={(b) => setVoted(b)}
-                                                  video={"https://www.youtube.com/embed/qDRWzVnr4uU?&autoplay=0"}
+                                            
                                                   questionId={question.id}
                                                   showStatistics={false}
                                                   votingPostVoteExplanation={props.votingPostVoteExplanation}
@@ -137,7 +117,7 @@ const VotingPage = (props: TVotingPage) => {
                                 </Col>
                                 <Col className={"squashToRow"}>
                                     <VideoControl datoVideo={props.mainVideo.video} ytUrl={props.introVideoId}
-                                                  onFinish={onWatched}/>
+                                                  onFinish={onWatched} videoThumbnail={props.videoThumbnail?.responsiveImage.src}/>
                                 </Col>
                             </Row>
 

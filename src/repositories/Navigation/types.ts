@@ -44,7 +44,8 @@ export interface TQuestionBlock {
 export interface NavigationItem extends NavigationGroup {
     __typename: ContentTypes
     showVideoThumbnailsInHub?: boolean
-    introVideo?: string
+    introVideo?: {url:string}
+  
     cardTitle?: string;
     postVoteVideo?: string
     heading?: string;
@@ -61,5 +62,6 @@ export interface NavigationItem extends NavigationGroup {
     id: string;
     questions?: TQuestionBlock[];
     mainVideo: { id: string, video: Video };
+    videoThumbnail:{responsiveImage:{src:string}}
 }
 

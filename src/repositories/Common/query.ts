@@ -10,25 +10,36 @@ const videoPage = `title
             slug
             mainVideo {
               id,
-              video {
-                      streamingUrl
-                      mp4High: mp4Url(res: high)
-                      mp4Med: mp4Url(res: medium)
-                      mp4Low: mp4Url(res: low)
-                      duration
-                      framerate
-                      thumbJpg: thumbnailUrl(format: jpg)
-                      thumbPng: thumbnailUrl(format: png)
-                      thumbGif: thumbnailUrl(format: gif)
-                    }
+               video {
+                muxPlaybackId
+                title
+                width
+                height
+                blurUpThumb
+                
+              }
+              
               
             }  
+            videoThumbnail 
+                {
+                  responsiveImage
+                  {
+                    src
+                  }
+                }
             video{ytembedUrl,autoPlay,title}`;
 
 const votingPage = ` 
             cardTitle,  
             showVoteStatistics,
-            introVideo,
+            videoThumbnail {
+                   responsiveImage
+                  {
+                    src
+                  }
+                }
+            introVideo{url}
             shareHeading,
             slug,
             questions {
@@ -36,17 +47,14 @@ const votingPage = `
             }
              mainVideo {
               id,
-              video {
-                      streamingUrl
-                      mp4High: mp4Url(res: high)
-                      mp4Med: mp4Url(res: medium)
-                      mp4Low: mp4Url(res: low)
-                      duration
-                      framerate
-                      thumbJpg: thumbnailUrl(format: jpg)
-                      thumbPng: thumbnailUrl(format: png)
-                      thumbGif: thumbnailUrl(format: gif)
-                    }
+               video {
+                muxPlaybackId
+                title
+                width
+                height
+                blurUpThumb
+              }
+                
               
             }  
 
