@@ -1,4 +1,4 @@
-import {FaEnvelope, FaExternalLinkAlt, FaFacebook, FaInstagram, FaLinkedin, FaTwitter} from "react-icons/fa";
+import {FaEnvelope, FaExternalLinkAlt, FaFacebook, FaInstagram, FaLink, FaLinkedin, FaTwitter} from "react-icons/fa";
 import React from "react";
 
 export interface ISharingControls {
@@ -57,8 +57,8 @@ export const SharingControls = ({voted, shareHeading, shareButtonText}: ISharing
             </a>
 
             <a id="copy-link" href="http://wwww.ourplanetourpeople.com">
-                <FaExternalLinkAlt onClick={() => record("Copy")}
-                                   style={{color: '#F5BA48', fontSize: '3rem', padding: '.25rem'}}/>
+                <FaLink onClick={() => record("Copy")}
+                                   style={{color: '#C0C0C0'}}/>
             </a>
         </div>
     </>)

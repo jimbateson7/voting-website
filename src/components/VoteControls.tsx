@@ -11,7 +11,7 @@ import {getCountry} from "../repositories/utils/country";
 
 
 interface TVoteControls {
-    questionTitle: string;
+   
     showStatistics: boolean;
     votingThankYou?: string;
     votingPostVoteExplanation?: string;
@@ -29,6 +29,8 @@ export const VoteControls = ({
                              }: TVoteControls) => {
     const [numYesVotes, setNumYesVotes] = useState(0);
     const [numNoVotes, setNumNoVotes] = useState(0);
+    const numYesVotesStr = numYesVotes < 10 ? `0${numYesVotes}` : `${numYesVotes}`;
+    const numNoVotesStr = numNoVotes < 10 ? `0${numNoVotes}` : `${numNoVotes}`;
     const [fetchedVotes, setFetchedVotes] = useState(false);
     const [voteChoice, setVoteChoice] = useState<Choice | undefined>(undefined)
 
@@ -173,9 +175,10 @@ export const VoteControls = ({
             <Row>
 
                 <Row lg="3" xl="3"></Row>
-                <Row>
-                    <Col xs lg="3"/>
-                    <Col className={`vote-count voted-${voteChoice === Choice.YES ? "this" : "other"}`}>
+                <Row  className={"voteControlRow"}>
+
+                  
+                        <Col className={`voteCol vote-count voted-${voteChoice === Choice.YES ? "this" : "other"}`}>
                         <Button
                             id="vote-yes"
                             variant={voteChoice === Choice.YES ? "light" : "dark"}
@@ -183,11 +186,11 @@ export const VoteControls = ({
                             onClick={() => SaveVoteToDb(Choice.YES)}
                             title={voteChoice === Choice.YES ? "You voted Yes" : "Change vote to Yes"}>
                             <FaThumbsUp className="thumbs-up"/>
-                            {showStatistics ? <span className="yes">{numYesVotes}</span> : null}
+                            {showStatistics ? <span className="yes">{numYesVotesStr}</span> : null}
                         </Button>
 
                     </Col>
-                    <Col className={`vote-count voted-${voteChoice === Choice.NO ? "this" : "other"}`}>
+                    <Col className={`voteCol vote-count voted-${voteChoice === Choice.NO ? "this" : "other"}`}>
                         <Button
                             variant={voteChoice === Choice.NO ? "light" : "dark"}
                             size="lg"
@@ -195,12 +198,12 @@ export const VoteControls = ({
                             id="vote-no"
                             title={voteChoice === Choice.NO ? "You voted No" : "Change vote to No"}>
                             <FaThumbsDown className="thumbs-down"/>
-                            {showStatistics ? <span className="no">{numNoVotes}</span> : null}
+                            {showStatistics ? <span className="no">{numNoVotesStr}</span> : null}
                         </Button>
 
 
                     </Col>
-                    <Col xs lg="3"/>
+                    
                 </Row>
                 <Row lg="3" xl="3"></Row>
             </Row>

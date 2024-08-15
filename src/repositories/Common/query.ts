@@ -32,7 +32,7 @@ const votingPage = `
             shareHeading,
             slug,
             questions {
-                ... on QuestionRecord { questionTitle, id}
+                ... on QuestionRecord {  id,   questionTitleSt {   value}}
             }
              mainVideo {
               id,

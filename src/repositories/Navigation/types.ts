@@ -1,4 +1,5 @@
 import {Video} from "react-datocms/dist/types/VideoPlayer";
+import {StructuredTextDocument} from "react-datocms";
 
 
 export interface QueryResult {
@@ -35,8 +36,9 @@ export interface BasePage {
 }
 
 export interface TQuestionBlock {
-    questionTitle: string,
+
     id: string,
+    questionTitleSt: {value: StructuredTextDocument};
 }
 
 export interface NavigationItem extends NavigationGroup {
