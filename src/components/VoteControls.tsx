@@ -29,8 +29,12 @@ export const VoteControls = ({
                              }: TVoteControls) => {
     const [numYesVotes, setNumYesVotes] = useState(0);
     const [numNoVotes, setNumNoVotes] = useState(0);
-    const numYesVotesStr = numYesVotes < 10 ? `0${numYesVotes}` : `${numYesVotes}`;
-    const numNoVotesStr = numNoVotes < 10 ? `0${numNoVotes}` : `${numNoVotes}`;
+    let numYesVotesStr = numYesVotes < 10 ? `0${numYesVotes}` : `${numYesVotes}`;
+    let numNoVotesStr = numNoVotes < 10 ? `0${numNoVotes}` : `${numNoVotes}`;
+
+  
+    numYesVotesStr = numYesVotes > 1000 ? `${Math.floor(numYesVotes/1000)}k` : numYesVotesStr;
+    numNoVotesStr = numNoVotes >  1000 ? `${Math.floor(numNoVotes/1000)}k` : numNoVotesStr;
     const [fetchedVotes, setFetchedVotes] = useState(false);
     const [voteChoice, setVoteChoice] = useState<Choice | undefined>(undefined)
 
