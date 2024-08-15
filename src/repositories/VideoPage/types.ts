@@ -18,6 +18,7 @@ export interface VideoItem {
     title: string
     introText?: string,
     video: { ytembedUrl: string, autoPlay: boolean, title: string }
+    videoThumbnail:{responsiveImage:{src:string}}
 }
 
 export interface Sys {

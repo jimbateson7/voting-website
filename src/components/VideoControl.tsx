@@ -6,19 +6,28 @@ import {TrackedYoutubeVideo} from "../pages/TrackedYoutubeVideo";
 import {extractYoutubeVideoIdSafe} from "../repositories/utils/utilities";
 
 
-export const VideoControl = ({onFinish, datoVideo, ytUrl, videoTitle, pageTitle}: {
+export const VideoControl = ({onFinish, datoVideo, ytUrl, videoTitle, pageTitle,videoThumbnail}: {
     onFinish?: () => void,
     datoVideo: Video | undefined,
+    videoThumbnail?: string,
     ytUrl: string | undefined,
     pageTitle?: string,
     videoTitle?: string
 }) => {
 
-    const useDatoVideo = false;
+    
+    const useDatoVideo = !ytUrl;
 
     return (<>
-
-        {datoVideo && useDatoVideo ? <VideoPlayer data={datoVideo}></VideoPlayer> :
+        
+        {datoVideo && useDatoVideo ? <VideoPlayer
+            
+                thumbnailTime={0}
+                poster={videoThumbnail}
+                onEnded={onFinish}          
+                onPlay={onFinish}
+                
+                data={datoVideo}></VideoPlayer> :
             <TrackedYoutubeVideo autoPlay={false}
                                  showFrame={false}
                                  pageTitle={pageTitle ?? "test"}

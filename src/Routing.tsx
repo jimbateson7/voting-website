@@ -38,13 +38,17 @@ const Reset = () => {
 
 function Routing() {
     async function fetchData() {
+
+        console.log("getting nav data")
         let links = await getAllNavData(); //todo we should probably just split this into the 3 arrays, save switching on typename below
 
         if (process.env.NODE_ENV === "development" && DEBUG_QUERY) {
             LogLinks(links, "routing");
         }
+        console.log("got links nav data")
         setData(links);
         setDataLoaded(true);
+        console.log(links)
     }
 
     const [data, setData] = useState<NavigationItem[]>();
@@ -66,7 +70,8 @@ function Routing() {
 
                         switch (navItem.__typename) {
                             case ContentTypes.VotingPage:
-
+                                console.log("hello")
+                                console.log(navItem.videoThumbnail)
                                 return (
                                     <Route
                                         key={index}
@@ -76,7 +81,7 @@ function Routing() {
                                         element={
                                             <VotingPage
                                                 heading={navItem.heading}
-                                                introVideoId={extractYoutubeVideoId(navItem.introVideo)}
+                                                introVideoId={extractYoutubeVideoId(navItem.introVideo?.url)}
                                                 postVoteVideoId={extractYoutubeVideoId(
                                                     navItem.postVoteVideo
                                                 )}
@@ -90,6 +95,7 @@ function Routing() {
                                                 showSharePanel={true}
                                                 questions={navItem.questions}
                                                 mainVideo={navItem.mainVideo}
+                                                videoThumbnail={navItem.videoThumbnail}
                                             />
                                         }
                                     />

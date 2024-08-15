@@ -1,4 +1,5 @@
 import {Video} from "react-datocms/dist/types/VideoPlayer";
+import {StructuredTextDocument} from "react-datocms";
 
 
 export interface QueryResult {
@@ -35,14 +36,16 @@ export interface BasePage {
 }
 
 export interface TQuestionBlock {
-    questionTitle: string,
+
     id: string,
+    questionTitleSt: {value: StructuredTextDocument};
 }
 
 export interface NavigationItem extends NavigationGroup {
     __typename: ContentTypes
     showVideoThumbnailsInHub?: boolean
-    introVideo?: string
+    introVideo?: {url:string}
+  
     cardTitle?: string;
     postVoteVideo?: string
     heading?: string;
@@ -59,5 +62,6 @@ export interface NavigationItem extends NavigationGroup {
     id: string;
     questions?: TQuestionBlock[];
     mainVideo: { id: string, video: Video };
+    videoThumbnail:{responsiveImage:{src:string}}
 }
 

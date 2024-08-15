@@ -12,6 +12,7 @@ export interface TVideoPage {
     header: string
     introText?: string;
     videoTitle?: string;
+    videoThumbnail?: string;
     video: { ytembedUrl: string, autoPlay: boolean, title: string }
 }
 
@@ -44,7 +45,7 @@ export const VideoPage = (props: TArticlePage) => {
             {data.introText ? <p className="introText">{data.introText}</p> : null}
 
             <VideoControl datoVideo={data.mainVideo.video} ytUrl={data.video.ytembedUrl} pageTitle={props.title}
-                          videoTitle={data.videoTitle}/>
+                          videoTitle={data.videoTitle} videoThumbnail={data.videoThumbnail}/>
 
         </>
     );

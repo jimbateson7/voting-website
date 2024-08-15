@@ -18,6 +18,7 @@ export type THubCard =
     {
         cardTitle?: string;
         pageTitle: string;
+        
         link: string;
         uniqueKey: string;
     }
@@ -25,6 +26,7 @@ export type TVidoHubCard = THubCard &
     {
         videoTitle: string;
         videoUrl: string;
+        videoThumbnail:{responsiveImage:{src:string}}
         mainVideo: { id: string, video: Video | undefined };
     }
 
@@ -66,7 +68,7 @@ export const VideoHubCard = (props: TVidoHubCard) => {
             <div className="card-content" key={props.uniqueKey}>
 
                 <VideoControl datoVideo={props.mainVideo.video} ytUrl={props.videoUrl} pageTitle={props.pageTitle}
-                              videoTitle={props.videoTitle}/>
+                              videoTitle={props.videoTitle} videoThumbnail={props.videoThumbnail?.responsiveImage?.src}/>
 
                 { /*  <TrackedYoutubeVideo
             videoId={extractYoutubeVideoId(props.videoUrl)}
@@ -111,6 +113,7 @@ export const HubCollection = (props: THubCollection) => {
                     if (props.showVideoThumbNails) {
                         mainHubCards.push(
                             <VideoHubCard pageTitle={pageTitle} cardTitle={x.title} link={link}
+                                          videoThumbnail={x.videoThumbnail}
                                           videoTitle={x.video?.title ?? ""}
                                           videoUrl={x.video?.ytembedUrl ?? ""} uniqueKey={key} mainVideo={x.mainVideo}/>
                         )
