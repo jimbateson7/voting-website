@@ -91,7 +91,7 @@ const VotingPage = (props: TVotingPage) => {
                         <div className="frame-content">
                             <Row className={"vote-controls"} style={{paddingBottom: "50px"}}>
                                 <Col className={"squashToRow"}>
-                                    <h2>{question.questionTitle}</h2>
+                                    <h2 className={'questionTitle'} dangerouslySetInnerHTML={question.questionTitle}></h2>
                                     <VoteControls voteCallBack={(b) => setVoted(b)}
                                                   video={"https://www.youtube.com/embed/qDRWzVnr4uU?&autoplay=0"}
                                                   questionId={question.id}
