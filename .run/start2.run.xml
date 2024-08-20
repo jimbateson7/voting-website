@@ -1,0 +1,9 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="start2" type="js.build_tools.npm">
+    <package-json value="$PROJECT_DIR$/package.json" />
+    <command value="start" />
+    <node-interpreter value="$PROJECT_DIR$/../../../../../Program Files/Volta/node" />
+    <envs />
+    <method v="2" />
+  </configuration>
+</component>
