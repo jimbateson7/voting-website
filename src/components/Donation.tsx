@@ -18,9 +18,9 @@ const Donation = () => {
                         const height = window.innerHeight * 0.9;
 
                         // Calculate the left position
-                        const left = window.innerWidth * 0.05;//"100px"//(screen.width / 2) - (width / 2);
+                        const left = window.innerWidth * 0.05;
                         // Calculate the top position
-                        const top = window.innerHeight * 0.05;//"100px"//(screen.height / 2) - (height / 2);
+                        const top = window.innerHeight * 0.10;
 
                         window.open("https://whydonate.com/en/donate/save-our-planet", "newWindow", `width=${width}, height=${height}, left=${left}, top=${top}`);
 
