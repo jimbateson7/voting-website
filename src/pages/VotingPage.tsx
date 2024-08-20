@@ -8,19 +8,25 @@ import {TrackedYoutubeVideo} from "./TrackedYoutubeVideo";
 import {TQuestionBlock} from "../repositories/Navigation/types";
 import {BlogList} from "../components/BlogList";
 import Donation from "../components/Donation";
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import {VoteResults} from "../components/VoteResults";
 import {SharingControls} from "./SharingControls";
 import {Video} from "react-datocms/dist/types/VideoPlayer";
 import {VideoControl} from "../components/VideoControl";
 import {StructuredText} from "react-datocms";   
 import { render } from 'datocms-structured-text-to-plain-text';
+import {getVideoPageJson} from "../repositories/VideoPage/request";
+import {TVideoPage} from "../components/VideoPage";
+import {getVotingPageJson} from "../repositories/VotingPage/request";
 
 export const localStorageVotingIdKey = "voterId";
 export const localStorageWatchedIdKey = "voterWatched";
 
+
+
 export interface TVotingPage {
     introVideoId: string | undefined;
+   
     videoThumbnail: {responsiveImage:{src:string}} | undefined;
     postVoteVideoId: string | undefined;
     heading?: string;
@@ -38,10 +44,17 @@ export interface TVotingPage {
     mainVideo: { id: string, video: Video };
 }
 
+export interface TVotingQueryProps
+{
+    locale:string
+    id:string
+}
+
+const VotingPage = (queryProps: TVotingQueryProps) => {
 
 
-const VotingPage = (props: TVotingPage) => {
-
+    
+    
     const lwatchedString = localStorage.getItem(localStorageWatchedIdKey);
     const lwatched = lwatchedString ? lwatchedString === "true" : false;
 
@@ -92,6 +105,35 @@ const VotingPage = (props: TVotingPage) => {
     })
 
 
+    const initialState: TVotingPage =
+        {
+            introVideoId: undefined,
+            introText: "",
+
+            mainVideo: {id: "", video: {}},
+            postVoteVideoId: undefined,
+            showIntroVideo: false,
+            showSharePanel: false,
+            showStatistics: false,
+            videoThumbnail: undefined
+
+        }
+    const [data, setData] = useState<TVotingPage>(initialState);
+    const props = data;
+    const fetchData = useCallback(async () => {
+        
+        
+        let dataFetched = await getVotingPageJson(queryProps.id, queryProps.locale);
+
+        setData(dataFetched);
+    }, [queryProps])
+
+    useEffect(() => {
+        fetchData().catch(console.error);
+
+
+    }, [queryProps]);
+    
     const mainQuestionText = props.questions ? render(props.questions[0].questionTitleSt) ?? "Please Share" : "Please Share" ;
 
     return (
@@ -116,7 +158,7 @@ const VotingPage = (props: TVotingPage) => {
                                                   votingThankYou={props.votingThankYou}/>
                                 </Col>
                                 <Col className={"squashToRow"}>
-                                    <VideoControl fullScreenOnClick={true} datoVideo={props.mainVideo.video} ytUrl={props.introVideoId}
+                                    <VideoControl locale={queryProps.locale} fullScreenOnClick={true} datoVideo={props.mainVideo.video} ytUrl={props.introVideoId}
                                                   onFinish={onWatched} videoThumbnail={props.videoThumbnail?.responsiveImage.src}/>
                                 </Col>
                             </Row>
@@ -168,7 +210,7 @@ const VotingPage = (props: TVotingPage) => {
 
 
             <Row>
-                <BlogList/>
+                <BlogList locale={queryProps.locale}/>
             </Row>
 
 

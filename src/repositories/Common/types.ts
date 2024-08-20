@@ -8,12 +8,13 @@ export interface QueryResult {
 export interface Data {
     allVideoPageModels: NavigationItem[]
     allBlogPostModels: NavigationItem[];
-    allVotingPageModels: NavigationItem[];
+    votingPageModel: NavigationItem;
 }
 
 export type TArticlePage = {
     slug: string;
     title?: string;
+    locale:string;
 };
 
 

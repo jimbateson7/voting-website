@@ -9,14 +9,15 @@ export type TDynamicNav = {
     id: string;
     onSelect?: () => {};
     itemGroup?: NavigationItem[];
+    locale?: string;
 };
 
 
 export const DynamicNavList = (props: TDynamicNav) => {
-    let {id, itemGroup, onSelect} = props;
+    let {id, itemGroup, locale, onSelect} = props;
 
     const fetchData = useCallback(async () => {
-        let dataFetched = await getNavigationJson(id);
+        let dataFetched = await getNavigationJson(id, locale ?? "en");
         setData(dataFetched);
     }, [id])
 

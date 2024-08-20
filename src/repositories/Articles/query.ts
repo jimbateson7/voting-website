@@ -6,17 +6,17 @@ import {navigationGroup} from "../Navigation/query";
 import {LogQuery} from "../utils/utilities";
 import {QueryBlocks} from "../Common/query";
 
-export function generatePostQueryPaginated(page: number, blogsPerPage: number = 10) {
+export function generatePostQueryPaginated(page: number, locale: string, blogsPerPage: number = 10) {
 
     const first: number = blogsPerPage;
     const skip: number = page * blogsPerPage;
-    return generatePostQueryFrom(true, undefined, first, skip);
+    return generatePostQueryFrom(locale, true, undefined, first, skip);
 }
 
-function generatePostQueryFrom(shortBlog: boolean, sentSlug: string | undefined, first: number, skip: number) {
+function generatePostQueryFrom(locale:string, shortBlog: boolean, sentSlug: string | undefined, first: number, skip: number) {
     const queryString = sentSlug ? `, filter: {slug: {eq:"${sentSlug}"}}` : "";
     const query = `query blogPostCollectionQuery{
-    allBlogPostModel${shortBlog ? "News" : "s"}(first: ${first}, skip:${skip} ${queryString}, fallbackLocales:[en, en_US]) 
+    allBlogPostModel${shortBlog ? "News" : "s"}(first: ${first}, skip:${skip} ${queryString}, locale:${locale}, fallbackLocales:[en, en_US]) 
     {
       
       
@@ -72,10 +72,10 @@ function generatePostQueryFrom(shortBlog: boolean, sentSlug: string | undefined,
     return query;
 }
 
-export function generatePostQuery(slug: string) {
+export function generatePostQuery(slug: string, locale: string) {
     const isPreview = getPreview();
     const first: number = 1;
     const skip: number = 0;
     const sentSlug: string | undefined = slug;
-    return generatePostQueryFrom(false, sentSlug, first, skip);
+    return generatePostQueryFrom(locale,false, sentSlug, first, skip);
 }

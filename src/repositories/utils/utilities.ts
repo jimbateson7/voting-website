@@ -92,16 +92,17 @@ export function HandleErrors(result: any) {
 }
 
 export async function flattenNavigationRoute(
-    id: string
+    id: string,
+    locale:string
 ): Promise<NavigationItem[]> {
 
-    let dataFetched = await getNavigationJson(id);
+    let dataFetched = await getNavigationJson(id,locale);
     let childIds: string[] = dataFetched
         .filter((x) => x.__typename === ContentTypes.NavigationGroup)
         .map((x) => x?.id ?? "INVALID")
         .filter((x) => x !== "INVALID");
     for (const childId of childIds) {
-        dataFetched = dataFetched.concat(await flattenNavigationRoute(childId));
+        dataFetched = dataFetched.concat(await flattenNavigationRoute(childId,locale));
     }
     return dataFetched;
 }

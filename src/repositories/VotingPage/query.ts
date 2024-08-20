@@ -4,23 +4,18 @@
 
 import {getPreview} from "../utils/preview";
 import {LogQuery} from "../utils/utilities";
+import {QueryBlocks} from "../Common/query";
 
-export function generateVideoPageQuery(slug: string, locale:string) {
+export function generateVotingPageQuery(id: string, locale:string) {
 
     const isPreview = getPreview();
+    const filter = "";//id ? `filter: {id: {eq:"${id}"}}, ` : "";
     const query = `query videoPageCollectionQuery {
-  allVideoPageModels(first: 1, filter: {slug: {eq:"${slug}"}} , locale:${locale} fallbackLocales:[en, en_US]) 
+  votingPageModel( ${filter} locale:${locale}, fallbackLocales:[en, en_US]) 
   {
     
       
-       id
-      
-      __typename
-      slug
-      title
-      introText
-      video{ytembedUrl,autoPlay,title}
-      # add the fields you want to query
+     ${QueryBlocks.VotingPage}
     
   }
 }`

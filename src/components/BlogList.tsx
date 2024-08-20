@@ -7,7 +7,7 @@ import {LogException} from "../repositories/utils/utilities";
 import {PageData, TPage} from "./PageData";
 import {Button} from "react-bootstrap";
 
-export const BlogList = () => {
+export const BlogList = ({locale}: { locale: string }) => {
 
 
     const blogsPerPage = 3;
@@ -16,7 +16,7 @@ export const BlogList = () => {
     const fetchData = useCallback(async () => {
 
 
-        let dataFetched = await getPagesJson(pageNumber, blogsPerPage);
+        let dataFetched = await getPagesJson(pageNumber, locale, blogsPerPage);
         if (dataFetched.length < blogsPerPage) {
             setMorePages(false);
         }
