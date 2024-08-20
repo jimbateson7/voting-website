@@ -94,17 +94,18 @@ export const VideoControl = ({
     }
     
     useEffect(() => {
+        if(!locale)
+            return;
+        
         const intervalId = setInterval(() => {
             
             interface VideoPlayerType extends HTMLElement{src:string}
             const videoParent = document.querySelector("mux-player") as HTMLElement;
-            const videoPlayer = findElementInShadowRoot(videoParent, "mux-video");
+            const videoPlayer = findElementInShadowRoot(videoParent, "mux-video") as VideoPlayerType;
             if(!videoPlayer)
                 return;
-            
-
-            const parent = videoPlayer.parentNode;       
-            (videoPlayer as VideoPlayerType).src += "&default_subtitles_lang=es"            
+                            
+            videoPlayer.src += `&default_subtitles_lang=${locale}`;            
             clearInterval(intervalId); // Stop polling when element is found            
         }, 500); // Adjust polling interval as needed
 
