@@ -44,7 +44,7 @@ export const VideoPage = (props: TArticlePage) => {
             <h1>{data.header}</h1>
             {data.introText ? <p className="introText">{data.introText}</p> : null}
 
-            <VideoControl datoVideo={data.mainVideo.video} ytUrl={data.video.ytembedUrl} pageTitle={props.title}
+            <VideoControl fullScreenOnClick={false} datoVideo={data.mainVideo.video} ytUrl={data.video.ytembedUrl} pageTitle={props.title}
                           videoTitle={data.videoTitle} videoThumbnail={data.videoThumbnail}/>
 
         </>

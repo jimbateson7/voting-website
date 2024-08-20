@@ -116,7 +116,7 @@ const VotingPage = (props: TVotingPage) => {
                                                   votingThankYou={props.votingThankYou}/>
                                 </Col>
                                 <Col className={"squashToRow"}>
-                                    <VideoControl datoVideo={props.mainVideo.video} ytUrl={props.introVideoId}
+                                    <VideoControl fullScreenOnClick={true} datoVideo={props.mainVideo.video} ytUrl={props.introVideoId}
                                                   onFinish={onWatched} videoThumbnail={props.videoThumbnail?.responsiveImage.src}/>
                                 </Col>
                             </Row>
