@@ -119,6 +119,7 @@ export const VideoControl = ({
         {datoVideo && useDatoVideo ? <VideoPlayer
 
                 
+               
                 
                 thumbnailTime={0}
                 poster={videoThumbnail}

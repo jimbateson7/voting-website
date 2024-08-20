@@ -88,18 +88,9 @@ const VotingPage = (queryProps: TVotingQueryProps) => {
 
             // Get the link's href attribute
             const link = copyLink.href;
-
-            // Create a temporary text area to hold the link
-            const tempInput = document.createElement('textarea');
-            tempInput.value = link;
-            document.body.appendChild(tempInput);
-            tempInput.select();
-            document.execCommand('copy');
-            document.body.removeChild(tempInput);
-
-
-            // Provide feedback to the user (optional)
-            alert('Link copied to clipboard!');
+   
+            navigator.share({url:link, title:mainQuestionText})
+            
         });
         setLinkAdded(true);
     })
