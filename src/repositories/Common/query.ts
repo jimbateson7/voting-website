@@ -31,6 +31,7 @@ const videoPage = `title
             video{ytembedUrl,autoPlay,title}`;
 
 const votingPage = ` 
+            id
             cardTitle,  
             showVoteStatistics,
             videoThumbnail {

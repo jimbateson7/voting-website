@@ -17,9 +17,10 @@ function generateAllPagesQuery() {
       ${QueryBlocks.VideoPost}  	
     
   }
-  allVotingPageModels{
+  votingPageModel{
     
     __typename
+    
   	  ${QueryBlocks.VotingPage}  		 
 
     
@@ -31,7 +32,7 @@ function generateAllPagesQuery() {
 function mapAllSlugs(root: QueryResult): NavigationItem[] {
     return root?.data?.allVideoPageModels
         .concat(root.data.allBlogPostModels)
-        .concat(root.data.allVotingPageModels);
+        .concat(root.data.votingPageModel);
 }
 
 export const getAllNavData = () => {

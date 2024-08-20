@@ -17,14 +17,16 @@ import {Analytics} from 'aws-amplify';
 import {localStorageVotingIdKey} from "./VotingPage";
 import {v4 as generateGuid} from "uuid";
 import {DisableAnalytics, EnableAnalytics, recordUse} from "../utils/analytics";
+import {defaultLanguage} from "../languages";
 
 
 const Layout = () => {
 
+    
     const [expanded, setExpanded] = useState(false);
     const [analyticsEnabled, setAnalyticsEnabled] = useState(getCookieConsentValue("OurPeopleOurPlanetAnalyticsAcceptance") ?? false);
     const toggleExpanded = () => setExpanded(!expanded);
-
+    let locale = defaultLanguage;
     useEffect(() => {
     }, [])
     {
@@ -40,6 +42,15 @@ const Layout = () => {
         let trackingAttributes = {
             userId: userGuid
         }
+   
+        const extractLocale = window.location.pathname.substring(1,4);
+
+        if(extractLocale[2] === "/")
+        {
+            locale = extractLocale.substring(0,2);
+            console.log("locale is " + locale)
+        }
+        
 
         Analytics.autoTrack('pageView', {
             enable: analyticsEnabled,
@@ -83,7 +94,7 @@ const Layout = () => {
                     <Navbar.Toggle onClick={toggleExpanded} aria-controls="responsive-navbar-nav"/>
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className="me-auto">
-                            <DynamicNavList id={headerComponentId} onSelect={() => {
+                            <DynamicNavList id={headerComponentId} locale={locale} onSelect={() => {
                                 setExpanded(false)
                             }}></DynamicNavList>
 
@@ -123,7 +134,7 @@ const Layout = () => {
                 This website uses cookies to enhance the user experience.{" "}
 
             </CookieConsent>
-            <DynamicFooter id={footerComponentId}></DynamicFooter>
+            <DynamicFooter id={footerComponentId} local={locale}></DynamicFooter>
 
         </>
     );

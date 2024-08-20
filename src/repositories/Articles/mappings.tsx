@@ -44,7 +44,7 @@ function datoRichTextToReactNode(content: TStructuredText): ReactNode {
             renderInlineRecord={({record}) => {
                 // eslint-disable-next-line @typescript-eslint/no-unused-vars
                 const {__typename, id, ...props} = record;
-                console.log(props);
+             
                 if (__typename === ContentTypes.NavigationGroup) {
                     const navItem = record as unknown as NavigationItem;
                     return (<HubCollection pageTitle={record.id}
