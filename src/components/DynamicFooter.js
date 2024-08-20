@@ -2,11 +2,11 @@ import {useCallback, useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import {flattenNavigationRoute, LogLinks} from "../repositories/utils/utilities";
 
-export const DynamicFooter = ({id}) => {
+export const DynamicFooter = ({id,locale}) => {
     const [links, setLinks] = useState([]);
     const showFooter = links?.length > 0;
     const fetchData = useCallback(async () => {
-        let slugs = await flattenNavigationRoute(id);
+        let slugs = await flattenNavigationRoute(id,locale ?? "en");
         let sentLinks = slugs.map((x) => ({link: x.slug, title: x.title}));
         setLinks(sentLinks);
 

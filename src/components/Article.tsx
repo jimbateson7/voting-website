@@ -7,12 +7,12 @@ import {TArticlePage} from "../repositories/Common/types";
 import {PageData, TPage} from "./PageData";
 
 export const ArticlePage = (props: TArticlePage) => {
-    let {slug} = props;
+    let {slug,locale} = props;
 
     const fetchData = useCallback(async () => {
-        let dataFetched = await getPageJson(slug);
+        let dataFetched = await getPageJson(slug, locale);
         setData(dataFetched);
-    }, [slug])
+    }, [slug,locale])
 
     const [data, setData] = useState<TPage>({
         header: "...",

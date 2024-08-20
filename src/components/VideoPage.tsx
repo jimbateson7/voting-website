@@ -17,10 +17,10 @@ export interface TVideoPage {
 }
 
 export const VideoPage = (props: TArticlePage) => {
-    let {slug} = props;
+    let {slug, locale} = props;
 
     const fetchData = useCallback(async () => {
-        let dataFetched = await getVideoPageJson(slug);
+        let dataFetched = await getVideoPageJson(slug, locale);
 
         setData(dataFetched);
     }, [slug])
@@ -44,7 +44,7 @@ export const VideoPage = (props: TArticlePage) => {
             <h1>{data.header}</h1>
             {data.introText ? <p className="introText">{data.introText}</p> : null}
 
-            <VideoControl fullScreenOnClick={false} datoVideo={data.mainVideo.video} ytUrl={data.video.ytembedUrl} pageTitle={props.title}
+            <VideoControl locale={locale} fullScreenOnClick={false} datoVideo={data.mainVideo.video} ytUrl={data.video.ytembedUrl} pageTitle={props.title}
                           videoTitle={data.videoTitle} videoThumbnail={data.videoThumbnail}/>
 
         </>

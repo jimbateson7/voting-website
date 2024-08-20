@@ -42,26 +42,16 @@ export interface TQuestionBlock {
 }
 
 export interface NavigationItem extends NavigationGroup {
+    mainVideo: { id: string; video: Video | undefined };
+    video?: { ytembedUrl: string, title: string };
+    videoThumbnail: { responsiveImage: { src: string } };
+    cardTitle: string;
+    title: string;
+    url: string;
+    id: string;
+    slug: string;
     __typename: ContentTypes
     showVideoThumbnailsInHub?: boolean
-    introVideo?: {url:string}
-  
-    cardTitle?: string;
-    postVoteVideo?: string
-    heading?: string;
-    showVoteStatistics?: boolean;
-    introductionText?: string;
-    votingThankYou?: string;
-    votingPostVoteExplanation?: string;
-    shareHeading?: string;
-    shareSubHeading?: string;
-    title?: string
-    url?: string
-    slug?: string
-    video?: { ytembedUrl: string, title: string }
-    id: string;
-    questions?: TQuestionBlock[];
-    mainVideo: { id: string, video: Video };
-    videoThumbnail:{responsiveImage:{src:string}}
+    
 }
 

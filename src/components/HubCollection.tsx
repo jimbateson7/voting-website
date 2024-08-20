@@ -58,10 +58,10 @@ export const HubCard = (props: THubCard) => {
 }
 export const VideoHubCard = (props: TVidoHubCard) => {
     const title = props.cardTitle ?? "";
-    const disableTitle = false;
+
     const overrideFontSizeTo = getOverrideFontSize(title);
 
-    console.log(props.videoUrl);
+  
 
     return (
         <div className="card video-card">
@@ -70,13 +70,6 @@ export const VideoHubCard = (props: TVidoHubCard) => {
                 <VideoControl fullScreenOnClick={false} datoVideo={props.mainVideo.video} ytUrl={props.videoUrl} pageTitle={props.pageTitle}
                               videoTitle={props.videoTitle} videoThumbnail={props.videoThumbnail?.responsiveImage?.src}/>
 
-                { /*  <TrackedYoutubeVideo
-            videoId={extractYoutubeVideoId(props.videoUrl)}
-            autoPlay={false}
-            showFrame={false}
-            pageTitle={props.pageTitle} 
-            
-            videoTitle={props.videoTitle}/> */}
             </div>
         </div>)
 }
@@ -99,7 +92,7 @@ export const HubCollection = (props: THubCollection) => {
                 case ContentTypes.NavigationGroup:
                     //add card that will link to new hub
                     mainHubCards.push(
-                        <HubCard pageTitle={pageTitle} cardTitle={x.title} link={link} uniqueKey={key}/>
+                        <HubCard pageTitle={pageTitle} cardTitle={x.title} link={link} uniqueKey={key} key={key}/>
                     )
                     //create a new hub at the bottom
 
@@ -112,25 +105,25 @@ export const HubCollection = (props: THubCollection) => {
 
                     if (props.showVideoThumbNails) {
                         mainHubCards.push(
-                            <VideoHubCard pageTitle={pageTitle} cardTitle={x.title} link={link}
+                            <VideoHubCard key={key} pageTitle={pageTitle} cardTitle={x.title} link={link}
                                           videoThumbnail={x.videoThumbnail}
                                           videoTitle={x.video?.title ?? ""}
                                           videoUrl={x.video?.ytembedUrl ?? ""} uniqueKey={key} mainVideo={x.mainVideo}/>
                         )
                     } else {
                         mainHubCards.push(
-                            <HubCard pageTitle={pageTitle} cardTitle={x.title} link={link} uniqueKey={key}/>
+                            <HubCard key={key} pageTitle={pageTitle} cardTitle={x.title} link={link} uniqueKey={key}/>
                         )
                     }
                     break;
                 case ContentTypes.VotingPage:
                     mainHubCards.push(
-                        <HubCard pageTitle={pageTitle} cardTitle={x.cardTitle} link={link} uniqueKey={key}/>
+                        <HubCard key={key} pageTitle={pageTitle} cardTitle={x.cardTitle} link={link} uniqueKey={key}/>
                     )
                     break;
                 default:
                     mainHubCards.push(
-                        <HubCard pageTitle={pageTitle} cardTitle={x.title} link={link} uniqueKey={key}/>
+                        <HubCard key={key} pageTitle={pageTitle} cardTitle={x.title} link={link} uniqueKey={key}/>
                     )
                     break;
             }
