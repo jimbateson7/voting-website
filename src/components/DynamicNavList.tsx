@@ -45,11 +45,18 @@ export const DynamicNavList = (props: TDynamicNav) => {
                             );
                         case ContentTypes.VotingPage:
                             return (
+                                <>
                                 <Nav.Link onClick={onSelect} as={NavLink} key={index} to={navItem.slug ?? ""}
                                           className="nav-link">
                                     {navItem.cardTitle}
                                 </Nav.Link>
+                                <Nav.Link onClick={onSelect} as={NavLink} key={index} to={"/results"}
+                                          className="nav-link">
+                                    Voting Results
+                                </Nav.Link>
+                                </>
                             );
+                  
                         case ContentTypes.VideoPage:
                         case ContentTypes.BlogPost:
                             return (
@@ -62,7 +69,7 @@ export const DynamicNavList = (props: TDynamicNav) => {
                         case ContentTypes.NavigationGroup:
                             return (
                                 <NavDropdown key={index} title={navItem.title ?? "_"} id="basic-nav-dropdown">
-                                    <DynamicNavList onSelect={onSelect} itemGroup={(navItem).navigationItem}
+                                    < DynamicNavList onSelect={onSelect} itemGroup={(navItem).navigationItem}
                                                     id={navItem?.id ?? "123"}></DynamicNavList>
                                 </NavDropdown>
                             );
