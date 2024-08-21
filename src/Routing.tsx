@@ -4,7 +4,7 @@ import "./App.scss";
 import Layout from "../src/pages/Layout";
 import {ContentTypes, NavigationItem} from "./repositories/Navigation/types";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import VotingPage, {localStorageVotingIdKey, localStorageWatchedIdKey} from "./pages/VotingPage";
+import VotingPage, {localStorageVotingIdKey, localStorageWatchedIdKey, VotingResultsFrame} from "./pages/VotingPage";
 import {ArticlePage} from "./components/Article";
 import NoPage from "./pages/NoPage";
 import LoadingPage from "./pages/LoadingPage";
@@ -14,6 +14,7 @@ import {VideoPage} from "./components/VideoPage";
 import {getAllNavData} from "./repositories/Common/request";
 import {BlogList} from "./components/BlogList";
 import {defaultLanguage, supportedLanguages} from "./languages";
+import {VoteResults} from "./components/VoteResults";
 
 export const headerComponentId = "P36f8RaOQUuxcV5US2-A8Q"; //todo this is a bit rubbish
 export const footerComponentId = "dxEPpDQESBe0OBIqTxIDbg";
@@ -79,6 +80,7 @@ function Routing() {
                             case ContentTypes.VotingPage:
                           
                                 return (
+                                    <>
                                     <Route
                                         key={keyId}
 
@@ -91,6 +93,18 @@ function Routing() {
                                             />
                                         }
                                     />
+                                        <Route
+                                            key={keyId}
+
+                                            path={prefix + "/results"}
+                                            
+                                            element={
+                                                <VotingResultsFrame
+                                                    questionId={"UwO6qO8AQL2tLD7tBPGP7A"}
+                                                />
+                                            }
+                                        />
+                            </>
                                 );
 
                             case ContentTypes.BlogPost:

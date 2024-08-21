@@ -21,7 +21,8 @@ export enum ContentTypes {
     VideoPage = "VideoPageModelRecord",
     NavigationGroup = "NavigationGroupModelRecord",
     ExternalLink = "ExternalLinkModelRecord",
-
+    VotingResult = "VotingResultModelRecord",
+    
 }
 
 export enum AssetTypes {

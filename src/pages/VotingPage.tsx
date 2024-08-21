@@ -49,7 +49,23 @@ export interface TVotingQueryProps
     locale:string
     id:string
 }
+export const VotingResultsFrame = ({questionId}: {questionId:string}) => {
+   return( <Row key={questionId}>
+        <div className="frame">
+            <div className="frame-content">
+                <h2 id="results-heading">Voting Results</h2>
+                {<VoteControls questionId={questionId} showStatistics={true}/>}
+                <Row style={{paddingTop: 20}}>
+                    <Col></Col>
+                    <Col> <VoteResults questionId={questionId}/></Col>
+                    <Col></Col>
+                </Row>
 
+            </div>
+        </div>
+
+    </Row>)
+}
 const VotingPage = (queryProps: TVotingQueryProps) => {
 
 
@@ -88,18 +104,9 @@ const VotingPage = (queryProps: TVotingQueryProps) => {
 
             // Get the link's href attribute
             const link = copyLink.href;
-
-            // Create a temporary text area to hold the link
-            const tempInput = document.createElement('textarea');
-            tempInput.value = link;
-            document.body.appendChild(tempInput);
-            tempInput.select();
-            document.execCommand('copy');
-            document.body.removeChild(tempInput);
-
-
-            // Provide feedback to the user (optional)
-            alert('Link copied to clipboard!');
+   
+            navigator.share({url:link, title:mainQuestionText})
+            
         });
         setLinkAdded(true);
     })
@@ -135,7 +142,7 @@ const VotingPage = (queryProps: TVotingQueryProps) => {
     }, [queryProps]);
     
     const mainQuestionText = props.questions ? render(props.questions[0].questionTitleSt) ?? "Please Share" : "Please Share" ;
-
+    const showJumpButtons = false;
     return (
         <>
 
@@ -144,7 +151,7 @@ const VotingPage = (queryProps: TVotingQueryProps) => {
                 return (<Row key={question.id}>
                     <div className="frame">
                         <div className="frame-content">
-                            <Row className={"vote-controls"} style={{paddingBottom: "50px"}}>
+                            <Row className={"vote-controls"} >
                                 <Col className={"squashToRow"}>
                                    
                                     <span className={"questionTitle"} >
@@ -163,7 +170,7 @@ const VotingPage = (queryProps: TVotingQueryProps) => {
                                 </Col>
                             </Row>
 
-                            {voted ? <Row style={{paddingBottom: "30px"}}>
+                            {voted && showJumpButtons ? <Row style={{paddingBottom: "30px"}}>
                                 <Col><a href="#share-heading" id="to-share" className="btn btn-primary">Share</a></Col>
                                 <Col><a href="#results-heading" id="to-results" className="btn btn-primary">Results</a></Col>
                                 {watched ? <Col ><Donation/></Col> : null}
@@ -175,34 +182,20 @@ const VotingPage = (queryProps: TVotingQueryProps) => {
                 </Row>)
 
             })}
-            <Row>
-                <SharingControls voted={voted} shareHeading={props.shareHeading ?? ""}
+            <Row style={{marginTop: "-0.5rem"}}>
+                <SharingControls  voted={voted} shareHeading={props.shareHeading ?? ""}
                                  shareButtonText={mainQuestionText}/>
                 {voted ? <Row style={{paddingBottom: "30px"}}>
                     {watched ? <Col ><Donation/></Col> : null}
                 </Row> : null}
             </Row>
 
-            {voted ?
+            {voted && showJumpButtons ?
                 <Row>
 
 
                     {props.questions?.map(question => {
-                        return (<Row key={question.id}>
-                            <div className="frame">
-                                <div className="frame-content">
-                                    <h2 id="results-heading">Voting Results</h2>
-                                    {<VoteControls questionId={question.id} showStatistics={true}/>}
-                                    <Row style={{paddingTop: 20}}>
-                                        <Col></Col>
-                                        <Col> <VoteResults questionId={question.id}/></Col>
-                                        <Col></Col>
-                                    </Row>
-
-                                </div>
-                            </div>
-
-                        </Row>)
+                        return (<VotingResultsFrame questionId={question.id}/>)
                     })}
 
 

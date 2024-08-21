@@ -33,7 +33,8 @@ function Share({postVoteVideo, shareText, shareSubText, voted}) {
 
             // Get the link's href attribute
             const link = copyLink.href;
-
+            navigator.share(link)
+            return;
             // Create a temporary text area to hold the link
             const tempInput = document.createElement('textarea');
             tempInput.value = link;
@@ -42,7 +43,7 @@ function Share({postVoteVideo, shareText, shareSubText, voted}) {
             document.execCommand('copy');
             document.body.removeChild(tempInput);
 
-
+            
             // Provide feedback to the user (optional)
             alert('Link copied to clipboard!');
         });
