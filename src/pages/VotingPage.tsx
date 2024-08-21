@@ -154,22 +154,31 @@ const VotingPage = (queryProps: TVotingQueryProps) => {
                             <Row className={"vote-controls"} >
                                 <Col className={"squashToRow"}>
                                    
-                                    <span className={"questionTitle"} >
+                                    <div className="questionTitle extra-padding" >
                                     <StructuredText data={question.questionTitleSt}/>
-                                    </span>
+                                    </div>
+                                    <div className="extra-padding" >
                                     <VoteControls voteCallBack={(b) => setVoted(b)}
                                             
                                                   questionId={question.id}
                                                   showStatistics={false}
                                                   votingPostVoteExplanation={props.votingPostVoteExplanation}
                                                   votingThankYou={props.votingThankYou}/>
+                                    </div>
                                 </Col>
                                 <Col className={"squashToRow"}>
                                     <VideoControl locale={queryProps.locale} fullScreenOnClick={true} datoVideo={props.mainVideo.video} ytUrl={props.introVideoId}
                                                   onFinish={onWatched} videoThumbnail={props.videoThumbnail?.responsiveImage.src}/>
                                 </Col>
                             </Row>
-
+                            <Row  style={{paddingBottom: "30px"}}>
+                                <Col className="squashToRow"> <SharingControls  voted={voted} shareHeading={props.shareHeading ?? ""}
+                                              shareButtonText={mainQuestionText}/></Col>
+                                <Col className="squashToRow" style={{paddingBottom: "60px"}}>{watched ? <Donation/> : null}</Col>
+                                
+                            </Row>
+                            
+                            
                             {voted && showJumpButtons ? <Row style={{paddingBottom: "30px"}}>
                                 <Col><a href="#share-heading" id="to-share" className="btn btn-primary">Share</a></Col>
                                 <Col><a href="#results-heading" id="to-results" className="btn btn-primary">Results</a></Col>
@@ -183,11 +192,7 @@ const VotingPage = (queryProps: TVotingQueryProps) => {
 
             })}
             <Row style={{marginTop: "-0.5rem"}}>
-                <SharingControls  voted={voted} shareHeading={props.shareHeading ?? ""}
-                                 shareButtonText={mainQuestionText}/>
-                {voted ? <Row style={{paddingBottom: "30px"}}>
-                    {watched ? <Col ><Donation/></Col> : null}
-                </Row> : null}
+                
             </Row>
 
             {voted && showJumpButtons ?

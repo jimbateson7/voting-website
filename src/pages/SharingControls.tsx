@@ -1,5 +1,15 @@
-import {FaEnvelope, FaExternalLinkAlt, FaFacebook, FaInstagram, FaLink, FaLinkedin, FaTwitter} from "react-icons/fa";
+import {
+    FaEnvelope,
+    FaExternalLinkAlt,
+    FaFacebook,
+    FaInstagram,
+    FaLink,
+    FaLinkedin,
+    FaShare, FaShareAlt,
+    FaTwitter
+} from "react-icons/fa";
 import React from "react";
+import { Col, Row } from "react-bootstrap";
 
 export interface ISharingControls {
     voted: boolean;
@@ -25,9 +35,10 @@ export const SharingControls = ({voted, shareHeading, shareButtonText}: ISharing
     const emailSubject = twitterShareText;
 
     return (<>
-        <h2 id="share-heading" className={voted ? "voted" : ""}>{shareHeading}</h2>
+        <Row className="social-links share-row">
+            <Col className="squashToRow"><h2 id="share-heading" className={voted ? "voted" : ""}>{shareHeading}</h2></Col>
 
-        <div className="social-links">
+            <Col className="squashToRow">
             <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//ourplanetourpeople.com" target="_blank"
                rel="noreferrer">
                 <FaFacebook onClick={() => record("Facebook")}
@@ -39,28 +50,33 @@ export const SharingControls = ({voted, shareHeading, shareButtonText}: ISharing
                 <FaTwitter onClick={() => record("Twitter")}
                            style={{color: '#1DA1F2', fontSize: '3rem', padding: '.25rem'}}/>
             </a>
-
+            {
             <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//ourplanetourpeople.com"
                target="_blank"
                rel="noreferrer">
                 <FaLinkedin onClick={() => record("LinkedIn")}
                             style={{color: '#2D62C1', fontSize: '3rem', padding: '.25rem'}}/>
             </a>
+            
+            }
 
             <a href="https://www.instagram.com/">
                 <FaInstagram onClick={() => record("Instagram")} style={{fontSize: '3rem', padding: '.25rem'}}/>
             </a>
 
+            {/*
             <a href={`mailto:?subject=${emailSubject}`}>
                 <FaEnvelope onClick={() => record("Email")}
                             style={{color: '#F5BA48', fontSize: '3rem', padding: '.25rem'}}/>
             </a>
-
+*/
+            }
             <a id="copy-link" href="http://wwww.ourplanetourpeople.com">
-                <FaLink onClick={() => record("Copy")}
-                                   style={{color: '#C0C0C0'}}/>
+                <FaShareAlt onClick={() => record("Copy")}
+                        style={{color: '#C0C0C0'}}/>
             </a>
-        </div>
+            </Col>
+        </Row>
     </>)
 
 }

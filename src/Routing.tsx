@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 
 import "./App.scss";
-import Layout from "../src/pages/Layout";
+
 import {ContentTypes, NavigationItem} from "./repositories/Navigation/types";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import VotingPage, {localStorageVotingIdKey, localStorageWatchedIdKey, VotingResultsFrame} from "./pages/VotingPage";
@@ -9,12 +9,14 @@ import {ArticlePage} from "./components/Article";
 import NoPage from "./pages/NoPage";
 import LoadingPage from "./pages/LoadingPage";
 import {DEBUG_QUERY, refreshPreview} from "./repositories/utils/preview";
-import {extractYoutubeVideoId, LogLinks} from "./repositories/utils/utilities";
+import {LogLinks} from "./repositories/utils/utilities";
 import {VideoPage} from "./components/VideoPage";
 import {getAllNavData} from "./repositories/Common/request";
 import {BlogList} from "./components/BlogList";
 import {defaultLanguage, supportedLanguages} from "./languages";
-import {VoteResults} from "./components/VoteResults";
+import {LayoutTs} from "./components/Layout";
+
+
 
 export const headerComponentId = "P36f8RaOQUuxcV5US2-A8Q"; //todo this is a bit rubbish
 export const footerComponentId = "dxEPpDQESBe0OBIqTxIDbg";
@@ -87,21 +89,25 @@ function Routing() {
                                         path={prefix + "/"}
                                         index
                                         element={
+                                            <LayoutTs  >
                                             <VotingPage
                                                 id={navItem.id}
                                                 locale={locale}
                                             />
+                                            </LayoutTs>
                                         }
                                     />
                                         <Route
-                                            key={keyId}
+                                            key={keyId+"results"}
 
                                             path={prefix + "/results"}
                                             
                                             element={
+                                                <LayoutTs  >
                                                 <VotingResultsFrame
                                                     questionId={"UwO6qO8AQL2tLD7tBPGP7A"}
                                                 />
+                                                </LayoutTs>
                                             }
                                         />
                             </>
@@ -114,7 +120,10 @@ function Routing() {
                                         key={keyId}
 
                                         path={prefix + navItem.slug ?? "blog"}
-                                        element={<ArticlePage locale={locale} slug={navItem.slug ?? "blog"}/>}
+                                        element={
+                                            <LayoutTs >
+                                        <ArticlePage locale={locale} slug={navItem.slug ?? "blog"}/>
+                                            </LayoutTs>}
                                     />
                                 );
                             case ContentTypes.VideoPage:
@@ -122,7 +131,7 @@ function Routing() {
                                     <Route
                                         key={keyId}
                                         path={prefix + navItem.slug ?? "video"}
-                                        element={<VideoPage locale={locale} slug={prefix + navItem.slug ?? "video"}/>}
+                                        element={<LayoutTs ><VideoPage locale={locale} slug={prefix + navItem.slug ?? "video"}/></LayoutTs>}
                                     />
                                 );
 
@@ -134,7 +143,7 @@ function Routing() {
 
                     key={prefix + "blog_list"}
                     path={prefix +"blog_list"}
-                    element={<BlogList locale={locale}/>}
+                    element={<LayoutTs ><BlogList locale={locale}/></LayoutTs>}
                 />
             </>
         );
@@ -146,7 +155,7 @@ function Routing() {
             <Routes>
                 
               
-                <Route key="root" path={"/"} element={<Layout />}>
+                <Route key="root" path={"/"}    >
 
                     {supportedLanguages.map((locale,index) => createDynamicRoutes(locale,index))}
                     {dataLoaded ? <Route key="loading" path="*" element={<LoadingPage/>}/> : <Route key="nopage" path="*" element={<NoPage/>}/>}
