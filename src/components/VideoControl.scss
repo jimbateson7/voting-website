@@ -5,9 +5,15 @@ mux-player {
 
 }
 
+
 /* Prevent .fullscreen styles on mobile */
 @media (min-width: 768px) {
 
+  #dato-video-player
+  {
+    margin-right: 5%;
+  }
+  
   .fullscreen > .video-overlay
   {
     position: fixed !important;
@@ -53,6 +59,12 @@ mux-player {
   }
 }
 @media (min-width: 1650px) {
+
+  #dato-video-player
+  {
+    margin-right: 10%;
+  }
+  
   .fullscreen {
     width: 70% ;
 

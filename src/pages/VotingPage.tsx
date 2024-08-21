@@ -154,16 +154,17 @@ const VotingPage = (queryProps: TVotingQueryProps) => {
                             <Row className={"vote-controls"} >
                                 <Col className={"squashToRow"}>
                                    
-                                    <span className={"questionTitle"} >
+                                    <div className="questionTitle extra-padding" >
                                     <StructuredText data={question.questionTitleSt}/>
-                                    </span>
-                                    
+                                    </div>
+                                    <div className="extra-padding" >
                                     <VoteControls voteCallBack={(b) => setVoted(b)}
                                             
                                                   questionId={question.id}
                                                   showStatistics={false}
                                                   votingPostVoteExplanation={props.votingPostVoteExplanation}
                                                   votingThankYou={props.votingThankYou}/>
+                                    </div>
                                 </Col>
                                 <Col className={"squashToRow"}>
                                     <VideoControl locale={queryProps.locale} fullScreenOnClick={true} datoVideo={props.mainVideo.video} ytUrl={props.introVideoId}
