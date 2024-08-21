@@ -7,21 +7,27 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import {footerComponentId, headerComponentId} from "../Routing";
-import {DynamicFooter} from "../components/DynamicFooter";
-import React, {useEffect, useState} from "react";
 
-import {DynamicNavList} from "../components/DynamicNavList";
+import React, {PropsWithChildren, useEffect, useState} from "react";
+
+
 import {CookieConsent, getCookieConsentValue} from "react-cookie-consent";
 
 import {Analytics} from 'aws-amplify';
-import {localStorageVotingIdKey} from "./VotingPage";
+
 import {v4 as generateGuid} from "uuid";
 import {DisableAnalytics, EnableAnalytics, recordUse} from "../utils/analytics";
 import {defaultLanguage} from "../languages";
+import {localStorageVotingIdKey} from "../pages/VotingPage";
+import {DynamicNavList} from "./DynamicNavList";
+import {DynamicFooter} from "./DynamicFooter";
+import ReactMarkdown from "react-markdown";
+import children = ReactMarkdown.propTypes.children;
 
 
-const Layout = ({children}) => {
 
+export const LayoutTs = ({children} : PropsWithChildren) => {
+    
     
     const [expanded, setExpanded] = useState(false);
     const [analyticsEnabled, setAnalyticsEnabled] = useState(getCookieConsentValue("OurPeopleOurPlanetAnalyticsAcceptance") ?? false);
@@ -68,7 +74,7 @@ const Layout = ({children}) => {
         });
 
 
-        recordUse({name: "Page_View", userGuid, attributes: {page: window.location.pathname}});
+        recordUse({name: "Page_View", attributes: {page: window.location.pathname, userGuid}});
     }, [analyticsEnabled]);
 
     if (analyticsEnabled)
@@ -96,6 +102,7 @@ const Layout = ({children}) => {
                         <Nav className="me-auto">
                             <DynamicNavList id={headerComponentId} locale={locale} onSelect={() => {
                                 setExpanded(false)
+                                return {}
                             }}></DynamicNavList>
 
 
@@ -105,10 +112,12 @@ const Layout = ({children}) => {
                 </Container>
             </Navbar>
 
+            
             <main>
+                {children}
                 <Container>
 
-
+                    
                     <Outlet/>
 
                 </Container>
@@ -134,10 +143,11 @@ const Layout = ({children}) => {
                 This website uses cookies to enhance the user experience.{" "}
 
             </CookieConsent>
-            <DynamicFooter id={footerComponentId} local={locale}></DynamicFooter>
+            <DynamicFooter id={footerComponentId} locale={locale}></DynamicFooter>
+          
 
         </>
     );
 };
 
-export default Layout;
+
