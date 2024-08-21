@@ -178,7 +178,7 @@ export const VoteControls = ({
 
             <Row>
 
-                <Row lg="3" xl="3"></Row>
+                <Row lg="3" xl="3" style={{paddingTop:"1.5rem"}}></Row>
                 <Row  className={"voteControlRow"}>
 
                   
