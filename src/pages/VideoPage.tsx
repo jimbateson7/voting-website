@@ -4,8 +4,8 @@ import "./Page.scss";
 import {getVideoPageJson} from "../repositories/VideoPage/request";
 import {TArticlePage} from "../repositories/Common/types";
 import {Video} from "react-datocms";
-import {VideoControl} from "./VideoControl";
-import {types} from "sass";
+import {VideoControl} from "../components/VideoControl";
+
 
 export interface TVideoPage {
     mainVideo: { id: string, video: Video | undefined };

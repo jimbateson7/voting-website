@@ -1,6 +1,6 @@
 ﻿const NoPage = () => {
-    return <div className="spinner-border text-primary" role="status">
-        <span className="visually-hidden">Loading...</span>
+    return <div>
+        <span >Page does not exist</span>
     </div>;
 };
 

@@ -1,22 +1,23 @@
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 
 import "./App.scss";
 
 import {ContentTypes, NavigationItem} from "./repositories/Navigation/types";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import VotingPage, {localStorageVotingIdKey, localStorageWatchedIdKey, VotingResultsFrame} from "./pages/VotingPage";
-import {ArticlePage} from "./components/Article";
+
 import NoPage from "./pages/NoPage";
 import LoadingPage from "./pages/LoadingPage";
 import {DEBUG_QUERY, refreshPreview} from "./repositories/utils/preview";
 import {LogLinks} from "./repositories/utils/utilities";
-import {VideoPage} from "./components/VideoPage";
+
 import {getAllNavData} from "./repositories/Common/request";
 import {BlogList} from "./components/BlogList";
 import {defaultLanguage, supportedLanguages} from "./languages";
 import {LayoutTs} from "./components/Layout";
-
-
+import {RouteChangeListener} from "./RouteChangeListener";
+import {VideoPage} from "./pages/VideoPage";
+import {ArticlePage} from "./pages/Article";
 
 
 export const headerComponentId = "P36f8RaOQUuxcV5US2-A8Q"; //todo this is a bit rubbish
@@ -40,6 +41,8 @@ const Reset = () => {
         <span id="status">Loading...</span>
     </div>;
 };
+
+
 
 function Routing() {
 
@@ -101,7 +104,7 @@ function Routing() {
                                         <Route
                                             key={keyId+"results"}
 
-                                            path={prefix + "/results"}
+                                            path={prefix + "results"}
                                             
                                             element={
                                            
@@ -132,7 +135,7 @@ function Routing() {
                                     <Route
                                         key={keyId}
                                         path={prefix + navItem.slug ?? "video"}
-                                        element={<LayoutTs ><VideoPage locale={locale} slug={prefix + navItem.slug ?? "video"}/></LayoutTs>}
+                                        element={<VideoPage locale={locale} slug={prefix + navItem.slug ?? "video"}/>}
                                     />
                                 );
 
@@ -149,15 +152,20 @@ function Routing() {
             </>
         );
     };
-    
-    
+
+    const [locale, setLocale] = useState(defaultLanguage);
+   
+    const OnLocaleChanged = (locale:string) =>
+    {        
+        setLocale(locale)
+    }
     return (
         <BrowserRouter>
             <Routes>
                 
-              
-                <Route key="root" path={"/"}   element={<LayoutTs />} >
-
+                
+                <Route key="root" path={"/"}   element={<LayoutTs locale={locale} ><RouteChangeListener onSetLocale={OnLocaleChanged}/></LayoutTs>} >
+                    
                     {supportedLanguages.map((locale,index) => createDynamicRoutes(locale,index))}
                     {dataLoaded ? <Route key="loading" path="*" element={<LoadingPage/>}/> : <Route key="nopage" path="*" element={<NoPage/>}/>}
                     <Route key="api" path="/reset/patrickonly/277205bc-fdf9-4bcb-be07-14a3a3bcc7f4" element={<Reset/>}></Route>

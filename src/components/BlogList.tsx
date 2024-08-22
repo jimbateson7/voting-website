@@ -1,5 +1,5 @@
 ﻿import {useCallback, useEffect, useState} from "react";
-import "./Page.scss";
+import "../pages/Page.scss";
 import "./HubCollection.scss";
 import {getPagesJson} from "../repositories/Articles/request";
 import {LogException} from "../repositories/utils/utilities";

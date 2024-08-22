@@ -4,6 +4,8 @@ import {Amplify, Analytics} from "aws-amplify";
 import {localStorageVotingIdKey} from "./pages/VotingPage";
 import {v4 as generateGuid} from "uuid";
 import {InitAnalytics} from "./utils/analytics";
+import {useEffect, useState} from "react";
+import {useLocation} from "react-router-dom";
 
 Amplify.configure(
     {
@@ -40,6 +42,12 @@ const recordPageVisit = () => {
 };
 
 function App() {
+
+
+
+
+
+    
     recordPageVisit();
     return <Routing></Routing>
 }

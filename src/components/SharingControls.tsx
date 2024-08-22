@@ -10,6 +10,7 @@ import {
 } from "react-icons/fa";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
+import "./SharingControls.scss";
 
 export interface ISharingControls {
     voted: boolean;
@@ -53,14 +54,14 @@ export const SharingControls = ({voted, shareHeading, shareButtonText}: ISharing
             {
             <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//ourplanetourpeople.com"
                target="_blank"
-               rel="noreferrer">
+               rel="noreferrer" className="auto-hide">
                 <FaLinkedin onClick={() => record("LinkedIn")}
                             style={{color: '#2D62C1', fontSize: '3rem', padding: '.25rem'}}/>
             </a>
             
             }
 
-            <a href="https://www.instagram.com/">
+            <a href="https://www.instagram.com/" className="auto-hide">
                 <FaInstagram onClick={() => record("Instagram")} style={{fontSize: '3rem', padding: '.25rem'}}/>
             </a>
 

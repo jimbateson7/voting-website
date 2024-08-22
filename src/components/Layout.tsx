@@ -17,24 +17,30 @@ import {Analytics} from 'aws-amplify';
 
 import {v4 as generateGuid} from "uuid";
 import {DisableAnalytics, EnableAnalytics, recordUse} from "../utils/analytics";
-import {defaultLanguage} from "../languages";
+
 import {localStorageVotingIdKey} from "../pages/VotingPage";
 import {DynamicNavList} from "./DynamicNavList";
 import {DynamicFooter} from "./DynamicFooter";
-import ReactMarkdown from "react-markdown";
-import children = ReactMarkdown.propTypes.children;
 
 
+export interface ILayout extends PropsWithChildren
+{
+    locale:string;
+}
 
-export const LayoutTs = ({children} : PropsWithChildren) => {
+export const LayoutTs = ({children, locale} : ILayout) => {
     
     
     const [expanded, setExpanded] = useState(false);
     const [analyticsEnabled, setAnalyticsEnabled] = useState(getCookieConsentValue("OurPeopleOurPlanetAnalyticsAcceptance") ?? false);
+    
+   
     const toggleExpanded = () => setExpanded(!expanded);
-    let locale = defaultLanguage;
+
+    
+    
     useEffect(() => {
-    }, [])
+    }, [locale])
     {
         //console.log(getCookieConsentValue("OurPeopleOurPlanetAnalyticsAcceptance"));
         //InitAnalytics();
@@ -48,15 +54,7 @@ export const LayoutTs = ({children} : PropsWithChildren) => {
         let trackingAttributes = {
             userId: userGuid
         }
-   
-        const extractLocale = window.location.pathname.substring(1,4);
-
-        if(extractLocale[2] === "/")
-        {
-            locale = extractLocale.substring(0,2);
-            console.log("locale is " + locale)
-        }
-        
+           
 
         Analytics.autoTrack('pageView', {
             enable: analyticsEnabled,

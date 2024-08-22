@@ -1,10 +1,11 @@
-﻿import {useCallback, useEffect, useState} from "react";
+﻿import React, {useCallback, useEffect, useState} from "react";
 import "./Page.scss";
-import "./HubCollection.scss";
+import "../components/HubCollection.scss";
 import {getPageJson} from "../repositories/Articles/request";
 import {LogException} from "../repositories/utils/utilities";
 import {TArticlePage} from "../repositories/Common/types";
-import {PageData, TPage} from "./PageData";
+import {PageData, TPage} from "../components/PageData";
+
 
 export const ArticlePage = (props: TArticlePage) => {
     let {slug,locale} = props;

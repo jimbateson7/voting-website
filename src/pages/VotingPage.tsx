@@ -4,20 +4,17 @@ import {VoteControls} from "../components/VoteControls";
 import {Col, Row} from "react-bootstrap";
 import {v4 as generateGuid} from "uuid";
 // @ts-ignore
-import {TrackedYoutubeVideo} from "./TrackedYoutubeVideo";
 import {TQuestionBlock} from "../repositories/Navigation/types";
 import {BlogList} from "../components/BlogList";
 import Donation from "../components/Donation";
 import React, {useCallback, useEffect, useState} from "react";
 import {VoteResults} from "../components/VoteResults";
-import {SharingControls} from "./SharingControls";
 import {Video} from "react-datocms/dist/types/VideoPlayer";
 import {VideoControl} from "../components/VideoControl";
 import {StructuredText} from "react-datocms";   
 import { render } from 'datocms-structured-text-to-plain-text';
-import {getVideoPageJson} from "../repositories/VideoPage/request";
-import {TVideoPage} from "../components/VideoPage";
 import {getVotingPageJson} from "../repositories/VotingPage/request";
+import {SharingControls} from "../components/SharingControls";
 
 export const localStorageVotingIdKey = "voterId";
 export const localStorageWatchedIdKey = "voterWatched";
