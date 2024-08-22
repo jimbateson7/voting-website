@@ -4,6 +4,7 @@ import {ContentTypes, NavigationItem} from "../repositories/Navigation/types";
 import Nav from "react-bootstrap/Nav";
 import {NavDropdown} from "react-bootstrap";
 import {NavLink, useLocation} from "react-router-dom";
+import FlagSelect from "./FlagSelect";
 
 export type TDynamicNav = {
     id: string;
@@ -88,6 +89,7 @@ export const DynamicNavList = (props: TDynamicNav) => {
                             return <></>;
                     }
                 })}
+            <FlagSelect></FlagSelect>
         </>
     );
 };  
