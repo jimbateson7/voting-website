@@ -3,7 +3,8 @@ import React, {useCallback, useEffect, useState} from "react";
 import {ContentTypes, NavigationItem} from "../repositories/Navigation/types";
 import Nav from "react-bootstrap/Nav";
 import {NavDropdown} from "react-bootstrap";
-import {NavLink} from "react-router-dom";
+import {NavLink, useLocation} from "react-router-dom";
+import FlagSelect from "./FlagSelect";
 
 export type TDynamicNav = {
     id: string;
@@ -27,6 +28,9 @@ export const DynamicNavList = (props: TDynamicNav) => {
         if (!data.length)
             fetchData().catch(console.error);
     }, [fetchData]);
+
+  
+   
     
     const gslugPrefix = props.locale ? `${locale}/` :"";
     return (
@@ -36,11 +40,14 @@ export const DynamicNavList = (props: TDynamicNav) => {
                     let slugPrefix = navItem.slug?.includes( gslugPrefix) ? "" : gslugPrefix;
                     if(navItem.slug?.startsWith("/") && slugPrefix?.endsWith("/"))
                         slugPrefix = props.locale ?? ""
+
+                    const key =index +  (props.locale ?? "");
+
                     switch (navItem.__typename) {
                         case ContentTypes.ExternalLink:
                             return (
                                 <a
-                                    key={index}
+                                    key={key}
                                     href={navItem.url ?? ""}
                                     className="nav-link"
                                     data-test="full link"
@@ -51,11 +58,11 @@ export const DynamicNavList = (props: TDynamicNav) => {
                         case ContentTypes.VotingPage:
                             return (
                                 <>
-                                <Nav.Link onClick={onSelect} as={NavLink} key={index} to={slugPrefix  + (navItem.slug ?? "")}
+                                <Nav.Link onClick={onSelect} as={NavLink} key={key} to={slugPrefix  + (navItem.slug ?? "")}
                                           className="nav-link">
                                     {navItem.cardTitle}
                                 </Nav.Link>
-                                <Nav.Link onClick={onSelect} as={NavLink} key={index} to={ "results"}
+                                <Nav.Link onClick={onSelect} as={NavLink} key={key+"results"} to={ slugPrefix  +  "/results"}
                                           className="nav-link">
                                     Voting Results
                                 </Nav.Link>
@@ -66,14 +73,14 @@ export const DynamicNavList = (props: TDynamicNav) => {
                         case ContentTypes.BlogPost:
                             return (
 
-                                <Nav.Link onClick={onSelect} as={NavLink} key={index} to={slugPrefix + (navItem.slug ?? "")}
+                                <Nav.Link onClick={onSelect} as={NavLink} key={key} to={slugPrefix + (navItem.slug ?? "")}
                                           className="nav-link">
                                     {navItem.title}
                                 </Nav.Link>
                             );
                         case ContentTypes.NavigationGroup:
                             return (
-                                <NavDropdown key={index} title={navItem.title ?? "_"} id="basic-nav-dropdown">
+                                <NavDropdown key={key} title={navItem.title ?? "_"} id="basic-nav-dropdown">
                                     < DynamicNavList onSelect={onSelect} itemGroup={(navItem).navigationItem} locale={props.locale}
                                                     id={navItem?.id ?? "123"}></DynamicNavList>
                                 </NavDropdown>
@@ -82,6 +89,7 @@ export const DynamicNavList = (props: TDynamicNav) => {
                             return <></>;
                     }
                 })}
+            <FlagSelect></FlagSelect>
         </>
     );
 };  
