@@ -1,26 +1,24 @@
 import React, {useState, useEffect, ChangeEvent} from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import {CountryFlag, defaultFlag, getSupportedCountries} from "../languages";
 
-const supportedCountries = [
-    { code: 'en', name: 'English', flag: '🇬🇧' },
-    { code: 'fr', name: 'French', flag: '🇫🇷' },
-    // Add more countries here
-];
 
-const FlagSelect = () => {
-    const [selectedCountry, setSelectedCountry] = useState(supportedCountries[0]);
-    const location = useLocation();
+const FlagSelect = ({currentLocale}: {currentLocale:string}) => {
+    const supportedCountries = getSupportedCountries();
+    const defaultCountryFlag: CountryFlag = (supportedCountries.find(country => country.code === currentLocale)) ?? defaultFlag ;
+    const [selectedCountry, setSelectedCountry] = useState(defaultCountryFlag);
+   // const location = useLocation();
     const navigate = useNavigate();
 
-    useEffect(() => {
+  /*  useEffect(() => {
         const pathname = location.pathname;
-        const countryCode = pathname.substring(1);
+        const countryCode = pathname.;
         const foundCountry = supportedCountries.find(country => country.code === countryCode);
 
         if (foundCountry) {
             setSelectedCountry(foundCountry);
         } 
-    }, [location, navigate]);
+    }, [location, navigate]);*/
 
     const handleCountryChange = (event : ChangeEvent<HTMLSelectElement>) => {
         const selectedCountryCode = event.target.value;

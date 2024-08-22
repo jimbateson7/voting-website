@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {defaultLanguage, supportedLanguages} from "./languages";
+import {defaultLanguage, getSupportedLocales} from "./languages";
 import {useLocation} from "react-router-dom";
 
 
@@ -18,7 +18,7 @@ export const RouteChangeListener = ({onSetLocale}: IRouteListener) => {
 
     const getLocale = (path: string) => {
         const extractLocale = path.substring(1, 3);
-        return supportedLanguages.includes(extractLocale) ? extractLocale : defaultLanguage;
+        return getSupportedLocales().includes(extractLocale) ? extractLocale : defaultLanguage;
     }
 
     const location = useLocation();

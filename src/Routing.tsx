@@ -13,7 +13,7 @@ import {LogLinks} from "./repositories/utils/utilities";
 
 import {getAllNavData} from "./repositories/Common/request";
 import {BlogList} from "./components/BlogList";
-import {defaultLanguage, supportedLanguages} from "./languages";
+import {defaultLanguage, getSupportedLocales} from "./languages";
 import {LayoutTs} from "./components/Layout";
 import {RouteChangeListener} from "./RouteChangeListener";
 import {VideoPage} from "./pages/VideoPage";
@@ -166,7 +166,7 @@ function Routing() {
                 
                 <Route key="root" path={"/"}   element={<LayoutTs locale={locale} ><RouteChangeListener onSetLocale={OnLocaleChanged}/></LayoutTs>} >
                     
-                    {supportedLanguages.map((locale,index) => createDynamicRoutes(locale,index))}
+                    {[undefined, ...getSupportedLocales()].map((locale,index) => createDynamicRoutes(locale,index))}
                     {dataLoaded ? <Route key="loading" path="*" element={<LoadingPage/>}/> : <Route key="nopage" path="*" element={<NoPage/>}/>}
                     <Route key="api" path="/reset/patrickonly/277205bc-fdf9-4bcb-be07-14a3a3bcc7f4" element={<Reset/>}></Route>
                 </Route>)
