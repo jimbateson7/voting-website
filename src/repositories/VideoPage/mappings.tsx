@@ -1,5 +1,6 @@
 import {QueryResult, VideoItem} from "./types";
-import {TVideoPage} from "../../components/VideoPage";
+import {TVideoPage} from "../../pages/VideoPage";
+
 
 export async function mapVideoData(result: QueryResult): Promise<TVideoPage> {
 

@@ -1,21 +1,23 @@
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 
 import "./App.scss";
 
 import {ContentTypes, NavigationItem} from "./repositories/Navigation/types";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import VotingPage, {localStorageVotingIdKey, localStorageWatchedIdKey, VotingResultsFrame} from "./pages/VotingPage";
-import {ArticlePage} from "./components/Article";
+
 import NoPage from "./pages/NoPage";
 import LoadingPage from "./pages/LoadingPage";
 import {DEBUG_QUERY, refreshPreview} from "./repositories/utils/preview";
 import {LogLinks} from "./repositories/utils/utilities";
-import {VideoPage} from "./components/VideoPage";
+
 import {getAllNavData} from "./repositories/Common/request";
 import {BlogList} from "./components/BlogList";
 import {defaultLanguage, supportedLanguages} from "./languages";
 import {LayoutTs} from "./components/Layout";
 import {RouteChangeListener} from "./RouteChangeListener";
+import {VideoPage} from "./pages/VideoPage";
+import {ArticlePage} from "./pages/Article";
 
 
 export const headerComponentId = "P36f8RaOQUuxcV5US2-A8Q"; //todo this is a bit rubbish
