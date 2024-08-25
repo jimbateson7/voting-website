@@ -18,6 +18,7 @@ import {LayoutTs} from "./components/Layout";
 import {RouteChangeListener} from "./RouteChangeListener";
 import {VideoPage} from "./pages/VideoPage";
 import {ArticlePage} from "./pages/Article";
+import {AdminPage} from "./components/AdminPage";
 
 
 export const headerComponentId = "P36f8RaOQUuxcV5US2-A8Q"; //todo this is a bit rubbish
@@ -148,6 +149,12 @@ function Routing() {
                     key={prefix + "blog_list"}
                     path={prefix +"blog_list"}
                     element={<BlogList locale={locale}/>}
+                />
+                <Route
+
+                    key={prefix + "admin_page"}
+                    path={prefix +"admin_page"}
+                    element={<AdminPage/>}
                 />
             </>
         );

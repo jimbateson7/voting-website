@@ -7,6 +7,7 @@
     "@aws-amplify/ui-react": "^5.3.3",
     "@contentful/rich-text-from-markdown": "^15.16.2",
     "@contentful/rich-text-react-renderer": "^15.16.2",
+    "@datocms/cma-client-node": "^3.3.5",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
