@@ -1,4 +1,4 @@
-import {fetchDataContentful} from "../utils/graphQLfetch";
+import {fetchDataDato} from "../utils/graphQLfetch";
 import {QueryResult} from "./types";
 import {NavigationItem} from "../Navigation/types";
 import {LogErrors} from "../utils/utilities";
@@ -37,7 +37,7 @@ function mapAllSlugs(root: QueryResult): NavigationItem[] {
 
 export const getAllNavData = () => {
     const query = generateAllPagesQuery();
-    return fetchDataContentful<QueryResult>(query).then((root: QueryResult) => {
+    return fetchDataDato<QueryResult>(query).then((root: QueryResult) => {
 
        
         if (root.errors) {
