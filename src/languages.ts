@@ -60,8 +60,6 @@ export const getSupportedCountries = ()  => {
         })
         
     }
-
-
-    console.log(supportedCountries)
+    
    return supportedCountries;
 };

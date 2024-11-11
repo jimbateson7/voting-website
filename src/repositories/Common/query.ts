@@ -30,6 +30,17 @@ const videoPage = `title
                 }
             video{ytembedUrl,autoPlay,title}`;
 
+const videoBlock = `{
+                   id,
+                   video {
+                    muxPlaybackId
+                    title
+                    width
+                    height
+                    blurUpThumb
+                  }
+              }`
+
 const votingPage = ` 
             id
             cardTitle,  
@@ -40,24 +51,22 @@ const votingPage = `
                     src
                   }
                 }
-            introVideo{url}
+            
+            
             shareHeading,
+            donateText{value},
             slug,
             questions {
                 ... on QuestionRecord {  id,   questionTitleSt {   value}}
             }
-             mainVideo {
-              id,
-               video {
-                muxPlaybackId
-                title
-                width
-                height
-                blurUpThumb
-              }
+            postVoteVideo${videoBlock}
+            mainVideo${videoBlock}
+            
+            agreeVoteText,
+            disagreeVoteText,
                 
               
-            }  
+            
 
             `;
 

@@ -11,30 +11,39 @@ import {getCountry} from "../repositories/utils/country";
 
 
 interface TVoteControls {
-   
-    showStatistics: boolean;
-    votingThankYou?: string;
-    votingPostVoteExplanation?: string;
-    questionId: string;
-
-    voteCallBack?: (voted: boolean) => void;
+    showStatistics: boolean,
+    votingThankYou?: string,
+    votingPostVoteExplanation?: string,
+    questionId: string,
+    voteCallBack?: (voted: boolean) => void,
+    agreeVoteText?: string,
+    disagreeVoteText?: string
 }
 
 export const VoteControls = ({
                                  showStatistics,
-
                                  questionId,
-
-                                 voteCallBack
+                                 voteCallBack,
+                                 agreeVoteText,
+                                 disagreeVoteText
                              }: TVoteControls) => {
     const [numYesVotes, setNumYesVotes] = useState(0);
     const [numNoVotes, setNumNoVotes] = useState(0);
     let numYesVotesStr = numYesVotes < 10 ? `0${numYesVotes}` : `${numYesVotes}`;
     let numNoVotesStr = numNoVotes < 10 ? `0${numNoVotes}` : `${numNoVotes}`;
 
-  
-    numYesVotesStr = numYesVotes > 1000 ? `${Math.floor(numYesVotes/1000)}k` : numYesVotesStr;
-    numNoVotesStr = numNoVotes >  1000 ? `${Math.floor(numNoVotes/1000)}k` : numNoVotesStr;
+
+    function splitText(text: string): [string, string] {
+        const words = text.split(' ');
+        const firstWord = words.shift() || '';
+        const restOfText = words.join(' ');
+
+        return [firstWord, restOfText];
+    }
+    
+    
+    numYesVotesStr = numYesVotes > 1000 ? `${Math.floor(numYesVotes / 1000)}k` : numYesVotesStr;
+    numNoVotesStr = numNoVotes > 1000 ? `${Math.floor(numNoVotes / 1000)}k` : numNoVotesStr;
     const [fetchedVotes, setFetchedVotes] = useState(false);
     const [voteChoice, setVoteChoice] = useState<Choice | undefined>(undefined)
 
@@ -171,18 +180,19 @@ export const VoteControls = ({
     }
 
     /*scroll down after voting so please share and donat is more prominate*/
-
+    const [disagreeTextFirstWord, disagreeTextRest] = splitText(disagreeVoteText || ' ');
+    const [agreeTextFirstWord, agreeTextRest] = splitText(agreeVoteText || ' ');
     return (
         <>
 
 
             <Row>
 
-                <Row lg="3" xl="3" style={{paddingTop:"1.5rem"}}></Row>
-                <Row  className={"voteControlRow"}>
+                <Row lg="3" xl="3" style={{paddingTop: "1.5rem"}}></Row>
+                <Row className={"voteControlRow"}>
 
-                  
-                        <Col className={`voteCol vote-count voted-${voteChoice === Choice.YES ? "this" : "other"}`}>
+
+                    <Col className={`voteCol vote-count voted-${voteChoice === Choice.YES ? "this" : "other"}`}>
                         <Button
                             id="vote-yes"
                             variant={voteChoice === Choice.YES ? "light" : "dark"}
@@ -192,7 +202,7 @@ export const VoteControls = ({
                             <FaThumbsUp className="thumbs-up"/>
                             {showStatistics ? <span className="yes">{numYesVotesStr}</span> : null}
                         </Button>
-
+                        <p><strong>{agreeTextFirstWord}</strong> {agreeTextRest}</p>
                     </Col>
                     <Col className={`voteCol vote-count voted-${voteChoice === Choice.NO ? "this" : "other"}`}>
                         <Button
@@ -204,10 +214,10 @@ export const VoteControls = ({
                             <FaThumbsDown className="thumbs-down"/>
                             {showStatistics ? <span className="no">{numNoVotesStr}</span> : null}
                         </Button>
-
+                        <p ><strong>{disagreeTextFirstWord}</strong> {disagreeTextRest}</p>
 
                     </Col>
-                    
+
                 </Row>
                 <Row lg="3" xl="3"></Row>
             </Row>

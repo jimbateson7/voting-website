@@ -1,9 +1,7 @@
 ﻿import "./VotingPage.scss";
-// @ts-ignore
 import {VoteControls} from "../components/VoteControls";
 import {Col, Row} from "react-bootstrap";
 import {v4 as generateGuid} from "uuid";
-// @ts-ignore
 import {TQuestionBlock} from "../repositories/Navigation/types";
 import {BlogList} from "../components/BlogList";
 import Donation from "../components/Donation";
@@ -11,7 +9,7 @@ import React, {useCallback, useEffect, useState} from "react";
 import {VoteResults} from "../components/VoteResults";
 import {Video} from "react-datocms/dist/types/VideoPlayer";
 import {VideoControl} from "../components/VideoControl";
-import {StructuredText} from "react-datocms";   
+import {StructuredText, StructuredTextDocument} from "react-datocms";   
 import { render } from 'datocms-structured-text-to-plain-text';
 import {getVotingPageJson} from "../repositories/VotingPage/request";
 import {SharingControls} from "../components/SharingControls";
@@ -22,23 +20,25 @@ export const localStorageWatchedIdKey = "voterWatched";
 
 
 export interface TVotingPage {
-    introVideoId: string | undefined;
-   
-    videoThumbnail: {responsiveImage:{src:string}} | undefined;
-    postVoteVideoId: string | undefined;
+
+    agreeVoteText: string;
+
+    disagreeVoteText: string;
+    donateText?: { value: StructuredTextDocument };
+
     heading?: string;
     introText: string;
-    votingThankYou?: string;
-    votingPostVoteExplanation?: string;
-    shareHeading?: string;
-    shareSubHeading?: string;
-    showStatistics: boolean;
-    showIntroVideo: boolean;
-    showSharePanel: boolean;
-
+    mainVideo: { id: string, video: Video };
+    postVoteVideo?: { id: string, video: Video };
     questions?: TQuestionBlock[];
 
-    mainVideo: { id: string, video: Video };
+    shareHeading?: string;
+
+    shareSubHeading?: string;
+    showIntroVideo: boolean;
+    showSharePanel: boolean;
+    showStatistics: boolean;
+    videoThumbnail: { responsiveImage: { src: string } } | undefined;
 }
 
 export interface TVotingQueryProps
@@ -111,11 +111,12 @@ const VotingPage = (queryProps: TVotingQueryProps) => {
 
     const initialState: TVotingPage =
         {
-            introVideoId: undefined,
+            agreeVoteText: "",
+            disagreeVoteText: "",
+            donateText: undefined,
+            postVoteVideo: undefined,
             introText: "",
-
             mainVideo: {id: "", video: {}},
-            postVoteVideoId: undefined,
             showIntroVideo: false,
             showSharePanel: false,
             showStatistics: false,
@@ -149,31 +150,27 @@ const VotingPage = (queryProps: TVotingQueryProps) => {
                     <div className="frame">
                         <div className="frame-content">
                             <Row className={"vote-controls"} >
-                                <Col className={"squashToRow"}>
+                                <Col className={"squashToRow pad50"}>
                                    
                                     <div className="questionTitle extra-padding" >
                                     <StructuredText data={question.questionTitleSt}/>
                                     </div>
                                     <div className="extra-padding" >
                                     <VoteControls voteCallBack={(b) => setVoted(b)}
-                                            
+                                                  agreeVoteText={props.agreeVoteText}
+                                                  disagreeVoteText={props.disagreeVoteText}
                                                   questionId={question.id}
                                                   showStatistics={false}
-                                                  votingPostVoteExplanation={props.votingPostVoteExplanation}
-                                                  votingThankYou={props.votingThankYou}/>
+                                                  
+                                                  />
                                     </div>
                                 </Col>
-                                <Col className={"squashToRow"}>
-                                    <VideoControl locale={queryProps.locale} fullScreenOnClick={true} datoVideo={props.mainVideo.video} ytUrl={props.introVideoId}
+                                <Col className={"squashToRow squashToRow50"}>
+                                    <VideoControl locale={queryProps.locale} fullScreenOnClick={true} datoVideo={props.mainVideo.video} 
                                                   onFinish={onWatched} videoThumbnail={props.videoThumbnail?.responsiveImage.src}/>
                                 </Col>
                             </Row>
-                            <Row  style={{paddingBottom: "30px"}}>
-                                <Col className="squashToRow"> <SharingControls  voted={voted} shareHeading={props.shareHeading ?? ""}
-                                              shareButtonText={mainQuestionText}/></Col>
-                                <Col className="squashToRow" style={{paddingBottom: "60px"}}>{watched ? <Donation/> : null}</Col>
-                                
-                            </Row>
+                            
                             
                             
                             {voted && showJumpButtons ? <Row style={{paddingBottom: "30px"}}>
@@ -191,7 +188,14 @@ const VotingPage = (queryProps: TVotingQueryProps) => {
             <Row style={{marginTop: "-0.5rem"}}>
                 
             </Row>
-
+            <SharingControls  voted={voted} shareHeading={props.shareHeading ?? ""}
+                              shareButtonText={mainQuestionText}/>
+            <hr/>
+            <div style={{textAlign:"center"}}>
+            <StructuredText data={props.donateText}/>
+            </div>
+            <Donation/>
+            
             {voted && showJumpButtons ?
                 <Row>
 

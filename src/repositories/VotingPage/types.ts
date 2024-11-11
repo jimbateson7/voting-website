@@ -1,5 +1,6 @@
 import {Video} from "react-datocms/dist/types/VideoPlayer";
 import {TQuestionBlock} from "../Navigation/types";
+import {StructuredTextDocument} from "react-datocms";
 
 
 export interface QueryResult {
@@ -8,24 +9,26 @@ export interface QueryResult {
 }
 
 export interface VotingPageData {
-    introVideo?: {url:string}
-
+    id: string;
+    questions?: TQuestionBlock[];
+    videoThumbnail:{responsiveImage:{src:string}}
+    agreeVoteText: string;
+    disagreeVoteText: string;
+    donateText: {value: StructuredTextDocument};
+    mainVideo: { id: string, video: Video };
+    postVoteVideo: { id: string, video: Video };
+    
     cardTitle?: string;
-    postVoteVideo?: string
+   
     heading?: string;
     showVoteStatistics?: boolean;
     introductionText?: string;
-    votingThankYou?: string;
-    votingPostVoteExplanation?: string;
+    
     shareHeading?: string;
     shareSubHeading?: string;
-    title?: string
-    url?: string
-    slug?: string
-    video?: { ytembedUrl: string, title: string }
-    id: string;
-    questions?: TQuestionBlock[];
-    mainVideo: { id: string, video: Video };
-    videoThumbnail:{responsiveImage:{src:string}}
+    title?: string;
+    url?: string;
+    slug?: string; 
+    
 }
 

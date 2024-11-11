@@ -36,10 +36,10 @@ export const SharingControls = ({voted, shareHeading, shareButtonText}: ISharing
     const emailSubject = twitterShareText;
 
     return (<>
-        <Row className="social-links share-row">
-            <Col className="squashToRow"><h2 id="share-heading" className={voted ? "voted" : ""}>{shareHeading}</h2></Col>
+        <Row className={"flexShare"}>
+            <Col className={"squashToRow flexGrow"}><p  className={voted ? "voted" : ""}>{shareHeading}</p></Col>
 
-            <Col className="squashToRow">
+            <Col className={"squashToRow spaceEven"}>
             <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//ourplanetourpeople.com" target="_blank"
                rel="noreferrer">
                 <FaFacebook onClick={() => record("Facebook")}
@@ -61,7 +61,7 @@ export const SharingControls = ({voted, shareHeading, shareButtonText}: ISharing
             
             }
 
-            <a href="https://www.instagram.com/" className="auto-hide">
+            <a href="https://www.instagram.com/" >
                 <FaInstagram onClick={() => record("Instagram")} style={{fontSize: '3rem', padding: '.25rem'}}/>
             </a>
 

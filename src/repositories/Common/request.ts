@@ -5,10 +5,10 @@ import {LogErrors} from "../utils/utilities";
 import {QueryBlocks} from "./query";
 
 
-function generateAllPagesQuery() {
+function generateAllPagesForNavQuery() {
     const query = `query pageQuery {
       allBlogPostModels {
-       __typename
+       __typename   
        ${QueryBlocks.BlogPost}  	
     
   }
@@ -19,11 +19,9 @@ function generateAllPagesQuery() {
   }
   votingPageModel{
     
-    __typename
-    
-  	  ${QueryBlocks.VotingPage}  		 
-
-    
+    __typename    
+  	  slug,
+      cardTitle,
   }
 }`
     return query;
@@ -36,7 +34,7 @@ function mapAllSlugs(root: QueryResult): NavigationItem[] {
 }
 
 export const getAllNavData = () => {
-    const query = generateAllPagesQuery();
+    const query = generateAllPagesForNavQuery();
     return fetchDataDato<QueryResult>(query).then((root: QueryResult) => {
 
        

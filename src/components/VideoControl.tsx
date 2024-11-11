@@ -11,9 +11,6 @@ import {Interface} from "node:readline";
 export const VideoControl = ({
                                  onFinish,
                                  datoVideo,
-                                 ytUrl,
-                                 videoTitle,
-                                 pageTitle,
                                  videoThumbnail,
                                  fullScreenOnClick,
                                  locale
@@ -21,16 +18,13 @@ export const VideoControl = ({
     onFinish?: () => void,
     datoVideo: Video | undefined,
     videoThumbnail?: string,
-    ytUrl: string | undefined,
     pageTitle?: string,
     videoTitle?: string,
     fullScreenOnClick: boolean,
     locale?: string
 }) => {
 
-    
-    const useDatoVideo = !ytUrl;
-
+       
     
     const onPlay = () =>
     {        
@@ -116,28 +110,15 @@ export const VideoControl = ({
         <div className="video-overlay"onClick={forcePause}></div>
         <div className="video-frame" ></div>
 
-        {datoVideo && useDatoVideo ? <VideoPlayer
+         <VideoPlayer
 
-                
-               
-                
                 thumbnailTime={0}
                 poster={videoThumbnail}
                 onEnded={onEnd}
                 onPlay={onPlay}
                 onPause={onPause}
                 accentColor="#57b3d9"
-
-
-                data={datoVideo}></VideoPlayer> :
-            <TrackedYoutubeVideo autoPlay={false}
-                                 showFrame={false}
-                                 pageTitle={pageTitle ?? "test"}
-                                 onFinish={onFinish}
-                                 videoId={extractYoutubeVideoIdSafe(ytUrl)}
-                                 videoTitle={videoTitle ?? "test"}/>
-        }
-
+                data={datoVideo}></VideoPlayer>
 
     </div>)
 }

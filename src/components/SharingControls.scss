@@ -42,6 +42,13 @@
 
   transition: transform ease-in-out 0.5s;
 
+  .share-buttons
+  {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+  }
   .social-links {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
