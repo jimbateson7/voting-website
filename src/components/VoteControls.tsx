@@ -117,6 +117,7 @@ export const VoteControls = ({
 
 
     const SaveVoteToDb = async (choice: Choice) => {
+        setVoteChoice(choice);
         let localGuid = localStorage.getItem(localStorageVotingIdKey);
 
         if (!localGuid) {

@@ -196,21 +196,6 @@ const VotingPage = (queryProps: TVotingQueryProps) => {
             </div>
             <Donation/>
             
-            {voted && showJumpButtons ?
-                <Row>
-
-
-                    {props.questions?.map(question => {
-                        return (<VotingResultsFrame questionId={question.id}/>)
-                    })}
-
-
-                </Row> : null}
-
-
-            <Row>
-                <BlogList locale={queryProps.locale}/>
-            </Row>
 
 
         </>
