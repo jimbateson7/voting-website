@@ -1,11 +1,18 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useEffect} from "react";
 import "./VideoControl.scss"
 import {Video} from "react-datocms/dist/types/VideoPlayer";
 import {VideoPlayer} from "react-datocms";
-import {TrackedYoutubeVideo} from "../pages/TrackedYoutubeVideo";
-import {extractYoutubeVideoIdSafe} from "../repositories/utils/utilities";
-import {defaultLanguage} from "../languages";
-import {Interface} from "node:readline";
+
+export type TVideoProps = {
+    onFinish?: () => void,
+    datoVideo: Video | undefined,
+    videoThumbnail?: string,
+    pageTitle?: string,
+    videoTitle?: string,
+    fullScreenOnClick: boolean,
+    locale?: string
+    
+}
 
 
 export const VideoControl = ({
@@ -14,16 +21,8 @@ export const VideoControl = ({
                                  videoThumbnail,
                                  fullScreenOnClick,
                                  locale
-                             }: {
-    onFinish?: () => void,
-    datoVideo: Video | undefined,
-    videoThumbnail?: string,
-    pageTitle?: string,
-    videoTitle?: string,
-    fullScreenOnClick: boolean,
-    locale?: string
-}) => {
-
+                             }: TVideoProps) => {
+    
        
     
     const onPlay = () =>

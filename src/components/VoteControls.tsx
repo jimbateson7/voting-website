@@ -15,7 +15,8 @@ interface TVoteControls {
     votingThankYou?: string,
     votingPostVoteExplanation?: string,
     questionId: string,
-    voteCallBack?: (voted: boolean) => void,
+    voteResultCallBack?: (voted: boolean) => void,
+    voteChangedCallBack?: (choice: Choice) => void,
     agreeVoteText?: string,
     disagreeVoteText?: string
 }
@@ -23,7 +24,8 @@ interface TVoteControls {
 export const VoteControls = ({
                                  showStatistics,
                                  questionId,
-                                 voteCallBack,
+                                 voteResultCallBack,
+                                 voteChangedCallBack,
                                  agreeVoteText,
                                  disagreeVoteText
                              }: TVoteControls) => {
@@ -33,6 +35,7 @@ export const VoteControls = ({
     let numNoVotesStr = numNoVotes < 10 ? `0${numNoVotes}` : `${numNoVotes}`;
 
 
+    
     function splitText(text: string): [string, string] {
         const words = text.split(' ');
         const firstWord = words.shift() || '';
@@ -60,9 +63,8 @@ export const VoteControls = ({
         const aVote = votes.shift();
         const hasVoted = !!aVote;
 
-        if (voteCallBack) {
-            voteCallBack(hasVoted);
-        }
+        voteResultCallBack?.(hasVoted);
+      
 
         if (hasVoted) {
             setVoteChoice(aVote.choice as Choice);
@@ -81,7 +83,7 @@ export const VoteControls = ({
         );
         setFetchedVotes(true);
 
-    }, [voteChoice, voteCallBack])
+    }, [voteResultCallBack])
 
 
     useEffect(() => {
@@ -117,7 +119,7 @@ export const VoteControls = ({
 
 
     const SaveVoteToDb = async (choice: Choice) => {
-        setVoteChoice(choice);
+        
         let localGuid = localStorage.getItem(localStorageVotingIdKey);
 
         if (!localGuid) {
@@ -169,12 +171,19 @@ export const VoteControls = ({
             await DataStore.save(
                 new Vote({choice: choice, voterId: localGuid, questionId: questionId, country: country})
             ).then((x) => {
-                fetchVoteCounts();
+                fetchVoteCounts().then(() => {
+                    setFetchedVotes(true)
+                    setVoteChoice(choice);                  
+                });
             });
-
-
         }
     };
+    
+    function userChangedVote(choice:Choice) {
+        SaveVoteToDb(choice);
+        voteChangedCallBack?.(choice);
+    }
+    
 
     if (!fetchedVotes) {
         fetchVoteCounts().then(() => setFetchedVotes(true));
@@ -191,25 +200,25 @@ export const VoteControls = ({
 
                 <Row lg="3" xl="3" style={{paddingTop: "1.5rem"}}></Row>
                 <Row className={"voteControlRow"}>
-
-
-                    <Col className={`voteCol vote-count voted-${voteChoice === Choice.YES ? "this" : "other"}`}>
+                    
+                    <Col className={`voteCol `}>
                         <Button
+                            className={`btn-${voteChoice === Choice.YES ? "light" : "dark"}`}
                             id="vote-yes"
-                            variant={voteChoice === Choice.YES ? "light" : "dark"}
+                            
                             size="lg"
-                            onClick={() => SaveVoteToDb(Choice.YES)}
+                            onClick={() => userChangedVote(Choice.YES)}
                             title={voteChoice === Choice.YES ? "You voted Yes" : "Change vote to Yes"}>
                             <FaThumbsUp className="thumbs-up"/>
                             {showStatistics ? <span className="yes">{numYesVotesStr}</span> : null}
                         </Button>
                         <p><strong>{agreeTextFirstWord}</strong> {agreeTextRest}</p>
                     </Col>
-                    <Col className={`voteCol vote-count voted-${voteChoice === Choice.NO ? "this" : "other"}`}>
+                    <Col className={`voteCol `}>
                         <Button
-                            variant={voteChoice === Choice.NO ? "light" : "dark"}
+                            className={`btn-${voteChoice === Choice.NO ? "light" : "dark"}`}
                             size="lg"
-                            onClick={() => SaveVoteToDb(Choice.NO)}
+                            onClick={() => userChangedVote(Choice.NO)}
                             id="vote-no"
                             title={voteChoice === Choice.NO ? "You voted No" : "Change vote to No"}>
                             <FaThumbsDown className="thumbs-down"/>

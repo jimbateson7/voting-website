@@ -3,16 +3,16 @@ import {VoteControls} from "../components/VoteControls";
 import {Col, Row} from "react-bootstrap";
 import {v4 as generateGuid} from "uuid";
 import {TQuestionBlock} from "../repositories/Navigation/types";
-import {BlogList} from "../components/BlogList";
 import Donation from "../components/Donation";
 import React, {useCallback, useEffect, useState} from "react";
-import {VoteResults} from "../components/VoteResults";
 import {Video} from "react-datocms/dist/types/VideoPlayer";
 import {VideoControl} from "../components/VideoControl";
-import {StructuredText, StructuredTextDocument} from "react-datocms";   
-import { render } from 'datocms-structured-text-to-plain-text';
+import {StructuredText, StructuredTextDocument} from "react-datocms";
+import {render} from 'datocms-structured-text-to-plain-text';
 import {getVotingPageJson} from "../repositories/VotingPage/request";
 import {SharingControls} from "../components/SharingControls";
+import {Choice} from "../models";
+import VideoOverlay from "../components/VideoOverlay";
 
 export const localStorageVotingIdKey = "voterId";
 export const localStorageWatchedIdKey = "voterWatched";
@@ -45,23 +45,6 @@ export interface TVotingQueryProps
 {
     locale:string
     id:string
-}
-export const VotingResultsFrame = ({questionId}: {questionId:string}) => {
-   return( <Row key={questionId}>
-        <div className="frame">
-            <div className="frame-content">
-                <h2 id="results-heading">Voting Results</h2>
-                {<VoteControls questionId={questionId} showStatistics={true}/>}
-                <Row style={{paddingTop: 20}}>
-                    <Col></Col>
-                    <Col> <VoteResults questionId={questionId}/></Col>
-                    <Col></Col>
-                </Row>
-
-            </div>
-        </div>
-
-    </Row>)
 }
 const VotingPage = (queryProps: TVotingQueryProps) => {
 
@@ -139,14 +122,26 @@ const VotingPage = (queryProps: TVotingQueryProps) => {
 
     }, [queryProps]);
     
+    const [showOverlay, setShowOverlay] = useState(false);
+    function voteChanged(choice:Choice)
+    {
+        console.log("show overlay")
+        setShowOverlay(true)
+    }
     const mainQuestionText = props.questions ? render(props.questions[0].questionTitleSt) ?? "Please Share" : "Please Share" ;
     const showJumpButtons = false;
     return (
         <>
 
+            <VideoOverlay show={showOverlay} onClose={() => {setShowOverlay(false)}}
+                              locale={queryProps.locale} fullScreenOnClick={true} datoVideo={props.mainVideo.video}
+                              onFinish={onWatched} videoThumbnail={props.videoThumbnail?.responsiveImage.src}/>
+            <div className={ showOverlay ? "ignore-container" : ""}>
             {props.questions?.map(question => {
 
-                return (<Row key={question.id}>
+                return (
+                    
+                    <Row key={question.id}>
                     <div className="frame">
                         <div className="frame-content">
                             <Row className={"vote-controls"} >
@@ -156,11 +151,12 @@ const VotingPage = (queryProps: TVotingQueryProps) => {
                                     <StructuredText data={question.questionTitleSt}/>
                                     </div>
                                     <div className="extra-padding" >
-                                    <VoteControls voteCallBack={(b) => setVoted(b)}
+                                    <VoteControls voteResultCallBack={(b) => setVoted(b)}
+                                                    voteChangedCallBack={(v) => voteChanged(v)}
                                                   agreeVoteText={props.agreeVoteText}
                                                   disagreeVoteText={props.disagreeVoteText}
                                                   questionId={question.id}
-                                                  showStatistics={false}
+                                                  showStatistics={false}    
                                                   
                                                   />
                                     </div>
@@ -195,7 +191,7 @@ const VotingPage = (queryProps: TVotingQueryProps) => {
             <StructuredText data={props.donateText}/>
             </div>
             <Donation/>
-            
+            </div>
 
 
         </>

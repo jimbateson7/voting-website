@@ -4,7 +4,7 @@ import "./App.scss";
 
 import {ContentTypes, NavigationItem} from "./repositories/Navigation/types";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import VotingPage, {localStorageVotingIdKey, localStorageWatchedIdKey, VotingResultsFrame} from "./pages/VotingPage";
+import VotingPage, {localStorageVotingIdKey, localStorageWatchedIdKey} from "./pages/VotingPage";
 
 import NoPage from "./pages/NoPage";
 import LoadingPage from "./pages/LoadingPage";
@@ -18,6 +18,7 @@ import {LayoutTs} from "./components/Layout";
 import {RouteChangeListener} from "./RouteChangeListener";
 import {VideoPage} from "./pages/VideoPage";
 import {ArticlePage} from "./pages/Article";
+import {VotingResultsFrame} from "./pages/VotingResultsFrame";
 
 
 export const headerComponentId = "P36f8RaOQUuxcV5US2-A8Q"; //todo this is a bit rubbish

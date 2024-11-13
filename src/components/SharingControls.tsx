@@ -16,9 +16,10 @@ export interface ISharingControls {
     voted: boolean;
     shareHeading: string;
     shareButtonText?: string;
+    className?: string;
 }
 
-export const SharingControls = ({voted, shareHeading, shareButtonText}: ISharingControls) => {
+export const SharingControls = ({className, voted, shareHeading, shareButtonText}: ISharingControls) => {
     //todo
     function record(text: string) {
 
@@ -36,7 +37,7 @@ export const SharingControls = ({voted, shareHeading, shareButtonText}: ISharing
     const emailSubject = twitterShareText;
 
     return (<>
-        <Row className={"flexShare"}>
+        <Row className={`flexShare ${className ?? ''}`}>
             <Col className={"squashToRow flexGrow"}><p  className={voted ? "voted" : ""}>{shareHeading}</p></Col>
 
             <Col className={"squashToRow spaceEven"}>
