@@ -67,7 +67,7 @@ export const VideoHubCard = (props: TVidoHubCard) => {
         <div className="card video-card">
             <div className="card-content" key={props.uniqueKey}>
 
-                <VideoControl fullScreenOnClick={false} datoVideo={props.mainVideo.video} pageTitle={props.pageTitle}
+                <VideoControl fullScreenOnClick={true} datoVideo={props.mainVideo.video} pageTitle={props.pageTitle}
                               videoTitle={props.videoTitle} videoThumbnail={props.videoThumbnail?.responsiveImage?.src}/>
 
             </div>
