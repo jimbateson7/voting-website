@@ -134,7 +134,7 @@ const VotingPage = (queryProps: TVotingQueryProps) => {
         <>
 
             <VideoOverlay show={showOverlay} onClose={() => {setShowOverlay(false)}}
-                              locale={queryProps.locale} fullScreenOnClick={true} datoVideo={props.mainVideo.video}
+                              locale={queryProps.locale} fullScreenOnClick={true} datoVideo={props.postVoteVideo?.video}
                               onFinish={onWatched} videoThumbnail={props.videoThumbnail?.responsiveImage.src}/>
             <div className={ showOverlay ? "ignore-container" : ""}>
             {props.questions?.map(question => {
