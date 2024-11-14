@@ -56,7 +56,10 @@ const VotingPage = (queryProps: TVotingQueryProps) => {
     if(reset)
     {
         console.log("User has chosen to reset", searchParams.get("reset"));
+        
         localStorage.clear()
+        window.location.href = "/";
+        
     }
     
     const lwatchedString = localStorage.getItem(localStorageWatchedIdKey);
