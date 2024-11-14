@@ -13,6 +13,7 @@ import {getVotingPageJson} from "../repositories/VotingPage/request";
 import {SharingControls} from "../components/SharingControls";
 import {Choice} from "../models";
 import VideoOverlay from "../components/VideoOverlay";
+import {useSearchParams} from "react-router-dom";
 
 export const localStorageVotingIdKey = "voterId";
 export const localStorageWatchedIdKey = "voterWatched";
@@ -48,8 +49,15 @@ export interface TVotingQueryProps
 }
 const VotingPage = (queryProps: TVotingQueryProps) => {
 
-
+    const [searchParams, setSearchParams] = useSearchParams();
+    const reset = searchParams.get("reset");
     
+    
+    if(reset)
+    {
+        console.log("User has chosen to reset", searchParams.get("reset"));
+        localStorage.clear()
+    }
     
     const lwatchedString = localStorage.getItem(localStorageWatchedIdKey);
     const lwatched = lwatchedString ? lwatchedString === "true" : false;
