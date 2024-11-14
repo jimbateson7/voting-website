@@ -31,7 +31,7 @@ const VideoOverlay = (props: TOverlayVideoProps) => {
                 
                 <button className="close" onClick={() => props.onClose()}>X</button>
                 <div className="video-frame"></div>
-                <VideoControl {...props}/>
+                <VideoControl {...props} autoPlay={true}/>
                
                 <SharingControls className={"overlay-share-buttons"} voted={true} shareHeading={"Please share...."?? ""}
                               shareButtonText={"hello world"}/>

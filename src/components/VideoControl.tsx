@@ -11,7 +11,7 @@ export type TVideoProps = {
     videoTitle?: string,
     fullScreenOnClick: boolean,
     locale?: string
-    
+    autoPlay?: boolean
 }
 
 
@@ -20,7 +20,8 @@ export const VideoControl = ({
                                  datoVideo,
                                  videoThumbnail,
                                  fullScreenOnClick,
-                                 locale
+                                 locale,
+                                 autoPlay = false
                              }: TVideoProps) => {
     
        
@@ -58,6 +59,13 @@ export const VideoControl = ({
         const videoPlayer = document.querySelector("mux-player") as unknown as {pause:()=>{}}
 
         videoPlayer.pause();
+    }
+
+    const forcePlay  = () =>
+    {
+        const videoPlayer = document.querySelector("mux-player") as unknown as {play:()=>{}}
+
+        videoPlayer.play();
     }
     
     if(datoVideo)
@@ -98,12 +106,15 @@ export const VideoControl = ({
             if(!videoPlayer)
                 return;
                             
-            videoPlayer.src += `&default_subtitles_lang=${locale}`;            
+            videoPlayer.src += `&default_subtitles_lang=${locale}`;
+            //forcePause();
             clearInterval(intervalId); // Stop polling when element is found            
         }, 500); // Adjust polling interval as needed
 
         return () => clearInterval(intervalId); // Cleanup on unmount
     }, []);
+    //forcePause();
+
     
     return (<div id="dato-video-player">
         <div className="video-overlay"onClick={forcePause}></div>
@@ -113,6 +124,7 @@ export const VideoControl = ({
 
                 thumbnailTime={0}
                 poster={videoThumbnail}
+                autoPlay={autoPlay}
                 onEnded={onEnd}
                 onPlay={onPlay}
                 onPause={onPause}
