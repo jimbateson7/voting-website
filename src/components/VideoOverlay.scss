@@ -7,7 +7,7 @@
     background-color: #ffffff;
     border-radius: 20px;
     border: 15px solid #64cbd0;
-    z-index: 20;
+    z-index: 100000 !important;
     text-align: center;
 }
 #overlay
@@ -17,7 +17,7 @@
     background-color: #000000;
     opacity: 50%;
     position: fixed;
-    z-index: 20;
+    z-index: 100000;
     left: 0;
     top: 0;     
 }
@@ -50,7 +50,7 @@
 
 .video-frame {
     position: relative;
-    z-index: 2;
+    z-index: 100000;
 }
 
 .share-text

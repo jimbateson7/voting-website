@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import "./VideoControl.scss"
 import {Video} from "react-datocms/dist/types/VideoPlayer";
 import {VideoPlayer} from "react-datocms";
@@ -15,6 +15,24 @@ export type TVideoProps = {
 }
 
 
+interface MuxPlayer {
+    play(): void;
+    pause(): void;
+    stop(): void;
+    seek(time: number): void;
+    getDuration(): number;
+    getCurrentTime(): number;
+    setVolume(volume: number): void;
+    getVolume(): number;
+    mute(): void;
+    unmute(): void;
+    isMuted(): boolean;
+    requestFullscreen(): void;
+    exitFullscreen(): void;
+    webkitRequestFullscreen(): void;
+    msRequestFullscreen(): void;
+}
+
 export const VideoControl = ({
                                  onFinish,
                                  datoVideo,
@@ -23,14 +41,37 @@ export const VideoControl = ({
                                  locale,
                                  autoPlay = false
                              }: TVideoProps) => {
-    
-       
+
+    const [goFullScreenOnClick    , setGoFullScreenOnClick] = useState(fullScreenOnClick)
+
+    // Function to toggle fullscreen
+    function goFullScreen() {
+        const player = document.querySelector("mux-player");
+        const videoElement = player as unknown as MuxPlayer;
+        if(!videoElement)
+        {
+            return; 
+        }
+        if (videoElement.requestFullscreen) {
+            videoElement.requestFullscreen();
+        } else if (videoElement.webkitRequestFullscreen) {
+            videoElement.webkitRequestFullscreen();
+
+        } else if (videoElement.msRequestFullscreen) {
+            videoElement.msRequestFullscreen();
+
+        }
+    }
     
     const onPlay = () =>
     {        
         const videoPlayer = document.getElementById('dato-video-player');
-        if(fullScreenOnClick)
-            videoPlayer?.classList.add('fullscreen');
+        if(goFullScreenOnClick) {
+            goFullScreen();     
+            setGoFullScreenOnClick(false);
+        }
+
+        
         
         if(onFinish)
             onFinish();
@@ -56,14 +97,14 @@ export const VideoControl = ({
     }
     const forcePause  = () =>
     {
-        const videoPlayer = document.querySelector("mux-player") as unknown as {pause:()=>{}}
+        const videoPlayer = document.querySelector("mux-player") as unknown as MuxPlayer
 
         videoPlayer.pause();
     }
 
     const forcePlay  = () =>
     {
-        const videoPlayer = document.querySelector("mux-player") as unknown as {play:()=>{}}
+        const videoPlayer = document.querySelector("mux-player") as unknown as MuxPlayer
 
         videoPlayer.play();
     }

@@ -14,6 +14,14 @@
   row-gap: 10px;
 }
 
+.videoColumn
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
 .row {
   text-align: center;
   justify-content: center;
@@ -85,9 +93,13 @@ svg {
 {
     flex-grow: 2;
 }
+.sharingControls
+{
+    z-index: 1;
+}
 .spaceEven
 {
-  z-index: 3;
+  
   align-content: center;
   margin-right: 5%;
     justify-content: space-between;

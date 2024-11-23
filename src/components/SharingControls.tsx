@@ -40,7 +40,7 @@ export const SharingControls = ({className, voted, shareHeading, shareButtonText
         <Row className={`flexShare ${className ?? ''}`}>
             <Col className={"squashToRow flexGrow"}><p  className={voted ? "voted" : ""}>{shareHeading}</p></Col>
 
-            <Col className={"squashToRow spaceEven"}>
+            <Col className={"squashToRow spaceEven sharingControls"}>
             <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//ourplanetourpeople.com" target="_blank"
                rel="noreferrer">
                 <FaFacebook onClick={() => record("Facebook")}

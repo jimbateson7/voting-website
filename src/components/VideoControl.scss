@@ -9,11 +9,10 @@ mux-player {
 /* Prevent .fullscreen styles on mobile */
 @media (min-width: 768px) {
 
-  #dato-video-player
-  {
+  #dato-video-player {
     margin-right: 5%;
   }
-  
+  /*
   .fullscreen > .video-overlay
   {
     position: fixed !important;
@@ -38,11 +37,11 @@ mux-player {
     margin-left: -1%;
     margin-top: -1%;
     padding-right: 10px;
-    border: 15px solid var(--secondary); /* Adjust border style as needed */
+    border: 15px solid var(--secondary); //Adjust border style as needed 
 
     border-radius: 20px;
-    z-index: 11;
-    pointer-events: none; /* This line prevents clicks on the frame */
+    z-index: 110000;
+    pointer-events: none; // This line prevents clicks on the frame 
   }
   .fullscreen {
     width: 80%;
@@ -50,26 +49,28 @@ mux-player {
     position: fixed;
     top: 15%;
     left: 10%;
-    z-index: 10;
+    z-index: 1000;
     border-width: 20px;
     background-color: var(--primary);
     color: var(--primary);;
     border-radius: 50px;
 
   }
-}
+
+*/
+} 
 @media (min-width: 1650px) {
 
   #dato-video-player
   {
     margin-right: 10%;
   }
-  
+  /*
   .fullscreen {
     width: 70% ;
 
     position: fixed;
     top: 15%;
     left: 15%;
-  }
+  }*/
 }
