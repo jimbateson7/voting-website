@@ -13,10 +13,7 @@
   width: auto;
   row-gap: 10px;
 }
-.voteCol
-{
-  width: 100px;
-}
+
 .row {
   text-align: center;
   justify-content: center;
@@ -36,9 +33,18 @@
 
 }
 
+.voteCol {
+
+  width: 120px;
+
+}
 .voteCol p
 {    
   font-size: 0.9rem !important;
+
+  line-height: 1.2;
+
+  margin-top: 10px;
 }
 svg {
   font-size: 2.5rem;
@@ -81,8 +87,11 @@ svg {
 }
 .spaceEven
 {
+  z-index: 3;
+  align-content: center;
+  margin-right: 5%;
     justify-content: space-between;
-  display: flex;
+    display: flex;
 }
 .pad50
 {
