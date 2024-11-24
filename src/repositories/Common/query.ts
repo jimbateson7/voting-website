@@ -59,6 +59,7 @@ const votingPage = `
             questions {
                 ... on QuestionRecord {  id,   questionTitleSt {   value}}
             }
+            postThankYou${videoBlock}
             postVoteVideo${videoBlock}
             mainVideo${videoBlock}
             

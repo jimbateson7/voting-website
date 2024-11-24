@@ -3,14 +3,17 @@ import "./VideoOverlay.scss";
 
 import {TVideoProps, VideoControl} from "./VideoControl";
 import {SharingControls} from "./SharingControls";
+import {Video} from "react-datocms/dist/types/VideoPlayer";
 
 type TOverlayVideoProps = TVideoProps &
     {
         show: boolean;
+        altVideo: Video | undefined,
         onClose: () => void;
     }
 const VideoOverlay = (props: TOverlayVideoProps) => {
 
+    const [useAlt, setUseAlt] = useState(false);
     useEffect(() => {
         if(props.show)
             window.scrollTo(0, 0);
@@ -20,7 +23,7 @@ const VideoOverlay = (props: TOverlayVideoProps) => {
     {
         return null;
     }
-   
+
     return (
         <>
         <div id="overlay"></div>
@@ -31,13 +34,13 @@ const VideoOverlay = (props: TOverlayVideoProps) => {
                 
                 <button className="close" onClick={() => props.onClose()}>X</button>
                 <div className="video-frame"></div>
-                <VideoControl {...props} autoPlay={true}/>
+                <VideoControl {...props} onFinish={() => setUseAlt(true)} datoVideo={useAlt ? props.altVideo : props.datoVideo} autoPlay={true}/>
                
                 <SharingControls className={"overlay-share-buttons"} voted={true} shareHeading={"Please share...."?? ""}
-                              shareButtonText={"hello world"}/>
+                              shareButtonText={"Please share!"}/>
               
                 <div className={"share-text"}>
-                    Watch our full <a href="#" className={"share-link"}>Climate Change Crisis</a> explanation video
+                    Watch our full <a href="#" onClick={() => setUseAlt(true)} className={"share-link"}>Climate Change Crisis</a> explanation video
                 </div>
             </div>
         </>

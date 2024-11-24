@@ -5,6 +5,8 @@ import {VideoPlayer} from "react-datocms";
 
 export type TVideoProps = {
     onFinish?: () => void,
+    onPause?: () => void,
+    onPlay?: () => void,
     datoVideo: Video | undefined,
     videoThumbnail?: string,
     pageTitle?: string,
@@ -35,6 +37,8 @@ interface MuxPlayer {
 
 export const VideoControl = ({
                                  onFinish,
+                                 onPlay,
+                                 onPause,
                                  datoVideo,
                                  videoThumbnail,
                                  fullScreenOnClick,
@@ -63,20 +67,18 @@ export const VideoControl = ({
         }
     }
     
-    const onPlay = () =>
+    const onVideoPlay = () =>
     {        
         const videoPlayer = document.getElementById('dato-video-player');
         if(goFullScreenOnClick) {
             goFullScreen();     
             setGoFullScreenOnClick(false);
-        }
-
+        }        
         
-        
-        if(onFinish)
-            onFinish();
+        if(onPlay)
+            onPlay();
     }
-    const onEnd = () =>
+    const onVideoEnd = () =>
     {
         const videoPlayer = document.getElementById('dato-video-player');
         videoPlayer?.classList.remove('fullscreen');
@@ -85,13 +87,13 @@ export const VideoControl = ({
             onFinish();
     }
 
-    const onPause = () =>
+    const onVideoPause = () =>
     {
         const videoPlayer = document.getElementById('dato-video-player');
         videoPlayer?.classList.remove('fullscreen');
 
-        if(onFinish)
-            onFinish();
+        if(onPause)
+            onPause();
         
         return videoPlayer;
     }
@@ -166,9 +168,9 @@ export const VideoControl = ({
                 thumbnailTime={0}
                 poster={videoThumbnail}
                 autoPlay={autoPlay}
-                onEnded={onEnd}
-                onPlay={onPlay}
-                onPause={onPause}
+                onEnded={onVideoEnd}
+                onPlay={onVideoPlay}
+                onPause={onVideoPause}
                 accentColor="#57b3d9"
                 data={datoVideo}></VideoPlayer>
 

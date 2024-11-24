@@ -9,11 +9,11 @@ const Donation = () => {
     return whyDontate ?
         (<>
 
-            <Row>
+            <Row >
                 <Col></Col>
                 <Col>
 
-                    <Button onClick={() => {
+                    <Button id="donate-button" onClick={() => {
                         const width = window.innerWidth * 0.9;
                         const height = window.innerHeight * 0.9;
 

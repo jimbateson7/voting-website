@@ -38,7 +38,7 @@ export const SharingControls = ({className, voted, shareHeading, shareButtonText
 
     return (<>
         <Row className={`flexShare ${className ?? ''}`}>
-            <Col className={"squashToRow flexGrow"}><p  className={voted ? "voted" : ""}>{shareHeading}</p></Col>
+            <Col id="share-heading" className={"squashToRow flexGrow"}><p  className={voted ? "voted" : ""}>{shareHeading}</p></Col>
 
             <Col className={"squashToRow spaceEven sharingControls"}>
             <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//ourplanetourpeople.com" target="_blank"

@@ -17,7 +17,7 @@ export interface VotingPageData {
     donateText: {value: StructuredTextDocument};
     mainVideo: { id: string, video: Video };
     postVoteVideo: { id: string, video: Video };
-    
+    postThankYou: { id: string, video: Video };    
     cardTitle?: string;
    
     heading?: string;

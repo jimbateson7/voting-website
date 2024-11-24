@@ -31,6 +31,7 @@ export interface TVotingPage {
     introText: string;
     mainVideo: { id: string, video: Video };
     postVoteVideo?: { id: string, video: Video };
+    postThankYou?: { id: string, video: Video };
     questions?: TQuestionBlock[];
 
     shareHeading?: string;
@@ -67,6 +68,7 @@ const VotingPage = (queryProps: TVotingQueryProps) => {
 
     const [voted, setVoted] = useState(lwatched);
     const [watched, setWatched] = useState(false);
+    const [usePostThankYou, setUsePostThankyou] = useState(false);
 
     let userGuid = localStorage.getItem(localStorageVotingIdKey);
 
@@ -77,7 +79,13 @@ const VotingPage = (queryProps: TVotingQueryProps) => {
 
     function onWatched() {
         setWatched(true);
+        
         localStorage.setItem(localStorageWatchedIdKey, "true");
+    }
+    function onModalWatched() {
+     //   setUsePostThankyou(true);
+
+    
     }
 
     const [linkAdded, setLinkAdded] = useState(false);
@@ -139,15 +147,35 @@ const VotingPage = (queryProps: TVotingQueryProps) => {
         console.log("show overlay")
         setShowOverlay(true)
     }
+    function modalClosed()
+    {
+        setShowOverlay(false);
+        setUsePostThankyou(true)
+        
+    }
+    useEffect(() => {
+        
+        if(voted)
+        {
+            const targetHeading = document.getElementById('donate-button');
+            console.log("targetHeading 2", targetHeading);
+            targetHeading?.scrollIntoView({behavior: 'smooth'});
+        }
+
+
+    }, [showOverlay]);
     const mainQuestionText = props.questions ? render(props.questions[0].questionTitleSt) ?? "Please Share" : "Please Share" ;
     const showJumpButtons = false;
     return (
         <>
 
-            <VideoOverlay show={showOverlay} onClose={() => {setShowOverlay(false)}}
-                              locale={queryProps.locale} fullScreenOnClick={true} datoVideo={props.postVoteVideo?.video}
-                              onFinish={onWatched} videoThumbnail={props.videoThumbnail?.responsiveImage.src}/>
-            <div className={ showOverlay ? "ignore-container" : ""}>
+            
+                <VideoOverlay altVideo={props.postThankYou?.video} show={showOverlay} onClose={() => {modalClosed()}}
+                              locale={queryProps.locale} fullScreenOnClick={true} datoVideo={ props.postVoteVideo?.video }
+                              onFinish={onModalWatched} videoThumbnail={props.videoThumbnail?.responsiveImage.src}/> :
+                
+
+                <div className={ showOverlay ? "ignore-container" : ""}>
             {props.questions?.map(question => {
 
                 return (
