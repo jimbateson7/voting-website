@@ -157,7 +157,7 @@ const VotingPage = (queryProps: TVotingQueryProps) => {
         
         if(voted)
         {
-            const targetHeading = document.getElementById('donate-button');
+            const targetHeading = document.getElementById('share-heading');
             console.log("targetHeading 2", targetHeading);
             targetHeading?.scrollIntoView({behavior: 'smooth'});
         }
@@ -173,63 +173,72 @@ const VotingPage = (queryProps: TVotingQueryProps) => {
                 <VideoOverlay altVideo={props.postThankYou?.video} show={showOverlay} onClose={() => {modalClosed()}}
                               locale={queryProps.locale} fullScreenOnClick={true} datoVideo={ props.postVoteVideo?.video }
                               onFinish={onModalWatched} videoThumbnail={props.videoThumbnail?.responsiveImage.src}/> :
-                
 
-                <div className={ showOverlay ? "ignore-container" : ""}>
-            {props.questions?.map(question => {
 
-                return (
-                    
-                    <Row key={question.id}>
-                    <div className="frame">
-                        <div className="frame-content">
-                            <Row className={"vote-controls"} >
-                                <Col className={"squashToRow pad50"}>
-                                   
-                                    <div className="questionTitle extra-padding" >
-                                    <StructuredText data={question.questionTitleSt}/>
-                                    </div>
-                                    <div className="extra-padding" >
-                                    <VoteControls voteResultCallBack={(b) => setVoted(b)}
-                                                    voteChangedCallBack={(v) => voteChanged(v)}
-                                                  agreeVoteText={props.agreeVoteText}
-                                                  disagreeVoteText={props.disagreeVoteText}
-                                                  questionId={question.id}
-                                                  showStatistics={false}    
-                                                  
-                                                  />
-                                    </div>
-                                </Col>
-                                <Col className={"videoColumn squashToRow squashToRow50"}>
-                                    <VideoControl locale={queryProps.locale} fullScreenOnClick={true} datoVideo={props.mainVideo.video} 
-                                                  onFinish={onWatched} videoThumbnail={props.videoThumbnail?.responsiveImage.src}/>
-                                </Col>
-                            </Row>
-                            
-                            
-                            
-                            {voted && showJumpButtons ? <Row style={{paddingBottom: "30px"}}>
-                                <Col><a href="#share-heading" id="to-share" className="btn btn-primary">Share</a></Col>
-                                <Col><a href="#results-heading" id="to-results" className="btn btn-primary">Results</a></Col>
-                                {watched ? <Col ><Donation/></Col> : null}
-    
-                            </Row> : null}
+            <div className={showOverlay ? "ignore-container" : ""}>
+                {props.questions?.map(question => {
 
-                        </div>
-                    </div>
-                </Row>)
+                    return (
 
-            })}
-            <Row style={{marginTop: "-0.5rem"}}>
-                
-            </Row>
-            <SharingControls  voted={voted} shareHeading={props.shareHeading ?? ""}
-                              shareButtonText={mainQuestionText}/>
-            <hr/>
-            <div style={{textAlign:"center"}}>
-            <StructuredText data={props.donateText}/>
-            </div>
-            <Donation/>
+                        <Row key={question.id}>
+                            <div className="frame">
+                                <div className="frame-content">
+                                    <Row className={"vote-controls"}>
+                                        <Col className={"squashToRow pad50"}>
+
+                                            <div className="questionTitle extra-padding">
+                                                <StructuredText data={question.questionTitleSt}/>
+                                            </div>
+                                            <div className="extra-padding">
+                                                <VoteControls voteResultCallBack={(b) => setVoted(b)}
+                                                              voteChangedCallBack={(v) => voteChanged(v)}
+                                                              agreeVoteText={props.agreeVoteText}
+                                                              disagreeVoteText={props.disagreeVoteText}
+                                                              questionId={question.id}
+                                                              showStatistics={false}
+
+                                                />
+                                            </div>
+                                        </Col>
+                                        <Col className={"videoColumn squashToRow squashToRow50"}>
+                                            <VideoControl locale={queryProps.locale} fullScreenOnClick={true}
+                                                          datoVideo={props.mainVideo.video}
+                                                          onFinish={onWatched}
+                                                          videoThumbnail={props.videoThumbnail?.responsiveImage.src}/>
+                                        </Col>
+                                    </Row>
+
+
+                                    {voted && showJumpButtons ? <Row style={{paddingBottom: "30px"}}>
+                                        <Col><a href="#share-heading" id="to-share"
+                                                className="btn btn-primary">Share</a></Col>
+
+                                        <Col><a href="#results-heading" id="to-results"
+                                                className="btn btn-primary">Results</a></Col>
+                                        {watched ? <Col><Donation/></Col> : null}
+
+                                    </Row> : null}
+
+                                </div>
+                            </div>
+                        </Row>)
+
+                })}
+                <Row style={{marginTop: "-0.5rem"}}>
+
+                </Row>
+                <SharingControls voted={voted} shareHeading={props.shareHeading ?? ""}
+                                 shareButtonText={mainQuestionText}/>
+                <hr/>
+                <div style={{width:"50%", marginLeft:"25%"}}>
+                    <VideoControl locale={queryProps.locale} fullScreenOnClick={true} datoVideo={props.postThankYou?.video}
+                              onFinish={onWatched} videoThumbnail={props.videoThumbnail?.responsiveImage.src}/>
+                </div>
+                <hr/>
+                <div style={{textAlign: "center"}}>
+                    <StructuredText data={props.donateText}/>
+                </div>
+                <Donation/>
             </div>
 
 
