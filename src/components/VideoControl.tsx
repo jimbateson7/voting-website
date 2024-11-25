@@ -111,11 +111,11 @@ export const VideoControl = ({
         videoPlayer.play();
     }
     
-    if(datoVideo)
+  /*  if(datoVideo)
     {
         datoVideo["default_subtitles_lang"] = "es";
         datoVideo["defaultsubtitles"]="es";
-    }
+    }*/
     useEffect(() => {
         
        // videoPlayer.replaceWith(newVideoPlayer)

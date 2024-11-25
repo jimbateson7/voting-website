@@ -202,7 +202,7 @@ const VotingPage = (queryProps: TVotingQueryProps) => {
                                         </Col>
                                         <Col className={"videoColumn squashToRow squashToRow50"}>
                                             <VideoControl locale={queryProps.locale} fullScreenOnClick={true}
-                                                          datoVideo={props?.mainVideo?.video}
+                                                          datoVideo={props?.mainVideo?.video ?? props?.postVoteVideo?.video}
                                                           onFinish={onWatched}
                                                           videoThumbnail={props.videoThumbnail?.responsiveImage.src}/>
                                         </Col>
