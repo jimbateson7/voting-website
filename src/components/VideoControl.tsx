@@ -51,7 +51,7 @@ export const VideoControl = ({
     // Function to toggle fullscreen
     function goFullScreen() {
         const player = document.querySelector("mux-player");
-        const videoElement = player as unknown as MuxPlayer;
+       /* const videoElement = player as unknown as MuxPlayer;
         if(!videoElement)
         {
             return; 
@@ -64,7 +64,7 @@ export const VideoControl = ({
         } else if (videoElement.msRequestFullscreen) {
             videoElement.msRequestFullscreen();
 
-        }
+        }*/
     }
     
     const onVideoPlay = () =>
@@ -90,7 +90,7 @@ export const VideoControl = ({
     const onVideoPause = () =>
     {
         const videoPlayer = document.getElementById('dato-video-player');
-        videoPlayer?.classList.remove('fullscreen');
+        
 
         if(onPause)
             onPause();
