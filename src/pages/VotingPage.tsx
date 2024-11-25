@@ -170,9 +170,9 @@ const VotingPage = (queryProps: TVotingQueryProps) => {
         <>
 
             
-                <VideoOverlay altVideo={props.postThankYou?.video} show={showOverlay} onClose={() => {modalClosed()}}
-                              locale={queryProps.locale} fullScreenOnClick={true} datoVideo={ props.postVoteVideo?.video }
-                              onFinish={onModalWatched} videoThumbnail={props.videoThumbnail?.responsiveImage.src}/> :
+            <VideoOverlay altVideo={props.postThankYou?.video} show={showOverlay} onClose={() => {modalClosed()}}
+                          locale={queryProps.locale} fullScreenOnClick={true} datoVideo={ props.postVoteVideo?.video }
+                          onFinish={onModalWatched} videoThumbnail={props.videoThumbnail?.responsiveImage.src}/> 
 
 
             <div className={showOverlay ? "ignore-container" : ""}>
@@ -202,7 +202,7 @@ const VotingPage = (queryProps: TVotingQueryProps) => {
                                         </Col>
                                         <Col className={"videoColumn squashToRow squashToRow50"}>
                                             <VideoControl locale={queryProps.locale} fullScreenOnClick={true}
-                                                          datoVideo={props.mainVideo.video}
+                                                          datoVideo={props?.mainVideo?.video}
                                                           onFinish={onWatched}
                                                           videoThumbnail={props.videoThumbnail?.responsiveImage.src}/>
                                         </Col>
