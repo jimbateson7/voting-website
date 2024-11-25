@@ -230,9 +230,22 @@ const VotingPage = (queryProps: TVotingQueryProps) => {
                 <SharingControls voted={voted} shareHeading={props.shareHeading ?? ""}
                                  shareButtonText={mainQuestionText}/>
                 <hr/>
-                <div style={{width:"50%", marginLeft:"25%"}}>
-                    <VideoControl locale={queryProps.locale} fullScreenOnClick={true} datoVideo={props.postThankYou?.video}
-                              onFinish={onWatched} videoThumbnail={props.videoThumbnail?.responsiveImage.src}/>
+
+                <div style={{width: "50%", marginLeft: "25%"}} key={"second-video"}>
+
+                    <div className="card video-card">
+                        <div className="card-content" key={"second-video"}>
+
+                            <VideoControl fullScreenOnClick={true} datoVideo={props?.postThankYou?.video}
+                                          pageTitle={"share"}
+                                          videoTitle={"share"}
+                                          videoThumbnail={props.videoThumbnail?.responsiveImage?.src}/>
+
+                        </div>
+                    </div>
+
+                   
+
                 </div>
                 <hr/>
                 <div style={{textAlign: "center"}}>

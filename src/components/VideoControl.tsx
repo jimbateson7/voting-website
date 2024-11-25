@@ -164,7 +164,7 @@ export const VideoControl = ({
         <div className="video-frame" ></div>
 
          <VideoPlayer
-
+              
                 thumbnailTime={0}
                 poster={videoThumbnail}
                 autoPlay={autoPlay}
