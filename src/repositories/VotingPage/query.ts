@@ -20,7 +20,7 @@ export function generateVotingPageQuery(id: string, locale:string) {
       }
     }`
 
-    console.log("here is the query")
+  
     LogQuery(query);
 
     return query;

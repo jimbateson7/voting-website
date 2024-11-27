@@ -8,6 +8,11 @@ export interface QueryResult {
     errors: [];
 }
 
+export interface TVideoThumbnail {
+    thumbnailImage: {responsiveImage: {src: string}};
+    video: { id: string, video: Video };
+}
+
 export interface VotingPageData {
     id: string;
     questions?: TQuestionBlock[];
@@ -19,6 +24,11 @@ export interface VotingPageData {
     postVoteVideo: { id: string, video: Video };
     postThankYou: { id: string, video: Video };    
     cardTitle?: string;
+
+    thankYouVideo: TVideoThumbnail;
+    detailVideo: TVideoThumbnail;
+    landingVideo: TVideoThumbnail;
+    
    
     heading?: string;
     showVoteStatistics?: boolean;

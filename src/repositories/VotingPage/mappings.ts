@@ -14,6 +14,11 @@ export async function mapVotingPage(result: QueryResult): Promise<TVotingPage> {
     }
     const data:TVotingPage =
         {
+            videos: {
+                landingVideo: votingPage.landingVideo,
+                detailVideo: votingPage.detailVideo,
+                thankYouVideo: votingPage.thankYouVideo,
+            },
             agreeVoteText: votingPage.agreeVoteText,
             disagreeVoteText: votingPage.disagreeVoteText,        
             donateText: votingPage.donateText,
@@ -31,6 +36,9 @@ export async function mapVotingPage(result: QueryResult): Promise<TVotingPage> {
             videoThumbnail: votingPage.videoThumbnail
 
         }
+    
+    console.log("mapped data is")
+    console.log(data);
 
     return data;
 }

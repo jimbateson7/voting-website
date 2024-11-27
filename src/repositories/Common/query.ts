@@ -41,6 +41,8 @@ const videoBlock = `{
                   }
               }`
 
+const imgBlock = `{responsiveImage
+        {src}}`;
 const votingPage = ` 
             id
             cardTitle,  
@@ -51,7 +53,18 @@ const votingPage = `
                     src
                   }
                 }
-            
+            landingVideo{
+                video${videoBlock}
+                thumbnailImage${imgBlock}
+            }
+             detailVideo{
+                video${videoBlock}
+                thumbnailImage${imgBlock}
+            }
+             thankYouVideo{
+                video${videoBlock}
+                thumbnailImage${imgBlock}
+            }
             
             shareHeading,
             donateText{value},

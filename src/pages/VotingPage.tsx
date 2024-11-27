@@ -14,14 +14,21 @@ import {SharingControls} from "../components/SharingControls";
 import {Choice} from "../models";
 import VideoOverlay from "../components/VideoOverlay";
 import {useSearchParams} from "react-router-dom";
+import {TVideoThumbnail} from "../repositories/VotingPage/types";
 
 export const localStorageVotingIdKey = "voterId";
 export const localStorageWatchedIdKey = "voterWatched";
 
 
-
+export interface TVideos
+{
+    detailVideo: TVideoThumbnail;
+    thankYouVideo: TVideoThumbnail;
+    landingVideo: TVideoThumbnail;   
+}
 export interface TVotingPage {
 
+    videos?:TVideos;
     agreeVoteText: string;
 
     disagreeVoteText: string;
@@ -113,6 +120,7 @@ const VotingPage = (queryProps: TVotingQueryProps) => {
 
     const initialState: TVotingPage =
         {
+            videos: undefined,
             agreeVoteText: "",
             disagreeVoteText: "",
             donateText: undefined,
@@ -170,9 +178,9 @@ const VotingPage = (queryProps: TVotingQueryProps) => {
         <>
 
             
-            <VideoOverlay altVideo={props.postThankYou?.video} show={showOverlay} onClose={() => {modalClosed()}}
-                          locale={queryProps.locale} fullScreenOnClick={true} datoVideo={ props.postVoteVideo?.video }
-                          onFinish={onModalWatched} videoThumbnail={props.videoThumbnail?.responsiveImage.src}/> 
+            <VideoOverlay altVideo={props.videos?.thankYouVideo?.video} show={showOverlay} onClose={() => {modalClosed()}}
+                          locale={queryProps.locale} fullScreenOnClick={true} datoVideo={ props.videos?.thankYouVideo?.video?.video }
+                          onFinish={onModalWatched} videoThumbnail={props.videos?.thankYouVideo?.thumbnailImage?.responsiveImage.src}/> 
 
 
             <div className={showOverlay ? "ignore-container" : ""}>
@@ -202,9 +210,9 @@ const VotingPage = (queryProps: TVotingQueryProps) => {
                                         </Col>
                                         <Col className={"videoColumn squashToRow squashToRow50"}>
                                             <VideoControl locale={queryProps.locale} fullScreenOnClick={true}
-                                                          datoVideo={props?.mainVideo?.video ?? props?.postVoteVideo?.video}
+                                                          datoVideo={props.videos?.landingVideo?.video?.video ?? props?.mainVideo?.video}
                                                           onFinish={onWatched}
-                                                          videoThumbnail={props.videoThumbnail?.responsiveImage.src}/>
+                                                          videoThumbnail={props.videos?.landingVideo.thumbnailImage?.responsiveImage.src}/>
                                         </Col>
                                     </Row>
 
@@ -236,10 +244,10 @@ const VotingPage = (queryProps: TVotingQueryProps) => {
                     <div className="card video-card">
                         <div className="card-content" key={"second-video"}>
 
-                            <VideoControl fullScreenOnClick={true} datoVideo={props?.postThankYou?.video}
+                            <VideoControl fullScreenOnClick={true} datoVideo={props?.videos?.detailVideo?.video?.video}
                                           pageTitle={"share"}
                                           videoTitle={"share"}
-                                          videoThumbnail={props.videoThumbnail?.responsiveImage?.src}/>
+                                          videoThumbnail={props?.videos?.detailVideo?.thumbnailImage?.responsiveImage?.src}/>
 
                         </div>
                     </div>
