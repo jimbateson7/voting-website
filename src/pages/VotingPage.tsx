@@ -237,34 +237,37 @@ const VotingPage = (queryProps: TVotingQueryProps) => {
                 </Row>
                 <SharingControls voted={voted} shareHeading={props.shareHeading ?? ""}
                                  shareButtonText={mainQuestionText}/>
-                <hr/>
+                {voted ? <>
+                        <hr/>
+                        <div style={{width: "50%", marginLeft: "25%"}} key={"second-video"}>
 
-                <div style={{width: "50%", marginLeft: "25%"}} key={"second-video"}>
+                            <div className="card video-card">
+                                <div className="card-content" key={"second-video"}>
 
-                    <div className="card video-card">
-                        <div className="card-content" key={"second-video"}>
+                                    <VideoControl fullScreenOnClick={true}
+                                                  datoVideo={props?.videos?.detailVideo?.video?.video}
+                                                  pageTitle={"share"}
+                                                  videoTitle={"share"}
+                                                  videoThumbnail={props?.videos?.detailVideo?.thumbnailImage?.responsiveImage?.src}/>
 
-                            <VideoControl fullScreenOnClick={true} datoVideo={props?.videos?.detailVideo?.video?.video}
-                                          pageTitle={"share"}
-                                          videoTitle={"share"}
-                                          videoThumbnail={props?.videos?.detailVideo?.thumbnailImage?.responsiveImage?.src}/>
-
+                                </div>
+                            </div>
                         </div>
-                    </div>
-
-                   
-
-                </div>
-                <hr/>
-                <div style={{textAlign: "center"}}>
-                    <StructuredText data={props.donateText}/>
-                </div>
-                <Donation/>
+                    </>
+                    :null}
+                    
+                  
+                    <hr/>
+                    <div style={{textAlign: "center"}}>
+                <StructuredText data={props.donateText}/>
             </div>
+            <Donation/>
+        </div>
 
 
-        </>
-    );
+</>
+)
+    ;
 };
 
 export default VotingPage;
