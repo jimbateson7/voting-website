@@ -253,15 +253,16 @@ const VotingPage = (queryProps: TVotingQueryProps) => {
                                 </div>
                             </div>
                         </div>
-                    </>
-                    :null}
+                    
                     
                   
                     <hr/>
                     <div style={{textAlign: "center"}}>
-                <StructuredText data={props.donateText}/>
-            </div>
-            <Donation/>
+                        <StructuredText data={props.donateText}/>
+                    </div>
+                    <Donation/>
+                    </>
+                    :null}
         </div>
 
 
