@@ -178,7 +178,7 @@ const VotingPage = (queryProps: TVotingQueryProps) => {
             RenderComponent = VotingPageOption5;
 
             break;
-        case "chris": {
+        case "six": {
             RenderComponent = VotingPageOptionChris;
 
             variant = "original"

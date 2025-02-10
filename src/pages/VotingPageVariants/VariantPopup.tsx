@@ -35,7 +35,6 @@ export const VariantPopup = ({ setSearchParams, currentVariant }: { setSearchPar
                 <option value="Four">Four</option>
                 <option value="Five">Five</option>
                 <option value="Six">Six</option>
-                <option value="Chris">Chris</option>
             </select>
         </div>
     );
