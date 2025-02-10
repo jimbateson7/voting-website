@@ -9,9 +9,9 @@ import {QueryBlocks} from "../Common/query";
 export function generateVotingPageQuery(id: string, locale:string) {
 
     const isPreview = getPreview();
-    const filter = "";//id ? `filter: {id: {eq:"${id}"}}, ` : "";
+    const filter = id ? `filter: {variant: {eq:"${id}"}}, ` : "";
     const query = `query videoPageCollectionQuery {
-      votingPageModel( ${filter} locale:${locale}, fallbackLocales:[en, en_US]) 
+      votingPageModel( ${filter} locale:${locale}, fallbackLocales:[en]) 
       {
         
           

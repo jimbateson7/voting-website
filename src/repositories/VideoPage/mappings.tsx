@@ -12,8 +12,8 @@ export async function mapVideoData(result: QueryResult): Promise<TVideoPage> {
     return {
         header: actualPost.title,
         introText: actualPost.introText,
-        videoTitle: actualPost.mainVideo?.video?.title ?? undefined,
+        videoTitle: actualPost.mainVideo?.video?.video?.title ?? undefined,
         mainVideo: actualPost.mainVideo,
-        video: actualPost.video
+   
     };
 }

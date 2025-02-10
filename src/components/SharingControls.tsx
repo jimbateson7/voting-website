@@ -8,7 +8,7 @@ import {
     FaShare, FaShareAlt,
     FaTwitter
 } from "react-icons/fa";
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { Col, Row } from "react-bootstrap";
 import "./SharingControls.scss";
 
@@ -17,10 +17,32 @@ export interface ISharingControls {
     shareHeading: string;
     shareButtonText?: string;
     className?: string;
+    mainQuestionText?: string;
 }
 
-export const SharingControls = ({className, voted, shareHeading, shareButtonText}: ISharingControls) => {
-    //todo
+export const SharingControls = ({className, voted, shareHeading, shareButtonText,mainQuestionText}: ISharingControls) => {
+
+    const [linkAdded, setLinkAdded] = useState(false);
+    
+    useEffect(() => {
+        if (linkAdded)
+            return;
+
+        const copyLink = document.getElementById('copy-link') as HTMLLinkElement;
+        if(!copyLink)
+            return;
+
+        copyLink.addEventListener('click', (event) => {
+            event.preventDefault(); // Prevent default link behavior
+
+            // Get the link's href attribute
+            const link = copyLink.href;
+
+            navigator.share({url:link, title:mainQuestionText})
+
+        });
+        setLinkAdded(true);
+    })
     function record(text: string) {
 
 

@@ -43,8 +43,9 @@ export interface TQuestionBlock {
 }
 
 export interface NavigationItem extends NavigationGroup {
-    mainVideo: { id: string; video: Video | undefined };
-    video?: { ytembedUrl: string, title: string };
+
+    mainVideo: { id: string, video:{video: Video | undefined} } | undefined;
+    
     videoThumbnail: { responsiveImage: { src: string } };
     cardTitle: string;
     title: string;

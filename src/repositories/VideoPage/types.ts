@@ -11,7 +11,8 @@ export interface Data {
 
 
 export interface VideoItem {
-    mainVideo: { id: string, video: Video | undefined };
+
+    mainVideo: { id: string, video:{video: Video | undefined} } | undefined;
     sys: Sys
     __typename: string
     slug: string

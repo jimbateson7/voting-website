@@ -12,7 +12,9 @@ export const ArticlePage = (props: TArticlePage) => {
 
     const fetchData = useCallback(async () => {
         let dataFetched = await getPageJson(slug, locale);
-        setData(dataFetched);
+        if (dataFetched) {
+            setData(dataFetched);
+        }
     }, [slug,locale])
 
     const [data, setData] = useState<TPage>({

@@ -21,8 +21,8 @@ import {ArticlePage} from "./pages/Article";
 import {VotingResultsFrame} from "./pages/VotingResultsFrame";
 
 
-export const headerComponentId = "P36f8RaOQUuxcV5US2-A8Q"; //todo this is a bit rubbish
-export const footerComponentId = "dxEPpDQESBe0OBIqTxIDbg";
+export const headerComponentId = "UW2LLARmS3Oryu_9BT0IBQ"; //todo this is a bit rubbish
+export const footerComponentId = "QR1NY2zlRK-luRZZkbfB1w";  
 
 
 const Reset = () => {

@@ -60,11 +60,11 @@ export const DynamicNavList = (props: TDynamicNav) => {
                             return (
                                 <>
                                 <Nav.Link onClick={onSelect} as={NavLink} key={key} to={slugPrefix  + (navItem.slug ?? "")}
-                                          className="nav-link">
+                                          >
                                     {navItem.cardTitle}
                                 </Nav.Link>
                                 <Nav.Link onClick={onSelect} as={NavLink} key={key+"results"} to={ slugPrefix  +  "/results"}
-                                          className="nav-link">
+                                          >
                                     Voting Results
                                 </Nav.Link>
                                 </>
@@ -75,14 +75,14 @@ export const DynamicNavList = (props: TDynamicNav) => {
                             return (
 
                                 <Nav.Link onClick={onSelect} as={NavLink} key={key} to={slugPrefix + (navItem.slug ?? "")}
-                                          className="nav-link">
+                                         >
                                     {navItem.title}
                                 </Nav.Link>
                             );
                         case ContentTypes.NavigationGroup:
                             return (
-                                <NavDropdown key={key} title={navItem.title ?? "_"} id="basic-nav-dropdown">
-                                    < DynamicNavList onSelect={onSelect} itemGroup={(navItem).navigationItem} locale={props.locale}
+                                <NavDropdown  title={navItem.title ?? "_"} id="basic-nav-dropdown">
+                                    < DynamicNavList key={key} onSelect={onSelect} itemGroup={(navItem).navigationItem} locale={props.locale}
                                                     id={navItem?.id ?? "123"}></DynamicNavList>
                                 </NavDropdown>
                             );

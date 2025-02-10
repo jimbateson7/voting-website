@@ -6,29 +6,7 @@
 const blogPost = `title
             slug`;
 
-const videoPage = `title
-            slug
-            mainVideo {
-              id,
-               video {
-                muxPlaybackId
-                title
-                width
-                height
-                blurUpThumb
-                
-              }
-              
-              
-            }  
-            videoThumbnail 
-                {
-                  responsiveImage
-                  {
-                    src
-                  }
-                }
-            video{ytembedUrl,autoPlay,title}`;
+
 
 const videoBlock = `{
                    id,
@@ -43,6 +21,16 @@ const videoBlock = `{
 
 const imgBlock = `{responsiveImage
         {src}}`;
+
+const videoPage = `
+                id
+                slug
+                title
+                mainVideo{
+                video${videoBlock}
+                thumbnailImage${imgBlock}
+                }    
+            `;
 const votingPage = ` 
             id
             cardTitle,  
@@ -86,15 +74,22 @@ const votingPage = `
 
 const basicNavItems = `
           __typename
+          
           ... on VideoPageModelRecord {
-            ${videoPage}
+            title
+               id 
+               slug
+               mainVideo{video${videoBlock}}
           }
           ... on BlogPostModelRecord {
-            ${blogPost}
+             title
+            slug
+            id
           }
               
           ... on VotingPageModelRecord{
-            ${votingPage}
+            cardTitle
+            id
           }`
 
 export const QueryBlocks =
@@ -103,5 +98,6 @@ export const QueryBlocks =
         BlogPost: blogPost,
         VideoPost: videoPage,
         VotingPage: votingPage,
+        VideoComponent: videoPage,
     }
 

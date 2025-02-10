@@ -23,11 +23,11 @@ export type THubCard =
         uniqueKey: string;
     }
 export type TVidoHubCard = THubCard &
-    {
-        videoTitle: string;
-        videoUrl: string;
+    {        
+
         videoThumbnail:{responsiveImage:{src:string}}
-        mainVideo: { id: string, video: Video | undefined };
+   
+        mainVideo: { id: string, video:{video: Video | undefined} } | undefined;
     }
 
 function getOverrideFontSize(title: string): string | undefined {
@@ -64,14 +64,15 @@ export const VideoHubCard = (props: TVidoHubCard) => {
   
 
     return (
-        <div className="card video-card">
+        <a href={props.link} className={"card"} key={props.uniqueKey}>
+        <div className="video-card">
             <div className="card-content" key={props.uniqueKey}>
 
-                <VideoControl fullScreenOnClick={true} datoVideo={props.mainVideo.video} pageTitle={props.pageTitle}
-                              videoTitle={props.videoTitle} videoThumbnail={props.videoThumbnail?.responsiveImage?.src}/>
+                <VideoControl fullScreenOnClick={true} datoVideo={props.mainVideo?.video?.video} pageTitle={props.pageTitle}
+                              videoTitle={props.mainVideo?.video?.video?.title ?? ""} videoThumbnail={props.videoThumbnail?.responsiveImage?.src}/>
 
             </div>
-        </div>)
+        </div></a>)
 }
 export const HubCollection = (props: THubCollection) => {
     let subHubCollections: any[] = [];
@@ -107,8 +108,8 @@ export const HubCollection = (props: THubCollection) => {
                         mainHubCards.push(
                             <VideoHubCard key={key} pageTitle={pageTitle} cardTitle={x.title} link={link}
                                           videoThumbnail={x.videoThumbnail}
-                                          videoTitle={x.video?.title ?? ""}
-                                          videoUrl={x.video?.ytembedUrl ?? ""} uniqueKey={key} mainVideo={x.mainVideo}/>
+                                            
+                                           uniqueKey={key} mainVideo={x.mainVideo}/>
                         )
                     } else {
                         mainHubCards.push(

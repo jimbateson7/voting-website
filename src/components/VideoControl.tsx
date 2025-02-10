@@ -7,15 +7,15 @@ export type TVideoProps = {
     onFinish?: () => void,
     onPause?: () => void,
     onPlay?: () => void,
+    onProgress?: (time:number) => void,
     datoVideo: Video | undefined,
     videoThumbnail?: string,
     pageTitle?: string,
     videoTitle?: string,
-    fullScreenOnClick: boolean,
+    fullScreenOnClick: true | false | "force",
     locale?: string
     autoPlay?: boolean
 }
-
 
 interface MuxPlayer {
     play(): void;
@@ -39,6 +39,7 @@ export const VideoControl = ({
                                  onFinish,
                                  onPlay,
                                  onPause,
+                                 onProgress,
                                  datoVideo,
                                  videoThumbnail,
                                  fullScreenOnClick,
@@ -46,12 +47,13 @@ export const VideoControl = ({
                                  autoPlay = false
                              }: TVideoProps) => {
 
-    const [goFullScreenOnClick    , setGoFullScreenOnClick] = useState(fullScreenOnClick)
+    const [goFullScreenOnClick, setGoFullScreenOnClick] = useState(fullScreenOnClick)
 
     // Function to toggle fullscreen
     function goFullScreen() {
         const player = document.querySelector("mux-player");
-       /* const videoElement = player as unknown as MuxPlayer;
+        const videoElement = player as unknown as MuxPlayer;
+        if(fullScreenOnClick != "force") return;
         if(!videoElement)
         {
             return; 
@@ -64,9 +66,13 @@ export const VideoControl = ({
         } else if (videoElement.msRequestFullscreen) {
             videoElement.msRequestFullscreen();
 
-        }*/
+        }
     }
-    
+    const onVideoProgress = (event: any) =>
+    {
+        if(onProgress)
+            onProgress(event.target.currentTime);
+    }
     const onVideoPlay = () =>
     {        
         const videoPlayer = document.getElementById('dato-video-player');
@@ -170,6 +176,7 @@ export const VideoControl = ({
                 autoPlay={autoPlay}
                 onEnded={onVideoEnd}
                 onPlay={onVideoPlay}
+                onTimeUpdate={onVideoProgress}
                 onPause={onVideoPause}
                 accentColor="#57b3d9"
                 data={datoVideo}></VideoPlayer>

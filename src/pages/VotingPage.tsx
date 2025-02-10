@@ -1,20 +1,24 @@
 ﻿import "./VotingPage.scss";
-import {VoteControls} from "../components/VoteControls";
-import {Col, Row} from "react-bootstrap";
-import {v4 as generateGuid} from "uuid";
 import {TQuestionBlock} from "../repositories/Navigation/types";
-import Donation from "../components/Donation";
 import React, {useCallback, useEffect, useState} from "react";
 import {Video} from "react-datocms/dist/types/VideoPlayer";
-import {VideoControl} from "../components/VideoControl";
-import {StructuredText, StructuredTextDocument} from "react-datocms";
-import {render} from 'datocms-structured-text-to-plain-text';
-import {getVotingPageJson} from "../repositories/VotingPage/request";
-import {SharingControls} from "../components/SharingControls";
-import {Choice} from "../models";
-import VideoOverlay from "../components/VideoOverlay";
+
+import { StructuredTextDocument} from "react-datocms";
+
 import {useSearchParams} from "react-router-dom";
 import {TVideoThumbnail} from "../repositories/VotingPage/types";
+import VotingPageOriginal from "./VotingPageVariants/VotingPageOriginal";
+import {VariantPopup} from "./VotingPageVariants/VariantPopup";
+
+import {VotingPageOption2} from "./VotingPageVariants/VotingPageOption2";
+import {getVotingPageJson} from "../repositories/VotingPage/request";
+import {Choice} from "../models";
+import {v4 as generateGuid} from "uuid";
+import {VotingPageOptionChris} from "./VotingPageVariants/VotingPageOptionChris";
+import {VotingPageOption1} from "./VotingPageVariants/VotingPageOption1";
+import {VotingPageOption3} from "./VotingPageVariants/VotingPageOption3";
+import {VotingPageOption5} from "./VotingPageVariants/VotingPageOption5";
+import { VotingPageOption4 } from "./VotingPageVariants/VotingPageOption4";
 
 export const localStorageVotingIdKey = "voterId";
 export const localStorageWatchedIdKey = "voterWatched";
@@ -26,6 +30,7 @@ export interface TVideos
     thankYouVideo: TVideoThumbnail;
     landingVideo: TVideoThumbnail;   
 }
+
 export interface TVotingPage {
 
     videos?:TVideos;
@@ -48,7 +53,19 @@ export interface TVotingPage {
     showSharePanel: boolean;
     showStatistics: boolean;
     videoThumbnail: { responsiveImage: { src: string } } | undefined;
+    
+    
 }
+export interface TVotingPageExtended extends TVotingPage
+{
+    locale: string;
+    voteResultCallBack?: (voted: boolean) => void,
+    voteChangedCallBack?: (choice: Choice) => void,
+    watchedCallBack?: () => void,
+    watched:boolean,
+    voted:boolean,
+}
+
 
 export interface TVotingQueryProps
 {
@@ -59,6 +76,8 @@ const VotingPage = (queryProps: TVotingQueryProps) => {
 
     const [searchParams, setSearchParams] = useSearchParams();
     const reset = searchParams.get("reset");
+    const realVariant = searchParams.get("variant") ?? "Original";
+    let variant = realVariant?.toLowerCase() ?? "";
     
     
     if(reset)
@@ -66,58 +85,8 @@ const VotingPage = (queryProps: TVotingQueryProps) => {
         console.log("User has chosen to reset", searchParams.get("reset"));
         
         localStorage.clear()
-        window.location.href = "/";
-        
+        window.location.href = "/";        
     }
-    
-    const lwatchedString = localStorage.getItem(localStorageWatchedIdKey);
-    const lwatched = lwatchedString ? lwatchedString === "true" : false;
-
-    const [voted, setVoted] = useState(lwatched);
-    const [watched, setWatched] = useState(false);
-    const [usePostThankYou, setUsePostThankyou] = useState(false);
-
-    let userGuid = localStorage.getItem(localStorageVotingIdKey);
-
-    if (!userGuid) {
-        userGuid = generateGuid();
-        localStorage.setItem(localStorageVotingIdKey, userGuid);
-    }
-
-    function onWatched() {
-        setWatched(true);
-        
-        localStorage.setItem(localStorageWatchedIdKey, "true");
-    }
-    function onModalWatched() {
-     //   setUsePostThankyou(true);
-
-    
-    }
-
-    const [linkAdded, setLinkAdded] = useState(false);
-    
-    useEffect(() => {
-        if (linkAdded)
-            return;
-
-        const copyLink = document.getElementById('copy-link') as HTMLLinkElement;
-        if(!copyLink)
-            return;
-        
-        copyLink.addEventListener('click', (event) => {
-            event.preventDefault(); // Prevent default link behavior
-
-            // Get the link's href attribute
-            const link = copyLink.href;
-   
-            navigator.share({url:link, title:mainQuestionText})
-            
-        });
-        setLinkAdded(true);
-    })
-
-
     const initialState: TVotingPage =
         {
             videos: undefined,
@@ -130,145 +99,105 @@ const VotingPage = (queryProps: TVotingQueryProps) => {
             showIntroVideo: false,
             showSharePanel: false,
             showStatistics: false,
-            videoThumbnail: undefined
-
+            videoThumbnail: undefined,
+ 
         }
+    const lwatchedString = localStorage.getItem(localStorageWatchedIdKey);
+    const lwatched = lwatchedString ? lwatchedString === "true" : false;
+
+    const [voted, setVoted] = useState(lwatched);
+    const [watched, setWatched] = useState(false);
+
     const [data, setData] = useState<TVotingPage>(initialState);
-    const props = data;
+
+    let userGuid = localStorage.getItem(localStorageVotingIdKey);
+
+    if (!userGuid) {
+        userGuid = generateGuid();
+        localStorage.setItem(localStorageVotingIdKey, userGuid);
+    }
+
+    function onWatched() {
+        setWatched(true);
+
+        localStorage.setItem(localStorageWatchedIdKey, "true");
+    }
+    function voteChanged(choice:Choice)
+    {
+        console.log("show overlay")
+        
+    }
+    
+    const fullData:TVotingPageExtended = {
+        locale: "",
+        voteChangedCallBack: voteChanged,
+        voteResultCallBack: setVoted,    
+        watchedCallBack: onWatched,
+        voted:voted,
+        watched:watched,
+        ...data
+
+    }
+    
+ 
     const fetchData = useCallback(async () => {
-        
-        
-        let dataFetched = await getVotingPageJson(queryProps.id, queryProps.locale);
+
+        console.log("Fetching voter data...");
+        console.log("Varient is " + variant)
+        let dataFetched = await getVotingPageJson(variant, queryProps.locale);
 
         setData(dataFetched);
-    }, [queryProps])
+    }, [queryProps,variant]);
 
     useEffect(() => {
         fetchData().catch(console.error);
 
 
-    }, [queryProps]);
+    }, [queryProps,variant]);
     
-    const [showOverlay, setShowOverlay] = useState(false);
-    function voteChanged(choice:Choice)
-    {
-        console.log("show overlay")
-        setShowOverlay(true)
-    }
-    function modalClosed()
-    {
-        setShowOverlay(false);
-        setUsePostThankyou(true)
-        
-    }
-    useEffect(() => {
-        
-        if(voted)
-        {
-            const targetHeading = document.getElementById('share-heading');
-            console.log("targetHeading 2", targetHeading);
-            targetHeading?.scrollIntoView({behavior: 'smooth'});
+   
+    let RenderComponent;
+    switch (variant) {
+        case "one":
+            RenderComponent = VotingPageOption1;
+            
+            break;
+        case "two":
+            RenderComponent = VotingPageOption2;
+            
+            break;
+        case "three":
+            RenderComponent = VotingPageOption3;
+
+            break;
+        case "four":
+            RenderComponent = VotingPageOption4;
+
+            break;
+        case "five":
+            RenderComponent = VotingPageOption5;
+
+            break;
+        case "chris": {
+            RenderComponent = VotingPageOptionChris;
+
+            variant = "original"
+            break;
         }
+            
+        default: {
+            variant = "original"
+            RenderComponent = VotingPageOriginal;
+        }
+    }
 
-
-    }, [showOverlay]);
-    const mainQuestionText = props.questions ? render(props.questions[0].questionTitleSt) ?? "Please Share" : "Please Share" ;
-    const showJumpButtons = false;
     return (
         <>
-
-            
-            <VideoOverlay altVideo={props.videos?.thankYouVideo?.video} show={showOverlay} onClose={() => {modalClosed()}}
-                          locale={queryProps.locale} fullScreenOnClick={true} datoVideo={ props.videos?.thankYouVideo?.video?.video }
-                          onFinish={onModalWatched} videoThumbnail={props.videos?.thankYouVideo?.thumbnailImage?.responsiveImage.src}/> 
-
-
-            <div className={showOverlay ? "ignore-container" : ""}>
-                {props.questions?.map(question => {
-
-                    return (
-
-                        <Row key={question.id}>
-                            <div className="frame">
-                                <div className="frame-content">
-                                    <Row className={"vote-controls"}>
-                                        <Col className={"squashToRow pad50"}>
-
-                                            <div className="questionTitle extra-padding">
-                                                <StructuredText data={question.questionTitleSt}/>
-                                            </div>
-                                            <div className="extra-padding">
-                                                <VoteControls voteResultCallBack={(b) => setVoted(b)}
-                                                              voteChangedCallBack={(v) => voteChanged(v)}
-                                                              agreeVoteText={props.agreeVoteText}
-                                                              disagreeVoteText={props.disagreeVoteText}
-                                                              questionId={question.id}
-                                                              showStatistics={false}
-
-                                                />
-                                            </div>
-                                        </Col>
-                                        <Col className={"videoColumn squashToRow squashToRow50"}>
-                                            <VideoControl locale={queryProps.locale} fullScreenOnClick={true}
-                                                          datoVideo={props.videos?.landingVideo?.video?.video ?? props?.mainVideo?.video}
-                                                          onFinish={onWatched}
-                                                          videoThumbnail={props.videos?.landingVideo.thumbnailImage?.responsiveImage.src}/>
-                                        </Col>
-                                    </Row>
-
-
-                                    {voted && showJumpButtons ? <Row style={{paddingBottom: "30px"}}>
-                                        <Col><a href="#share-heading" id="to-share"
-                                                className="btn btn-primary">Share</a></Col>
-
-                                        <Col><a href="#results-heading" id="to-results"
-                                                className="btn btn-primary">Results</a></Col>
-                                        {watched ? <Col><Donation/></Col> : null}
-
-                                    </Row> : null}
-
-                                </div>
-                            </div>
-                        </Row>)
-
-                })}
-                <Row style={{marginTop: "-0.5rem"}}>
-
-                </Row>
-                <SharingControls voted={voted} shareHeading={props.shareHeading ?? ""}
-                                 shareButtonText={mainQuestionText}/>
-                {voted ? <>
-                        <hr/>
-                        <div style={{width: "50%", marginLeft: "25%"}} key={"second-video"}>
-
-                            <div className="card video-card">
-                                <div className="card-content" key={"second-video"}>
-
-                                    <VideoControl fullScreenOnClick={true}
-                                                  datoVideo={props?.videos?.detailVideo?.video?.video}
-                                                  pageTitle={"share"}
-                                                  videoTitle={"share"}
-                                                  videoThumbnail={props?.videos?.detailVideo?.thumbnailImage?.responsiveImage?.src}/>
-
-                                </div>
-                            </div>
-                        </div>
-                    
-                    
-                  
-                    <hr/>
-                    <div style={{textAlign: "center"}}>
-                        <StructuredText data={props.donateText}/>
-                    </div>
-                    <Donation/>
-                    </>
-                    :null}
-        </div>
-
-
-</>
-)
-    ;
+            <RenderComponent {...fullData}/>
+            <VariantPopup setSearchParams={setSearchParams} currentVariant={realVariant} />
+        </>
+    );  
+    
 };
 
 export default VotingPage;
