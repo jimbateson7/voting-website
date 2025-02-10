@@ -5,22 +5,33 @@ import {getVideoPageJson} from "../repositories/VideoPage/request";
 import {TArticlePage} from "../repositories/Common/types";
 import {Video} from "react-datocms";
 import {VideoControl} from "../components/VideoControl";
+import {VideoReferenceControl} from "../components/VideoReferenceControl";
 
+
+import {Col, Row} from "react-bootstrap";
 
 export interface TVideoPage {
-    mainVideo: { id: string, video: Video | undefined };
+    mainVideo: { id: string, video:{video: Video | undefined} } | undefined;
     header: string
     introText?: string;
     videoTitle?: string;
     videoThumbnail?: string;
-    video: { ytembedUrl: string, autoPlay: boolean, title: string }
+
+}
+function getLastSlugPart(slug: string, separator: string = '/'): string | undefined {
+    if (!slug) {
+        return undefined; // Handle empty or null slugs
+    }
+    const parts = slug.split(separator);
+    return parts.pop();
 }
 
 export const VideoPage = (props: TArticlePage) => {
     let {slug, locale} = props;
 
     const fetchData = useCallback(async () => {
-        let dataFetched = await getVideoPageJson(slug, locale);
+        var videoName = getLastSlugPart(slug);
+        let dataFetched = await getVideoPageJson(videoName ?? "", locale);
 
         setData(dataFetched);
     }, [slug])
@@ -28,11 +39,12 @@ export const VideoPage = (props: TArticlePage) => {
     const [data, setData] = useState<TVideoPage>({
         header: "",
         videoTitle: "UnknownVideo",
-        mainVideo: {video: undefined, id: ""},
+        mainVideo:  undefined,
         introText: "",
-        video: {title: "", autoPlay: false, ytembedUrl: ""}
     });
-
+    
+    const [timeStamp, setTimeStamp] = useState<number>(0);
+    
     useEffect(() => {
         fetchData().catch(console.error);
 
@@ -41,12 +53,18 @@ export const VideoPage = (props: TArticlePage) => {
 
     return (
         <>
-            <h1>{data.header}</h1>
+            <h1>{data.header}</h1>  
             {data.introText ? <p className="introText">{data.introText}</p> : null}
-
-            <VideoControl locale={locale} fullScreenOnClick={false} datoVideo={data.mainVideo.video} pageTitle={props.title}
-                          videoTitle={data.videoTitle} videoThumbnail={data.videoThumbnail}/>
-
+        
+           <Row>
+               <Col xs={12} md={8}>
+                    <VideoControl locale={locale} fullScreenOnClick={false} datoVideo={data?.mainVideo?.video?.video ?? undefined} pageTitle={props.title}
+                          videoTitle={data.videoTitle} videoThumbnail={data.videoThumbnail} onProgress={setTimeStamp} />
+               </Col>
+               <Col xs={12} md={4}>
+                    <VideoReferenceControl currentTimeStamp={timeStamp}/>
+               </Col>
+           </Row>
         </>
     );
 };

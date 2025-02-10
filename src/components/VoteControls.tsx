@@ -10,7 +10,7 @@ import {recordUse} from "../utils/analytics";
 import {getCountry} from "../repositories/utils/country";
 
 
-interface TVoteControls {
+export interface TVoteControls {
     showStatistics: boolean,
     votingThankYou?: string,
     votingPostVoteExplanation?: string,

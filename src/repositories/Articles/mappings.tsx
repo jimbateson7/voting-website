@@ -217,10 +217,11 @@ export function mapBlogPost(actualPost: Item | undefined) {
     return model;
 }
 
-export async function mapBlogData(result: QueryResult): Promise<TPage> {
+export async function mapBlogData(result: QueryResult): Promise<TPage | null> {
 
     const actualPost = result.data.allBlogPostModels.shift();
-
+    if(!actualPost)
+        return null;
 
     return mapBlogPost(actualPost);
 }

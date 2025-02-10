@@ -16,7 +16,7 @@ export function generatePostQueryPaginated(page: number, locale: string, blogsPe
 function generatePostQueryFrom(locale:string, shortBlog: boolean, sentSlug: string | undefined, first: number, skip: number) {
     const queryString = sentSlug ? `, filter: {slug: {eq:"${sentSlug}"}}` : "";
     const query = `query blogPostCollectionQuery{
-    allBlogPostModel${shortBlog ? "News" : "s"}(first: ${first}, skip:${skip} ${queryString}, locale:${locale}, fallbackLocales:[en, en_US]) 
+    allBlogPostModel${shortBlog ? "News" : "s"}(first: ${first}, skip:${skip} ${queryString}, locale:${locale}, fallbackLocales:[en]) 
     {
       
       
