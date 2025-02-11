@@ -30,9 +30,7 @@ export const VariantPopup = ({ setSearchParams, currentVariant }: { setSearchPar
             <select value={selectedVariant} onChange={updateVariant}>
                 <option value="Original">Original</option>
                 <option value="One">One</option>
-                <option value="Two">Two</option>
-                <option value="Three">Three</option>
-                <option value="Four">Four</option>
+                <option value="Two">Two</option>               
                 <option value="Five">Five</option>
                 <option value="Six">Six</option>
             </select>

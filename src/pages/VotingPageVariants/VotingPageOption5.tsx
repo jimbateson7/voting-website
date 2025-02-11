@@ -45,7 +45,8 @@ const StagedFlow = (props: TVotingPageExtended) => {
                     {/* Stage Video */}
                     <Fade in={stage === videoStage} unmountOnExit>
                         <div>
-                            <h2> Two critical propositions that will put our planet’s people in control of climate change</h2>
+                            <p style={{fontSize:"1.5rem"}}> Scientists are openly saying that the management of climate change ‘isn’t fit for purpose’</p>
+                            <p style={{fontSize:"1.5rem"}}> We need a big change if we are to preserve a liveable planet for the next generation.</p>
                             <VideoControl locale={props.locale} fullScreenOnClick={true}
                                           datoVideo={props.videos?.landingVideo?.video?.video ?? props?.mainVideo?.video}
                                           onFinish={() => {
