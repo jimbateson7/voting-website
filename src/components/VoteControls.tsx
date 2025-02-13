@@ -88,19 +88,19 @@ export const VoteControls = ({
 
     useEffect(() => {
 
-        const yesVoteButton = document.getElementById('vote-yes');
-        const noVoteButton = document.getElementById('vote-no');
-        const targetHeading = document.getElementById('share-heading');
+        const yesVoteButton = document.getElementById('vote-yes-1');
+        const noVoteButton = document.getElementById('vote-no-1');
+        const targetHeading = document.getElementById('share-heading-1');
 
         if (yesVoteButton && targetHeading) {
             yesVoteButton.addEventListener('click', () => {
-                targetHeading.scrollIntoView({behavior: 'smooth'});
+               // targetHeading.scrollIntoView({behavior: 'smooth'});
             });
         }
 
         if (noVoteButton && targetHeading) {
             noVoteButton.addEventListener('click', () => {
-                targetHeading.scrollIntoView({behavior: 'smooth'});
+               // targetHeading.scrollIntoView({behavior: 'smooth'});
             });
         }
 
@@ -108,7 +108,7 @@ export const VoteControls = ({
 
         if (video && targetHeading) {
             video.addEventListener('ended', () => {
-                targetHeading.scrollIntoView({behavior: 'smooth'});
+               // targetHeading.scrollIntoView({behavior: 'smooth'});
             });
         }
 

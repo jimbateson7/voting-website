@@ -54,6 +54,21 @@ const votingPage = `
                 thumbnailImage${imgBlock}
             }
             
+            
+             proposition1{
+                video${videoBlock}
+                thumbnailImage${imgBlock}
+            }
+             proposition2{
+                video${videoBlock}
+                thumbnailImage${imgBlock}
+            }
+             proposition3{
+                video${videoBlock}
+                thumbnailImage${imgBlock}
+            }
+            
+            
             shareHeading,
             donateText{value},
             slug,

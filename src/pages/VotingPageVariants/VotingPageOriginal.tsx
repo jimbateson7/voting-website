@@ -84,9 +84,9 @@ const VotingPageOriginal = (props: TVotingPageExtended) => {
         
         if(voted)
         {
-            const targetHeading = document.getElementById('share-heading');
+            const targetHeading = document.getElementById('share-heading-1');
             console.log("targetHeading 2", targetHeading);
-            targetHeading?.scrollIntoView({behavior: 'smooth'});
+            //targetHeading?.scrollIntoView({behavior: 'smooth'});
         }
 
 
@@ -127,13 +127,12 @@ const VotingPageOriginal = (props: TVotingPageExtended) => {
                                                 />
                                             </div>
                                         </Col>
-                                        {!index ? 
                                         <Col className={"videoColumn squashToRow squashToRow50"}>
                                             <VideoControl locale={props.locale} fullScreenOnClick={true}
-                                                          datoVideo={props.videos?.landingVideo?.video?.video ?? props?.mainVideo?.video}
+                                                          datoVideo={!index ? props.videos?.prop1?.video?.video :props.videos?.prop2?.video?.video }
                                                           onFinish={onWatched}
-                                                          videoThumbnail={props.videos?.landingVideo.thumbnailImage?.responsiveImage.src}/>
-                                        </Col> : null}
+                                                          videoThumbnail={!index ?  props.videos?.prop1.thumbnailImage?.responsiveImage.src : props.videos?.prop2.thumbnailImage?.responsiveImage.src}/>
+                                        </Col>
                                     </Row>
 
 

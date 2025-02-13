@@ -18,7 +18,8 @@ import {VotingPageOptionChris} from "./VotingPageVariants/VotingPageOptionChris"
 import {VotingPageOption1} from "./VotingPageVariants/VotingPageOption1";
 import {VotingPageOption3} from "./VotingPageVariants/VotingPageOption3";
 import {VotingPageOption5} from "./VotingPageVariants/VotingPageOption5";
-import { VotingPageOption4 } from "./VotingPageVariants/VotingPageOption4";
+import { VotingPageOption2B } from "./VotingPageVariants/VotingPageOption2B";
+
 
 export const localStorageVotingIdKey = "voterId";
 export const localStorageWatchedIdKey = "voterWatched";
@@ -28,7 +29,11 @@ export interface TVideos
 {
     detailVideo: TVideoThumbnail;
     thankYouVideo: TVideoThumbnail;
-    landingVideo: TVideoThumbnail;   
+    landingVideo: TVideoThumbnail;
+
+    prop1: TVideoThumbnail;
+    prop2: TVideoThumbnail;
+    prop3: TVideoThumbnail;
 }
 
 export interface TVotingPage {
@@ -163,16 +168,11 @@ const VotingPage = (queryProps: TVotingQueryProps) => {
             
             break;
         case "two":
-            RenderComponent = VotingPageOption2;
+            RenderComponent = VotingPageOption2B;
             
             break;
         case "three":
             RenderComponent = VotingPageOption3;
-
-            break;
-        case "four":
-            RenderComponent = VotingPageOption4;
-
             break;
         case "five":
             RenderComponent = VotingPageOption5;

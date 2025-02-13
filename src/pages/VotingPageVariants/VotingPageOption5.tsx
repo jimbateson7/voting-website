@@ -40,7 +40,6 @@ const StagedFlow = (props: TVotingPageExtended) => {
         
         >
 
-
           
                     {/* Stage Video */}
                     <Fade in={stage === videoStage} unmountOnExit>
@@ -48,12 +47,12 @@ const StagedFlow = (props: TVotingPageExtended) => {
                             <p style={{fontSize:"1.5rem"}}> Scientists are openly saying that the management of climate change ‘isn’t fit for purpose’</p>
                             <p style={{fontSize:"1.5rem"}}> We need a big change if we are to preserve a liveable planet for the next generation.</p>
                             <VideoControl locale={props.locale} fullScreenOnClick={true}
-                                          datoVideo={props.videos?.landingVideo?.video?.video ?? props?.mainVideo?.video}
+                                          datoVideo={props.videos?.prop1?.video?.video }
                                           onFinish={() => {
                                               if (props.watchedCallBack) props.watchedCallBack();
                                               nextStage();
                                           }}
-                                          videoThumbnail={props.videos?.landingVideo.thumbnailImage?.responsiveImage.src}/>
+                                          videoThumbnail={props.videos?.prop1.thumbnailImage?.responsiveImage.src}/>
 
                         </div>
                     </Fade>
@@ -82,7 +81,7 @@ export const VotingPageOption5 = (props: TVotingPageExtended) => {
         if (voted) {
             const targetHeading = document.getElementById('share-heading');
             console.log("targetHeading 2", targetHeading);
-            targetHeading?.scrollIntoView({behavior: 'smooth'});
+           // targetHeading?.scrollIntoView({behavior: 'smooth'});
         }
 
 

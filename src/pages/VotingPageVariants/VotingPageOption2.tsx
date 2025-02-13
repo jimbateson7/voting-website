@@ -86,7 +86,7 @@ export const VotingPageOption2 = (props: TVotingPageExtended) => {
         
         if(voted)
         {
-            const targetHeading = document.getElementById('share-heading');
+            const targetHeading = document.getElementById('share-heading-block');
             console.log("targetHeading 2", targetHeading);
             targetHeading?.scrollIntoView({behavior: 'smooth'});
         }
@@ -128,13 +128,13 @@ export const VotingPageOption2 = (props: TVotingPageExtended) => {
                                                 />
                                             </div>
                                         </Col>
-                                        {!index ? 
+                                      
                                         <Col className={"videoColumn squashToRow squashToRow50"}>
                                             <VideoControl locale={props.locale} fullScreenOnClick={true}
-                                                          datoVideo={props.videos?.landingVideo?.video?.video ?? props?.mainVideo?.video}
+                                                          datoVideo={!index ? props.videos?.prop1?.video?.video :props.videos?.prop2?.video?.video }
                                                           onFinish={onWatched}
-                                                          videoThumbnail={props.videos?.landingVideo.thumbnailImage?.responsiveImage.src}/>
-                                        </Col> : null}
+                                                          videoThumbnail={!index ?  props.videos?.prop1.thumbnailImage?.responsiveImage.src : props.videos?.prop2.thumbnailImage?.responsiveImage.src}/>
+                                        </Col> 
                                     </Row>
 
 
@@ -156,8 +156,10 @@ export const VotingPageOption2 = (props: TVotingPageExtended) => {
                 <Row style={{marginTop: "-0.5rem"}}>
 
                 </Row>
+                <span id={"share-heading-block"}>
                 <SharingControls voted={voted} shareHeading={props.shareHeading ?? ""}
                                  shareButtonText={mainQuestionText}/>
+                    </span>
                 {voted ? <>
                         <hr/>
                         <div style={{width: "50%", marginLeft: "25%"}} key={"second-video"}>
@@ -166,10 +168,10 @@ export const VotingPageOption2 = (props: TVotingPageExtended) => {
                                 <div className="card-content" key={"second-video"}>
 
                                     <VideoControl fullScreenOnClick={true}
-                                                  datoVideo={props?.videos?.detailVideo?.video?.video}
+                                                  datoVideo={props?.videos?.prop3?.video?.video}
                                                   pageTitle={"share"}
                                                   videoTitle={"share"}
-                                                  videoThumbnail={props?.videos?.detailVideo?.thumbnailImage?.responsiveImage?.src}/>
+                                                  videoThumbnail={props?.videos?.prop3?.thumbnailImage?.responsiveImage?.src}/>
 
                                 </div>
                             </div>

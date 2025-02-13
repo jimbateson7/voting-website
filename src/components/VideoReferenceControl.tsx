@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import { ListGroup } from "react-bootstrap";
 import "./VideoControl.scss"
 
-type TProps = {currentTimeStamp: number}
+export type TReferenceProps = {currentTimeStamp: number}
 
 interface Reference {
     time: number;
@@ -43,7 +43,7 @@ function findClosestReferenceIndex(currentTimeStamp: number, limit:number = 10):
     return closestIndex;
 }
 
-export const VideoReferenceControl = ({currentTimeStamp}: TProps) => {
+export const VideoReferenceControl = ({currentTimeStamp}: TReferenceProps) => {
     const activeIndex =findClosestReferenceIndex(currentTimeStamp) ?? null;
 
     return (

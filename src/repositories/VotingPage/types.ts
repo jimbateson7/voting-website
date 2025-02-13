@@ -28,7 +28,11 @@ export interface VotingPageData {
     thankYouVideo: TVideoThumbnail;
     detailVideo: TVideoThumbnail;
     landingVideo: TVideoThumbnail;
-    
+
+
+    proposition1: TVideoThumbnail;
+    proposition2: TVideoThumbnail;
+    proposition3: TVideoThumbnail;
    
     heading?: string;
     showVoteStatistics?: boolean;

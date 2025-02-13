@@ -18,6 +18,10 @@ export async function mapVotingPage(result: QueryResult): Promise<TVotingPage> {
                 landingVideo: votingPage.landingVideo,
                 detailVideo: votingPage.detailVideo,
                 thankYouVideo: votingPage.thankYouVideo,
+
+                prop1: votingPage.proposition1,
+                prop2: votingPage.proposition2,
+                prop3: votingPage.proposition3,
             },
             agreeVoteText: votingPage.agreeVoteText,
             disagreeVoteText: votingPage.disagreeVoteText,        

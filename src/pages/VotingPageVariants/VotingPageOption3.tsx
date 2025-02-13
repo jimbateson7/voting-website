@@ -160,10 +160,10 @@ export const VotingPageOption3 = (props: TVotingPageExtended) => {
                                 <div className="card-content" key={"second-video"}>
 
                                     <VideoControl fullScreenOnClick={true}
-                                                  datoVideo={props?.videos?.detailVideo?.video?.video}
+                                                  datoVideo={props?.videos?.prop2?.video?.video}
                                                   pageTitle={"share"}
                                                   videoTitle={"share"}
-                                                  videoThumbnail={props?.videos?.detailVideo?.thumbnailImage?.responsiveImage?.src}/>
+                                                  videoThumbnail={props?.videos?.prop2?.thumbnailImage?.responsiveImage?.src}/>
 
                                 </div>
                             </div>

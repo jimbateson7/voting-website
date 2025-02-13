@@ -16,7 +16,7 @@ export interface TQuestionProps extends TQuestionBlock {
 // Example Question Component
 export const QuestionComponent = (props: TQuestionProps) => (
                 <>
-                    <div key={props.id + "-title"} className="questionTitle extra-padding">
+                    <div style={{fontSize:"1.0rem", paddingTop:"-20px"}} key={props.id + "-title"} className="questionTitle extra-padding">
                         <StructuredText data={props.questionTitleSt}/>
                     </div>
                     <div key={props.id + "-voting"}

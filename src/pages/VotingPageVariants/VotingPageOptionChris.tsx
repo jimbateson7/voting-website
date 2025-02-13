@@ -47,12 +47,12 @@ const StagedFlow = (props: TStagedFlowProps) => {
                     <Fade in={stage === videoStage} unmountOnExit>
                         <div>
                             <VideoControl locale={props.locale} fullScreenOnClick={true}
-                                          datoVideo={props.videos?.landingVideo?.video?.video ?? props?.mainVideo?.video}
+                                          datoVideo={props.videos?.prop1?.video?.video}
                                           onFinish={() => {
                                               if (props.watchedCallBack) props.watchedCallBack();
                                               nextStage();
                                           }}
-                                          videoThumbnail={props.videos?.landingVideo.thumbnailImage?.responsiveImage.src}/>
+                                          videoThumbnail={props.videos?.prop1.thumbnailImage?.responsiveImage.src}/>
 
                         </div>
                     </Fade>
@@ -85,27 +85,19 @@ const StagedFlow = (props: TStagedFlowProps) => {
                     <Fade in={stage === detailStage} unmountOnExit>
                         <div>
                             <VideoControl locale={props.locale} fullScreenOnClick={true}
-                                          datoVideo={props.videos?.detailVideo?.video?.video ?? props?.mainVideo?.video}
+                                          datoVideo={props.videos?.prop2?.video?.video}
                                           onFinish={() => {
                                               if (props.watchedCallBack) props.watchedCallBack();
                                               nextStage();
                                           }}
-                                          videoThumbnail={props.videos?.detailVideo.thumbnailImage?.responsiveImage.src}/>
+                                          videoThumbnail={props.videos?.prop2.thumbnailImage?.responsiveImage.src}/>
 
                         </div>
                     </Fade>
                     
                     {/* Stage: Donation */}
                     <Fade in={stage === donateStage} unmountOnExit>
-                        <div>                           
-                             
-              
-                    
-                           
-                           
-
-
-
+                        <div>                        
                            
                                 <div style={{textAlign: "center"}}>
                                     <StructuredText data={props.donateText}/>
@@ -150,7 +142,7 @@ export const VotingPageOptionChris = (props: TVotingPageExtended) => {
         if (voted) {
             const targetHeading = document.getElementById('share-heading');
             console.log("targetHeading 2", targetHeading);
-            targetHeading?.scrollIntoView({behavior: 'smooth'});
+            //targetHeading?.scrollIntoView({behavior: 'smooth'});
         }
 
 
