@@ -2,7 +2,6 @@
 
 import Donation from "../../components/Donation";
 import React, {useEffect, useState} from "react";
-import {VideoControl} from "../../components/VideoControl";
 import {SharingControls} from "../../components/SharingControls";
 import {TVotingPageExtended} from "../VotingPage";
 import {Button, Col, Container, Fade, Row} from "react-bootstrap";
@@ -10,7 +9,7 @@ import {QuestionComponent} from "../../components/QuestionComponent";
 import {Choice} from "../../models";
 import {StructuredText} from "react-datocms";
 import {TStagedFlowProps} from "./TStagedFlowProps";
-import {VoteControls} from "../../components/VoteControls";
+import {VideoWithReference} from "../VideoWithReference";
 
 const StagedFlow = (props: TStagedFlowProps) => {
     const [stage, setStage] = useState(0);
@@ -59,12 +58,13 @@ const StagedFlow = (props: TStagedFlowProps) => {
                         <div style={{ height: '70vh' }}>
                             <div className={"verticalFrameCentre"}>
                             
-                            <VideoControl locale={props.locale} fullScreenOnClick={true}
+                            <VideoWithReference locale={props.locale} fullScreenOnClick={true}
                                           datoVideo={props.videos?.thankYouVideo?.video?.video}
                                           onFinish={() => {
                                               if (props.watchedCallBack) props.watchedCallBack();
                                               nextStage();
-                                          }}
+                                          }} 
+                                         
                                           videoThumbnail={props.videos?.thankYouVideo.thumbnailImage?.responsiveImage.src}/>
                             </div>
                         </div>
@@ -96,8 +96,9 @@ const StagedFlow = (props: TStagedFlowProps) => {
                             </Col>
     
                             <Col className={"videoColumn squashToRow squashToRow50"}>
-                                <VideoControl locale={props.locale} fullScreenOnClick={true}
+                                <VideoWithReference locale={props.locale} fullScreenOnClick={true}
                                               datoVideo={ props.videos?.prop1?.video?.video  }
+                                                    leftShift={-50}
                                               onFinish={() => {
                                                   if (props.watchedCallBack) props.watchedCallBack();
                                                   nextStage();
@@ -119,8 +120,9 @@ const StagedFlow = (props: TStagedFlowProps) => {
                             </Col>
 
                             <Col className={"videoColumn squashToRow squashToRow50"}>
-                                <VideoControl locale={props.locale} fullScreenOnClick={true}
+                                <VideoWithReference locale={props.locale} fullScreenOnClick={true}
                                               datoVideo={ props.videos?.prop2?.video?.video  }
+                                                    leftShift={-50}
                                               onFinish={() => {
                                                   if (props.watchedCallBack) props.watchedCallBack();
                                                   nextStage();
@@ -147,7 +149,7 @@ const StagedFlow = (props: TStagedFlowProps) => {
                     <Fade in={stage === detailStage} unmountOnExit>
                         <div style={{ height: '70vh' }}>
                             <div className={"verticalFrameCentre"}>
-                            <VideoControl locale={props.locale} fullScreenOnClick={true}
+                            <VideoWithReference locale={props.locale} fullScreenOnClick={true}
                                           datoVideo={props.videos?.detailVideo?.video?.video}
                                           onFinish={() => {
                                               if (props.watchedCallBack) props.watchedCallBack();
@@ -211,7 +213,7 @@ export const VotingPageOption2B = (props: TVotingPageExtended) => {
             const targetHeading = document.getElementById('share-heading');
             console.log("targetHeading 2", targetHeading);
             //targetHeading?.scrollIntoView({behavior: 'smooth'});
-        }
+        }   
 
 
     }, [showOverlay]);

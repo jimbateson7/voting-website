@@ -13,8 +13,9 @@ export type TVideoProps = {
     pageTitle?: string,
     videoTitle?: string,
     fullScreenOnClick: true | false | "force",
-    locale?: string
-    autoPlay?: boolean
+    locale?: string,
+    autoPlay?: boolean,
+    leftShift?:number
 }
 
 interface MuxPlayer {

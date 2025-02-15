@@ -4,11 +4,9 @@ import "./Page.scss";
 import {getVideoPageJson} from "../repositories/VideoPage/request";
 import {TArticlePage} from "../repositories/Common/types";
 import {Video} from "react-datocms";
-import {TVideoProps, VideoControl} from "../components/VideoControl";
-import {TReferenceProps, VideoReferenceControl} from "../components/VideoReferenceControl";
-
-
-import {Col, Row} from "react-bootstrap";
+import {TVideoProps} from "../components/VideoControl";
+import {TReferenceProps} from "../components/VideoReferenceControl";
+import {VideoWithReference} from "./VideoWithReference";
 
 export interface TVideoPage {
     mainVideo: { id: string, video:{video: Video | undefined} } | undefined;
@@ -24,23 +22,6 @@ function getLastSlugPart(slug: string, separator: string = '/'): string | undefi
     }
     const parts = slug.split(separator);
     return parts.pop();
-}
-
-type TVideoReference = TReferenceProps & TVideoProps;
-
-
-export const VideoWithReference = (props: TVideoReference) => {
-   
- return  (
-     <Row>
-     <Col xs={12} md={8}>
-         <VideoControl {...props} />
-     </Col>
-     <Col xs={12} md={4}>
-         <VideoReferenceControl {...props}/>
-     </Col>
- </Row>
- )
 }
 
 export const VideoPage = (props: TArticlePage) => {
@@ -60,7 +41,7 @@ export const VideoPage = (props: TArticlePage) => {
         introText: "",
     });
     
-    const [timeStamp, setTimeStamp] = useState<number>(0);
+   
     
     useEffect(() => {
         fetchData().catch(console.error);
@@ -74,7 +55,7 @@ export const VideoPage = (props: TArticlePage) => {
             {data.introText ? <p className="introText">{data.introText}</p> : null}
 
             <VideoWithReference locale={locale} fullScreenOnClick={false} datoVideo={data?.mainVideo?.video?.video ?? undefined} pageTitle={props.title}
-                                videoTitle={data.videoTitle} videoThumbnail={data.videoThumbnail} onProgress={setTimeStamp} currentTimeStamp={timeStamp}></VideoWithReference>
+                                videoTitle={data.videoTitle} videoThumbnail={data.videoThumbnail} ></VideoWithReference>
         </>
     );
 };
