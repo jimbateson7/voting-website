@@ -73,7 +73,9 @@ const StagedFlow = (props: TStagedFlowProps) => {
                     <Fade in={stage === openingStage} unmountOnExit>
                         <div style={{ height: '70vh', paddingRight:"50px"}}>
                             <div className={"verticalFrameCentre"} >
-                                <StructuredText data={props.openingText}/>
+                                <div style={{fontSize:"1.5rem"}}>
+                                    <StructuredText data={props.openingText}/>
+                                </div>
                             </div>
                         </div>
                        
