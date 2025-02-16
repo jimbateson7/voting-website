@@ -19,6 +19,7 @@ export interface VotingPageData {
     videoThumbnail:{responsiveImage:{src:string}}
 
     donateText: {value: StructuredTextDocument};
+    openingText: {value: StructuredTextDocument};
     mainVideo: { id: string, video: Video };
     postVoteVideo: { id: string, video: Video };
     postThankYou: { id: string, video: Video };    

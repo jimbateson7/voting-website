@@ -40,7 +40,7 @@ export interface TVotingPage {
 
     videos?:TVideos;
     donateText?: { value: StructuredTextDocument };
-
+    openingText?: { value: StructuredTextDocument };
     heading?: string;
     introText: string;
     mainVideo: { id: string, video: Video };
@@ -93,6 +93,7 @@ const VotingPage = (queryProps: TVotingQueryProps) => {
         {
             videos: undefined,    
             donateText: undefined,
+            openingText: undefined,
             postVoteVideo: undefined,
             introText: "",
             mainVideo: {id: "", video: {}},

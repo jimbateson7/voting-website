@@ -73,13 +73,10 @@ const StagedFlow = (props: TStagedFlowProps) => {
                     <Fade in={stage === openingStage} unmountOnExit>
                         <div style={{ height: '70vh', paddingRight:"50px"}}>
                             <div className={"verticalFrameCentre"} >
-                                <div>
-                                <p style={{fontSize:"1.5rem"}}> Scientists are openly saying the management of climate change ‘isn’t fit for purpose.’  Unfortunately, it's true and we, the ‘ordinary’ people of our world, and our children and our grandchildren will pay a terrible price as a result.</p>
-                                <p style={{fontSize:"1.5rem"}}> Something must be done.  That’s what this project is all about</p>
-                                <Button onClick={() => nextStage()}>Next</Button>
-                                </div>
+                                <StructuredText data={props.openingText}/>
                             </div>
                         </div>
+                       
                     </Fade>
 
                     {/* Stage Questions */}

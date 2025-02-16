@@ -3,7 +3,7 @@ import {VoteControls} from "../../components/VoteControls";
 import {Col, Row} from "react-bootstrap";
 import {v4 as generateGuid} from "uuid";
 import Donation from "../../components/Donation";
-import React, {useCallback, useEffect, useState} from "react";
+import React, { useEffect, useState} from "react";
 
 import {VideoControl} from "../../components/VideoControl";
 import {StructuredText} from "react-datocms";
@@ -13,8 +13,6 @@ import {SharingControls} from "../../components/SharingControls";
 import {Choice} from "../../models";
 import VideoOverlay from "../../components/VideoOverlay";
 import {localStorageVotingIdKey, localStorageWatchedIdKey, TVotingPageExtended} from "../VotingPage";
-
-
 
 
 export const VotingPageOption2 = (props: TVotingPageExtended) => {

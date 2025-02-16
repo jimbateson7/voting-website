@@ -77,7 +77,7 @@ const votingPage = `
                 thumbnailImage${imgBlock}
             }
             
-            
+            openingText{value},
             shareHeading,
             donateText{value},
             slug,

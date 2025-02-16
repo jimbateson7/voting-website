@@ -25,6 +25,7 @@ export async function mapVotingPage(result: QueryResult): Promise<TVotingPage> {
             },
              
             donateText: votingPage.donateText,
+            openingText: votingPage.openingText,
             heading: votingPage.heading,
             introText: votingPage.introductionText ?? "",
             mainVideo: votingPage.mainVideo,
