@@ -14,7 +14,7 @@ export const VideoWithReference = (props: TVideoProps) => {
             <Col xs={12} md={8} className="video-column" style={{marginLeft:props.leftShift}}>
                 <VideoControl {...props} onProgress={setTimeStamp}  />
             </Col>
-            <Col xs={12} md={4} className="reference-column" style={{marginLeft:-40}}>
+            <Col xs={12} md={4} className="reference-column" style={{marginLeft:-60}}>
                 <VideoReferenceControl currentTimeStamp={timeStamp} />
             </Col>
         </Row>
