@@ -8,8 +8,7 @@ export interface TQuestionProps extends TQuestionBlock {
     
     voteResultCallBack?: (voted: boolean) => void,
     voteChangedCallBack?: (choice: Choice) => void,
-    agreeVoteText: string,
-    disagreeVoteText: string,
+
 
 }
 
@@ -23,8 +22,8 @@ export const QuestionComponent = (props: TQuestionProps) => (
                          className="extra-padding">
                         <VoteControls voteResultCallBack={props.voteResultCallBack }
                                       voteChangedCallBack={props.voteChangedCallBack}
-                                      agreeVoteText={props.agreeVoteText}
-                                      disagreeVoteText={props.disagreeVoteText}
+                                      agreeVoteText={props.voteForText}
+                                      disagreeVoteText={props.voteAgainstText}
                                       questionId={props.id}
                                       showStatistics={false}
                                       key={props.id + "-votingControls"}

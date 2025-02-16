@@ -57,12 +57,16 @@ export const SharingControls = ({className, voted, shareHeading, shareButtonText
     }
 
     const emailSubject = twitterShareText;
-
+//className={"verticalFrameCentre"}
     return (<>
-        <Row className={`flexShare ${className ?? ''}`}>
-            <Col id="share-heading" className={"squashToRow flexGrow"}><p  className={voted ? "voted" : ""}>{shareHeading}</p></Col>
+        
+        <Row className={"verticalFrameCentre justify-content-center "} style={{paddingTop:"15%"}}> <h2>{shareHeading}</h2> </Row>
+        <Row >
+            
+            
 
-            <Col className={"squashToRow spaceEven sharingControls"}>
+            <Col className={"squashToRow  sharingControls "}>
+                <div className={"verticalFrameCentre"}>
             <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//ourplanetourpeople.com" target="_blank"
                rel="noreferrer">
                 <FaFacebook onClick={() => record("Facebook")}
@@ -99,7 +103,9 @@ export const SharingControls = ({className, voted, shareHeading, shareButtonText
                 <FaShareAlt onClick={() => record("Copy")}
                         style={{color: '#C0C0C0'}}/>
             </a>
+                </div>
             </Col>
+            
         </Row>
     </>)
 

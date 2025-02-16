@@ -31,6 +31,15 @@ const videoPage = `
                 thumbnailImage${imgBlock}
                 }    
             `;
+const questionBlock = `
+    id,
+    questionTitleSt{  
+        value
+        }
+        voteForText
+        voteAgainstText
+        textBelowVoting
+    `
 const votingPage = ` 
             id
             cardTitle,  
@@ -73,19 +82,13 @@ const votingPage = `
             donateText{value},
             slug,
             questions {
-                ... on QuestionRecord {  id,   questionTitleSt {   value}}
+                ... on QuestionRecord { 
+                 ${questionBlock}
+                 }
             }
             postThankYou${videoBlock}
             postVoteVideo${videoBlock}
-            mainVideo${videoBlock}
-            
-            agreeVoteText,
-            disagreeVoteText,
-                
-              
-            
-
-            `;
+            mainVideo${videoBlock}`;
 
 const basicNavItems = `
           __typename

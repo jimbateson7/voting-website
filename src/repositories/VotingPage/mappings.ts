@@ -23,8 +23,7 @@ export async function mapVotingPage(result: QueryResult): Promise<TVotingPage> {
                 prop2: votingPage.proposition2,
                 prop3: votingPage.proposition3,
             },
-            agreeVoteText: votingPage.agreeVoteText,
-            disagreeVoteText: votingPage.disagreeVoteText,        
+             
             donateText: votingPage.donateText,
             heading: votingPage.heading,
             introText: votingPage.introductionText ?? "",

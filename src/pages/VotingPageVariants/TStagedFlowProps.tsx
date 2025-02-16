@@ -12,8 +12,7 @@ export interface TStagedFlowProps {
 
     voteResultCallBack?: (voted: boolean) => void,
     voteChangedCallBack?: (choice: Choice) => void,
-    agreeVoteText: string,
-    disagreeVoteText: string,
+
     questions?: TQuestionBlock[];
     donateText?: { value: StructuredTextDocument };
 

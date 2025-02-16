@@ -62,9 +62,7 @@ const StagedFlow = (props: TStagedFlowProps) => {
                         <Fade in={stage === questionStage + index} unmountOnExit>
                             <div>
                                 <QuestionComponent {...props}
-                                                    id={question.id}
-                                                   questionTitleSt={question.questionTitleSt}
-                                                  
+                                                   {...question}
                                                     voteChangedCallBack={extendedVoteCallback}/>
                             </div>
                         </Fade>

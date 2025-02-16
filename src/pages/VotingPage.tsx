@@ -39,9 +39,6 @@ export interface TVideos
 export interface TVotingPage {
 
     videos?:TVideos;
-    agreeVoteText: string;
-
-    disagreeVoteText: string;
     donateText?: { value: StructuredTextDocument };
 
     heading?: string;
@@ -94,9 +91,7 @@ const VotingPage = (queryProps: TVotingQueryProps) => {
     }
     const initialState: TVotingPage =
         {
-            videos: undefined,
-            agreeVoteText: "",
-            disagreeVoteText: "",
+            videos: undefined,    
             donateText: undefined,
             postVoteVideo: undefined,
             introText: "",

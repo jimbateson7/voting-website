@@ -17,8 +17,7 @@ export interface VotingPageData {
     id: string;
     questions?: TQuestionBlock[];
     videoThumbnail:{responsiveImage:{src:string}}
-    agreeVoteText: string;
-    disagreeVoteText: string;
+
     donateText: {value: StructuredTextDocument};
     mainVideo: { id: string, video: Video };
     postVoteVideo: { id: string, video: Video };

@@ -39,7 +39,11 @@ export interface BasePage {
 export interface TQuestionBlock {
 
     id: string,
-    questionTitleSt: {value: StructuredTextDocument};
+    questionTitleSt: {value: StructuredTextDocument},
+    voteForText: string,
+    voteAgainstText: string,
+    textBelowVoting: string,
+    
 }
 
 export interface NavigationItem extends NavigationGroup {

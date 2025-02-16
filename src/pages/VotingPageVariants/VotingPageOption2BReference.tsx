@@ -89,9 +89,7 @@ const StagedFlow = (props: TStagedFlowProps) => {
                             <Col className={"squashToRow pad50"}>
     
                                 <QuestionComponent {...props}
-                                                   id={questionOne.id}
-                                                   questionTitleSt={questionOne.questionTitleSt}
-    
+                                                   {...questionOne}
                                                    voteChangedCallBack={extendedVoteCallback}/>
                             </Col>
     
@@ -113,9 +111,7 @@ const StagedFlow = (props: TStagedFlowProps) => {
                             <Col className={"squashToRow pad50"}>
 
                                 <QuestionComponent {...props}
-                                                   id={questionTwo?.id}
-                                                   questionTitleSt={questionTwo?.questionTitleSt}
-
+                                                   {...questionTwo}
                                                    voteChangedCallBack={extendedVoteCallback}/>
                             </Col>
 

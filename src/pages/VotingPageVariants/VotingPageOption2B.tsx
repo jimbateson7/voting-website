@@ -9,7 +9,7 @@ import {QuestionComponent} from "../../components/QuestionComponent";
 import {Choice} from "../../models";
 import {StructuredText} from "react-datocms";
 import {TStagedFlowProps} from "./TStagedFlowProps";
-import {VideoWithReference} from "../VideoWithReference";
+import { VideoControl } from "../../components/VideoControl";
 
 const StagedFlow = (props: TStagedFlowProps) => {
     const [stage, setStage] = useState(0);
@@ -58,7 +58,7 @@ const StagedFlow = (props: TStagedFlowProps) => {
                         <div style={{ height: '70vh' }}>
                             <div className={"verticalFrameCentre"}>
                             
-                            <VideoWithReference locale={props.locale} fullScreenOnClick={true}
+                            <VideoControl locale={props.locale} fullScreenOnClick={true}
                                           datoVideo={props.videos?.thankYouVideo?.video?.video}
                                           onFinish={() => {
                                               if (props.watchedCallBack) props.watchedCallBack();
@@ -88,15 +88,13 @@ const StagedFlow = (props: TStagedFlowProps) => {
                         <Row className={"vote-controls"}>
                             <Col className={"squashToRow pad50"}>
     
-                                <QuestionComponent {...props}
-                                                   id={questionOne.id}
-                                                   questionTitleSt={questionOne.questionTitleSt}
-    
+                                <QuestionComponent {...props}                                                  
+                                                   {...questionOne}
                                                    voteChangedCallBack={extendedVoteCallback}/>
                             </Col>
     
                             <Col className={"videoColumn squashToRow squashToRow50"}>
-                                <VideoWithReference locale={props.locale} fullScreenOnClick={true}
+                                <VideoControl locale={props.locale} fullScreenOnClick={true}
                                               datoVideo={ props.videos?.prop1?.video?.video  }
                                                     leftShift={-50}
                                               onFinish={() => {
@@ -113,14 +111,12 @@ const StagedFlow = (props: TStagedFlowProps) => {
                             <Col className={"squashToRow pad50"}>
 
                                 <QuestionComponent {...props}
-                                                   id={questionTwo?.id}
-                                                   questionTitleSt={questionTwo?.questionTitleSt}
-
+                                                   {...questionTwo}
                                                    voteChangedCallBack={extendedVoteCallback}/>
                             </Col>
 
                             <Col className={"videoColumn squashToRow squashToRow50"}>
-                                <VideoWithReference locale={props.locale} fullScreenOnClick={true}
+                                <VideoControl locale={props.locale} fullScreenOnClick={true}
                                               datoVideo={ props.videos?.prop2?.video?.video  }
                                                     leftShift={-50}
                                               onFinish={() => {
@@ -135,7 +131,7 @@ const StagedFlow = (props: TStagedFlowProps) => {
                     {/* Stage: Sharing */}
                     <Fade in={stage === shareStage} unmountOnExit>
                         <div style={{ height: '70vh' }}>
-                            <div className={"verticalFrameCentre"}>
+                            <div >
                               
                                     <SharingControls voted={true} shareHeading="Share this!" shareButtonText="Share Now"/>
         
@@ -149,7 +145,7 @@ const StagedFlow = (props: TStagedFlowProps) => {
                     <Fade in={stage === detailStage} unmountOnExit>
                         <div style={{ height: '70vh' }}>
                             <div className={"verticalFrameCentre"}>
-                            <VideoWithReference locale={props.locale} fullScreenOnClick={true}
+                            <VideoControl locale={props.locale} fullScreenOnClick={true}
                                           datoVideo={props.videos?.detailVideo?.video?.video}
                                           onFinish={() => {
                                               if (props.watchedCallBack) props.watchedCallBack();

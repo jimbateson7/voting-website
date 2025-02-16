@@ -119,9 +119,10 @@ const VotingPageOriginal = (props: TVotingPageExtended) => {
                                             <div className="extra-padding">
                                                 <VoteControls voteResultCallBack={(b) => setVoted(b)}
                                                               voteChangedCallBack={(v) => voteChanged(v)}
-                                                              agreeVoteText={props.agreeVoteText}
-                                                              disagreeVoteText={props.disagreeVoteText}
+                                                              agreeVoteText={question.voteForText}
+                                                              disagreeVoteText={question.voteAgainstText}
                                                               questionId={question.id}
+                                                              
                                                               showStatistics={false}
 
                                                 />
