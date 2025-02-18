@@ -9,18 +9,20 @@ export const VideoWithReference = (props: TVideoProps) => {
 
     const [timeStamp, setTimeStamp] = useState<number>(0);
 
-    const videoReferenceControlRef = useRef(null);
+    const rowReference = useRef(null);
+    const videoColReference = useRef(null);
+    const sideColReference = useRef(null);
    
 
     
     
     return (
-        <Row className={"video-reference-control"} ref={videoReferenceControlRef}>
-            <Col xs={12} md={8} className="video-column" style={{marginLeft:props.leftShift}} >
+        <Row className={"video-reference-control"} ref={rowReference}>
+            <Col xs={12} md={8} className="video-column" style={{marginLeft:props.leftShift}} ref={videoColReference}>
                 <VideoControl {...props} onProgress={setTimeStamp}  />
             </Col>
-            <Col xs={12} md={4} className="reference-column" style={{marginLeft:-60}}>
-                <VideoReferenceControl currentTimeStamp={timeStamp} videoReferenceControlRef={videoReferenceControlRef} />
+            <Col xs={12} md={4} className="reference-column" style={{marginLeft:-60}} ref={sideColReference}>
+                <VideoReferenceControl currentTimeStamp={timeStamp} videoColReference={videoColReference} rowReference={rowReference} sideBarColReference={sideColReference} />
             </Col>
         </Row>
     )

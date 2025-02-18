@@ -4,7 +4,9 @@ import "./VideoControl.scss"
 import "./VideoReferenceControl.scss"
 export type TReferenceProps = {
     currentTimeStamp: number
-    videoReferenceControlRef: React.RefObject<HTMLElement | null>
+    videoColReference: React.RefObject<HTMLElement | null>
+    sideBarColReference: React.RefObject<HTMLElement | null>
+    rowReference: React.RefObject<HTMLElement | null>
 }
 
 interface Reference {
@@ -65,14 +67,20 @@ function findClosestReferenceIndex(currentTimeStamp: number, references:Referenc
     return closestIndex;
 }
 
-export const VideoReferenceControl = ({currentTimeStamp, videoReferenceControlRef}: TReferenceProps) => {
-    const activeIndex =findClosestReferenceIndex(currentTimeStamp,_references) ?? null;
+export const VideoReferenceControl = ({currentTimeStamp, videoColReference,rowReference,sideBarColReference}: TReferenceProps) => {
+    //const allReferences =_references.sort((a, b) => b.time - a.time);
+    const allReferences = _references
+    const activeIndex =findClosestReferenceIndex(currentTimeStamp,allReferences,10) ?? null;
     const activeReference: Reference | null = activeIndex ? _references[activeIndex] : null;
     var referenceTime = activeReference?.time;
-    const validReferences = getValidReferences(currentTimeStamp, _references).sort((a, b) => b.time - a.time);
-
+    const validReferences = getValidReferences(currentTimeStamp, allReferences);//.sort((a, b) => b.time - a.time);
+    
+    var hiddenReferences = allReferences.length - validReferences.length;
     const [fullWidthStyle, setFullWidthStyle] = useState({});
-
+    const [colWidthStyle, seColWidthStyle] = useState({});
+    const [originY, setOriginY] = useState(0);
+    const [rowHeight, setRowHeight] = useState(0);
+    const [itemHeight, setItemHeight] = useState(52);
     useEffect(() => {
         const handleResize = () => {
 
@@ -91,55 +99,70 @@ export const VideoReferenceControl = ({currentTimeStamp, videoReferenceControlRe
 
     function handleReferenceControlChange()
     {
-        if (videoReferenceControlRef.current) {
-            const rect = videoReferenceControlRef.current.getBoundingClientRect();
-            const reversePadding = 0.068;
-            const width = rect.width * (1-reversePadding);
-            const left = rect.left + (rect.width *(reversePadding/2)); 
+        if (rowReference.current && sideBarColReference.current && videoColReference.current) {
+            const rowRect = rowReference.current.getBoundingClientRect();
+            const colRect = sideBarColReference.current.getBoundingClientRect();
+            const vidRect = videoColReference.current.getBoundingClientRect();
+            //const reversePadding = 0.068;
+            //const width = rect.width * (1-reversePadding);
+            //const left = rect.left + (rect.width *(reversePadding/2)); 
             setFullWidthStyle({
-               width: width,
-                left: left,
+               width: rowRect.width,
+                left: rowRect.left,
+               // top: 0,
             });
+
+            seColWidthStyle({
+                width: colRect.width,
+                left: colRect.left,
+                //top: 0,
+            });
+
+            setRowHeight(rowRect.height)
+            setOriginY(50);
         } else {
             setFullWidthStyle({}); // Clear styles when no active reference
         }
     }
     useEffect(() => {
         handleReferenceControlChange();
-    }, [videoReferenceControlRef]);
+    }, [rowReference, sideBarColReference,videoColReference]);
     
     return (
         <ListGroup style={{ overflowY: "auto", overflowX:"hidden"}}> {/* Use ListGroup for better styling */}
-            {activeReference !=null  ? <ListGroup.Item 
-                key={activeIndex}           
-               
-                action // Makes the items clickable
-                active={true} // Sets active state
-                className="text-left  list-group-item-text current-reference"
-                style={fullWidthStyle}
-                onClick={() => {
-                    window.open(activeReference.pdfLink, "_blank");
-                }}
-               
-            >
-                🔗{activeReference.title}
-            </ListGroup.Item> : null}
-            
-            {validReferences.map((ref, indexA) => (
-                indexA !== activeIndex ? <ListGroup.Item
-                    key={indexA}
+        
+            {allReferences.map((ref, indexA) =>
+            {
+                var allReferencesCount = _references.length;
+                var isActive = activeIndex === indexA;
+                var isHidden = ref.time > currentTimeStamp;
+                var style = isActive ? fullWidthStyle : colWidthStyle;
+                var normalTop = originY + ((allReferencesCount-(indexA+hiddenReferences)) * itemHeight);//rowHeight - (originY +(40 * (indexA + hiddenReferences)));
+                var activeTop = originY;
+                
+                var newStyle ={
+                    ...style,
+                    //bottom: isActive ? undefined : originY +(40 * (indexA)),
+                    
+                    top: isActive ? activeTop: normalTop,
+                    display: isHidden && !isActive ? "none" : "inline-block",
+                }
+                return (
+               <ListGroup.Item
+                    key={ref.time}
 
-                    className="text-left list-group-item-text other-reference"
+                    className={`text-left list-group-item-text ${isActive ? "current-reference" : "other-reference"}`}
                     action // Makes the items clickable
-                    active={indexA === activeIndex} // Sets active state
-                    onClick={() => {                      
+                    style={newStyle}
+                    active={isActive} // Sets active state
+                    onClick={() => {                        
                         window.open(ref.pdfLink, "_blank");
                     }}
                  
                 >
                     🔗{ref?.title}
-                </ListGroup.Item> : null)
-            )}
+                </ListGroup.Item> 
+            )})}
         </ListGroup>
     );
 

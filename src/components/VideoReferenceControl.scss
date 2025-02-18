@@ -3,18 +3,26 @@
 .current-reference {
   /* Your current styles for the active item */
   background-color: lightblue; /* Example: highlight the active item */
-  position: absolute;
+  //transition: all 3s ease-in-out;
  // transition: background-color 0.5s ease, width 0.5s ease, left 0.5s ease; /* Animate background color */
-  transition: all 0.5s ease-in-out;
-  transform-origin: top left;
+
+  
+  //width: 100%;
+  //left:0px;
+  //top:20px;
+
 }
 .other-reference {
   /* Your current styles for the active item */
   background-color: snow;
-  position: relative;
+ 
+
+  //width: 25%;
+  //left:50%;
+ // top:100px;
   // transition: background-color 0.5s ease, width 0.5s ease, left 0.5s ease; /* Animate background color */
-  transition: all 0.5s ease-in-out;
-  transform-origin: top left;
+ 
+
 }
 
 
@@ -24,7 +32,9 @@
 }
 
 .list-group-item-text {
-  transition: all 0.5s ease-in-out;
+  
+
+ // transition: all 0.15s ease-in-out;
   transform-origin: top left;
 }
 
@@ -47,7 +57,8 @@
 /* Default transition styles */
 .current-reference,
 .list-group-item-text {
-  transition: background-color 0.3s ease, width 0.3s ease, left 0.3s ease;
+  position: absolute;
+  transition: all 1.3s ease
 }
 
 /* Reduced motion styles */
