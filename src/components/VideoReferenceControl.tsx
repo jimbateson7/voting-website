@@ -15,7 +15,7 @@ interface Reference {
     pdfLink: string;
 }
 
-/*
+
 const _references: Reference[] = [
     { time: 14, title: "Should we know?", pdfLink: "https://www.datocms-assets.com/136385/1739562417-1-should-we-know.pdf" },
     { time: 26, title: "What is Hothouse Earth", pdfLink: "https://www.datocms-assets.com/136385/1739562418-2-what-is-hothouse-earth.pdf" },
@@ -25,7 +25,7 @@ const _references: Reference[] = [
     { time: 176, title: "Human Emissions", pdfLink: "https://www.datocms-assets.com/136385/1739562417-6-the-investigation.pdf" },
     { time: 182, title: "The Investigation", pdfLink: "https://www.datocms-assets.com/136385/1739562418-7-anthropogenic.pdf" }, //176
 ];
-*/
+/*
 const _references: Reference[] = [
     { time: 4, title: "Should we know?", pdfLink: "https://www.datocms-assets.com/136385/1739562417-1-should-we-know.pdf" },
     { time: 6, title: "What is Hothouse Earth", pdfLink: "https://www.datocms-assets.com/136385/1739562418-2-what-is-hothouse-earth.pdf" },
@@ -34,7 +34,7 @@ const _references: Reference[] = [
     { time: 26, title: "Methane", pdfLink: "https://www.datocms-assets.com/136385/1739562417-5-methane.pdf" },
     { time: 29, title: "Human Emissions", pdfLink: "https://www.datocms-assets.com/136385/1739562417-6-the-investigation.pdf" },
     { time: 32, title: "The Investigation", pdfLink: "https://www.datocms-assets.com/136385/1739562418-7-anthropogenic.pdf" }, //176
-];
+];*/
 
 function getValidReferences(currentTimeStamp:number, references:Reference[]):Reference[]
 {
@@ -78,9 +78,9 @@ export const VideoReferenceControl = ({currentTimeStamp, videoColReference,rowRe
     var hiddenReferences = allReferences.length - validReferences.length;
     const [fullWidthStyle, setFullWidthStyle] = useState({});
     const [colWidthStyle, seColWidthStyle] = useState({});
-    const [originY, setOriginY] = useState(0);
+    const [originY, setOriginY] = useState(40);
     const [rowHeight, setRowHeight] = useState(0);
-    const [itemHeight, setItemHeight] = useState(52);
+    const [itemHeight, setItemHeight] = useState(40);
     useEffect(() => {
         const handleResize = () => {
 
@@ -119,7 +119,8 @@ export const VideoReferenceControl = ({currentTimeStamp, videoColReference,rowRe
             });
 
             setRowHeight(rowRect.height)
-            setOriginY(50);
+            setOriginY(colRect.top-colRect.height*0.35);
+            //setOriginY(rowRect.top)
         } else {
             setFullWidthStyle({}); // Clear styles when no active reference
         }
@@ -137,7 +138,8 @@ export const VideoReferenceControl = ({currentTimeStamp, videoColReference,rowRe
                 var isActive = activeIndex === indexA;
                 var isHidden = ref.time > currentTimeStamp;
                 var style = isActive ? fullWidthStyle : colWidthStyle;
-                var normalTop = originY + ((allReferencesCount-(indexA+hiddenReferences)) * itemHeight);//rowHeight - (originY +(40 * (indexA + hiddenReferences)));
+                var lastIndex = (allReferencesCount-(hiddenReferences)) -1;
+                var normalTop = originY + ((allReferencesCount-(indexA+hiddenReferences+1)) * itemHeight);//rowHeight - (originY +(40 * (indexA + hiddenReferences)));
                 var activeTop = originY;
                 
                 var newStyle ={
@@ -145,13 +147,22 @@ export const VideoReferenceControl = ({currentTimeStamp, videoColReference,rowRe
                     //bottom: isActive ? undefined : originY +(40 * (indexA)),
                     
                     top: isActive ? activeTop: normalTop,
-                    display: isHidden && !isActive ? "none" : "inline-block",
+                    display: isHidden  ? "none" : "inline-block",
+                }
+                var extraClass = "";
+                if(indexA === lastIndex)
+                {
+                    extraClass = "list-group-item-first"
+                }
+                if(indexA === 0)
+                {
+                    extraClass = "list-group-item-last"
                 }
                 return (
                <ListGroup.Item
                     key={ref.time}
 
-                    className={`text-left list-group-item-text ${isActive ? "current-reference" : "other-reference"}`}
+                    className={`text-left list-group-item-text ${isActive ? "current-reference" : "other-reference"} ${extraClass}`}
                     action // Makes the items clickable
                     style={newStyle}
                     active={isActive} // Sets active state
