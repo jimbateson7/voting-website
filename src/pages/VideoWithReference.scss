@@ -1,45 +1,26 @@
-/* Target the specific row */
-.video-row {
-  margin-left: -15px; /* Adjust if your grid system has different default margins */
-  margin-right: -15px; /* Adjust if your grid system has different default margins */
-}
+  
 
 /* Target the video column to reduce right padding */
 .video-column {
-  padding-right: 5px; /* Adjust this value to control the gap */
+  padding: 0px; /* Adjust this value to control the gap */
 }
 
 /* Target the reference column to reduce left padding */
 .reference-column {
-  padding-left: 5px; /* Adjust this value to control the gap */
-}
-.list-group-item-text { /* Or any other suitable selector */
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap; /* Prevent text from wrapping */
-  width: 100%; /* needed if the element doesn't have a defined width already */
-  textAlign: "left"
+  padding: 0px; /* Adjust this value to control the gap */
 }
 
-
-
-/* Optional: If you need to shift the video control further left */
-.video-column {
-  padding-left: 10px; /* Example: Add left padding to shift content. Adjust as needed */
-}
 
 /* Responsive adjustments if necessary */
 @media (min-width: 768px) { /* Example breakpoint for 'md' size */
   .video-row {
-    margin-left: -15px;
-    margin-right: -15px;
+ 
   }
   .video-column {
-    padding-right: 15px;
-    padding-left: 15px; /* Example: Add left padding to shift content. Adjust as needed */
+
 
   }
   .reference-column {
-    padding-left: 15px;
+    
   }
 }
