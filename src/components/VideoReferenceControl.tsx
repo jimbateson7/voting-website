@@ -93,12 +93,12 @@ export const VideoReferenceControl = ({currentTimeStamp, videoReferenceControlRe
     {
         if (videoReferenceControlRef.current) {
             const rect = videoReferenceControlRef.current.getBoundingClientRect();
-            const reversePadding = 0.09;
+            const reversePadding = 0.068;
             const width = rect.width * (1-reversePadding);
             const left = rect.left + (rect.width *(reversePadding/2)); 
             setFullWidthStyle({
-              //  width: width,
-              //  left: left,
+               width: width,
+                left: left,
             });
         } else {
             setFullWidthStyle({}); // Clear styles when no active reference

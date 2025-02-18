@@ -3,7 +3,7 @@
 .current-reference {
   /* Your current styles for the active item */
   background-color: lightblue; /* Example: highlight the active item */
-  position: relative;
+  position: absolute;
  // transition: background-color 0.5s ease, width 0.5s ease, left 0.5s ease; /* Animate background color */
   transition: all 0.5s ease-in-out;
   transform-origin: top left;
@@ -24,7 +24,6 @@
 }
 
 .list-group-item-text {
-  position: relative;
   transition: all 0.5s ease-in-out;
   transform-origin: top left;
 }
