@@ -25,7 +25,7 @@ const _references: Reference[] = [
     { time: 176, title: "Human Emissions", pdfLink: "https://www.datocms-assets.com/136385/1739562417-6-the-investigation.pdf" },
     { time: 182, title: "The Investigation", pdfLink: "https://www.datocms-assets.com/136385/1739562418-7-anthropogenic.pdf" }, //176
 ];
-/*
+/* useful for testing
 const _references: Reference[] = [
     { time: 4, title: "Should we know?", pdfLink: "https://www.datocms-assets.com/136385/1739562417-1-should-we-know.pdf" },
     { time: 6, title: "What is Hothouse Earth", pdfLink: "https://www.datocms-assets.com/136385/1739562418-2-what-is-hothouse-earth.pdf" },
@@ -36,133 +36,42 @@ const _references: Reference[] = [
     { time: 32, title: "The Investigation", pdfLink: "https://www.datocms-assets.com/136385/1739562418-7-anthropogenic.pdf" }, //176
 ];*/
 
-function getValidReferences(currentTimeStamp:number, references:Reference[]):Reference[]
-{
-    return references.filter( ref => ref.time < currentTimeStamp);
-}
-function findClosestReferenceIndex(currentTimeStamp: number, references:Reference[], limit:number = 10): number | undefined {
-    let low = 0;
-    let high = references.length - 1;
-    let closestIndex: number | undefined = undefined;
-    let minDifference = Infinity;
 
-    while (low <= high) {
-        const mid = Math.floor((low + high) / 2);
-        const reference = references[mid];
-
-        if (reference.time > currentTimeStamp) {
-            high = mid - 1; // Skip references that are too late
-        } else if (currentTimeStamp - reference.time > 0 && currentTimeStamp - reference.time <= limit) {
-            const difference = currentTimeStamp - reference.time;
-            if (difference < minDifference) {
-                minDifference = difference;
-                closestIndex = mid;
-            }
-            low = mid + 1; // Check for even closer values on the right
-        } else {
-            low = mid + 1; // Too far behind or within the limit seconds but not the closest, search right
-        }
-    }
-
-    return closestIndex;
-}
 
 export const VideoReferenceControl = ({currentTimeStamp, videoColReference,rowReference,sideBarColReference}: TReferenceProps) => {
-    //const allReferences =_references.sort((a, b) => b.time - a.time);
-    const allReferences = _references
-    const activeIndex =findClosestReferenceIndex(currentTimeStamp,allReferences,10) ?? null;
-    const activeReference: Reference | null = activeIndex ? _references[activeIndex] : null;
-    var referenceTime = activeReference?.time;
-    const validReferences = getValidReferences(currentTimeStamp, allReferences);//.sort((a, b) => b.time - a.time);
-    
-    var hiddenReferences = allReferences.length - validReferences.length;
-    const [fullWidthStyle, setFullWidthStyle] = useState({});
-    const [colWidthStyle, seColWidthStyle] = useState({});
-    const [originY, setOriginY] = useState(40);
-    const [rowHeight, setRowHeight] = useState(0);
-    const [itemHeight, setItemHeight] = useState(40);
-    useEffect(() => {
-        const handleResize = () => {
+    const allReferences =_references.sort((a, b) => b.time - a.time);
 
-            handleReferenceControlChange()
-
-        };
-
-        // Add the event listener
-        window.addEventListener('resize', handleResize);
-
-        // Cleanup function: remove the event listener when the component unmounts or the effect re-runs
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
-    }, []); // Empty dependency array means this effect runs only on mount and unmount
-
-    function handleReferenceControlChange()
+    function showReference(index:number):boolean
     {
-        if (rowReference.current && sideBarColReference.current && videoColReference.current) {
-            const rowRect = rowReference.current.getBoundingClientRect();
-            const colRect = sideBarColReference.current.getBoundingClientRect();
-            const vidRect = videoColReference.current.getBoundingClientRect();
-            //const reversePadding = 0.068;
-            //const width = rect.width * (1-reversePadding);
-            //const left = rect.left + (rect.width *(reversePadding/2)); 
-            setFullWidthStyle({
-               width: rowRect.width,
-                left: rowRect.left,
-               // top: 0,
-            });
+        //invalid references can't be shown :) 
+        if(index >= allReferences.length || index < 0)
+            return false;
 
-            seColWidthStyle({
-                width: colRect.width,
-                left: colRect.left,
-                //top: 0,
-            });
-
-            setRowHeight(rowRect.height)
-            setOriginY(colRect.top-colRect.height*0.35);
-            //setOriginY(rowRect.top)
-        } else {
-            setFullWidthStyle({}); // Clear styles when no active reference
-        }
+        const reference = allReferences[index];
+        return reference.time <= currentTimeStamp
     }
-    useEffect(() => {
-        handleReferenceControlChange();
-    }, [rowReference, sideBarColReference,videoColReference]);
     
     return (
         <ListGroup style={{ overflowY: "auto", overflowX:"hidden"}}> {/* Use ListGroup for better styling */}
             {allReferences.map((ref, indexA) => {
-                var allReferencesCount = _references.length;
-                var isActive = activeIndex === indexA;
-                var isHidden = ref.time > currentTimeStamp;
-                var style = isActive ? fullWidthStyle : colWidthStyle;
-                var lastIndex = (allReferencesCount-(hiddenReferences)) -1;
-                var normalTop = originY + ((allReferencesCount-(indexA+hiddenReferences+1)) * itemHeight);//rowHeight - (originY +(40 * (indexA + hiddenReferences)));
-                var activeTop = originY;
-                
-                var newStyle ={
-                    ...style,
-                    //bottom: isActive ? undefined : originY +(40 * (indexA)),
-                    
-                    top: isActive ? activeTop: normalTop,
-                    display: isHidden  ? "none" : "inline-flex",
-                }
-                var extraClass = "";
-                if(indexA === lastIndex)
-                {
-                    extraClass = "list-group-item-first"
-                }
-                if(indexA === 0)
-                {
-                    extraClass = "list-group-item-last"
-                }
+
+                const isVisible = showReference(indexA);
+                const nextReferenceIsVisible = showReference(indexA - 1);
+                const isTheFirstVisible = isVisible && !nextReferenceIsVisible;
+                const isHighlighted = isTheFirstVisible;//  && ((currentTimeStamp - ref.time) < highlightTime); 
+
+
+                const newStyle = {
+                    display: isVisible ? "inline-flex" : "none",
+                };
+
                 return (
                     <ListGroup.Item
                         key={ref.time}
-                        className={`text-left list-group-item-text ${isActive ? "current-reference" : "other-reference"} ${extraClass}`}
+                        className={`text-left list-group-item-text ${isHighlighted ? "current-reference" : "other-reference"}`}
                         action // Makes the items clickable
                         style={newStyle}
-                        active={isActive} // Sets active state
+                        active={isHighlighted} // Sets active state
                         onClick={() => {                        
                             window.open(ref.pdfLink, "_blank");
                         }}

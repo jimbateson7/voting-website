@@ -11,7 +11,6 @@
 }
 
 .list-group-item-text {
- // transition: all 0.15s ease-in-out;
   transform-origin: top left;
 }
 
@@ -32,7 +31,6 @@
 /* Default transition styles */
 .current-reference,
 .list-group-item-text {
-  position: absolute;
   transition: all 0.8s ease;
   padding: 0;
   height: 40px;
@@ -41,26 +39,6 @@
 .list-group-item {
   display: flex;
   align-items: center;
-  border-radius: 0 !important;
-  border-width: 1px 1px 0 !important;
-
-  &.list-group-item-last {
-    border-radius: 0 0 8px 8px !important;
-    border-bottom-width: 1px !important;
-  }
-
-  &.list-group-item-first {
-    border-radius: 8px 8px 0 0 !important;
-    border-top-width: 1px !important;
-  }
-  
-  &.active {
-    border-radius: 8px !important;
-
-    svg {
-      fill: #fff;
-    }
-  }
 }
 
 /* Reduced motion styles */
