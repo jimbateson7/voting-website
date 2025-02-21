@@ -155,42 +155,14 @@ const VotingPage = (queryProps: TVotingQueryProps) => {
 
 
     }, [queryProps,variant]);
-    
-   
-    let RenderComponent;
-    switch (variant) {
-        case "one":
-            RenderComponent = VotingPageOption1;
-            
-            break;
-        case "two":
-            RenderComponent = VotingPageOption2B;
-            
-            break;
-        case "three":
-            RenderComponent = VotingPageOption3;
-            break;
-        case "five":
-            RenderComponent = VotingPageOption5;
+       
 
-            break;
-        case "six": {
-            RenderComponent = VotingPageOptionChris;
-
-            variant = "original"
-            break;
-        }
-            
-        default: {
-            variant = "original"
-            RenderComponent = VotingPageOriginal;
-        }
-    }
+    const RenderComponent = VotingPageOption2B;
 
     return (
         <>
             <RenderComponent {...fullData}/>
-            <VariantPopup setSearchParams={setSearchParams} currentVariant={realVariant} />
+            
         </>
     );  
     
