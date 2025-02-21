@@ -18,7 +18,7 @@ import {VotingPageOptionChris} from "./VotingPageVariants/VotingPageOptionChris"
 import {VotingPageOption1} from "./VotingPageVariants/VotingPageOption1";
 import {VotingPageOption3} from "./VotingPageVariants/VotingPageOption3";
 import {VotingPageOption5} from "./VotingPageVariants/VotingPageOption5";
-import { VotingPageOption2B } from "./VotingPageVariants/VotingPageOption2B";
+import { VotingPageMainJourney } from "./VotingPageVariants/VotingPageMainJourney";
 
 
 export const localStorageVotingIdKey = "voterId";
@@ -157,7 +157,7 @@ const VotingPage = (queryProps: TVotingQueryProps) => {
     }, [queryProps,variant]);
        
 
-    const RenderComponent = VotingPageOption2B;
+    const RenderComponent = VotingPageMainJourney;
 
     return (
         <>

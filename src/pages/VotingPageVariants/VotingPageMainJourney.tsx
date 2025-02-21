@@ -14,8 +14,7 @@ import { VideoControl } from "../../components/VideoControl";
 const StagedFlow = (props: TStagedFlowProps) => {
     const [stage, setStage] = useState(0);
     
-    const totalQuestions = (props.questions?.length ?? 0);
-    
+    const totalQuestions = 1;//(props.questions?.length ?? 0); (todo decide if we are making this dynamic)   
        
     const openingStage = 0;
     const questionStage = 1;    
@@ -29,17 +28,14 @@ const StagedFlow = (props: TStagedFlowProps) => {
     const originalVoteCallback = props.voteChangedCallBack;
     
     var questionOne = props.questions && props.questions.length > 1 ? props.questions[0] : null;
-    var questionTwo =  props.questions && props.questions.length > 1 ? props.questions[1] : null;
-    
-   
-    //add additional call to the callback
 
+    //add additional call to the callback
     const extendedVoteCallback = (voted: Choice) => {
         originalVoteCallback?.(voted); // Call the original function if it exists
          nextStage(); // Call the additional function
     };
 
-    if(!questionOne || !questionTwo)
+    if(!questionOne)
     {
         console.log("no questions")
         return ( <></>);
@@ -104,28 +100,7 @@ const StagedFlow = (props: TStagedFlowProps) => {
                             </Col>
                         </Row>
                     </Fade>
-                    
-                    <Fade in={stage === questionStage+1 } unmountOnExit>
-                        <Row className={"vote-controls"}>
-                            <Col className={"squashToRow pad50"}>
-
-                                <QuestionComponent {...props}
-                                                   {...questionTwo}
-                                                   voteChangedCallBack={extendedVoteCallback}/>
-                            </Col>
-
-                            <Col className={"videoColumn squashToRow squashToRow50"}>
-                                <VideoControl locale={props.locale} fullScreenOnClick={true}
-                                              datoVideo={ props.videos?.prop2?.video?.video  }
-                                                    leftShift={-50}
-                                              onFinish={() => {
-                                                  if (props.watchedCallBack) props.watchedCallBack();
-                                                  nextStage();
-                                              }}
-                                              videoThumbnail={ props.videos?.prop2.thumbnailImage?.responsiveImage.src} />
-                            </Col>
-                        </Row>
-                    </Fade>
+              
 
                     {/* Stage: Sharing */}
                     <Fade in={stage === shareStage} unmountOnExit>
@@ -195,7 +170,7 @@ const StagedFlow = (props: TStagedFlowProps) => {
 };
 
 
-export const VotingPageOption2B = (props: TVotingPageExtended) => {
+export const VotingPageMainJourney = (props: TVotingPageExtended) => {
 
 
     const {voted, watched} = props;
@@ -216,7 +191,6 @@ export const VotingPageOption2B = (props: TVotingPageExtended) => {
     return (
         <>
            <StagedFlow {...props}></StagedFlow>
-
         </>
     )
         ;
