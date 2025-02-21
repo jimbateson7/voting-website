@@ -39,6 +39,8 @@ const _references: Reference[] = [
 
 
 export const VideoReferenceControl = ({currentTimeStamp, videoColReference,rowReference,sideBarColReference}: TReferenceProps) => {
+    
+    //sort the references so that they are in reverse time order (this ensures the latest is at the top)
     const allReferences =_references.sort((a, b) => b.time - a.time);
 
     function showReference(index:number):boolean
