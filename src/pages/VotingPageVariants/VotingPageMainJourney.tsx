@@ -27,7 +27,7 @@ const StagedFlow = (props: TStagedFlowProps) => {
     const prevStage = () => setStage((prev) => Math.max(prev - 1, 0));
     const originalVoteCallback = props.voteChangedCallBack;
     
-    var questionOne = props.questions && props.questions.length > 1 ? props.questions[0] : null;
+    const questionOne = props.questions && props.questions.length >= 1 ? props.questions[0] : null;
 
     //add additional call to the callback
     const extendedVoteCallback = (voted: Choice) => {
