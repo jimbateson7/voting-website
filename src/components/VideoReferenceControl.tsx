@@ -3,7 +3,7 @@ import { ListGroup } from "react-bootstrap";
 import "./VideoControl.scss"
 import "./VideoReferenceControl.scss"
 export type TReferenceProps = {
-    currentTimeStamp: number
+    currentTimeStamp: number,
     references?: TReference[]
 }
 
@@ -16,7 +16,11 @@ export type TReference = {
 
 
 export const VideoReferenceControl = ({currentTimeStamp, references}: TReferenceProps) => {
-    
+
+
+    if(!references || references.length < 1) {
+        return <></>
+    }
     //sort the references so that they are in reverse time order (this ensures the latest is at the top)
     const allReferences =references.sort((a, b) => b.time - a.time);
 

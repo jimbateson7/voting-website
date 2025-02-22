@@ -10,6 +10,12 @@ import {Choice} from "../../models";
 import {StructuredText} from "react-datocms";
 import {TStagedFlowProps} from "./TStagedFlowProps";
 import { VideoControl } from "../../components/VideoControl";
+import {TReference, VideoReferenceControl} from "../../components/VideoReferenceControl";
+import {VideoWithReference} from "../VideoWithReference";
+import { getReferences } from "../../repositories/References/request";
+
+
+
 
 const StagedFlow = (props: TStagedFlowProps) => {
     const [stage, setStage] = useState(0);
@@ -119,13 +125,18 @@ const StagedFlow = (props: TStagedFlowProps) => {
                     <Fade in={stage === detailStage} unmountOnExit>
                         <div style={{ height: '70vh' }}>
                             <div className={"verticalFrameCentre"}>
-                            <VideoControl locale={props.locale} fullScreenOnClick={true}
-                                          datoVideo={props.videos?.detailVideo?.video?.video}
-                                          onFinish={() => {
-                                              if (props.watchedCallBack) props.watchedCallBack();
-                                              nextStage();
-                                          }}
-                                          videoThumbnail={props.videos?.detailVideo.thumbnailImage?.responsiveImage.src}/>
+                            <VideoWithReference
+                                references={getReferences(props.videos?.detailVideo?.video.id)}
+                                locale={props.locale}
+                                fullScreenOnClick={true}
+                                datoVideo={props.videos?.detailVideo?.video?.video}
+                                onFinish={() => {
+                                    if (props.watchedCallBack)
+                                        props.watchedCallBack();
+                                    nextStage();
+                                }}
+                                videoThumbnail={props.videos?.detailVideo.thumbnailImage?.responsiveImage.src}
+                                currentTimeStamp={0}/>
                             </div>
                         </div>
                     </Fade>
