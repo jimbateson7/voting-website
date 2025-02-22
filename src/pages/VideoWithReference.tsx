@@ -9,7 +9,10 @@ export const VideoWithReference = (props: TVideoReference) => {
 
     const [timeStamp, setTimeStamp] = useState<number>(props.currentTimeStamp);
 
-   
+    //if no references just treat as normal control
+    if(!props.references || props.references.length === 0){
+        return <VideoControl {...props} onProgress={setTimeStamp}  />
+    }
     
     return (
         <Row className={"video-reference-control"}>

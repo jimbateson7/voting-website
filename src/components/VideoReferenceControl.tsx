@@ -4,7 +4,7 @@ import "./VideoControl.scss"
 import "./VideoReferenceControl.scss"
 export type TReferenceProps = {
     currentTimeStamp: number
-    references: TReference[]
+    references?: TReference[]
 }
 
 export type TReference = {
