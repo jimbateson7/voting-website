@@ -1,5 +1,3 @@
-
-
 .current-reference {
   /* Your current styles for the active item */
   background-color: lightblue; /* Example: highlight the active item */
@@ -39,14 +37,4 @@
 .list-group-item {
   display: flex;
   align-items: center;
-}
-
-/* Reduced motion styles */
-@media (prefers-reduced-motion: reduce) {
-  .current-reference,
-  .list-group-item-text {
-   // transition: none; /* Disable transitions */
-    /* Or, apply simpler transitions, like opacity changes */
-    /* transition: opacity 0.2s ease; */
-  }
 }
