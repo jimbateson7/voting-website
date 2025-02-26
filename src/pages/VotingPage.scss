@@ -8,8 +8,8 @@
   --secondary50Brighter: #a4c5be;
   --tertiary50Brighter: #57b3d9;
 }
-.voteControlRow
-{
+
+.voteControlRow {
   width: auto;
   row-gap: 10px;
 }
@@ -34,7 +34,8 @@
     }
   }
 
-  h1, .question {
+  h1,
+  .question {
     font-weight: bold;
     margin-bottom: 2rem;
   }
@@ -64,15 +65,13 @@ svg {
 }
 
 .btn {
+  background-color: var(--tertiary);
+  color: var(--white);
+
   &:hover,
   &:focus {
-    background-color: white;
-
-    svg {
-      transform: scale(1.5);
-      filter: brightness(1.5);
-      transition: transform ease-in-out .25s;
-    }
+    background-color: var(--tertiary50Brighter);
+    color: var(--tertiary)
   }
 }
 

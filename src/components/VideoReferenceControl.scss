@@ -25,6 +25,11 @@
 
 }
 
+.list-group-item.active {
+  color: var(--tertiary) !important;
+  font-weight: 600;
+}
+
 /* animations */
 /* Default transition styles */
 .current-reference,

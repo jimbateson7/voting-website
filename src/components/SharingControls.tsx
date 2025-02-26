@@ -81,7 +81,7 @@ export const SharingControls = ({className, voted, shareHeading, shareButtonText
                             <FaInstagram onClick={() => record("Instagram")} style={{fontSize: '3rem', padding: '.25rem'}}/>
                         </a>
 
-                        <a id="copy-link" href="http://wwww.ourplanetourpeople.com">
+                        <a id="copy-link" href="https://wwww.ourplanetourpeople.com">
                             <FaShareAlt onClick={() => record("Copy")}
                                     style={{color: '#C0C0C0'}}/>
                         </a>
