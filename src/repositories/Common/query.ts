@@ -79,6 +79,7 @@ const votingPage = `
             
             openingText{value},
             shareHeading,
+            shareSubheading,
             donateText{value},
             slug,
             questions {

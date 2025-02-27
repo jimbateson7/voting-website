@@ -39,9 +39,9 @@ export interface TVotingPage {
     postThankYou?: { id: string, video: Video };
     questions?: TQuestionBlock[];
 
-    shareHeading?: string;
+    shareHeading: string;
+    shareSubHeading: string;
 
-    shareSubHeading?: string;
     showIntroVideo: boolean;
     showSharePanel: boolean;
     showStatistics: boolean;
@@ -88,17 +88,18 @@ const VotingPage = (queryProps: TVotingQueryProps) => {
     }
     const initialState: TVotingPage =
         {
-            videos: undefined,    
+            videos: undefined,
             donateText: undefined,
             openingText: undefined,
             postVoteVideo: undefined,
             introText: "",
-            mainVideo: {id: "", video: {}},
+            mainVideo: { id: "", video: {} },
             showIntroVideo: false,
             showSharePanel: false,
             showStatistics: false,
             videoThumbnail: undefined,
- 
+            shareHeading: "",
+            shareSubHeading: ""
         }
     const lwatchedString = localStorage.getItem(localStorageWatchedIdKey);
     const lwatched = lwatchedString ? lwatchedString === "true" : false;

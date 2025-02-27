@@ -9,6 +9,8 @@ export interface TStagedFlowProps {
     videos?: TVideos;
     watchedCallBack?: () => void,
     mainVideo: { id: string, video: Video };
+    shareHeading: string;
+    shareSubHeading: string;
 
     voteResultCallBack?: (voted: boolean) => void,
     voteChangedCallBack?: (choice: Choice) => void,
@@ -16,5 +18,4 @@ export interface TStagedFlowProps {
     questions?: TQuestionBlock[];
     donateText?: { value: StructuredTextDocument };
     openingText?: { value: StructuredTextDocument };
-
 }

@@ -1,12 +1,11 @@
 import React, {useEffect, useState} from "react";
+import { Col, Row } from "react-bootstrap";
 import {
     FaFacebook,
-    FaInstagram,
+    FaTwitter,
     FaLinkedin,
     FaShareAlt,
-    FaTwitter,
 } from "react-icons/fa";
-import { Col, Row } from "react-bootstrap";
 
 import "./SharingControls.scss";
 
