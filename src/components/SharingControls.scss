@@ -2,14 +2,6 @@
   padding-bottom: 5px;
   margin: 0 5px;
   border-bottom: 1px solid #ccc;
-
-}
-
-@media (min-width: 970px) {
-  .auto-hide {
-    visibility: hidden;
-    display: none;
-  }
 }
 
 .share {
@@ -63,4 +55,26 @@
 
 .voted {
   font-size: 1.4rem !important;
+}
+
+.sharing-icons__top {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  justify-content: center;
+  margin-block: 1rem;
+
+  a {
+    color: #fff;
+    
+    &:hover,
+    &:focus {
+      transform: scale(1.25);
+      transition: transform ease-in-out .25s;
+    }
+  }
+}
+
+.sharing-icons__subheading {
+  margin-block: 1rem;
 }

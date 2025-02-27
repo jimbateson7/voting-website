@@ -4,7 +4,7 @@ import {
     FaInstagram,
     FaLinkedin,
     FaShareAlt,
-    FaTwitter
+    FaTwitter,
 } from "react-icons/fa";
 import { Col, Row } from "react-bootstrap";
 
@@ -13,12 +13,13 @@ import "./SharingControls.scss";
 export interface ISharingControls {
     voted: boolean;
     shareHeading: string;
+    shareSubHeading?: string;
     shareButtonText?: string;
     className?: string;
     mainQuestionText?: string;
 }
 
-export const SharingControls = ({shareHeading, mainQuestionText}: ISharingControls) => {
+export const SharingControls = ({shareHeading, shareSubHeading, mainQuestionText}: ISharingControls) => {
     const [linkAdded, setLinkAdded] = useState(false);
     
     useEffect(() => {
@@ -58,15 +59,15 @@ export const SharingControls = ({shareHeading, mainQuestionText}: ISharingContro
             case "facebook":
                 url = `https://www.facebook.com/sharer.php?u=${pageUrl}`;
             break;
+
             case "twitter":
                 url = `https://twitter.com/intent/tweet?url=${pageUrl}&text=Check this out!`;
             break;
+
             case "linkedin":
                 url = `https://www.linkedin.com/sharing/share-offsite/?url=${pageUrl}`;
             break;
-            case "instagram":
-                url = `https://www.instagram.com/`;
-            break;
+
             default:
             return;
         }
@@ -76,32 +77,30 @@ export const SharingControls = ({shareHeading, mainQuestionText}: ISharingContro
     
     return (
         <>
-            <Row className={"verticalFrameCentre justify-content-center "}>
+            <Row className={"verticalFrameCentre justify-content-center"}>
                 <h2>{shareHeading}</h2>
             </Row>
 
             <Row>
                 <Col className={"squashToRow  sharingControls"}>
                     <div className={"verticalFrameCentre"}>
-                        <a href="#" rel="noreferrer">
-                            <FaFacebook onClick={(e) => { e.preventDefault(); handleShare("facebook")}} style={{color: '#4267B2', fontSize: '3rem', padding: '.25rem'}}/>
-                        </a>
+                        <div className="sharing-icons__top">
+                            <a href="#" rel="noreferrer">
+                                <FaFacebook onClick={(e) => { e.preventDefault(); handleShare("facebook")}} style={{ fontSize: '3rem'}}/>
+                            </a>
 
-                        <a href="#" rel="noreferrer">
-                            <FaTwitter onClick={(e) => { e.preventDefault(); handleShare("twitter")}} style={{color: '#1DA1F2', fontSize: '3rem', padding: '.25rem'}}/>
-                        </a>
+                            <a href="#" rel="noreferrer">
+                                <FaTwitter onClick={(e) => { e.preventDefault(); handleShare("twitter")}} style={{ fontSize: '3rem'}}/>
+                            </a>
 
-                        <a href="#" rel="noreferrer">
-                            <FaLinkedin onClick={(e) => { e.preventDefault(); handleShare("linkedin")}} style={{color: '#2D62C1', fontSize: '3rem', padding: '.25rem'}}/>
-                        </a>
+                            <a href="#" rel="noreferrer">
+                                <FaLinkedin onClick={(e) => { e.preventDefault(); handleShare("linkedin")}} style={{ fontSize: '3rem'}}/>
+                            </a>
+                        </div>
 
-                        <a href="#"rel="noreferrer" >
-                            <FaInstagram onClick={(e) => { e.preventDefault(); handleShare("instagram")}} style={{fontSize: '3rem', padding: '.25rem'}}/>
-                        </a>
-
+                        <h3 className="sharing-icons__subheading">{shareSubHeading}</h3>
                         <a id="copy-link" href="https://wwww.ourplanetourpeople.com">
-                            <FaShareAlt onClick={() => record("Copy")}
-                                    style={{color: '#C0C0C0'}}/>
+                            <FaShareAlt onClick={() => record("Copy")} />
                         </a>
                     </div>
                 </Col>
