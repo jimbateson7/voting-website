@@ -1,15 +1,13 @@
+import React, {useEffect, useState} from "react";
 import {
-    FaEnvelope,
-    FaExternalLinkAlt,
     FaFacebook,
     FaInstagram,
-    FaLink,
     FaLinkedin,
-    FaShare, FaShareAlt,
+    FaShareAlt,
     FaTwitter
 } from "react-icons/fa";
-import React, {useEffect, useState} from "react";
 import { Col, Row } from "react-bootstrap";
+
 import "./SharingControls.scss";
 
 export interface ISharingControls {
@@ -20,7 +18,7 @@ export interface ISharingControls {
     mainQuestionText?: string;
 }
 
-export const SharingControls = ({className, voted, shareHeading, shareButtonText,mainQuestionText}: ISharingControls) => {
+export const SharingControls = ({shareHeading, mainQuestionText}: ISharingControls) => {
     const [linkAdded, setLinkAdded] = useState(false);
     
     useEffect(() => {
@@ -45,44 +43,35 @@ export const SharingControls = ({className, voted, shareHeading, shareButtonText
 
     function record(text: string) {}
 
-    let twitterShareText = "";
-
-    try {
-        twitterShareText = shareButtonText ? encodeURIComponent(shareButtonText) : "";
-    } catch (e) {
-        console.log(e);
-    }
-
-    const emailSubject = twitterShareText;
-
     const openSocialWindow = (url: string) => {
         const left = (window.screen.width - 570) / 2;
         const top = (window.screen.height - 570) / 2;
         const params = "menubar=no,toolbar=no,status=no,width=570,height=570,top=" + top + ",left=" + left;
         window.open(url, "NewWindow", params);
-      };
+    };
     
     const handleShare = (platform: string) => {
-    const pageUrl = encodeURIComponent(window.location.href);
-    let url = "";
+        const pageUrl = encodeURIComponent(window.location.href);
+        let url = "";
 
-    switch (platform) {
-        case "facebook":
-            url = `https://www.facebook.com/sharer.php?u=${pageUrl}`;
-        break;
-        case "twitter":
-            url = `https://twitter.com/intent/tweet?url=${pageUrl}&text=Check this out!`;
-        break;
-        case "linkedin":
-            url = `https://www.linkedin.com/sharing/share-offsite/?url=${pageUrl}`;
-        break;
-        case "instagram":
-            url = `https://www.instagram.com/`;
-        break;
-        default:
-        return;
-    }
-    openSocialWindow(url);
+        switch (platform) {
+            case "facebook":
+                url = `https://www.facebook.com/sharer.php?u=${pageUrl}`;
+            break;
+            case "twitter":
+                url = `https://twitter.com/intent/tweet?url=${pageUrl}&text=Check this out!`;
+            break;
+            case "linkedin":
+                url = `https://www.linkedin.com/sharing/share-offsite/?url=${pageUrl}`;
+            break;
+            case "instagram":
+                url = `https://www.instagram.com/`;
+            break;
+            default:
+            return;
+        }
+
+        openSocialWindow(url);
     };
     
     return (
