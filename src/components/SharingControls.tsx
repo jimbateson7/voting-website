@@ -91,11 +91,9 @@ export const SharingControls = ({shareHeading, mainQuestionText}: ISharingContro
                             <FaTwitter onClick={(e) => { e.preventDefault(); handleShare("twitter")}} style={{color: '#1DA1F2', fontSize: '3rem', padding: '.25rem'}}/>
                         </a>
 
-                        {
-                            <a href="#" rel="noreferrer" className="auto-hide">
-                                <FaLinkedin onClick={(e) => { e.preventDefault(); handleShare("linkedin")}} style={{color: '#2D62C1', fontSize: '3rem', padding: '.25rem'}}/>
-                            </a>
-                        }
+                        <a href="#" rel="noreferrer">
+                            <FaLinkedin onClick={(e) => { e.preventDefault(); handleShare("linkedin")}} style={{color: '#2D62C1', fontSize: '3rem', padding: '.25rem'}}/>
+                        </a>
 
                         <a href="#"rel="noreferrer" >
                             <FaInstagram onClick={(e) => { e.preventDefault(); handleShare("instagram")}} style={{fontSize: '3rem', padding: '.25rem'}}/>
