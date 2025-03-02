@@ -88,12 +88,12 @@ export const LayoutTs = ({children, locale} : ILayout) => {
                 <Container>
                     <Link to="/" className="navbar-brand">
                         <img
-                            alt="Our Planet Our People logo"
+                            alt="Our Planet Our People"
                             src={logo}
                             onClick={() => {
                                 setExpanded(false)
                             }}
-                        />{" "}
+                        />
                     </Link>
                     <Navbar.Toggle onClick={toggleExpanded} aria-controls="responsive-navbar-nav"/>
                     <Navbar.Collapse id="responsive-navbar-nav">

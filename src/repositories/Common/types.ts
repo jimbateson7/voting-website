@@ -14,7 +14,7 @@ export interface Data {
 export type TArticlePage = {
     slug: string;
     title?: string;
-    locale:string;
+    locale: string;
 };
 
 

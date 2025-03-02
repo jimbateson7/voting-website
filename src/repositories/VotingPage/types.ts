@@ -29,7 +29,6 @@ export interface VotingPageData {
     detailVideo: TVideoThumbnail;
     landingVideo: TVideoThumbnail;
 
-
     proposition1: TVideoThumbnail;
     proposition2: TVideoThumbnail;
     proposition3: TVideoThumbnail;
@@ -39,7 +38,7 @@ export interface VotingPageData {
     introductionText?: string;
     
     shareHeading?: string;
-    shareSubHeading?: string;
+    shareSubheading?: string;
     title?: string;
     url?: string;
     slug?: string; 

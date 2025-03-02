@@ -1,26 +1,24 @@
-import {
-    FaEnvelope,
-    FaExternalLinkAlt,
-    FaFacebook,
-    FaInstagram,
-    FaLink,
-    FaLinkedin,
-    FaShare, FaShareAlt,
-    FaTwitter
-} from "react-icons/fa";
 import React, {useEffect, useState} from "react";
 import { Col, Row } from "react-bootstrap";
+import {
+    FaFacebook,
+    FaTwitter,
+    FaLinkedin,
+    FaShareAlt,
+} from "react-icons/fa";
+
 import "./SharingControls.scss";
 
 export interface ISharingControls {
     voted: boolean;
     shareHeading: string;
+    shareSubHeading?: string;
     shareButtonText?: string;
     className?: string;
     mainQuestionText?: string;
 }
 
-export const SharingControls = ({className, voted, shareHeading, shareButtonText,mainQuestionText}: ISharingControls) => {
+export const SharingControls = ({shareHeading, shareSubHeading, mainQuestionText}: ISharingControls) => {
     const [linkAdded, setLinkAdded] = useState(false);
     
     useEffect(() => {
@@ -45,45 +43,63 @@ export const SharingControls = ({className, voted, shareHeading, shareButtonText
 
     function record(text: string) {}
 
-    let twitterShareText = "";
+    const openSocialWindow = (url: string) => {
+        const left = (window.screen.width - 570) / 2;
+        const top = (window.screen.height - 570) / 2;
+        const params = "menubar=no,toolbar=no,status=no,width=570,height=570,top=" + top + ",left=" + left;
+        window.open(url, "NewWindow", params);
+    };
+    
+    const handleShare = (platform: string) => {
+        const pageUrl = encodeURIComponent(window.location.href);
+        let url = "";
 
-    try {
-        twitterShareText = shareButtonText ? encodeURIComponent(shareButtonText) : "";
-    } catch (e) {
-        console.log(e);
-    }
+        switch (platform) {
+            case "facebook":
+                url = `https://www.facebook.com/sharer.php?u=${pageUrl}`;
+            break;
 
-    const emailSubject = twitterShareText;
+            case "twitter":
+                url = `https://twitter.com/intent/tweet?url=${pageUrl}&text=Check this out!`;
+            break;
+
+            case "linkedin":
+                url = `https://www.linkedin.com/sharing/share-offsite/?url=${pageUrl}`;
+            break;
+
+            default:
+            return;
+        }
+
+        openSocialWindow(url);
+    };
+    
     return (
         <>
-            <Row className={"verticalFrameCentre justify-content-center "}>
+            <Row className={"verticalFrameCentre justify-content-center"}>
                 <h2>{shareHeading}</h2>
             </Row>
 
             <Row>
                 <Col className={"squashToRow  sharingControls"}>
                     <div className={"verticalFrameCentre"}>
-                        <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//ourplanetourpeople.com" target="_blank" rel="noreferrer">
-                            <FaFacebook onClick={() => record("Facebook")} style={{color: '#4267B2', fontSize: '3rem', padding: '.25rem'}}/>
-                        </a>
-
-                        <a href={`https://twitter.com/intent/tweet?text=${twitterShareText}`} target="_blank" rel="noreferrer">
-                            <FaTwitter onClick={() => record("Twitter")} style={{color: '#1DA1F2', fontSize: '3rem', padding: '.25rem'}}/>
-                        </a>
-
-                        {
-                            <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//ourplanetourpeople.com" target="_blank" rel="noreferrer" className="auto-hide">
-                                <FaLinkedin onClick={() => record("LinkedIn")} style={{color: '#2D62C1', fontSize: '3rem', padding: '.25rem'}}/>
+                        <div className="sharing-icons__top">
+                            <a href="#" rel="noreferrer">
+                                <FaFacebook onClick={(e) => { e.preventDefault(); handleShare("facebook")}} style={{ fontSize: '3rem'}}/>
                             </a>
-                        }
 
-                        <a href="https://www.instagram.com/" >
-                            <FaInstagram onClick={() => record("Instagram")} style={{fontSize: '3rem', padding: '.25rem'}}/>
-                        </a>
+                            <a href="#" rel="noreferrer">
+                                <FaTwitter onClick={(e) => { e.preventDefault(); handleShare("twitter")}} style={{ fontSize: '3rem'}}/>
+                            </a>
 
+                            <a href="#" rel="noreferrer">
+                                <FaLinkedin onClick={(e) => { e.preventDefault(); handleShare("linkedin")}} style={{ fontSize: '3rem'}}/>
+                            </a>
+                        </div>
+
+                        <h3 className="sharing-icons__subheading">{shareSubHeading}</h3>
                         <a id="copy-link" href="https://wwww.ourplanetourpeople.com">
-                            <FaShareAlt onClick={() => record("Copy")}
-                                    style={{color: '#C0C0C0'}}/>
+                            <FaShareAlt onClick={() => record("Copy")} />
                         </a>
                     </div>
                 </Col>
