@@ -30,21 +30,6 @@
     align-items: center;
     gap: 1rem;
   }
-
-  .social-links {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    gap: 1rem;
-
-    a {
-      &:hover,
-      &:focus {
-        transform: scale(1.25);
-        transition: transform ease-in-out .25s;
-      }
-    }
-  }
 }
 
 #share-heading {
@@ -64,11 +49,15 @@
   justify-content: center;
   margin-block: 1rem;
 
-  a {
+  button {
+    appearance: none;
+    border: 0;
+    background: transparent;
     color: #fff;
-    
+
     &:hover,
-    &:focus {
+    &:focus-visible {
+      color: var(--bs-link-color);
       transform: scale(1.25);
       transition: transform ease-in-out .25s;
     }

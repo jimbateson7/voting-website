@@ -10,16 +10,22 @@
 }
 
 .voteControlRow {
-  width: auto;
-  row-gap: 10px;
+  display: flex;
+  gap: 1rem;
 }
 
-.videoColumn {
+@media screen and (min-width: 1024px) {
+  .question-controls {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-    padding-inline: 1rem;
+  }
+  
+  .contentColumn {
+    width: 50%;
+  }
+  
+  .voteVideo {
+    max-width: 50%;
+  }
 }
 
 .row {

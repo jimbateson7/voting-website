@@ -84,22 +84,26 @@ export const SharingControls = ({shareHeading, shareSubHeading, mainQuestionText
                 <Col className={"squashToRow  sharingControls"}>
                     <div className={"verticalFrameCentre"}>
                         <div className="sharing-icons__top">
-                            <a href="#" rel="noreferrer">
+                            <button type="button">
                                 <FaFacebook onClick={(e) => { e.preventDefault(); handleShare("facebook")}} style={{ fontSize: '3rem'}}/>
-                            </a>
+                                <span className="visually-hidden">Share on Facebook</span>
+                            </button>
 
-                            <a href="#" rel="noreferrer">
+                            <button type="button">
                                 <FaTwitter onClick={(e) => { e.preventDefault(); handleShare("twitter")}} style={{ fontSize: '3rem'}}/>
-                            </a>
+                                <span className="visually-hidden">Share on X</span>
+                            </button>
 
-                            <a href="#" rel="noreferrer">
+                            <button type="button">
                                 <FaLinkedin onClick={(e) => { e.preventDefault(); handleShare("linkedin")}} style={{ fontSize: '3rem'}}/>
-                            </a>
+                                <span className="visually-hidden">Share on Linkedin</span>
+                            </button>
                         </div>
 
                         <h3 className="sharing-icons__subheading">{shareSubHeading}</h3>
                         <a id="copy-link" href="https://wwww.ourplanetourpeople.com">
                             <FaShareAlt onClick={() => record("Copy")} />
+                            <span className="visually-hidden">Share with contacts</span>
                         </a>
                     </div>
                 </Col>

@@ -33,8 +33,6 @@ export const VoteControls = ({
     const [numNoVotes, setNumNoVotes] = useState(0);
     let numYesVotesStr = numYesVotes < 10 ? `0${numYesVotes}` : `${numYesVotes}`;
     let numNoVotesStr = numNoVotes < 10 ? `0${numNoVotes}` : `${numNoVotes}`;
-
-
     
     function splitText(text: string): [string, string] {
         const words = text.split(' ');
@@ -44,36 +42,26 @@ export const VoteControls = ({
         return [firstWord, restOfText];
     }
     
-    
     numYesVotesStr = numYesVotes > 1000 ? `${Math.floor(numYesVotes / 1000)}k` : numYesVotesStr;
     numNoVotesStr = numNoVotes > 1000 ? `${Math.floor(numNoVotes / 1000)}k` : numNoVotesStr;
     const [fetchedVotes, setFetchedVotes] = useState(false);
     const [voteChoice, setVoteChoice] = useState<Choice | undefined>(undefined)
 
     const voted = voteChoice != undefined;
-
     const fetchVoteCounts = useCallback(async () => {
-
         const localGuid = localStorage.getItem(localStorageVotingIdKey);
-
-
         const votes = await DataStore.query(Vote, (v) => v.and(v => [v.voterId.eq(localGuid), v.questionId.eq(questionId)]));
-
-
         const aVote = votes.shift();
         const hasVoted = !!aVote;
 
         voteResultCallBack?.(hasVoted);
       
-
         if (hasVoted) {
             setVoteChoice(aVote.choice as Choice);
         }
 
-
         const noVotes = (await DataStore.query(Vote, (v) => v.and(v => [v.choice.eq(Choice.NO), v.questionId.eq(questionId)]))).length;
         const yesVotes = (await DataStore.query(Vote, (v) => v.and(v => [v.choice.eq(Choice.YES), v.questionId.eq(questionId)]))).length;
-
 
         setNumNoVotes(
             noVotes
@@ -87,7 +75,6 @@ export const VoteControls = ({
 
 
     useEffect(() => {
-
         const yesVoteButton = document.getElementById('vote-yes-1');
         const noVoteButton = document.getElementById('vote-no-1');
         const targetHeading = document.getElementById('share-heading-1');
@@ -113,13 +100,9 @@ export const VoteControls = ({
         }
 
         fetchVoteCounts().catch(console.error);
-
-
     }, [fetchVoteCounts]);
 
-
     const SaveVoteToDb = async (choice: Choice) => {
-        
         let localGuid = localStorage.getItem(localStorageVotingIdKey);
 
         if (!localGuid) {
@@ -128,9 +111,7 @@ export const VoteControls = ({
         }
 
         if (!voted || choice !== voteChoice) {
-
             const existingVotes = await DataStore.query(Vote, (v) => v.and(v => [v.voterId?.eq(localGuid), v.questionId?.eq(questionId)]))
-
             const aExistingVote = existingVotes.shift();
             const hasIdAlreadyVoted = !!aExistingVote;
             const country = getCountry() as string;
@@ -183,7 +164,6 @@ export const VoteControls = ({
         SaveVoteToDb(choice);
         voteChangedCallBack?.(choice);
     }
-    
 
     if (!fetchedVotes) {
         fetchVoteCounts().then(() => setFetchedVotes(true));
@@ -192,48 +172,37 @@ export const VoteControls = ({
     /*scroll down after voting so please share and donat is more prominate*/
     const [disagreeTextFirstWord, disagreeTextRest] = splitText(disagreeVoteText || ' ');
     const [agreeTextFirstWord, agreeTextRest] = splitText(agreeVoteText || ' ');
+
     return (
         <>
+            <div className={"voteControlRow"}>
+                <div className={`voteCol`}>
+                    <Button
+                        className={`btn-${voteChoice === Choice.YES ? "light" : "dark"}`}
+                        id="vote-yes"
+                        
+                        size="lg"
+                        onClick={() => userChangedVote(Choice.YES)}
+                        title={voteChoice === Choice.YES ? "You voted Yes" : "Change vote to Yes"}>
+                        <FaThumbsUp className="thumbs-up"/>
+                        {showStatistics ? <span className="yes">{numYesVotesStr}</span> : null}
+                    </Button>
+                    <p><strong>{agreeTextFirstWord}</strong> {agreeTextRest}</p>
+                </div>
+                <div className={`voteCol `}>
+                    <Button
+                        className={`btn-${voteChoice === Choice.NO ? "light" : "dark"}`}
+                        size="lg"
+                        onClick={() => userChangedVote(Choice.NO)}
+                        id="vote-no"
+                        title={voteChoice === Choice.NO ? "You voted No" : "Change vote to No"}>
+                        <FaThumbsDown className="thumbs-down"/>
+                        {showStatistics ? <span className="no">{numNoVotesStr}</span> : null}
+                    </Button>
+                    <p ><strong>{disagreeTextFirstWord}</strong> {disagreeTextRest}</p>
 
-
-            <Row>
-
-                <Row lg="3" xl="3" style={{paddingTop: "1.5rem"}}></Row>
-                <Row className={"voteControlRow"}>
-                    
-                    <Col className={`voteCol `}>
-                        <Button
-                            className={`btn-${voteChoice === Choice.YES ? "light" : "dark"}`}
-                            id="vote-yes"
-                            
-                            size="lg"
-                            onClick={() => userChangedVote(Choice.YES)}
-                            title={voteChoice === Choice.YES ? "You voted Yes" : "Change vote to Yes"}>
-                            <FaThumbsUp className="thumbs-up"/>
-                            {showStatistics ? <span className="yes">{numYesVotesStr}</span> : null}
-                        </Button>
-                        <p><strong>{agreeTextFirstWord}</strong> {agreeTextRest}</p>
-                    </Col>
-                    <Col className={`voteCol `}>
-                        <Button
-                            className={`btn-${voteChoice === Choice.NO ? "light" : "dark"}`}
-                            size="lg"
-                            onClick={() => userChangedVote(Choice.NO)}
-                            id="vote-no"
-                            title={voteChoice === Choice.NO ? "You voted No" : "Change vote to No"}
-                            
-                            >
-                            <FaThumbsDown className="thumbs-down"/>
-                            {showStatistics ? <span className="no">{numNoVotesStr}</span> : null}
-                        </Button>
-                        <p ><strong>{disagreeTextFirstWord}</strong> {disagreeTextRest}</p>
-
-                    </Col>
-
-                </Row>
-                <Row lg="3" xl="3"></Row>
-            </Row>
-
+                </div>
+            </div>
         </>
     );
 };

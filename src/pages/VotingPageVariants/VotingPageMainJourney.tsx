@@ -96,14 +96,12 @@ const StagedFlow = (props: TStagedFlowProps) => {
 
                         {/* Stage Questions */}
                         <Fade in={stage === questionStage } unmountOnExit>
-                            <Row className={"vote-controls"}>
-                                <div>
-                                    <QuestionComponent {...props}                                                  
-                                                    {...questionOne}
-                                                    voteChangedCallBack={extendedVoteCallback}/>
+                            <div className={"vote-controls question-controls"}>
+                                <div className={"contentColumn"}>
+                                    <QuestionComponent {...props} {...questionOne} voteChangedCallBack={extendedVoteCallback}/>
                                 </div>
         
-                                <div className={"videoColumn"}>
+                                <div className={"videoColumn voteVideo"}>
                                     <VideoControl locale={props.locale} fullScreenOnClick={true}
                                                 datoVideo={ props.videos?.prop1?.video?.video  }
                                                         leftShift={-50}
@@ -113,7 +111,7 @@ const StagedFlow = (props: TStagedFlowProps) => {
                                                 }}
                                                 videoThumbnail={ props.videos?.prop1.thumbnailImage?.responsiveImage.src} />
                                 </div>
-                            </Row>
+                            </div>
                         </Fade>
                 
                         {/* Stage: Sharing */}
@@ -164,14 +162,16 @@ const StagedFlow = (props: TStagedFlowProps) => {
                 {/* Navigation Buttons */}
                 { showNavigationControls ? 
                 <div className="d-flex align-items-center justify-content-center gap-3 w-100 page-navigation">
-                    <Button variant="secondary" onClick={prevStage} disabled={stage === 0}>
-                        <i className="bi bi-arrow-left">←</i>
+                    <Button variant="secondary" onClick={prevStage} aria-disabled={stage === 0} disabled={stage === 0}>
+                        <i className="bi bi-arrow-left" aria-hidden="true">←</i>
+                        <span className="visually-hidden">Previous page</span>
                     </Button>
 
                     <p className="page-navigation__number">{stage+1}/{totalStages}</p>
 
-                    <Button variant="primary" onClick={nextStage} disabled={stage === totalStages - 1}>
-                        <i className="bi bi-arrow-right">→</i>
+                    <Button variant="primary" onClick={nextStage} aria-disabled={stage === totalStages - 1} disabled={stage === totalStages - 1}>
+                        <i className="bi bi-arrow-right" aria-hidden="true">→</i>
+                        <span className="visually-hidden">Next page</span>
                     </Button>
                 </div> : null
                   }
