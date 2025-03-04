@@ -44,12 +44,7 @@ const votingPage = `
             id
             cardTitle,  
             showVoteStatistics,
-            videoThumbnail {
-                   responsiveImage
-                  {
-                    src
-                  }
-                }
+     
             landingVideo{
                 video${videoBlock}
                 thumbnailImage${imgBlock}

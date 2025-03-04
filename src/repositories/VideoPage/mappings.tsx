@@ -14,6 +14,7 @@ export async function mapVideoData(result: QueryResult): Promise<TVideoPage> {
         introText: actualPost.introText,
         videoTitle: actualPost.mainVideo?.video?.video?.title ?? undefined,
         mainVideo: actualPost.mainVideo,
+        videoThumbnail: actualPost.mainVideo?.thumbnailImage.responsiveImage.src,
    
     };
 }

@@ -4,12 +4,11 @@ import React, {useCallback, useEffect, useState} from "react";
 import {Video} from "react-datocms/dist/types/VideoPlayer";
 import { StructuredTextDocument} from "react-datocms";
 import {useSearchParams} from "react-router-dom";
-import {TVideoThumbnail} from "../repositories/VotingPage/types";
 import {getVotingPageJson} from "../repositories/VotingPage/request";
 import {Choice} from "../models";
 import {v4 as generateGuid} from "uuid";
 import { VotingPageMainJourney } from "./VotingPageVariants/VotingPageMainJourney";
-import {TReference} from "../components/VideoReferenceControl";
+import {TVideoThumbnail} from "../repositories/Common/types";
 
 
 export const localStorageVotingIdKey = "voterId";

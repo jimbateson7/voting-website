@@ -18,6 +18,8 @@ const StagedFlow = (props: TStagedFlowProps) => {
     const [searchParams, setSearchParams] = useSearchParams();
     
     const stageAsString = searchParams.get("stage");
+    const showNavigationControlsAsString = searchParams.get("showNavigation");
+    const showNavigationControls = showNavigationControlsAsString ? showNavigationControlsAsString === "true" : false;
     const stageFromUrl = stageAsString ? parseInt(stageAsString) : undefined;
 
     const [stage, setStage] = useState(stageFromUrl?? 0);
@@ -35,7 +37,7 @@ const StagedFlow = (props: TStagedFlowProps) => {
     
     const updateSearchParams = (newStage:number): number => {
         searchParams.set("stage", newStage.toString());
-        setSearchParams({ stage: newStage.toString() });
+        setSearchParams({ showNavigationControls:showNavigationControls.toString(), stage: newStage.toString() });
         return newStage;
     };
     
@@ -152,7 +154,8 @@ const StagedFlow = (props: TStagedFlowProps) => {
                     </div>
                 </div>
 
-                {/* Navigation Buttons 
+                {/* Navigation Buttons */}
+                { showNavigationControls ? 
                 <div className="d-flex align-items-center justify-content-center gap-3 w-100 page-navigation">
                     <Button variant="secondary" onClick={prevStage} disabled={stage === 0}>
                         <i className="bi bi-arrow-left">←</i>
@@ -163,8 +166,8 @@ const StagedFlow = (props: TStagedFlowProps) => {
                     <Button variant="primary" onClick={nextStage} disabled={stage === totalStages - 1}>
                         <i className="bi bi-arrow-right">→</i>
                     </Button>
-                </div>
-                  */}
+                </div> : null
+                  }
         </Container>
     );
 };
