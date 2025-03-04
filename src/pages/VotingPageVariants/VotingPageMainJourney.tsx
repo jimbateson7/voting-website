@@ -19,7 +19,8 @@ const StagedFlow = (props: TStagedFlowProps) => {
     
     const stageAsString = searchParams.get("stage");
     const showNavigationControlsAsString = searchParams.get("showNavigation");
-    const showNavigationControls = showNavigationControlsAsString ? showNavigationControlsAsString === "true" : false;
+   
+    const showNavigationControls = showNavigationControlsAsString != undefined ? showNavigationControlsAsString !== "false" : false;
     const stageFromUrl = stageAsString ? parseInt(stageAsString) : undefined;
 
     const [stage, setStage] = useState(stageFromUrl?? 0);
@@ -37,7 +38,7 @@ const StagedFlow = (props: TStagedFlowProps) => {
     
     const updateSearchParams = (newStage:number): number => {
         searchParams.set("stage", newStage.toString());
-        setSearchParams({ showNavigationControls:showNavigationControls.toString(), stage: newStage.toString() });
+        setSearchParams({ showNavigation:showNavigationControls.toString(), stage: newStage.toString() });
         return newStage;
     };
     
