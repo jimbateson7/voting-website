@@ -29,6 +29,7 @@ function renderOptions(links) {
     }
     const entryBlockMap = entryMap;
 
+    console.log("hello world!")
 
     return {
         // other options...
@@ -38,6 +39,9 @@ function renderOptions(links) {
             [INLINES.EMBEDDED_ENTRY]: (node, children) => {
                 // find the entry in the entryMap by ID
                 //currently not an option
+                console.log("test")
+                console.log(node)
+                console.log(children)
             },
             [BLOCKS.HEADING_2]: (node, children) => {
                 let text = createAnchorLinkFromTitle(children);
@@ -54,6 +58,7 @@ function renderOptions(links) {
                 // find the entry in the entryMap by ID
                 const entry = entryBlockMap.get(node.data.target.sys.id);
 
+                console.log(entry)
                 if (entry.__typename === ContentTypes.NavigationGroup) {
                     return <HubCollection pageTitle={entry}
                                           showVideoThumbNails={entry.showVideoThumbnailsInHub ?? false}

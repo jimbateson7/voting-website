@@ -13,16 +13,20 @@ import {TPage} from "../../components/PageData";
 
 function datoRichTextToReactNode(content: TStructuredText): ReactNode {
 
+    console.log("hello world i am the render")
+    console.log(content.links);
     //see https://github.com/datocms/react-datocms/blob/master/docs/structured-text.md for documentation
     return (
         <StructuredText
             data={content}
+            
             customNodeRules={[
                 renderNodeRule(
                     isParagraph,
                     ({adapter: {renderNode}, node, children, key}) => {
                         // If the paragraph contains an inline record, remove the surrounding p tags
                         if (node.children[0]?.type === 'inlineItem') {
+                            console.log("is inline item")
                             return (
                                 <React.Fragment key={key}>
                                     {children}
@@ -30,6 +34,8 @@ function datoRichTextToReactNode(content: TStructuredText): ReactNode {
                             );
                         } else {
                             // Otherwise render the p tags
+                            console.log("is item")
+                            console.log(node.children[0]?.type)
                             return renderNode(
                                 'p',
                                 {
@@ -44,7 +50,7 @@ function datoRichTextToReactNode(content: TStructuredText): ReactNode {
             renderInlineRecord={({record}) => {
                 // eslint-disable-next-line @typescript-eslint/no-unused-vars
                 const {__typename, id, ...props} = record;
-             
+                console.log("is record " + id)
                 if (__typename === ContentTypes.NavigationGroup) {
                     const navItem = record as unknown as NavigationItem;
                     return (<HubCollection pageTitle={record.id}
@@ -64,115 +70,11 @@ function datoRichTextToReactNode(content: TStructuredText): ReactNode {
 
                 return <pre>props</pre>
             }}
-            /* 
-
-              if (__typename === AssetTypes.YoutubeVideoEmbed) {
-                  // take the video url and extract the video id so we can clean it up       
-                  return <VideoEmbed url={record.ytembedUrl} title={record.title} autoplay={record.autoPlay}
-                                     showFrame={true}/>
-              }
-              if (__typename === AssetTypes.GenericImage) {
-                  return <img src={props.image.url} alt={record.title}/>;
-              }
-              return (<>...</>)
-          }}*/
-            /*
-            switch (__typename) {
-              case 'WrapperVideoModelRecord': {
-                const image = props.image as IImage;
-                return (
-                    <FullMedia
-                        videoTitle={props.title as string}
-                        videoId={props.youtubeId as string}
-                        imageUrl={image.url as string}
-                    />
-                );
-              }
-              case 'WrapperImageModelRecord': {
-                const image = props.image as IImage;
-                let imageWidth = image.width;
-                let imageHeight = image.height;
-
-                if (imageWidth && imageHeight) {
-                  const ratio = imageWidth / imageHeight;
-                  if (!image) return <></>;
-                  if (
-                      type === ContentTypes.RichTextCaseStudyVariant
-                  ) {
-                    return (
-                        <FullMedia imageUrl={image.url as string} />
-                    );
-                  } else if (imageWidth > 980) {
-                    imageWidth = 980;
-                    imageHeight = imageWidth / ratio;
-                  }
-
-                  return (
-                      <NextImageWrapper
-                          imageAlt={props.altText as string}
-                          imageUrl={image.url as string}
-                          width={imageWidth}
-                          height={imageHeight}
-                      />
-                  );
-                } else {
-                  return <></>;
-                }
-              }
-              case 'FeaturedLinkModelRecord':
-                if (props.label) {
-                  const imageUrl = props.imageThumbnail
-                      ? (props.imageThumbnail as { url: string }).url
-                      : '';
-                  return (
-                      <FeaturedDownload
-                          className={
-                            !props.imageThumbnail
-                                ? articlestyles.withoutImage
-                                : ''
-                          }
-                          image={imageUrl}
-                          {...(props as TFeaturedDownload)}
-                      />
-                  );
-                } else {
-                  return <></>;
-                }
-              case 'ArticleLinkModelRecord':
-                if (!props.label) {
-                  return <></>;
-                } else if (props.primary) {
-                  return (
-                      <LinkButton
-                          href={props.url as string}
-                          buttonIcon={ButtonIcon.External}
-                      >
-                        {props.label as string}
-                      </LinkButton>
-                  );
-                } else if (!props.primary) {
-                  return (
-                      <LinkButton
-                          href={props.url as string}
-                          variant={ButtonVariant.Link}
-                          buttonIcon={ButtonIcon.External}
-                          className={articlestyles.secondaryLink}
-                      >
-                        {props.label as string}
-                      </LinkButton>
-                  );
-                } else {
-                  return <></>;
-                }
-              default:
-                return null;
-            }*/
-            // }}
-
+          
             renderBlock={({record}) => {
                 // eslint-disable-next-line @typescript-eslint/no-unused-vars
                 const {__typename, id, ...props} = record;
-
+                console.log("is block " + id)
                 switch (__typename) {
                     case 'ContentTableRecord': {
                         const table = (props.htmlTable as string).replace(

@@ -16,13 +16,15 @@ const updatedVideoReferences = [
     { time: 309, title: "Melting of Snow and Ice", pdfLink: "https://www.datocms-assets.com/136385/1739562418-7-anthropogenic.pdf" }, // No link provided, setting to null
     { time: 395, title: "Other Factors", pdfLink: "https://www.datocms-assets.com/136385/1739562418-7-anthropogenic.pdf" }, // No link provided, setting to null
     { time: 434, title: "Right Ballpark", pdfLink: "https://www.datocms-assets.com/136385/1739562418-7-anthropogenic.pdf" }, // No link provided, setting to null
-    { time: 468, title: "Subsea permafrost", pdfLink: "https://www.datocms-assets.com/136385/1739562418-7-anthropogenic.pdf" }, // No link provided, setting to null
+    { time: 468, title: "Sub-sea permafrost", pdfLink: "https://www.datocms-assets.com/136385/1739562418-7-anthropogenic.pdf" }, // No link provided, setting to null
     { time: 488, title: "Clouds", pdfLink: "https://www.datocms-assets.com/136385/1739562418-7-anthropogenic.pdf" }, // No link provided, setting to null
     { time: 549, title: "interactions", pdfLink: "https://www.datocms-assets.com/136385/1739562418-7-anthropogenic.pdf" }, // No link provided, setting to null
     { time: 583, title: "The Shaded area", pdfLink: "https://www.datocms-assets.com/136385/1739562418-7-anthropogenic.pdf" }, // No link provided, setting to null
     { time: 723, title: "10X faster", pdfLink: "https://www.datocms-assets.com/136385/1739562418-7-anthropogenic.pdf" }, // No link provided, setting to null
     { time: 745, title: "Our Planet’s protector", pdfLink: "https://www.datocms-assets.com/136385/1739562418-7-anthropogenic.pdf" }, // No link provided, setting to null
-    { time: 767, title: "As soon as possible", pdfLink: "https://www.datocms-assets.com/136385/1739562418-7-anthropogenic.pdf" }, // No link provided, setting to null
+    { time: 750, title: "As soon as possible", pdfLink: "https://www.datocms-assets.com/136385/1739562418-7-anthropogenic.pdf" }, // No link provided, setting to null
+    { time: 752, title: "Donate", pdfLink: "https://ourplanetourpeople.com/en/donate" }, // No link provided, setting to null
+
 ];
 
 export function getReferences(videoId?: string): TReference[]
