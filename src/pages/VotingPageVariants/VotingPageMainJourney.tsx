@@ -83,6 +83,9 @@ const StagedFlow = (props: TStagedFlowProps) => {
                                     <div style={{fontSize:"1.5rem"}}>
                                         <StructuredText data={props.openingText}/>
                                     </div>
+                                    
+                                    <Button onClick={nextStage} className={"verticalFrameCentre"}>Proceed</Button>
+                                    
                                 </div>
                             </div>
                         </Fade>

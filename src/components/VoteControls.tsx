@@ -220,7 +220,9 @@ export const VoteControls = ({
                             size="lg"
                             onClick={() => userChangedVote(Choice.NO)}
                             id="vote-no"
-                            title={voteChoice === Choice.NO ? "You voted No" : "Change vote to No"}>
+                            title={voteChoice === Choice.NO ? "You voted No" : "Change vote to No"}
+                            
+                            >
                             <FaThumbsDown className="thumbs-down"/>
                             {showStatistics ? <span className="no">{numNoVotesStr}</span> : null}
                         </Button>
