@@ -1,4 +1,5 @@
 import {Video} from "react-datocms/video-player";
+import {TVideoThumbnail} from "../Common/types";
 
 export interface QueryResult {
     data: Data;
@@ -12,7 +13,7 @@ export interface Data {
 
 export interface VideoItem {
 
-    mainVideo: { id: string, video:{video: Video | undefined} } | undefined;
+    mainVideo: TVideoThumbnail,//{ id: string, video:{video: Video | undefined} } | undefined;
     sys: Sys
     __typename: string
     slug: string

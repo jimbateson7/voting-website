@@ -2,7 +2,7 @@
 import "./Page.scss";
 
 import {getVideoPageJson} from "../repositories/VideoPage/request";
-import {TArticlePage} from "../repositories/Common/types";
+import {TArticlePage, TVideoThumbnail} from "../repositories/Common/types";
 import {Video} from "react-datocms";
 import {TVideoProps} from "../components/VideoControl";
 import {TReference, TReferenceProps} from "../components/VideoReferenceControl";
@@ -10,7 +10,7 @@ import {VideoWithReference} from "./VideoWithReference";
 import {getReferences} from "../repositories/References/request";
 
 export interface TVideoPage {
-    mainVideo: { id: string, video:{video: Video | undefined} } | undefined;
+    mainVideo: TVideoThumbnail | undefined,//{ id: string, video:{video: Video | undefined} } | undefined;
     header: string
     introText?: string;
     videoTitle?: string;
@@ -57,7 +57,7 @@ export const VideoPage = (props: TArticlePage) => {
             <h1>{data.header}</h1>  
             {data.introText ? <p className="introText">{data.introText}</p> : null}
 
-            <VideoWithReference currentTimeStamp={0} references={getReferences(data.mainVideo?.id)} locale={locale} fullScreenOnClick={false} datoVideo={data?.mainVideo?.video?.video ?? undefined} pageTitle={props.title}
+            <VideoWithReference currentTimeStamp={0} references={getReferences(data.mainVideo?.video.id)} locale={locale} fullScreenOnClick={false} datoVideo={data?.mainVideo?.video?.video ?? undefined} pageTitle={props.title}
                                 videoTitle={data.videoTitle} videoThumbnail={data.videoThumbnail} ></VideoWithReference>
         </>
     );
