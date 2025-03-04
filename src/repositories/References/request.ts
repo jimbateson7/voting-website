@@ -224,8 +224,10 @@ const translatedVideoReferences: { [key: string]: { time: number; title: string;
 
 export function getReferences(id: string | undefined, languageCode?: string): TReference[]
 {
+    console.log(languageCode)
     if(languageCode && translatedVideoReferences[languageCode])
     {
+        
         return translatedVideoReferences[languageCode]
     }
     

@@ -163,8 +163,8 @@ export const VoteControls = ({
     };
 
     function userChangedVote(choice: Choice) {
-        if(!allowVoting)
-            return;
+     //   if(!allowVoting)
+      //      return;
         SaveVoteToDb(choice);
         voteChangedCallBack?.(choice);
     }
@@ -184,7 +184,7 @@ export const VoteControls = ({
                     <Button
                         className={`btn-${voteChoice === Choice.YES ? "light" : "dark"}`}
                         id="vote-yes"
-                        disabled={!allowVoting}
+                        
                         size="lg"
                         onClick={() => userChangedVote(Choice.YES)}
                         title={voteChoice === Choice.YES ? "You voted Yes" : "Change vote to Yes"}>
@@ -198,7 +198,7 @@ export const VoteControls = ({
                         className={`btn-${voteChoice === Choice.NO ? "light" : "dark"}`}
                         size="lg"
                         onClick={() => userChangedVote(Choice.NO)}
-                        disabled={!allowVoting}
+                        
                         id="vote-no"
                         title={voteChoice === Choice.NO ? "You voted No" : "Change vote to No"}>
                         <FaThumbsDown className="thumbs-down"/>
