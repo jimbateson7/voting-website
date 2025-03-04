@@ -84,7 +84,10 @@ const StagedFlow = (props: TStagedFlowProps) => {
                                         <StructuredText data={props.openingText}/>
                                     </div>
                                     
-                                    <Button onClick={nextStage} className={"verticalFrameCentre"}>Proceed</Button>
+                                    <Button onClick={nextStage} style=
+                                            {{ display: "block",
+                                                margin: "0 auto"}}
+                                    >Proceed</Button>
                                     
                                 </div>
                             </div>
