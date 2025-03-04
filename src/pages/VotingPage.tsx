@@ -71,8 +71,6 @@ const VotingPage = (queryProps: TVotingQueryProps) => {
 
     const [searchParams] = useSearchParams();
     const reset = searchParams.get("reset");
-    const stageAsString = searchParams.get("stage");
-    const stage = stageAsString ? parseInt(stageAsString) : undefined;
     const realVariant = searchParams.get("variant") ?? "Original";
     let variant = realVariant?.toLowerCase() ?? "";
     
