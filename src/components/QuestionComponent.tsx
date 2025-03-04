@@ -14,22 +14,21 @@ export interface TQuestionProps extends TQuestionBlock {
 
 // Example Question Component
 export const QuestionComponent = (props: TQuestionProps) => (
-                <>
-                    <div style={{fontSize:"1.0rem", paddingTop:"-20px"}} key={props.id + "-title"} className="questionTitle extra-padding">
-                        <StructuredText data={props.questionTitleSt}/>
-                    </div>
-                    <div key={props.id + "-voting"}
-                         className="extra-padding">
-                        <VoteControls voteResultCallBack={props.voteResultCallBack }
-                                      voteChangedCallBack={props.voteChangedCallBack}
-                                      agreeVoteText={props.voteForText}
-                                      disagreeVoteText={props.voteAgainstText}
-                                      questionId={props.id}
-                                      showStatistics={false}
-                                      key={props.id + "-votingControls"}
+    <>
+        <div style={{fontSize:"1.0rem", paddingTop:"-20px"}} key={props.id + "-title"} className="questionTitle extra-padding">
+            <StructuredText data={props.questionTitleSt}/>
+        </div>
+        <div key={props.id + "-voting"}
+                className="extra-padding">
+            <VoteControls voteResultCallBack={props.voteResultCallBack }
+                            voteChangedCallBack={props.voteChangedCallBack}
+                            agreeVoteText={props.voteForText}
+                            disagreeVoteText={props.voteAgainstText}
+                            questionId={props.id}
+                            showStatistics={false}
+                            key={props.id + "-votingControls"}
 
-                        />
-                    </div>
-                </>
-   
+            />
+        </div>
+    </>
 );
