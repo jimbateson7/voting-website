@@ -18,7 +18,8 @@ export interface TVoteControls {
     voteResultCallBack?: (voted: boolean) => void,
     voteChangedCallBack?: (choice: Choice) => void,
     agreeVoteText?: string,
-    disagreeVoteText?: string
+    disagreeVoteText?: string,
+    allowVoting?: boolean
 }
 
 export const VoteControls = ({
@@ -27,13 +28,14 @@ export const VoteControls = ({
                                  voteResultCallBack,
                                  voteChangedCallBack,
                                  agreeVoteText,
-                                 disagreeVoteText
+                                 disagreeVoteText,
+                                 allowVoting
                              }: TVoteControls) => {
     const [numYesVotes, setNumYesVotes] = useState(0);
     const [numNoVotes, setNumNoVotes] = useState(0);
     let numYesVotesStr = numYesVotes < 10 ? `0${numYesVotes}` : `${numYesVotes}`;
     let numNoVotesStr = numNoVotes < 10 ? `0${numNoVotes}` : `${numNoVotes}`;
-    
+
     function splitText(text: string): [string, string] {
         const words = text.split(' ');
         const firstWord = words.shift() || '';
@@ -41,7 +43,7 @@ export const VoteControls = ({
 
         return [firstWord, restOfText];
     }
-    
+
     numYesVotesStr = numYesVotes > 1000 ? `${Math.floor(numYesVotes / 1000)}k` : numYesVotesStr;
     numNoVotesStr = numNoVotes > 1000 ? `${Math.floor(numNoVotes / 1000)}k` : numNoVotesStr;
     const [fetchedVotes, setFetchedVotes] = useState(false);
@@ -55,7 +57,7 @@ export const VoteControls = ({
         const hasVoted = !!aVote;
 
         voteResultCallBack?.(hasVoted);
-      
+
         if (hasVoted) {
             setVoteChoice(aVote.choice as Choice);
         }
@@ -81,13 +83,13 @@ export const VoteControls = ({
 
         if (yesVoteButton && targetHeading) {
             yesVoteButton.addEventListener('click', () => {
-               // targetHeading.scrollIntoView({behavior: 'smooth'});
+                // targetHeading.scrollIntoView({behavior: 'smooth'});
             });
         }
 
         if (noVoteButton && targetHeading) {
             noVoteButton.addEventListener('click', () => {
-               // targetHeading.scrollIntoView({behavior: 'smooth'});
+                // targetHeading.scrollIntoView({behavior: 'smooth'});
             });
         }
 
@@ -95,7 +97,7 @@ export const VoteControls = ({
 
         if (video && targetHeading) {
             video.addEventListener('ended', () => {
-               // targetHeading.scrollIntoView({behavior: 'smooth'});
+                // targetHeading.scrollIntoView({behavior: 'smooth'});
             });
         }
 
@@ -154,13 +156,15 @@ export const VoteControls = ({
             ).then((x) => {
                 fetchVoteCounts().then(() => {
                     setFetchedVotes(true)
-                    setVoteChoice(choice);                  
+                    setVoteChoice(choice);
                 });
             });
         }
     };
-    
-    function userChangedVote(choice:Choice) {
+
+    function userChangedVote(choice: Choice) {
+        if(!allowVoting)
+            return;
         SaveVoteToDb(choice);
         voteChangedCallBack?.(choice);
     }
@@ -180,7 +184,7 @@ export const VoteControls = ({
                     <Button
                         className={`btn-${voteChoice === Choice.YES ? "light" : "dark"}`}
                         id="vote-yes"
-                        
+                        disabled={!allowVoting}
                         size="lg"
                         onClick={() => userChangedVote(Choice.YES)}
                         title={voteChoice === Choice.YES ? "You voted Yes" : "Change vote to Yes"}>
@@ -194,12 +198,13 @@ export const VoteControls = ({
                         className={`btn-${voteChoice === Choice.NO ? "light" : "dark"}`}
                         size="lg"
                         onClick={() => userChangedVote(Choice.NO)}
+                        disabled={!allowVoting}
                         id="vote-no"
                         title={voteChoice === Choice.NO ? "You voted No" : "Change vote to No"}>
                         <FaThumbsDown className="thumbs-down"/>
                         {showStatistics ? <span className="no">{numNoVotesStr}</span> : null}
                     </Button>
-                    <p ><strong>{disagreeTextFirstWord}</strong> {disagreeTextRest}</p>
+                    <p><strong>{disagreeTextFirstWord}</strong> {disagreeTextRest}</p>
 
                 </div>
             </div>

@@ -8,7 +8,7 @@ export const VotingResultsFrame = ({questionId}: { questionId: string }) => {
         <div className="frame">
             <div className="frame-content">
                 <h2 id="results-heading">Voting Results</h2>
-                {<VoteControls questionId={questionId} showStatistics={true}/>}
+                {<VoteControls questionId={questionId} showStatistics={true} allowVoting={false}/>}
                 <Row style={{paddingTop: 20}}>
                     <Col></Col>
                     <Col> <VoteResults questionId={questionId}/></Col>
