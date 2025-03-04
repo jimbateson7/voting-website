@@ -52,6 +52,7 @@ export interface TVotingPage {
 export interface TVotingPageExtended extends TVotingPage
 {
     locale: string;
+    stage:number;
     voteResultCallBack?: (voted: boolean) => void,
     voteChangedCallBack?: (choice: Choice) => void,
     watchedCallBack?: () => void,
@@ -75,6 +76,8 @@ const VotingPage = (queryProps: TVotingQueryProps) => {
 
     const [searchParams, setSearchParams] = useSearchParams();
     const reset = searchParams.get("reset");
+    const stageAsString = searchParams.get("stage");
+    const stage = stageAsString ? parseInt(stageAsString) : undefined;
     const realVariant = searchParams.get("variant") ?? "Original";
     let variant = realVariant?.toLowerCase() ?? "";
     
@@ -132,6 +135,7 @@ const VotingPage = (queryProps: TVotingQueryProps) => {
         voteChangedCallBack: voteChanged,
         voteResultCallBack: setVoted,    
         watchedCallBack: onWatched,
+        stage:0,
         voted:voted,
         watched:watched,
         ...data

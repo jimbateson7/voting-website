@@ -14,7 +14,7 @@ import { getReferences } from "../../repositories/References/request";
 import "../VotingPage.scss";
 
 const StagedFlow = (props: TStagedFlowProps) => {
-    const [stage, setStage] = useState(0);
+    const [stage, setStage] = useState(props.stage ?? 0);
     
     const totalQuestions = 1;//(props.questions?.length ?? 0); (todo decide if we are making this dynamic)   
        
@@ -138,7 +138,7 @@ const StagedFlow = (props: TStagedFlowProps) => {
                     </div>
                 </div>
 
-                {/* Navigation Buttons */}
+                {/* Navigation Buttons 
                 <div className="d-flex align-items-center justify-content-center gap-3 w-100 page-navigation">
                     <Button variant="secondary" onClick={prevStage} disabled={stage === 0}>
                         <i className="bi bi-arrow-left">←</i>
@@ -150,7 +150,7 @@ const StagedFlow = (props: TStagedFlowProps) => {
                         <i className="bi bi-arrow-right">→</i>
                     </Button>
                 </div>
-        
+                  */}
         </Container>
     );
 };

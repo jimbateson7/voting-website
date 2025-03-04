@@ -6,6 +6,7 @@ import {StructuredTextDocument} from "react-datocms";
 
 export interface TStagedFlowProps {
     locale: string;
+    stage:number;
     videos?: TVideos;
     watchedCallBack?: () => void,
     mainVideo: { id: string, video: Video };
