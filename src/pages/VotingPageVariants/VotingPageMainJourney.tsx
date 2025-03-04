@@ -12,10 +12,16 @@ import {VideoWithReference} from "../VideoWithReference";
 import { getReferences } from "../../repositories/References/request";
 
 import "../VotingPage.scss";
+import {useSearchParams} from "react-router-dom";
 
 const StagedFlow = (props: TStagedFlowProps) => {
-    const [stage, setStage] = useState(props.stage ?? 0);
+    const [searchParams, setSearchParams] = useSearchParams();
     
+    const stageAsString = searchParams.get("stage");
+    const stageFromUrl = stageAsString ? parseInt(stageAsString) : undefined;
+
+    const [stage, setStage] = useState(stageFromUrl?? 0);
+   
     const totalQuestions = 1;//(props.questions?.length ?? 0); (todo decide if we are making this dynamic)   
        
     const openingStage = 0;
@@ -25,8 +31,16 @@ const StagedFlow = (props: TStagedFlowProps) => {
     const detailStage = shareStage + 1;
     const donateStage = detailStage + 1;
     const totalStages = donateStage+1; // Number of steps in the flow
-    const nextStage = () => setStage((prev) => Math.min(prev + 1, totalStages - 1));
-    const prevStage = () => setStage((prev) => Math.max(prev - 1, 0));
+    
+    
+    const updateSearchParams = (newStage:number): number => {
+        searchParams.set("stage", newStage.toString());
+        setSearchParams({ stage: newStage.toString() });
+        return newStage;
+    };
+    
+    const nextStage = () => setStage((prev) => updateSearchParams(Math.min(prev + 1, totalStages - 1)));
+    const prevStage = () => setStage((prev) => updateSearchParams(Math.max(prev - 1, 0)));
     const originalVoteCallback = props.voteChangedCallBack;
     
     const questionOne = props.questions && props.questions.length >= 1 ? props.questions[0] : null;
