@@ -14,10 +14,18 @@
   gap: 1rem;
 }
 
-.vote-controls {
-  display: flex;
-  gap: 1rem;
-  align-items: center;
+@media screen and (min-width: 1024px) {
+  .question-controls {
+    display: flex;
+  }
+  
+  .contentColumn {
+    width: 50%;
+  }
+  
+  .voteVideo {
+    max-width: 50%;
+  }
 }
 
 .row {
