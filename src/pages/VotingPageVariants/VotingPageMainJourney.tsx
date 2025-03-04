@@ -128,7 +128,7 @@ const StagedFlow = (props: TStagedFlowProps) => {
                             <div>
                                 <div className={"verticalFrameCentre"}>
                                 <VideoWithReference
-                                    references={getReferences(props.videos?.detailVideo?.video.id)}
+                                    references={getReferences( props.videos?.detailVideo?.video.id, "en")}
                                     locale={props.locale}
                                     fullScreenOnClick={true}
                                     datoVideo={props.videos?.detailVideo?.video?.video}
