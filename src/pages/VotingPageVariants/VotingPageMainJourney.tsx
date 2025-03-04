@@ -12,10 +12,19 @@ import {VideoWithReference} from "../VideoWithReference";
 import { getReferences } from "../../repositories/References/request";
 
 import "../VotingPage.scss";
+import {useSearchParams} from "react-router-dom";
 
 const StagedFlow = (props: TStagedFlowProps) => {
-    const [stage, setStage] = useState(0);
+    const [searchParams, setSearchParams] = useSearchParams();
     
+    const stageAsString = searchParams.get("stage");
+    const showNavigationControlsAsString = searchParams.get("showNavigation");
+   
+    const showNavigationControls = showNavigationControlsAsString != undefined ? showNavigationControlsAsString !== "false" : false;
+    const stageFromUrl = stageAsString ? parseInt(stageAsString) : undefined;
+
+    const [stage, setStage] = useState(stageFromUrl?? 0);
+   
     const totalQuestions = 1;//(props.questions?.length ?? 0); (todo decide if we are making this dynamic)   
        
     const openingStage = 0;
@@ -25,8 +34,16 @@ const StagedFlow = (props: TStagedFlowProps) => {
     const detailStage = shareStage + 1;
     const donateStage = detailStage + 1;
     const totalStages = donateStage+1; // Number of steps in the flow
-    const nextStage = () => setStage((prev) => Math.min(prev + 1, totalStages - 1));
-    const prevStage = () => setStage((prev) => Math.max(prev - 1, 0));
+    
+    
+    const updateSearchParams = (newStage:number): number => {
+        searchParams.set("stage", newStage.toString());
+        setSearchParams({ showNavigation:showNavigationControls.toString(), stage: newStage.toString() });
+        return newStage;
+    };
+    
+    const nextStage = () => setStage((prev) => updateSearchParams(Math.min(prev + 1, totalStages - 1)));
+    const prevStage = () => setStage((prev) => updateSearchParams(Math.max(prev - 1, 0)));
     const originalVoteCallback = props.voteChangedCallBack;
     
     const questionOne = props.questions && props.questions.length >= 1 ? props.questions[0] : null;
@@ -67,6 +84,12 @@ const StagedFlow = (props: TStagedFlowProps) => {
                                     <div style={{fontSize:"1.5rem"}}>
                                         <StructuredText data={props.openingText}/>
                                     </div>
+                                    
+                                    <Button onClick={nextStage} style=
+                                            {{ display: "block",
+                                                margin: "0 auto"}}
+                                    >Proceed</Button>
+                                    
                                 </div>
                             </div>
                         </Fade>
@@ -139,6 +162,7 @@ const StagedFlow = (props: TStagedFlowProps) => {
                 </div>
 
                 {/* Navigation Buttons */}
+                { showNavigationControls ? 
                 <div className="d-flex align-items-center justify-content-center gap-3 w-100 page-navigation">
                     <Button variant="secondary" onClick={prevStage} aria-disabled={stage === 0} disabled={stage === 0}>
                         <i className="bi bi-arrow-left" aria-hidden="true">←</i>
@@ -151,8 +175,8 @@ const StagedFlow = (props: TStagedFlowProps) => {
                         <i className="bi bi-arrow-right" aria-hidden="true">→</i>
                         <span className="visually-hidden">Next page</span>
                     </Button>
-                </div>
-        
+                </div> : null
+                  }
         </Container>
     );
 };

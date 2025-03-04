@@ -63,7 +63,7 @@ export const DynamicNavList = (props: TDynamicNav) => {
                                           >
                                     {navItem.cardTitle}
                                 </Nav.Link>
-                                <Nav.Link onClick={onSelect} as={NavLink} key={key+"results"} to={ slugPrefix  +  "/results"}
+                                <Nav.Link onClick={onSelect} as={NavLink} key={key+"results"} to={ slugPrefix  +  "results"}
                                           >
                                     Voting Results
                                 </Nav.Link>

@@ -50,11 +50,13 @@ export const getSupportedCountries = ()  => {
     {
         getSupportedLocales().forEach( (supportedLanguage) => 
         {
-            if(supportedLanguage == "en")
+          
+            let supportedLanguageForFlag = supportedLanguage .replace("_","-")
+            if(supportedLanguageForFlag == "en")
             {
-                supportedLanguage = "en-gb";
+                supportedLanguageForFlag = "en-gb";
             }
-            const flagCode: CountryFlag = {code:supportedLanguage, flag:countryCodeToFlagEmoji(supportedLanguage.replace("_","-"))};
+            const flagCode: CountryFlag = {code:supportedLanguage, flag:countryCodeToFlagEmoji(supportedLanguageForFlag)};
             
             supportedCountries.push(flagCode)
         })

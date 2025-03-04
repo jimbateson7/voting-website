@@ -175,32 +175,46 @@ export const VoteControls = ({
 
     return (
         <>
-            <div className={"voteControlRow"}>
-                <div className={`voteCol `}>
-                    <Button
-                        className={`btn-${voteChoice === Choice.YES ? "light" : "dark"}`}
-                        id="vote-yes"
-                        size="lg"
-                        onClick={() => userChangedVote(Choice.YES)}
-                        title={voteChoice === Choice.YES ? "You voted Yes" : "Change vote to Yes"}>
-                        <FaThumbsUp className="thumbs-up"/>
-                        {showStatistics ? <span className="yes">{numYesVotesStr}</span> : null}
-                    </Button>
-                    <p><strong>{agreeTextFirstWord}</strong> {agreeTextRest}</p>
-                </div>
-                <div className={`voteCol `}>
-                    <Button
-                        className={`btn-${voteChoice === Choice.NO ? "light" : "dark"}`}
-                        size="lg"
-                        onClick={() => userChangedVote(Choice.NO)}
-                        id="vote-no"
-                        title={voteChoice === Choice.NO ? "You voted No" : "Change vote to No"}>
-                        <FaThumbsDown className="thumbs-down"/>
-                        {showStatistics ? <span className="no">{numNoVotesStr}</span> : null}
-                    </Button>
-                    <p ><strong>{disagreeTextFirstWord}</strong> {disagreeTextRest}</p>
-                </div>
-            </div>
+
+
+            <Row>
+
+                <Row lg="3" xl="3" style={{paddingTop: "1.5rem"}}></Row>
+                <Row className={"voteControlRow"}>
+                    
+                    <Col className={`voteCol `}>
+                        <Button
+                            className={`btn-${voteChoice === Choice.YES ? "light" : "dark"}`}
+                            id="vote-yes"
+                            
+                            size="lg"
+                            onClick={() => userChangedVote(Choice.YES)}
+                            title={voteChoice === Choice.YES ? "You voted Yes" : "Change vote to Yes"}>
+                            <FaThumbsUp className="thumbs-up"/>
+                            {showStatistics ? <span className="yes">{numYesVotesStr}</span> : null}
+                        </Button>
+                        <p><strong>{agreeTextFirstWord}</strong> {agreeTextRest}</p>
+                    </Col>
+                    <Col className={`voteCol `}>
+                        <Button
+                            className={`btn-${voteChoice === Choice.NO ? "light" : "dark"}`}
+                            size="lg"
+                            onClick={() => userChangedVote(Choice.NO)}
+                            id="vote-no"
+                            title={voteChoice === Choice.NO ? "You voted No" : "Change vote to No"}
+                            
+                            >
+                            <FaThumbsDown className="thumbs-down"/>
+                            {showStatistics ? <span className="no">{numNoVotesStr}</span> : null}
+                        </Button>
+                        <p ><strong>{disagreeTextFirstWord}</strong> {disagreeTextRest}</p>
+
+                    </Col>
+
+                </Row>
+                <Row lg="3" xl="3"></Row>
+            </Row>
+
         </>
     );
 };

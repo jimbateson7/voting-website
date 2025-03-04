@@ -84,7 +84,7 @@ export const LayoutTs = ({children, locale} : ILayout) => {
     return (
         <>
 
-            <Navbar expanded={expanded} collapseOnSelect expand="lg" variant="light" bg="light" fixed="top">
+            <Navbar expanded={expanded} collapseOnSelect expand="lg" fixed="top">
                 <Container>
                     <Link to="/" className="navbar-brand">
                         <img

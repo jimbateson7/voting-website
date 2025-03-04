@@ -1,6 +1,7 @@
 import {Video} from "react-datocms/dist/types/VideoPlayer";
 import {TQuestionBlock} from "../Navigation/types";
 import {StructuredTextDocument} from "react-datocms";
+import {TVideoThumbnail} from "../Common/types";
 
 
 export interface QueryResult {
@@ -8,10 +9,7 @@ export interface QueryResult {
     errors: [];
 }
 
-export interface TVideoThumbnail {
-    thumbnailImage: {responsiveImage: {src: string}};
-    video: { id: string, video: Video };
-}
+
 
 export interface VotingPageData {
     id: string;
