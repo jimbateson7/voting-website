@@ -104,7 +104,23 @@ const basicNavItems = `
           ... on VotingPageModelRecord{
             cardTitle
             id
-          }`
+          }
+          
+          ... on InformationSourceRecord{
+          title
+            video
+            {
+              ... on VideoPageModelRecord {
+                  slug
+                  }
+                }
+            pdf
+            {
+              url
+            }
+          }
+          
+          `
 
 export const QueryBlocks =
     {

@@ -48,7 +48,7 @@ export function generateNavQuery(id: string,locale:string) {
     }
   }`;
 
-
+    console.log(query);
     LogQuery(query)
     return query;
 }

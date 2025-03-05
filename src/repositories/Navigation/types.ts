@@ -22,6 +22,7 @@ export enum ContentTypes {
     NavigationGroup = "NavigationGroupModelRecord",
     ExternalLink = "ExternalLinkModelRecord",
     VotingResult = "VotingResultModelRecord",
+    PdfAndVideo = "InformationSourceRecord"
     
 }
 
@@ -59,5 +60,7 @@ export interface NavigationItem extends NavigationGroup {
     __typename: ContentTypes
     showVideoThumbnailsInHub?: boolean
     
+    pdf:{url:string}
+    video:{slug:string}
 }
 

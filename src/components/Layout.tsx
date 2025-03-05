@@ -21,6 +21,8 @@ import {DisableAnalytics, EnableAnalytics, recordUse} from "../utils/analytics";
 import {localStorageVotingIdKey} from "../pages/VotingPage";
 import {DynamicNavList} from "./DynamicNavList";
 import {DynamicFooter} from "./DynamicFooter";
+import {defaultLanguage} from "../languages";
+import FlagSelect from "./FlagSelect";
 
 
 export interface ILayout extends PropsWithChildren
@@ -102,10 +104,10 @@ export const LayoutTs = ({children, locale} : ILayout) => {
                                 setExpanded(false)
                                 return {}
                             }}></DynamicNavList>
-
+                            <FlagSelect currentLocale={locale ?? defaultLanguage}></FlagSelect>
 
                         </Nav>
-
+                        
                     </Navbar.Collapse>
                 </Container>
             </Navbar>

@@ -79,9 +79,29 @@ export const DynamicNavList = (props: TDynamicNav) => {
                                     {navItem.title}
                                 </Nav.Link>
                             );
+                        case ContentTypes.PdfAndVideo:
+                            return (
+                                <NavDropdown title={navItem.title ?? "_"} id="basic-nav-dropdown">
+                                    <Nav.Link onClick={onSelect} as={NavLink} key={key+"-video"}
+                                              to={slugPrefix + (navItem.video.slug ?? "")}
+                                    >
+                                        {"Video"}
+                                    </Nav.Link>
+                                    
+                                    <a
+                                        key={key+"-pdf"}
+                                        href={navItem.pdf.url ?? ""}
+                                        className="nav-link"
+                                        data-test="full link"
+                                    >
+                                        {"PDF"}
+                                    </a> 
+                                </NavDropdown>
+                            );
+                           
                         case ContentTypes.NavigationGroup:
                             return (
-                                <NavDropdown  title={navItem.title ?? "_"} id="basic-nav-dropdown">
+                                <NavDropdown title={navItem.title ?? "_"} id="basic-nav-dropdown">
                                     < DynamicNavList key={key} onSelect={onSelect} itemGroup={(navItem).navigationItem} locale={props.locale}
                                                     id={navItem?.id ?? "123"}></DynamicNavList>
                                 </NavDropdown>
@@ -90,7 +110,7 @@ export const DynamicNavList = (props: TDynamicNav) => {
                             return <></>;
                     }
                 })}
-            <FlagSelect currentLocale={locale ?? defaultLanguage}></FlagSelect>
+            
         </>
     );
 };  
