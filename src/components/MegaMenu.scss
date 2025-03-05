@@ -15,8 +15,15 @@
     a {
         margin: 0;
 
-        &:hover {
+        &:hover,
+        &:focus {
             transform: none;
+        }
+    }
+
+    .dropdown-toggle {
+        &::after {
+            transform: rotate(-90deg) !important;
         }
     }
 
@@ -31,11 +38,5 @@
         left: 100% !important;
         border-left: 1px solid #e5e5e5;
         margin: 0;
-
-        a {
-            &::after {
-                transform: rotate(-90%) !important;
-            }
-        }
     }
 }
