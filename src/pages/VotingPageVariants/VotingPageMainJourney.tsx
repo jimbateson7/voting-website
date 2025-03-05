@@ -99,7 +99,7 @@ const StagedFlow = (props: TStagedFlowProps) => {
                         <Fade in={stage === questionStage } unmountOnExit>
                             <div className={"vote-controls question-controls"}>
                                 <div className={"contentColumn"}>
-                                <h1 style={{fontWeight: "600", marginBlock: "1rem", fontSize: "2rem", paddingLeft: "1rem"}}>It's time to take action.</h1>
+                                <h1 style={{fontWeight: "600", marginBottom: "1rem", fontSize: "2rem", paddingLeft: "1rem"}}>It's time to take action.</h1>
                                     <QuestionComponent {...props} {...questionOne} voteChangedCallBack={extendedVoteCallback}/>
                                 </div>
         
