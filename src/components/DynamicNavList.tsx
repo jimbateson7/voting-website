@@ -83,14 +83,14 @@ export const DynamicNavList = (props: TDynamicNav) => {
                             return (
                                 <NavDropdown title={navItem.title ?? "_"} id="basic-nav-dropdown">
                                     <Nav.Link onClick={onSelect} as={NavLink} key={key+"-video"}
-                                              to={slugPrefix + (navItem.video.slug ?? "")}
+                                              to={slugPrefix + (navItem.video?.slug ?? "")}
                                     >
                                         {"Video"}
                                     </Nav.Link>
                                     
                                     <a
                                         key={key+"-pdf"}
-                                        href={navItem.pdf.url ?? ""}
+                                        href={navItem.pdf?.url ?? ""}
                                         className="nav-link"
                                         data-test="full link"
                                     >
