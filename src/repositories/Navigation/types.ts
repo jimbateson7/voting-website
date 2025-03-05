@@ -22,7 +22,7 @@ export enum ContentTypes {
     NavigationGroup = "NavigationGroupModelRecord",
     ExternalLink = "ExternalLinkModelRecord",
     VotingResult = "VotingResultModelRecord",
-    PdfAndVideo = "InformationSource"
+    PdfAndVideo = "InformationSourceRecord"
     
 }
 

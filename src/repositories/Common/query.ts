@@ -106,7 +106,8 @@ const basicNavItems = `
             id
           }
           
-          ... on InformationSource{
+          ... on InformationSourceRecord{
+          title
             video
             {
               ... on VideoPageModelRecord {

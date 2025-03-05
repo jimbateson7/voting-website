@@ -82,23 +82,23 @@ export const DynamicNavList = (props: TDynamicNav) => {
                         case ContentTypes.PdfAndVideo:
                             return (
                                 <NavDropdown title={navItem.title ?? "_"} id="basic-nav-dropdown">
-                                    <Nav.Link onClick={onSelect} as={NavLink} key={key}
+                                    <Nav.Link onClick={onSelect} as={NavLink} key={key+"-video"}
                                               to={slugPrefix + (navItem.video.slug ?? "")}
                                     >
-                                        {navItem.title}
+                                        {"Video"}
                                     </Nav.Link>
-                             
+                                    
                                     <a
-                                        key={key}
+                                        key={key+"-pdf"}
                                         href={navItem.pdf.url ?? ""}
                                         className="nav-link"
                                         data-test="full link"
                                     >
-                                        {navItem.title}
-                                    </a>
+                                        {"PDF"}
+                                    </a> 
                                 </NavDropdown>
                             );
-                            break;
+                           
                         case ContentTypes.NavigationGroup:
                             return (
                                 <NavDropdown title={navItem.title ?? "_"} id="basic-nav-dropdown">
