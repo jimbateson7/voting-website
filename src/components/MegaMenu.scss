@@ -55,7 +55,7 @@
             margin: 0;
         }
 
-        > div:first-of-type a {
+        > div:first-of-type > a {
             color: var(--secondary);
             background-color: #f7f7f7
         }
@@ -87,8 +87,9 @@
                 max-width: 100%;
             };
 
-            > div:first-of-type {
-                font-size: inherit;
+            > div:first-of-type > a {
+                color: var(--bs-nav-link-color);
+                background-color: #fff;
             }
         }
     }
