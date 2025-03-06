@@ -75,19 +75,19 @@ export const DynamicNavList = (props: TDynamicNav) => {
                         case ContentTypes.VideoPage:
                         case ContentTypes.BlogPost:
                             return (
-
-                                <Nav.Link onClick={onSelect} as={NavLink} key={key} to={slugPrefix + (navItem.slug ?? "")}
-                                         >
+                                <Nav.Link onClick={onSelect} as={NavLink} key={key} to={slugPrefix + (navItem.slug ?? "")}>
                                     {navItem.title}
                                 </Nav.Link>
                             );
                         case ContentTypes.PdfAndVideo:
                             return (
                                 <NavDropdown title={navItem.title ?? "_"} id="basic-nav-dropdown">
-                                    <Nav.Link onClick={onSelect} as={NavLink} key={key+"-video"}
-                                              to={slugPrefix + (navItem.video?.slug ?? "")}
-                                    >
-                                        {"Video"}
+                                    <a href="#" className="navigation-back">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" aria-hidden="true"><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z"/></svg>
+                                        Back
+                                    </a>
+                                    <Nav.Link onClick={onSelect} as={NavLink} key={key+"-video"} to={slugPrefix + (navItem.video?.slug ?? "")}>
+                                        {"Video format"}
                                     </Nav.Link>
                                     
                                     <a
@@ -96,7 +96,7 @@ export const DynamicNavList = (props: TDynamicNav) => {
                                         className="nav-link"
                                         data-test="full link"
                                     >
-                                        {"PDF"}
+                                        {"PDF format"}
                                     </a> 
                                 </NavDropdown>
                             );
@@ -104,8 +104,11 @@ export const DynamicNavList = (props: TDynamicNav) => {
                         case ContentTypes.NavigationGroup:
                             return (
                                 <NavDropdown title={navItem.title ?? "_"} id="basic-nav-dropdown">
-                                    < DynamicNavList key={key} onSelect={onSelect} itemGroup={(navItem).navigationItem} locale={props.locale}
-                                                    id={navItem?.id ?? "123"}></DynamicNavList>
+                                    <a href="#" className="navigation-back">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" aria-hidden="true"><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z"/></svg>
+                                        Back
+                                    </a>
+                                    <DynamicNavList key={key} onSelect={onSelect} itemGroup={(navItem).navigationItem} locale={props.locale} id={navItem?.id ?? "123"}></DynamicNavList>
                                 </NavDropdown>
                             );
                         default:

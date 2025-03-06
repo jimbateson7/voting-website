@@ -1,46 +1,77 @@
+.navbar-nav [aria-expanded="true"] {
+    background-color: var(--primary);
+}
+
 @media  (min-width: 1024px) {
     .dropdown {
-        position: static;
+        position: relative;
     }
     
     .dropdown-menu {
-        width: 100%;
+        border-top: 1px solid #f7f7f7;
         border-radius: 0;
-        left: 50% !important;
-        transform: translateX(-50%);
+        left: .5rem !important;
         border-top: 0;
         position: relative;
         padding: 0;
-        margin-top: 11px !important;
-        overflow: hidden;
+        margin-top: 14px !important;
         
         a {
             margin: 0;
         }
+
+        > div:first-of-type {
+            font-size: 30px;
+        }
+
+        .navigation-back {
+            display: none;
+        }
+
+        .dropdown {
+            position: static;
+        }
         
         .dropdown-toggle {
+            position: static;
+            display: flex;
+
             &::after {
-                transform: rotate(-90deg) !important;
+                border: 0;
+                content: "+"
             }
         }
         
         .dropdown-menu {
             top: 0 !important;
-            transform: translateX(0);
             position: absolute !important;
             height: 100%;
             border: 0;
-            left: 25% !important;
-            border-left: 1px solid #e5e5e5;
+            left: 0 !important;
             margin: 0 !important;
+            width: 100%;
             
             a {
                 max-width: 100%;
             };
+
+            > div:first-of-type {
+                font-size: inherit;
+            }
+
+            .navigation-back {
+                color: var(--secondary);
+                padding: 1rem .5rem;
+                display: flex;
+                align-items: center;
+                gap: 5px;
+
+                svg {
+                    width: 20px;
+                    height: auto;
+                    fill: var(--secondary);
+                }
+            }
         }
-    }
-    
-    .navbar-nav [aria-expanded="true"] {
-        background-color: var(--primary);
     }
 }
