@@ -1,3 +1,11 @@
+.navbar.fixed-top:has(.navbar-collapse.collapse.show) {
+    @media (max-width: 1024px) {
+        display: block;
+        height: 100dvh;
+        overflow-y: scroll;
+    }
+}
+
 .navbar-nav [aria-expanded="true"] {
     background-color: var(--primary);
 }
@@ -6,7 +14,7 @@
     .navigation-back {
         display: none;
     }
-    
+
     .dropdown-menu {
         .navigation-back {
             background-color: transparent;
