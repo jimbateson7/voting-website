@@ -133,3 +133,16 @@ img {
     color: var(--tertiary);
   }
 }
+
+.btn {
+  margin-block: 1rem;
+  font-weight: 600;
+  font-size: 20px;
+  padding: .75rem 1rem;
+  width: max-content;
+
+  &--white {
+    background-color: var(--white);
+    color: var(--tertiary);
+  }
+}
