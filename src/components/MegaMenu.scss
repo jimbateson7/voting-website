@@ -2,6 +2,29 @@
     background-color: var(--primary);
 }
 
+.dropdown-menu {
+    .navigation-back {
+        display: none;
+    }
+    
+    .dropdown-menu {
+        .navigation-back {
+            background-color: transparent;
+            border: 0;
+            color: var(--secondary);
+            padding: 1rem .5rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            text-decoration: underline;
+
+            svg {
+                fill: var(--secondary);
+            }
+        }
+    }
+}
+
 @media  (min-width: 1024px) {
     .dropdown {
         position: relative;
@@ -22,10 +45,6 @@
 
         > div:first-of-type {
             font-size: 30px;
-        }
-
-        .navigation-back {
-            display: none;
         }
 
         .dropdown {
@@ -57,23 +76,6 @@
 
             > div:first-of-type {
                 font-size: inherit;
-            }
-
-            .navigation-back {
-                background-color: transparent;
-                border: 0;
-                color: var(--secondary);
-                padding: 1rem .5rem;
-                display: flex;
-                align-items: center;
-                gap: 5px;
-                text-decoration: underline;
-
-                svg {
-                    width: 20px;
-                    height: auto;
-                    fill: var(--secondary);
-                }
             }
         }
     }
