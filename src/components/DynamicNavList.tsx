@@ -81,11 +81,12 @@ export const DynamicNavList = (props: TDynamicNav) => {
                             );
                         case ContentTypes.PdfAndVideo:
                             return (
-                                <NavDropdown title={navItem.title ?? "_"} id="basic-nav-dropdown">
-                                    <a href="#" className="navigation-back">
+                                <NavDropdown title={navItem.title ?? "_"} id={`basic-nav-dropdown-${navItem.id}`}>
+                                    <a href="#" className="navigation-back" onClick={(e) => {e.preventDefault(); e.currentTarget.parentElement?.parentElement?.click()}}>
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" aria-hidden="true"><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z"/></svg>
                                         Back
                                     </a>
+
                                     <Nav.Link onClick={onSelect} as={NavLink} key={key+"-video"} to={slugPrefix + (navItem.video?.slug ?? "")}>
                                         {"Video format"}
                                     </Nav.Link>
@@ -103,11 +104,12 @@ export const DynamicNavList = (props: TDynamicNav) => {
                            
                         case ContentTypes.NavigationGroup:
                             return (
-                                <NavDropdown title={navItem.title ?? "_"} id="basic-nav-dropdown">
-                                    <a href="#" className="navigation-back">
+                                <NavDropdown title={navItem.title ?? "_"} id={`basic-nav-dropdown-${navItem.id}`}>
+                                    <a href="#" className="navigation-back" onClick={(e) => {e.preventDefault(); e.currentTarget.parentElement?.parentElement?.click()}}>
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" aria-hidden="true"><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z"/></svg>
                                         Back
                                     </a>
+
                                     <DynamicNavList key={key} onSelect={onSelect} itemGroup={(navItem).navigationItem} locale={props.locale} id={navItem?.id ?? "123"}></DynamicNavList>
                                 </NavDropdown>
                             );
