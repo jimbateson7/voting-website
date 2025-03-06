@@ -87,7 +87,7 @@ export const LayoutTs = ({children, locale} : ILayout) => {
         <>
 
             <Navbar expanded={expanded} collapseOnSelect expand="lg" fixed="top">
-                <Container>
+                <Container style={{position: "relative"}}>
                     <Link to="/" className="navbar-brand">
                         <img
                             alt="Our Planet Our People"

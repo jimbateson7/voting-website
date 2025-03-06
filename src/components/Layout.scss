@@ -76,7 +76,6 @@ nav {
     &:focus {
       background-color: var(--primary);
       transition: background-color ease-in-out .5s;
-      transform: skew(-5deg);
       color: white; /* TODO: Active dropdown and dropdown options also need white font */
     }
   }
