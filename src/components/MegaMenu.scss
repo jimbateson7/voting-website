@@ -1,4 +1,4 @@
-.navbar.fixed-top:has(.navbar-collapse.collapse.show) {
+.navbar.fixed-top .navbar-collapse.collapse.show {
     @media (max-width: 1024px) {
         display: block;
         height: 100dvh;
@@ -13,6 +13,10 @@
 .dropdown-menu {
     .navigation-back {
         display: none;
+    }
+
+    a {
+        padding-block: .7rem;
     }
 
     .dropdown-menu {
@@ -51,8 +55,9 @@
             margin: 0;
         }
 
-        > div:first-of-type {
-            font-size: 30px;
+        > div:first-of-type a {
+            color: var(--secondary);
+            background-color: #f7f7f7
         }
 
         .dropdown {
