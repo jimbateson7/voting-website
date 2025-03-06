@@ -122,7 +122,6 @@ img {
 
 .page-navigation {
   margin-top: var(--spacingBase);
-
 }
 
 .page-navigation__number {
@@ -144,5 +143,11 @@ img {
   &--white {
     background-color: var(--white);
     color: var(--tertiary);
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding-inline: 1rem;
   }
 }
