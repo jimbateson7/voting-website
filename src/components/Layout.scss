@@ -92,9 +92,11 @@ main {
     gap: 0.5rem;
     display: flex;
     flex-direction: column;
+    padding-inline: 1rem;
 
     @media (min-width: 1024px) {
       gap: 1rem;
+      padding-inline: 0;
     }
   }
 }

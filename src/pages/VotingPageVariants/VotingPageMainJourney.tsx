@@ -85,11 +85,7 @@ const StagedFlow = (props: TStagedFlowProps) => {
                                         <StructuredText data={props.openingText}/>
                                     </div>
                                     
-                                    <Button onClick={nextStage} style=
-                                            {{ display: "block",
-                                                margin: "0 auto"}}
-                                    >Proceed</Button>
-                                    
+                                    <Button className="btn btn--white" onClick={nextStage}>Proceed</Button>
                                 </div>
                             </div>
                         </Fade>

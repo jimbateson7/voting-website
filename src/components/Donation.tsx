@@ -8,26 +8,18 @@ const Donation = () => {
     const whyDontate = true;
     return whyDontate ?
         (<>
+            <Button id="donate-button" className="btn btn--dark" onClick={() => {
+                const width = window.innerWidth * 0.9;
+                const height = window.innerHeight * 0.9;
 
-            <Row >
-                <Col></Col>
-                <Col>
+                // Calculate the left position
+                const left = window.innerWidth * 0.05;
+                // Calculate the top position
+                const top = window.innerHeight * 0.10;
 
-                    <Button id="donate-button" onClick={() => {
-                        const width = window.innerWidth * 0.9;
-                        const height = window.innerHeight * 0.9;
+                window.open("https://whydonate.com/en/donate/save-our-planet", "newWindow", `width=${width}, height=${height}, left=${left}, top=${top}`);
 
-                        // Calculate the left position
-                        const left = window.innerWidth * 0.05;
-                        // Calculate the top position
-                        const top = window.innerHeight * 0.10;
-
-                        window.open("https://whydonate.com/en/donate/save-our-planet", "newWindow", `width=${width}, height=${height}, left=${left}, top=${top}`);
-
-                    }}>Donate</Button>
-                </Col>
-                <Col></Col>
-            </Row>
+            }}>Donate</Button>
         </>)
         :
         (<>
