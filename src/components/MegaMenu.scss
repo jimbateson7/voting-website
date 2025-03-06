@@ -60,11 +60,14 @@
             }
 
             .navigation-back {
+                background-color: transparent;
+                border: 0;
                 color: var(--secondary);
                 padding: 1rem .5rem;
                 display: flex;
                 align-items: center;
                 gap: 5px;
+                text-decoration: underline;
 
                 svg {
                     width: 20px;
