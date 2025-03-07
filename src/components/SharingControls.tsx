@@ -20,7 +20,7 @@ export interface ISharingControls {
 
 export const SharingControls = ({shareHeading, shareSubHeading, mainQuestionText}: ISharingControls) => {
     const [linkAdded, setLinkAdded] = useState(false);
-    
+    const logoUrl = "https://ourplanetourpeople.com/logo.png";
     useEffect(() => {
         if (linkAdded)
             return;
@@ -35,7 +35,11 @@ export const SharingControls = ({shareHeading, shareSubHeading, mainQuestionText
             // Get the link's href attribute
             const link = copyLink.href;
 
-            navigator.share({url:link, title:mainQuestionText})
+            navigator.share({
+                url:link, 
+                title:mainQuestionText,
+                text: `Please vote! ${logoUrl}`
+            })
 
         });
         setLinkAdded(true);
